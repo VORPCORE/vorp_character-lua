@@ -527,7 +527,7 @@ function OpenAgeMenu(table)
             if data.current.type == "slider" and not data.current.info then -- * opacity
                 if data.current.value > 0 then
                     PlayerSkin.ageing_opacity = data.current.comp[9].opacity + data.current.value / 10
-                    toggleOverlayChange("ageing", PlayerSkin.ageing_visibility, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0,
+                    toggleOverlayChange("ageing", 1, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0,
                         0, 0, 0, 0, 0, 1, PlayerSkin.ageing_opacity, PlayerSkin.albedo)
                 else
                     PlayerSkin.ageing_visibility = 0
