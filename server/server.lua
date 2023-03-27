@@ -54,7 +54,7 @@ RegisterNetEvent("vorpcharacter:setPlayerCompChange", function(skinValues, comps
 	if UserCharacter then
 		local User = UserCharacter.getUsedCharacter
 		if compsValues then
-			AddUserToWhitelistById.updateComps(json.encode(compsValues))
+			User.updateComps(json.encode(compsValues))
 		end
 
 		if skinValues then
@@ -78,6 +78,7 @@ local function Checkmissingkeys(information, key)
 		for k, v in pairs(PlayerClothing) do
 			if information[k] == nil then
 				information[k] = v
+				switch = true
 			end
 		end
 		return information, switch

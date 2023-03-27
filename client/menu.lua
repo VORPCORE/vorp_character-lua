@@ -455,7 +455,7 @@ function OpenAppearanceMenu(clothingtable)
                             height = 1.05
                             heightLabel = T.MenuAppearance.tall
                         end
-                        Citizen.InvokeNative(0x25ACFC650B65C538, PlayerPedId(), height)
+                        SetPedScale(PlayerPedId(), height)
                         menu.setElement(key, "label", heightLabel)
                         menu.refresh()
                         PlayerSkin.Scale = height
@@ -504,7 +504,7 @@ function OpenAgeMenu(table)
             min = 0,
             max = 10,
             desc = T.MenuAge.desc2
-        }
+        },
     }
 
 

@@ -127,11 +127,14 @@ end)
 -- send all components in a table and update core through server
 RegisterNetEvent("vorpcharacter:updateCache")
 AddEventHandler("vorpcharacter:updateCache", function(skin, comps)
+	print(CachedSkin.Hair)
 	if skin then
 		if type(skin) == "table" then
 			CachedSkin = skin
+			print(skin.Hair)
 		else
 			CachedSkin = json.decode(skin)
+			print(CachedSkin.Hair)
 		end
 	end
 
@@ -274,8 +277,9 @@ function StartSwapCharacters()
 	LoadPlayer(myChars[selectedChar].skin.sex)
 	pedHandler = CreatePed(joaat(myChars[selectedChar].skin.sex), spawn.coords, spawn.heading, false, true, true, true)
 	Wait(1000)
-	LoadPlayerComponents(pedHandler, myChars[selectedChar].skin, myChars[selectedChar].components)
+	LoadPlayerComponents(pedHandler, myChars[selectedChar].skin, myChars[selectedChar].components, false)
 	Wait(500)
+	--LoadPlayerComponents(pedHandler, myChars[selectedChar].skin, myChars[selectedChar].components)
 	TaskGoToCoordAnyMeans(pedHandler, gotoC.coords, 0.8, 0, false, 524419, -1)
 	while not IsEntityAtCoord(pedHandler, gotoC.coords, 0.5, 0.5, 0.2, 0, 1, 0) do
 		Wait(0)
@@ -301,9 +305,9 @@ function CharSelect()
 	Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat(nModel), false)
 	UpdateVariation(PlayerPedId())
 	Wait(1000)
-	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents) -- idky why but only loads if ran twice
+	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents, true) -- idky why but only loads if ran twice
 	Wait(1000)
-	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
+	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents, true)
 	NetworkClearClockTimeOverride()
 	FreezeEntityPosition(PlayerPedId(), false)
 	SetCamActive(mainCamera, false)
@@ -359,8 +363,11 @@ local faceFeatures = {
 	ChinD = 0xE323
 }
 
-function LoadPlayerComponents(ped, skin, components)
+function LoadPlayerComponents(ped, skin, components, isplayer)
 	TriggerServerEvent("vorpcharacter:reloadedskinlistener") -- this event can be listened to whenever u need to listen for rc
+	if skin.sex ~= "mp_male" and isplayer then
+		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 7, true) -- female sync
+	end
 	local normal = joaat("mp_head_mr1_000_nm")
 	local gender = "Male"
 	local count = 0
@@ -386,6 +393,8 @@ function LoadPlayerComponents(ped, skin, components)
 			end
 		end
 	end
+
+
 
 	if skin.HeadType == 0 then
 		skin.HeadType = tonumber("0x" .. Config.DefaultChar[gender][uCount].Heads[1])
@@ -418,18 +427,14 @@ function LoadPlayerComponents(ped, skin, components)
 	-- Setup body components
 	Citizen.InvokeNative(0x1902C4CFCC5BE57C, ped, skin.Body)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
-	Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, skin.Eyes, true, true, false)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, skin.Hair, true, true, false)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, skin.Beard, true, true, false)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
-	Citizen.InvokeNative(0x25ACFC650B65C538, ped, skin.Scale) -- scale
-	Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
 	Citizen.InvokeNative(0x1902C4CFCC5BE57C, ped, skin.Waist)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
-
 	UpdateVariation(ped)
 
 	-- Load all of our clothes
@@ -439,8 +444,8 @@ function LoadPlayerComponents(ped, skin, components)
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, true, true, false)
 		end
 	end
-	Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
 
+	Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
 	-- Setup our face textures
 	faceOverlay("beardstabble", skin["beardstabble_visibility"], 1, 1, 0, 0, 1.0, 0, 1,
 		skin["beardstabble_color_primary"], 0, 0, 1, skin["beardstabble_opacity"])
@@ -474,7 +479,9 @@ function LoadPlayerComponents(ped, skin, components)
 		skin["lipsticks_palette_color_tertiary"], skin["lipsticks_palette_id"], skin["lipsticks_opacity"])
 	faceOverlay("grime", skin["grime_visibility"], skin["grime_tx_id"], 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin["grime_opacity"])
+
 	UpdateVariation(ped)
+	SetPedScale(ped, skin.Scale) -- scale
 end
 
 function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id,
@@ -515,6 +522,7 @@ function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 						v.tx_id = Config.overlays_info[name][tx_id].id
 					end
 				end
+
 				v.opacity = opacity
 			end
 		end
@@ -566,6 +574,6 @@ RegisterCommand("rc", function() -- reload skin
 	local hogtied = Citizen.InvokeNative(0x3AA24CCC0D451379, PlayerPedId())
 	local cuffed = Citizen.InvokeNative(0x74E559B3BC910685, PlayerPedId())
 	if not hogtied and not cuffed then
-		LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
+		LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents, true)
 	end
 end)
