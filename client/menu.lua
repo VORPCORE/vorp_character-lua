@@ -504,11 +504,6 @@ function OpenAgeMenu(table)
             min = 0,
             max = 10,
             desc = T.MenuAge.desc2
-        },
-        {
-            label = T.MenuAge.label3 .. string.format(imgPath, "cross"),
-            value = "visible",
-            desc = string.format(imgPath1, "cross")
         }
     }
 
