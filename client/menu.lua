@@ -51,6 +51,7 @@ end
 local function __CloseAll()
     local __player = PlayerPedId()
     VORPcore.instancePlayers(0)
+    DoScreenFadeIn(3000)
     TriggerEvent("vorp:initNewCharacter")
     FreezeEntityPosition(__player, false)
     ClearPedTasksImmediately(__player, true)
@@ -60,7 +61,6 @@ local function __CloseAll()
     RemoveImaps()
     ClearTimecycleModifier()
     Wait(1000)
-    DoScreenFadeIn(3000)
 end
 
 local function __GetName(Result)
