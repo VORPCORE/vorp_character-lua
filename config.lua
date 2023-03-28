@@ -80,6 +80,7 @@ Config.commands = {
     Belt = { command = "belt" },
     Holster = { command = "holster" },
     Suspender = { command = "suspender" },
+    armor = { command = "armor" },
 }
 
 

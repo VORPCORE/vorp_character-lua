@@ -484,7 +484,7 @@ function LoadPlayerComponents(ped, skin, components, isplayer)
 	Wait(200)
 	if isplayer then
 		SetPedScale(PlayerPedId(), skin.Scale)
-		Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
+		UpdateVariation(ped)
 	end
 end
 
