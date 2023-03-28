@@ -131,10 +131,8 @@ AddEventHandler("vorpcharacter:updateCache", function(skin, comps)
 	if skin then
 		if type(skin) == "table" then
 			CachedSkin = skin
-			print(skin.Hair)
 		else
 			CachedSkin = json.decode(skin)
-			print(CachedSkin.Hair)
 		end
 	end
 
