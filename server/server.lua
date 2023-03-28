@@ -63,13 +63,22 @@ RegisterNetEvent("vorpcharacter:setPlayerCompChange", function(skinValues, comps
 	end
 end)
 
-local function Checkmissingkeys(information, key)
+
+function checkmissingkeys(information, key)
 	local switch = false
 	if key == "skin" then
 		for k, v in pairs(PlayerSkin) do
 			if information[k] == nil then
 				switch = true
 				information[k] = v
+			end
+			if information["Eyes"] == 0 then
+				switch = true
+				if information["sex"] == "mp_male" then
+					information["Eyes"] = 612262189
+				else
+					information["Eyes"] = 928002221
+				end
 			end
 		end
 		return information, switch
@@ -78,7 +87,6 @@ local function Checkmissingkeys(information, key)
 		for k, v in pairs(PlayerClothing) do
 			if information[k] == nil then
 				information[k] = v
-				switch = true
 			end
 		end
 		return information, switch
