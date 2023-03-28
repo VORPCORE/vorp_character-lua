@@ -49,10 +49,9 @@ local function __ApplyShopItemToPed(comp, category)
 end
 
 local function __CloseAll()
+    Citizen.InvokeNative(0x5A8B01199C3E79C3)
     local __player = PlayerPedId()
     VORPcore.instancePlayers(0)
-    DoScreenFadeIn(3000)
-    TriggerEvent("vorp:initNewCharacter")
     FreezeEntityPosition(__player, false)
     ClearPedTasksImmediately(__player, true)
     DestroyAllCams(true)
@@ -60,7 +59,7 @@ local function __CloseAll()
     InCharacterCreator = false
     RemoveImaps()
     ClearTimecycleModifier()
-    Wait(1000)
+    TriggerEvent("vorp:initNewCharacter")
 end
 
 local function __GetName(Result)
@@ -203,7 +202,6 @@ function OpenCharCreationMenu(clothingtable)
             end
 
             if (data.current.value == "save") then
-                DoScreenFadeOut(1000)
                 Wait(1000)
                 menu.close()
                 --* name character
@@ -526,13 +524,11 @@ function OpenAgeMenu(table)
 
             if data.current.type == "slider" and not data.current.info then -- * opacity
                 if data.current.value > 0 then
-                    print("here")
                     PlayerSkin.ageing_opacity = data.current.value / 10
                     PlayerSkin.ageing_visibility = 1
                     toggleOverlayChange("ageing", 1, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0,
                         0, 0, 0, 0, 0, 1, PlayerSkin.ageing_opacity, PlayerSkin.albedo)
                 else
-                    print("there")
                     PlayerSkin.ageing_visibility = 0
                     if PlayerSkin.ageing_tx_id == 1 then
                         PlayerSkin.ageing_tx_id = 0
@@ -541,7 +537,6 @@ function OpenAgeMenu(table)
             end
 
             if data.current.type == "slider" and data.current.value > 0 and data.current.info then -- * texture id
-                print(PlayerSkin.ageing_visibility)
                 PlayerSkin.ageing_tx_id = data.current.value
                 toggleOverlayChange("ageing", PlayerSkin.ageing_visibility, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0,
                     0, 0, 0, 0, 0, 1, PlayerSkin.ageing_opacity, PlayerSkin.albedo)
