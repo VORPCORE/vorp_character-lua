@@ -64,7 +64,7 @@ RegisterNetEvent("vorpcharacter:setPlayerCompChange", function(skinValues, comps
 end)
 
 
-function checkmissingkeys(information, key)
+function Checkmissingkeys(information, key)
 	local switch = false
 	if key == "skin" then
 		for k, v in pairs(PlayerSkin) do
