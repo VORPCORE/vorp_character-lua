@@ -223,8 +223,10 @@ function Controller()
 						Wait(100)
 						TriggerMusicEvent("REHR_START")
 						Wait(500)
+						break
+					else
+						VORPcore.NotifyObjective("you cant create more characers", 8000)
 					end
-					break
 				end
 
 				if PromptHasHoldModeCompleted(deletePrompt) then -- delete
