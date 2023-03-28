@@ -300,9 +300,11 @@ function CharSelect()
 	Wait(500)
 	Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat(nModel), false)
 	UpdateVariation(PlayerPedId())
-	Wait(500)
-	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
 	Wait(1000)
+	print(1)
+	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents) -- idky why but only loads if ran twice
+	Wait(1000)
+	print(2)
 	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents) -- idky why but only loads if ran twice
 	NetworkClearClockTimeOverride()
 	FreezeEntityPosition(PlayerPedId(), false)
@@ -337,8 +339,8 @@ local function LoadComps(ped, components)
 	for _, value in pairs(components) do
 		if value ~= -1 then
 			Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
-			Citizen.InvokeNative(0x704C908E9C405136, PlayerPedId())
-			Citizen.InvokeNative(0xAAB86462966168CE, PlayerPedId(), 1)
+			Citizen.InvokeNative(0x704C908E9C405136, ped)
+			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, true, true, false)
 		end
 	end
@@ -356,8 +358,9 @@ function LoadPlayerComponents(ped, skin, components)
 
 	local normal = joaat("mp_head_mr1_000_nm")
 	local gender = "Male"
+
 	if (skin.sex ~= "mp_male") then
-		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 7, true) -- female sync
+		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, PlayerPedId(), 7, true) -- female sync
 		normal = joaat("head_fr1_mp_002_nm")
 		gender = "Female"
 	end
@@ -368,7 +371,7 @@ function LoadPlayerComponents(ped, skin, components)
 
 	local count = 0
 	local uCount = 1
-	for k, v in pairs(Config.DefaultChar[gender]) do
+	for _, v in pairs(Config.DefaultChar[gender]) do
 		count = count + 1
 		for key, _ in pairs(v) do
 			if key == "HeadTexture" then
@@ -394,19 +397,15 @@ function LoadPlayerComponents(ped, skin, components)
 	--Preload
 	Citizen.InvokeNative(0xC5E7204F322E49EB, skin.albedo, normal, 0x7FC5B1E1)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
-
-	--Load our base body
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.HeadType, true, true, true)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.BodyType, true, true, true)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.LegsType, true, true, true)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
-
 	-- load facefeatures
 	LoadFaceFeatures(PlayerPedId(), skin)
 	-- Setup body components
-	Citizen.InvokeNative(0x1902C4CFCC5BE57C, PlayerPedId(), skin.Body)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.Eyes, true, true, false)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
@@ -416,11 +415,12 @@ function LoadPlayerComponents(ped, skin, components)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
 	Citizen.InvokeNative(0x1902C4CFCC5BE57C, PlayerPedId(), skin.Waist)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
-	UpdateVariation(PlayerPedId())
+	Citizen.InvokeNative(0x1902C4CFCC5BE57C, PlayerPedId(), skin.Body)
+	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
+	UpdateVariation(ped)
 
 	-- Load all of our clothes
 	LoadComps(PlayerPedId(), components)
-	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
 
 	-- Setup our face textures
 	faceOverlay("beardstabble", skin.beardstabble_visibility, 1, 1, 0, 0, 1.0, 0, 1,
@@ -455,8 +455,7 @@ function LoadPlayerComponents(ped, skin, components)
 		skin.lipsticks_palette_color_tertiary, skin.lipsticks_palette_id, skin.lipsticks_opacity)
 	faceOverlay("grime", skin.grime_visibility, skin.grime_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.grime_opacity)
-
-	UpdateVariation(PlayerPedId())
+	Wait(500)
 	SetPedScale(PlayerPedId(), skin.Scale)
 	UpdateVariation(PlayerPedId())
 	--Load our base body
@@ -592,22 +591,19 @@ function LoadCharacterSelect(ped, skin, components)
 	if skin.LegsType == 0 then
 		skin.LegsType = tonumber("0x" .. Config.DefaultChar[gender][uCount].Legs[1])
 	end
+
 	--Preload
 	Citizen.InvokeNative(0xC5E7204F322E49EB, skin.albedo, normal, 0x7FC5B1E1)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, pedHandler, true, true, true, false)
-
-	--Load our base body
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, pedHandler, skin.HeadType, true, true, true)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, pedHandler, true, true, true, false)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, pedHandler, skin.BodyType, true, true, true)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, pedHandler, true, true, true, false)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, pedHandler, skin.LegsType, true, true, true)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, pedHandler, true, true, true, false)
-
 	-- load facefeatures
 	LoadFaceFeatures(pedHandler, skin)
 	-- Setup body components
-	Citizen.InvokeNative(0x1902C4CFCC5BE57C, pedHandler, skin.Body)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, pedHandler, true, true, true, false)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, pedHandler, skin.Eyes, true, true, false)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, pedHandler, true, true, true, false)
@@ -617,13 +613,13 @@ function LoadCharacterSelect(ped, skin, components)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, pedHandler, true, true, true, false)
 	Citizen.InvokeNative(0x1902C4CFCC5BE57C, pedHandler, skin.Waist)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, pedHandler, true, true, true, false)
+	Citizen.InvokeNative(0x1902C4CFCC5BE57C, pedHandler, skin.Body)
 	UpdateVariation(pedHandler)
 
 	-- Load all of our clothes
 	LoadComps(pedHandler, components)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, pedHandler, true, true, true, false)
 	-- Setup our face textures
-	UpdateVariation(pedHandler)
 	Wait(200)
 	SetPedScale(pedHandler, skin.Scale)
 	UpdateVariation(pedHandler)
