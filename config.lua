@@ -1,6 +1,6 @@
 Config = {}
 
-Config.DevMode = true
+Config.DevMode = false
 Config.Align = "top-left" -- menu
 
 -- check translation file to see if your language is available or add it.
@@ -79,7 +79,7 @@ Config.commands = {
     Dress = { command = "dresses" },
     Belt = { command = "belt" },
     Holster = { command = "holster" },
-    Suspenders = { command = "suspender" },
+    Suspender = { command = "suspender" },
 }
 
 
