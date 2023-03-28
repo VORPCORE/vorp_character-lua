@@ -481,7 +481,11 @@ function LoadPlayerComponents(ped, skin, components, isplayer)
 		skin["grime_opacity"])
 
 	UpdateVariation(ped)
-	SetPedScale(ped, skin.Scale) -- scale
+	Wait(200)
+	if isplayer then
+		SetPedScale(PlayerPedId(), skin.Scale)
+		Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
+	end
 end
 
 function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id,
