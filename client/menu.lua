@@ -60,6 +60,7 @@ local function __CloseAll()
     RemoveImaps()
     ClearTimecycleModifier()
     TriggerEvent("vorp:initNewCharacter")
+    SetEntityInvincible(__player, false)
 end
 
 local function __GetName(Result)
