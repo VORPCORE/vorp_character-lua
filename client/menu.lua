@@ -1063,6 +1063,12 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
 
             if data.current.tag == "type" then
                 --* texture id
+                if category == "beardstabble" then
+                    PlayerSkin.beardstabble_visibility = 1
+                end
+                if category == "eyebrows" then
+                    PlayerSkin.eyebrows_visibility = 1
+                end
                 PlayerSkin[data.current.txt_id] = data.current.value
                 toggleOverlayChange(data.current.category, 1, PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
@@ -1076,10 +1082,20 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
             end
 
             if data.current.tag == "opacity" then
-                if data.current.value > 0.2 and category == "beardstabble" then
-                    PlayerSkin.beardstabble_visibility = 1
+                if data.current.value > 0.2 then
+                    if category == "beardstabble" then
+                        PlayerSkin.beardstabble_visibility = 1
+                    end
+                    if category == "eyebrows" then
+                        PlayerSkin.eyebrows_visibility = 1
+                    end
                 else
-                    PlayerSkin.beardstabble_visibility = 0
+                    if category == "beardstabble" then
+                        PlayerSkin.beardstabble_visibility = 0
+                    end
+                    if category == "eyebrows" then
+                        PlayerSkin.eyebrows_visibility = 0
+                    end
                 end
                 --* opacity
                 PlayerSkin[data.current.opac] = data.current.value / 10
