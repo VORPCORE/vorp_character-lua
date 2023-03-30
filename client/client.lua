@@ -320,9 +320,9 @@ function CharSelect()
 end
 
 AddEventHandler("vorpcharacter:reloadafterdeath", function()
-	LoadPlayer(joaat("CS_dutch"))
-	Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat("CS_dutch"), false)
-	UpdateVariation(PlayerPedId())
+	--LoadPlayer(joaat("CS_dutch"))
+	--Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat("CS_dutch"), false)
+	--UpdateVariation(PlayerPedId())
 	Wait(1000)
 	ExecuteCommand("rc")
 end)
