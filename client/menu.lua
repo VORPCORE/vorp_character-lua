@@ -1594,7 +1594,7 @@ function OpenMakeupMenu(table)
                 toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility],
                     PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2],
-                    PlayerSkin[data.current.color3], 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    PlayerSkin[data.current.color], 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
             end
 
             if data.current.tag == "color" then
