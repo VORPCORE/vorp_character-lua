@@ -642,14 +642,10 @@ function OpenBodyMenu(table)
             end
 
             if data.current.tag == "body" then -- * component type
-                if data.current.value > 0 then
-                    local Body      = Config.BodyType.Body[data.current.value]
-                    PlayerSkin.Body = Body
-                    Citizen.InvokeNative(0x1902C4CFCC5BE57C, __player, Body)
-                    UpdateVariation(__player)
-                else
-                    PlayerSkin.Body = -1
-                end
+                local Body      = Config.BodyType.Body[data.current.value]
+                PlayerSkin.Body = Body
+                Citizen.InvokeNative(0x1902C4CFCC5BE57C, __player, Body)
+                UpdateVariation(__player)
             end
         end, function(data, menu)
 
