@@ -635,14 +635,10 @@ function OpenBodyMenu(table)
             end
 
             if data.current.tag == "waist" then --* remove component variation
-                if data.current.value > 0 then
-                    local Waist = data.current.comp[data.current.value]
-                    Citizen.InvokeNative(0x1902C4CFCC5BE57C, __player, Waist)
-                    UpdateVariation(__player)
-                    PlayerSkin.Waist = Waist
-                else
-                    PlayerSkin.Waist = -1
-                end
+                local Waist = data.current.comp[data.current.value]
+                Citizen.InvokeNative(0x1902C4CFCC5BE57C, __player, Waist)
+                UpdateVariation(__player)
+                PlayerSkin.Waist = Waist
             end
 
             if data.current.tag == "body" then -- * component type
