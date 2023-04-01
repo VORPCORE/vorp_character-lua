@@ -635,17 +635,20 @@ function OpenBodyMenu(table)
             end
 
             if data.current.tag == "waist" then --* remove component variation
-                local Waist = data.current.comp[data.current.value]
-                Citizen.InvokeNative(0x1902C4CFCC5BE57C, __player, Waist)
-                UpdateVariation(__player)
-                PlayerSkin.Waist = Waist
+                if data.current.value > 0 then
+                    local Waist = data.current.comp[data.current.value]
+                    Citizen.InvokeNative(0x1902C4CFCC5BE57C, __player, Waist)
+                    UpdateVariation(__player)
+                    PlayerSkin.Waist = Waist
+                end
             end
-
             if data.current.tag == "body" then -- * component type
-                local Body      = Config.BodyType.Body[data.current.value]
-                PlayerSkin.Body = Body
-                Citizen.InvokeNative(0x1902C4CFCC5BE57C, __player, Body)
-                UpdateVariation(__player)
+                if data.current.value > 0 then
+                    local Body = Config.BodyType.Body[data.current.value]
+                    Citizen.InvokeNative(0x1902C4CFCC5BE57C, __player, Body)
+                    UpdateVariation(__player)
+                    PlayerSkin.Body = Body
+                end
             end
         end, function(data, menu)
 
@@ -657,8 +660,6 @@ function OpenHerritageMenu(table)
     MenuData.CloseAll()
     local elements = {}
     local __player = PlayerPedId()
-    local imgPathColor =
-    "<img style='max-height:532px;max-width:344px;float: center; ' src='nui://vorp_character/images/%s.png'>"
     local gender = GetGender()
 
     elements[#elements + 1] = {
