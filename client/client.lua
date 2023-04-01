@@ -483,6 +483,9 @@ function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 				v.tx_opacity = tx_opacity
 				v.tx_unk = tx_unk
 				if tx_color_type == 0 then
+					if palette_id == 0 then
+						palette_id = 1
+					end
 					v.palette = Config.color_palettes[name][palette_id]
 					v.palette_color_primary = palette_color_primary
 					v.palette_color_secondary = palette_color_secondary
@@ -494,10 +497,9 @@ function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 				else
 					v.var = 0
 					if tx_id == 0 then
-						v.tx_id = Config.overlays_info[name][1].id
-					else
-						v.tx_id = Config.overlays_info[name][tx_id].id
+						tx_id = 1
 					end
+					v.tx_id = Config.overlays_info[name][tx_id].id
 				end
 
 				v.opacity = opacity
