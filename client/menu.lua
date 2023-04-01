@@ -640,19 +640,14 @@ function OpenBodyMenu(table)
                     Citizen.InvokeNative(0x1902C4CFCC5BE57C, __player, Waist)
                     UpdateVariation(__player)
                     PlayerSkin.Waist = Waist
-                else
-                    PlayerSkin.Waist = -1
                 end
             end
-
             if data.current.tag == "body" then -- * component type
                 if data.current.value > 0 then
-                    local Body      = Config.BodyType.Body[data.current.value]
-                    PlayerSkin.Body = Body
+                    local Body = Config.BodyType.Body[data.current.value]
                     Citizen.InvokeNative(0x1902C4CFCC5BE57C, __player, Body)
                     UpdateVariation(__player)
-                else
-                    PlayerSkin.Body = -1
+                    PlayerSkin.Body = Body
                 end
             end
         end, function(data, menu)
@@ -665,8 +660,6 @@ function OpenHerritageMenu(table)
     MenuData.CloseAll()
     local elements = {}
     local __player = PlayerPedId()
-    local imgPathColor =
-    "<img style='max-height:532px;max-width:344px;float: center; ' src='nui://vorp_character/images/%s.png'>"
     local gender = GetGender()
 
     elements[#elements + 1] = {
@@ -1594,7 +1587,7 @@ function OpenMakeupMenu(table)
                 toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility],
                     PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2],
-                    PlayerSkin[data.current.color3], 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    PlayerSkin[data.current.color3] or 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
             end
 
             if data.current.tag == "color" then
@@ -1603,7 +1596,7 @@ function OpenMakeupMenu(table)
                 toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility],
                     PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2],
-                    PlayerSkin[data.current.color3], 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    PlayerSkin[data.current.color3] or 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
             end
 
             if data.current.tag == "color2" then
@@ -1627,7 +1620,7 @@ function OpenMakeupMenu(table)
                 toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility],
                     PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2],
-                    PlayerSkin[data.current.color3], 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    PlayerSkin[data.current.color3] or 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
             end
         end, function(data, menu)
 
