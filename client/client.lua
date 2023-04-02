@@ -338,10 +338,13 @@ end
 local function LoadComps(ped, components)
 	for _, value in pairs(components) do
 		if value ~= -1 then
-			Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
 			Citizen.InvokeNative(0x704C908E9C405136, ped)
 			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
+			if Config.UseSPclothing then
+				Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, false, false)
+			end
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, true, true, false)
+			UpdateVariation(ped)
 		end
 	end
 end

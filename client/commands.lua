@@ -3,6 +3,9 @@ local function toggleComp(hash, item)
 	if Citizen.InvokeNative(0xFB4891BD7578CDC1, __player, hash) then
 		Citizen.InvokeNative(0xD710A5007C2AC539, __player, hash, 0)
 	else
+		if Config.UseSPclothing then
+			Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, item, false, false, false)
+		end
 		Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, item, true, true, false)
 	end
 	UpdateVariation(__player)
@@ -43,6 +46,9 @@ RegisterCommand("dress", function()
 	local __player = PlayerPedId()
 	for _, Components in pairs(CachedComponents) do
 		if Components ~= -1 then
+			if Config.UseSPclothing then
+				Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, Components, false, false, false)
+			end
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, Components, true, true, false)
 			Citizen.InvokeNative(0xCC8CA3E88256E58F, __player, false, true, true, true, false)
 		end
