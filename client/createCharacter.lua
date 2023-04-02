@@ -96,8 +96,8 @@ local function Setup()
 	SetCamActive(camera, true)
 	RenderScriptCams(true, true, 1000, true, true, 0)
 	isSelectSexActive = true
-	local instanceNumber = 54123 -- any number
-	VORPcore.instancePlayers(tonumber(GetPlayerServerId(PlayerId())) + instanceNumber)
+	--local instanceNumber = 54123 -- any number
+	--VORPcore.instancePlayers(tonumber(GetPlayerServerId(PlayerId())) + instanceNumber)
 end
 
 RegisterNetEvent("vorpcharacter:startCharacterCreator")
