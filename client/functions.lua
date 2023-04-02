@@ -56,7 +56,7 @@ end
 function LoadPlayer(sex)
     while not HasModelLoaded(sex) do
         RequestModel(sex)
-        Wait(0)
+        Wait(10)
     end
 end
 
@@ -68,7 +68,6 @@ function DeleteNpc(pedHandler)
         end
     end
 end
-
 
 TableHair = {}
 
