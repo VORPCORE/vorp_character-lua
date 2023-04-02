@@ -6,7 +6,7 @@ local function toggleComp(hash, item)
 		if Config.UseSPclothing then
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, item, false, false, false)
 		end
-		Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, item, true, true, false)
+		Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, item, true, true, true)
 	end
 	UpdateVariation(__player)
 end
@@ -50,11 +50,12 @@ RegisterCommand("dress", function()
 				Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, Components, false, false, false)
 			end
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, Components, true, true, false)
-			Citizen.InvokeNative(0xCC8CA3E88256E58F, __player, false, true, true, true, false)
 		end
 	end
 	UpdateVariation(__player)
 end)
+
+
 
 local InvokeNative = Citizen.InvokeNative
 local BANDANA_COMPONENT = joaat("CLOTHING_ITEM_M_NECKERCHIEF_003_TINT_001")
