@@ -96,8 +96,8 @@ local function Setup()
 	SetCamActive(camera, true)
 	RenderScriptCams(true, true, 1000, true, true, 0)
 	isSelectSexActive = true
-	local instanceNumber = 54123 -- any number
-	VORPcore.instancePlayers(tonumber(GetPlayerServerId(PlayerId())) + instanceNumber)
+	--local instanceNumber = 54123 -- any number
+	--VORPcore.instancePlayers(tonumber(GetPlayerServerId(PlayerId())) + instanceNumber)
 end
 
 RegisterNetEvent("vorpcharacter:startCharacterCreator")
@@ -453,6 +453,8 @@ function CreatePlayerModel(model, cam, ps)
 		end
 		Clothing[category] = categoryTable
 	end
+	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0)
+	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
 	SetEntityVisible(PlayerPedId(), true)
 	SetEntityInvincible(PlayerPedId(), true)
 	Citizen.InvokeNative(0x25ACFC650B65C538, PlayerPedId(), 1.0)
