@@ -101,6 +101,7 @@ end
 RegisterNetEvent("vorpcharacter:selectCharacter")
 AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	local param = Config.selectedCharacter
+	local customWeather = Config.toggleWeatherSync
 	local weather = Config.charselWeather
 	local permSnow = Config.charselgroundSnow
 	local hour = Config.timeHour
@@ -113,10 +114,12 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	MaxCharacters = mc
 	DoScreenFadeOut(1000)
 	Wait(1000)
-	--exports.weathersync:setSyncEnabled(false) -- redundant?
-	exports.weathersync:setMyWeather(weather, 10, permSnow) -- Disable weather and time sync and set a weather for this client.
-	exports.weathersync:setMyTime(hour, 0, 0, 10, freeze)
-	--NetworkClockTimeOverride_2(10, 0, 0, 0, true, false)
+	
+	if customWeather then
+		exports.weathersync:setMyWeather(weather, 10, permSnow) -- Disable weather and time sync and set a weather for this client.
+		exports.weathersync:setMyTime(hour, 0, 0, 10, freeze) 
+	end
+
 	isInCharacterSelector = true
 	RegisterPrompts()
 	Controller()

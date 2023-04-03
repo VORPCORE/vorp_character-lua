@@ -17,11 +17,13 @@ Config.UseSPclothing = false -- if this is true you can use SP mode clothing , i
 -- disable or allow players delete their characters
 Config.AllowPlayerDeleteCharacter = true
 
+-- Toggle Weathersync Integration options below
+Config.toggleWeatherSync = true
 -- Select the weather you would like to be used on the Character Selection Screen
 Config.charselWeather = 'sunny' -- See weathersync config file for a list of available weather types
 Config.charselgroundSnow = false -- Toggle whether snow should cover the ground permanently
-
-Config.timeHour = 10
+-- Set the time of day to have your Character Select set to
+Config.timeHour = 10 -- 0 to 23 | 0 is Midnight
 Config.timeFreeze = true
 
 Config.selectedCharacter = {
