@@ -62,6 +62,7 @@ local function __CloseAll()
     ClearTimecycleModifier()
     TriggerEvent("vorp:initNewCharacter")
     SetEntityInvincible(__player, false)
+    SetEntityVisible(__player, true)
 end
 
 local function __GetName(Result)
