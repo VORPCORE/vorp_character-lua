@@ -101,6 +101,11 @@ end
 RegisterNetEvent("vorpcharacter:selectCharacter")
 AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	local param = Config.selectedCharacter
+	local weather = Config.charselWeather
+	local permSnow = Config.charselgroundSnow
+	local hour = Config.timeHour
+	local freeze = Config.timeFreeze
+	
 	if #myCharacters < 1 then
 		return TriggerEvent("vorpcharacter:startCharacterCreator") -- id no chars then send back to creator
 	end
@@ -108,8 +113,10 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	MaxCharacters = mc
 	DoScreenFadeOut(1000)
 	Wait(1000)
-	exports.weathersync:setSyncEnabled(false) -- disabled weather sync
-	NetworkClockTimeOverride_2(10, 0, 0, 0, true, false)
+	--exports.weathersync:setSyncEnabled(false) -- redundant?
+	exports.weathersync:setMyWeather(weather, 10, permSnow) -- Disable weather and time sync and set a weather for this client.
+	exports.weathersync:setMyTime(hour, 0, 0, 10, freeze)
+	--NetworkClockTimeOverride_2(10, 0, 0, 0, true, false)
 	isInCharacterSelector = true
 	RegisterPrompts()
 	Controller()

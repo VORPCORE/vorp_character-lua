@@ -17,6 +17,13 @@ Config.UseSPclothing = false -- if this is true you can use SP mode clothing , i
 -- disable or allow players delete their characters
 Config.AllowPlayerDeleteCharacter = true
 
+-- Select the weather you would like to be used on the Character Selection Screen
+Config.charselWeather = 'sunny' -- See weathersync config file for a list of available weather types
+Config.charselgroundSnow = false -- Toggle whether snow should cover the ground permanently
+
+Config.timeHour = 10
+Config.timeFreeze = true
+
 Config.selectedCharacter = {
     coords = vector3(-3753.83, -2608.41, -13.99), -- where player will spawn  needs to be close to the char select
     cameraParams = {
