@@ -342,18 +342,27 @@ local function LoadFaceFeatures(ped, skin)
 end
 
 local function LoadComps(ped, components)
+	local boots = -1
 	for category, value in pairs(components) do
-		if value ~= -1 then
+		if value ~= -1 and category ~= "Boots" then
 			Citizen.InvokeNative(0x704C908E9C405136, ped)
 			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
 			if Config.UseSPclothing then
 				Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, false, false)
 			end
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, true, true, false)
+		elseif category == "Boots" then
+			boots = value
 		end
 	end
+	-- loa boots for last so they dont clip with pants
+	if boots ~= -1 then
+		if Config.UseSPclothing then
+			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, boots, false, false, false)
+		end
+		Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, boots, true, true, false)
+	end
 end
-
 
 function LoadPlayerComponents(ped, skin, components)
 	TriggerServerEvent("vorpcharacter:reloadedskinlistener")
