@@ -296,8 +296,7 @@ function CharSelect()
 	DeleteEntity(pedHandler)
 	LoadPlayer(nModel)
 	Wait(500)
-	print(nModel)
-	Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat(nModel), false)
+	SetPlayerModel(PlayerId(), joaat(nModel), false)
 	Citizen.InvokeNative(0x77FF8D35EEC6BBC4, PlayerPedId(), 0, 0)
 	Wait(1000)
 	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents) -- idky why but only loads if ran twice
@@ -320,7 +319,7 @@ AddEventHandler("vorpcharacter:reloadafterdeath", function()
 	--LoadPlayer(joaat("CS_dutch"))
 	--Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat("CS_dutch"), false)
 	--UpdateVariation(PlayerPedId())
-	Wait(1000)
+	--Wait(1000)
 	ExecuteCommand("rc")
 end)
 
@@ -365,11 +364,11 @@ function LoadPlayerComponents(ped, skin, components)
 		normal = joaat("mp_head_mr1_000_nm")
 		gender = "Male"
 	end
-	Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 0, 0)
+
+	Citizen.InvokeNative(0x0BFA1BD465CDFEFD, ped) -- ResetPedComponents
 	IsPedReadyToRender()
-	Citizen.InvokeNative(0x0BFA1BD465CDFEFD, ped)
 	Wait(100)
-	--RemoveMetaTags(PlayerPedId())
+	RemoveMetaTags(PlayerPedId())
 	local count = 0
 	local uCount = 1
 	for _, v in pairs(Config.DefaultChar[gender]) do
@@ -414,41 +413,43 @@ function LoadPlayerComponents(ped, skin, components)
 	UpdateVariation(ped)
 
 	-- Setup our face textures
-	FaceOverlay("beardstabble", skin.beardstabble_visibility, 1, 1, 0, 0, 1.0, 0, 1,
+	faceOverlay("beardstabble", skin.beardstabble_visibility, 1, 1, 0, 0, 1.0, 0, 1,
 		skin.beardstabble_color_primary, 0, 0, 1, skin.beardstabble_opacity)
-	FaceOverlay("scars", skin.scars_visibility, skin.scars_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
+	faceOverlay("scars", skin.scars_visibility, skin.scars_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.scars_opacity)
-	FaceOverlay("spots", skin.spots_visibility, skin.spots_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
+	faceOverlay("spots", skin.spots_visibility, skin.spots_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.spots_opacity)
-	FaceOverlay("disc", skin.disc_visibility, skin.disc_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1, skin
+	faceOverlay("disc", skin.disc_visibility, skin.disc_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1, skin
 		.disc_opacity)
-	FaceOverlay("complex", skin.complex_visibility, skin.complex_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
+	faceOverlay("complex", skin.complex_visibility, skin.complex_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.complex_opacity)
-	FaceOverlay("acne", skin.acne_visibility, skin.acne_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1, skin
+	faceOverlay("acne", skin.acne_visibility, skin.acne_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1, skin
 		.acne_opacity)
-	FaceOverlay("ageing", skin.ageing_visibility, skin.ageing_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
+	faceOverlay("ageing", skin.ageing_visibility, skin.ageing_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.ageing_opacity)
-	FaceOverlay("freckles", skin.freckles_visibility, skin.freckles_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
+	faceOverlay("freckles", skin.freckles_visibility, skin.freckles_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.freckles_opacity)
-	FaceOverlay("moles", skin.moles_visibility, skin.moles_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
+	faceOverlay("moles", skin.moles_visibility, skin.moles_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.moles_opacity)
-	FaceOverlay("shadows", skin.shadows_visibility, 1, 1, 0, 0, 1.0, 0, 1, skin.shadows_palette_color_primary,
+	faceOverlay("shadows", skin.shadows_visibility, 1, 1, 0, 0, 1.0, 0, 1, skin.shadows_palette_color_primary,
 		skin.shadows_palette_color_secondary, skin.shadows_palette_color_tertiary, skin.shadows_palette_id,
 		skin.shadows_opacity)
-	FaceOverlay("eyebrows", skin.eyebrows_visibility, skin.eyebrows_tx_id, 1, 0, 0, 1.0, 0, 1,
+	faceOverlay("eyebrows", skin.eyebrows_visibility, skin.eyebrows_tx_id, 1, 0, 0, 1.0, 0, 1,
 		skin.eyebrows_color, 0, 0, 1, skin.eyebrows_opacity)
-	FaceOverlay("eyeliners", skin.eyeliner_visibility, 1, 1, 0, 0, 1.0, 0, 1, skin.eyeliner_color_primary, 0, 0,
+	faceOverlay("eyeliners", skin.eyeliner_visibility, 1, 1, 0, 0, 1.0, 0, 1, skin.eyeliner_color_primary, 0, 0,
 		skin.eyeliner_tx_id, skin.eyeliner_opacity)
-	FaceOverlay("blush", skin.blush_visibility, skin.blush_tx_id, 1, 0, 0, 1.0, 0, 1,
+	faceOverlay("blush", skin.blush_visibility, skin.blush_tx_id, 1, 0, 0, 1.0, 0, 1,
 		skin.blush_palette_color_primary, 0, 0, 1, skin.blush_opacity)
-	FaceOverlay("lipsticks", skin.lipsticks_visibility, 1, 1, 0, 0, 1.0, 0, 1, skin
+	faceOverlay("lipsticks", skin.lipsticks_visibility, 1, 1, 0, 0, 1.0, 0, 1, skin
 		.lipsticks_palette_color_primary, skin.lipsticks_palette_color_secondary,
 		skin.lipsticks_palette_color_tertiary, skin.lipsticks_palette_id, skin.lipsticks_opacity)
-	FaceOverlay("grime", skin.grime_visibility, skin.grime_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
+	faceOverlay("grime", skin.grime_visibility, skin.grime_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.grime_opacity)
+	Citizen.InvokeNative(0xD710A5007C2AC539, ped, 0x3F1F01E5, 0)
+	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
 end
 
-function FaceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id,
+function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id,
 					 palette_color_primary, palette_color_secondary, palette_color_tertiary, var, opacity)
 	-- Setup our defaults
 	visibility = visibility or 0
@@ -501,6 +502,9 @@ function StartOverlay()
 	local ped = PlayerPedId()
 	local current_texture_settings = Config.texture_types.Male
 
+	--[[ if isInCharacterSelector then
+		ped = pedHandler
+	end ]]
 	if myChars[selectedChar].skin.sex ~= "mp_male" then
 		current_texture_settings = Config.texture_types.Female
 	end
