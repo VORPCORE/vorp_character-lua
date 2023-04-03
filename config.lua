@@ -24,7 +24,7 @@ Config.charselWeather = 'sunny' -- See weathersync config file for a list of ava
 Config.charselgroundSnow = false -- Toggle whether snow should cover the ground permanently
 -- Set the time of day to have your Character Select set to
 Config.timeHour = 10 -- 0 to 23 | 0 is Midnight
-Config.timeFreeze = true
+Config.timeFreeze = true -- false will allow passage of time
 
 Config.selectedCharacter = {
     coords = vector3(-3753.83, -2608.41, -13.99), -- where player will spawn  needs to be close to the char select
