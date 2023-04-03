@@ -49,6 +49,7 @@ local function __ApplyShopItemToPed(comp, category)
 end
 
 local function __CloseAll()
+    Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
     Citizen.InvokeNative(0x5A8B01199C3E79C3)
     local __player = PlayerPedId()
     VORPcore.instancePlayers(0)
