@@ -312,6 +312,8 @@ function CharSelect()
 	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents) -- idky why but only loads if ran twice
 	NetworkClearClockTimeOverride()
 	FreezeEntityPosition(PlayerPedId(), false)
+	SetEntityVisible(PlayerPedId(), true)
+	SetEntityInvincible(PlayerPedId(), false)
 	SetCamActive(mainCamera, false)
 	DestroyCam(mainCamera, true)
 	RenderScriptCams(true, true, 1000, true, true, 0)
