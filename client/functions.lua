@@ -54,8 +54,8 @@ function RequestImapCreator()
 end
 
 function LoadPlayer(sex)
+    RequestModel(sex)
     while not HasModelLoaded(sex) do
-        RequestModel(sex)
         Wait(10)
     end
 end

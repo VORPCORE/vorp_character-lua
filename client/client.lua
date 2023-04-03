@@ -17,37 +17,6 @@ T = Translation.Langs[Lang]
 CachedSkin = {}
 CachedComponents = {}
 
--- tests only
-AddEventHandler('onClientResourceStart', function(resourceName)
-	if (GetCurrentResourceName() ~= resourceName) then
-		return
-	end
-	if Config.DevMode then
-		print("^3VORP Character Selector is in ^1DevMode^7 dont use in live servers")
-		TriggerServerEvent("vorp_GoToSelectionMenu", GetPlayerServerId(PlayerId()))
-	end
-end)
-
-AddEventHandler('onResourceStop', function(resourceName)
-	if (GetCurrentResourceName() ~= resourceName) then
-		return
-	end
-	DeleteEntity(MalePed)
-	DeleteEntity(FemalePed)
-	DeletePed(pedHandler)
-	DoScreenFadeIn(100)
-	RemoveImaps()
-	Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
-	MenuData.CloseAll()
-	myChars[selectedChar] = {}
-end)
-
---#endregion
-RegisterNetEvent("vorpcharacter:spawnUniqueCharacter", function(myChar)
-	myChars = myChar
-	CharSelect()
-end)
-
 --Register prompts char select
 local function RegisterPrompts()
 	local str = Config.keys.prompt_create.name
@@ -98,6 +67,42 @@ local function RegisterPrompts()
 end
 
 
+AddEventHandler('onClientResourceStart', function(resourceName)
+	if (GetCurrentResourceName() ~= resourceName) then
+		return
+	end
+	RegisterPrompts()
+
+	if Config.DevMode then
+		print("^3VORP Character Selector is in ^1DevMode^7 dont use in live servers")
+		TriggerServerEvent("vorp_GoToSelectionMenu", GetPlayerServerId(PlayerId()))
+	end
+end)
+
+AddEventHandler('onResourceStop', function(resourceName)
+	if (GetCurrentResourceName() ~= resourceName) then
+		return
+	end
+	if Config.DevMode then
+		DeleteEntity(MalePed)
+		DeleteEntity(FemalePed)
+		DeletePed(pedHandler)
+		DoScreenFadeIn(100)
+		RemoveImaps()
+		Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
+		MenuData.CloseAll()
+		myChars[selectedChar] = {}
+	end
+end)
+
+--#endregion
+RegisterNetEvent("vorpcharacter:spawnUniqueCharacter", function(myChar)
+	myChars = myChar
+	CharSelect()
+end)
+
+
+-- player is already in an instance
 RegisterNetEvent("vorpcharacter:selectCharacter")
 AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	local param = Config.selectedCharacter
@@ -108,7 +113,7 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	local freeze = Config.timeFreeze
 	
 	if #myCharacters < 1 then
-		return TriggerEvent("vorpcharacter:startCharacterCreator") -- id no chars then send back to creator
+		return TriggerEvent("vorpcharacter:startCharacterCreator") -- if no chars then send back to creator
 	end
 	myChars = myCharacters
 	MaxCharacters = mc
@@ -121,9 +126,10 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	end
 
 	isInCharacterSelector = true
-	RegisterPrompts()
 	Controller()
 	FreezeEntityPosition(PlayerPedId(), true)
+	SetEntityVisible(PlayerPedId(), false)
+	SetEntityInvincible(PlayerPedId(), true)
 	SetEntityCoords(PlayerPedId(), param.coords, false, false, false, false)
 	mainCamera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", param.cameraParams.x, param.cameraParams.y,
 		param.cameraParams.z, param.cameraParams.rotX, param.cameraParams.rotY, param.cameraParams.rotZ,
@@ -304,16 +310,20 @@ function CharSelect()
 	CachedComponents = myChars[selectedChar].components
 	TriggerServerEvent("vorp_CharSelectedCharacter", charIdentifier)
 	DeleteEntity(pedHandler)
-	LoadPlayer(nModel)
-	Wait(500)
+	SetModelAsNoLongerNeeded(nModel)
+	RequestModel(nModel)
+	while not HasModelLoaded(nModel) do
+		Wait(0)
+	end
+	Wait(1000)
 	SetPlayerModel(PlayerId(), joaat(nModel), false)
 	Citizen.InvokeNative(0x77FF8D35EEC6BBC4, PlayerPedId(), 0, 0)
 	Wait(1000)
 	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents) -- idky why but only loads if ran twice
-	Wait(1000)
-	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents) -- idky why but only loads if ran twice
 	NetworkClearClockTimeOverride()
 	FreezeEntityPosition(PlayerPedId(), false)
+	SetEntityVisible(PlayerPedId(), true)
+	SetEntityInvincible(PlayerPedId(), false)
 	SetCamActive(mainCamera, false)
 	DestroyCam(mainCamera, true)
 	RenderScriptCams(true, true, 1000, true, true, 0)
@@ -329,7 +339,7 @@ AddEventHandler("vorpcharacter:reloadafterdeath", function()
 	--LoadPlayer(joaat("CS_dutch"))
 	--Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat("CS_dutch"), false)
 	--UpdateVariation(PlayerPedId())
-	--Wait(1000)
+	Wait(1000)
 	ExecuteCommand("rc")
 end)
 
@@ -342,24 +352,28 @@ local function LoadFaceFeatures(ped, skin)
 end
 
 local function LoadComps(ped, components)
+	local boots = -1
 	for category, value in pairs(components) do
-		if value ~= -1 then
+		if value ~= -1 and category ~= "Boots" then
 			Citizen.InvokeNative(0x704C908E9C405136, ped)
 			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
 			if Config.UseSPclothing then
 				Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, false, false)
 			end
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, true, true, false)
+		elseif category == "Boots" then
+			boots = value
 		end
+	end
+	-- loa boots for last so they dont clip with pants
+	if boots ~= -1 then
+		if Config.UseSPclothing then
+			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, boots, false, false, false)
+		end
+		Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, boots, true, true, false)
 	end
 end
 
---[[ if (joaat(skin.sex) ~= GetEntityModel(ped)) then
-		print("Model changed")
-		LoadPlayer(skin.sex)
-		Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat(skin.sex), false)
-		UpdateVariation(PlayerPedId())
-	end ]]
 function LoadPlayerComponents(ped, skin, components)
 	TriggerServerEvent("vorpcharacter:reloadedskinlistener")
 	local normal
@@ -455,6 +469,8 @@ function LoadPlayerComponents(ped, skin, components)
 		skin.lipsticks_palette_color_tertiary, skin.lipsticks_palette_id, skin.lipsticks_opacity)
 	faceOverlay("grime", skin.grime_visibility, skin.grime_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.grime_opacity)
+
+	Wait(200)
 	Citizen.InvokeNative(0xD710A5007C2AC539, ped, 0x3F1F01E5, 0)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
 end

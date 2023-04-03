@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local isSelectSexActive
 local camera
 local cameraMale
@@ -96,8 +97,6 @@ local function Setup()
 	SetCamActive(camera, true)
 	RenderScriptCams(true, true, 1000, true, true, 0)
 	isSelectSexActive = true
-	--local instanceNumber = 54123 -- any number
-	--VORPcore.instancePlayers(tonumber(GetPlayerServerId(PlayerId())) + instanceNumber)
 end
 
 RegisterNetEvent("vorpcharacter:startCharacterCreator")
@@ -240,32 +239,16 @@ function RegisterGenderPrompt()
 	PromptRegisterEnd(zoomout)
 end
 
-local function LoadModel(model)
-	if IsModelInCdimage(model) then
-		while not HasModelLoaded(model) do
-			RequestModel(model)
-			Wait(0)
-		end
-		return true
-	else
-		return false
-	end
-end
-
-
 function SelectionPeds()
 	local fModel = "mp_female"
 	local mModel = "mp_male"
 
-	LoadModel(fModel)
-
-	--female
+	LoadPlayer(fModel)
 	FemalePed = CreatePed(joaat(fModel), -558.43, -3776.65, 237.7, 93.2, false, true, true, true)
 	TaskStandStill(FemalePed, -1)
 	SetEntityInvincible(FemalePed, true)
 	DefaultPedSetup(FemalePed, false)
-	--male
-	LoadModel(mModel)
+	LoadPlayer(mModel)
 	MalePed = CreatePed(joaat(mModel), -558.52, -3775.6, 237.7, 93.2, false, true, true, true)
 	TaskStandStill(MalePed, -1)
 	SetEntityInvincible(MalePed, true)
@@ -352,13 +335,8 @@ function DefaultPedSetup(ped, male)
 	end
 
 	Citizen.InvokeNative(0x283978A15512B2FE, ped, true)
-	Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 3, 0)
-
-	while not Citizen.InvokeNative(0xA0BC8FAED8CFEB3C, ped) do
-		Citizen.InvokeNative(0xA0BC8FAED8CFEB3C, ped)
-		Wait(0)
-	end
-
+	Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 3, 0) -- outfits
+	IsPedReadyToRender()
 	ApplyComponentToPed(ped, compBody)
 	ApplyComponentToPed(ped, compLegs)
 	ApplyComponentToPed(ped, compHead)
@@ -394,30 +372,24 @@ function CreatePlayerModel(model, cam, ps)
 	Wait(3000)
 	SetEntityCoords(PlayerPedId(), -558.3258, -3781.111, 237.60, true, true, true, false) -- set player to start creation
 	SetEntityHeading(PlayerPedId(), 93.2)
-
-	LoadModel(model)
-
-	Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat(model), false)
+	LoadPlayer(model)
+	SetPlayerModel(PlayerId(), joaat(model), false)
+	SetModelAsNoLongerNeeded(model)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), false, true, true, true, false)
-
 	RenderScriptCams(false, true, 3000, true, true, 0)
 	Wait(1000)
-
 	DefaultPedSetup(PlayerPedId(), isMale)
 	SetCamActive(cam, false)
-
 	Wait(1000)
 	SetCamActive(cameraEditor, true)
 	RenderScriptCams(true, true, 1000, true, true, 0)
 
 	CreateThread(function()
-		if not ps then
-			if DoesEntityExist(FemalePed) then
-				DeletePed(FemalePed)
-			end
-			if DoesEntityExist(MalePed) then
-				DeletePed(MalePed)
-			end
+		if DoesEntityExist(FemalePed) then
+			DeletePed(FemalePed)
+		end
+		if DoesEntityExist(MalePed) then
+			DeletePed(MalePed)
 		end
 	end)
 
@@ -453,11 +425,12 @@ function CreatePlayerModel(model, cam, ps)
 		end
 		Clothing[category] = categoryTable
 	end
-	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0)
-	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
+	
+	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0)        -- remove meta tag
+	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false) -- update variation
 	SetEntityVisible(PlayerPedId(), true)
 	SetEntityInvincible(PlayerPedId(), true)
-	Citizen.InvokeNative(0x25ACFC650B65C538, PlayerPedId(), 1.0)
-	OpenCharCreationMenu(Clothing)
+	Citizen.InvokeNative(0x25ACFC650B65C538, PlayerPedId(), 1.0) -- scale
 	DoScreenFadeIn(3000)
+	OpenCharCreationMenu(Clothing)
 end
