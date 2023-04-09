@@ -319,6 +319,8 @@ function CharSelect()
 	SetPlayerModel(PlayerId(), joaat(nModel), false)
 	Citizen.InvokeNative(0x77FF8D35EEC6BBC4, PlayerPedId(), 0, 0)
 	Wait(1000)
+	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents) 
+	Wait(1000)
 	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents) -- idky why but only loads if ran twice
 	NetworkClearClockTimeOverride()
 	FreezeEntityPosition(PlayerPedId(), false)
@@ -495,9 +497,6 @@ function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 				v.tx_material = tx_material
 				v.tx_color_type = tx_color_type
 				v.tx_opacity = tx_opacity
-				if tx_opacity == 0 then
-					v.tx_opacity = 1.0
-				end
 				v.tx_unk = tx_unk
 				if tx_color_type == 0 then
 					if palette_id == 0 then
@@ -505,9 +504,6 @@ function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 					end
 					v.palette = Config.color_palettes[name][palette_id]
 					v.palette_color_primary = palette_color_primary
-					if palette_color_primary == 0 then
-						v.palette_color_primary = 1
-					end
 					v.palette_color_secondary = palette_color_secondary
 					v.palette_color_tertiary = palette_color_tertiary
 				end
@@ -522,13 +518,16 @@ function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 						v.tx_id = Config.overlays_info[name][tx_id].id
 					end
 				end
-
 				v.opacity = opacity
+                               if opacity == 0 then
+				v.opacity = 1.0
+			       end
 			end
 		end
 	end
 	Citizen.CreateThread(StartOverlay)
 end
+
 
 function StartOverlay()
 	local ped = PlayerPedId()
