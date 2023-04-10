@@ -731,8 +731,8 @@ function OpenHerritageMenu(table)
                     __SKINCOLOR               = index
                     local SkinColor           = data.current.info[index]
                     local heritage            = SkinColor.Heads[index]
-                    local legs                = SkinColor.Legs[index] or "887C4C70"
-                    local body                = SkinColor.Body[index] or "CD7F8895"
+                    local legs                = SkinColor.Legs[index] or gender == "Male" and "887C4C70" or gender == "Female" and "EDE17D5F"
+                    local body                = SkinColor.Body[index] or gender == "Male" and "CD7F8895" or gender == "Female" and "C05A25AD"
 
                     local headtexture         = joaat(SkinColor.HeadTexture[1])
                     local Heads               = tonumber("0x" .. heritage)
