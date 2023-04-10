@@ -490,9 +490,6 @@ function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 				end
 				v.tx_unk = tx_unk
 				if tx_color_type == 0 then
-					if palette_id == 0 then
-						palette_id = 1
-					end
 					v.palette = Config.color_palettes[name][palette_id]
 					v.palette_color_primary = palette_color_primary
 					if palette_color_primary == 0 then

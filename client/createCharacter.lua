@@ -248,12 +248,13 @@ function SelectionPeds()
 	TaskStandStill(FemalePed, -1)
 	SetEntityInvincible(FemalePed, true)
 	DefaultPedSetup(FemalePed, false)
+	SetModelAsNoLongerNeeded(fModel)
+
 	LoadPlayer(mModel)
 	MalePed = CreatePed(joaat(mModel), -558.52, -3775.6, 237.7, 93.2, false, true, true, true)
 	TaskStandStill(MalePed, -1)
 	SetEntityInvincible(MalePed, true)
 	DefaultPedSetup(MalePed, true)
-	SetModelAsNoLongerNeeded(fModel)
 	SetModelAsNoLongerNeeded(mModel)
 end
 

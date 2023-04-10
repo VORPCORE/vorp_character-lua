@@ -2,6 +2,21 @@
     "Lua.diagnostics.globals": [
         "Citizen",
         "PlayerPedId",
-        "GetCurrentResourceName"
+        "GetCurrentResourceName",
+        "RegisterCommand",
+        "joaat",
+        "Wait",
+        "IsControlPressed",
+        "SetModelAsNoLongerNeeded",
+        "PlayerId",
+        "SetPlayerModel",
+        "RenderScriptCams",
+        "SetCamActive",
+        "CreateThread",
+        "DoScreenFadeOut",
+        "DoScreenFadeIn",
+        "RegisterNetEvent",
+        "AddEventHandler",
+        "TriggerEvent"
     ]
 }
