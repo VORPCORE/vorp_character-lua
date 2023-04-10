@@ -731,8 +731,10 @@ function OpenHerritageMenu(table)
                     __SKINCOLOR               = index
                     local SkinColor           = data.current.info[index]
                     local heritage            = SkinColor.Heads[index]
-                    local legs                = SkinColor.Legs[index] or gender == "Male" and "887C4C70" or gender == "Female" and "EDE17D5F"
-                    local body                = SkinColor.Body[index] or gender == "Male" and "CD7F8895" or gender == "Female" and "C05A25AD"
+                    local legs                = SkinColor.Legs[index] or gender == "Male" and "887C4C70" or
+                        gender == "Female" and "EDE17D5F"
+                    local body                = SkinColor.Body[index] or gender == "Male" and "CD7F8895" or
+                        gender == "Female" and "C05A25AD"
 
                     local headtexture         = joaat(SkinColor.HeadTexture[1])
                     local Heads               = tonumber("0x" .. heritage)
@@ -1419,13 +1421,15 @@ function OpenLifeStyleMenu(table)
                 if data.current.value > 0 then
                     PlayerSkin[data.current.visibility] = 1
                     PlayerSkin[data.current.txt_id] = data.current.value
-                    toggleOverlayChange(data.current.name, 1, PlayerSkin[data.current.txt_id], 0, 0, 1,
+                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility],
+                        PlayerSkin[data.current.txt_id], 0, 0, 1,
                         1.0, 0, 0, 0, 0, 0,
                         1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
                 else
                     PlayerSkin[data.current.visibility] = 1
                     PlayerSkin[data.current.txt_id] = 0
-                    toggleOverlayChange(data.current.name, 0, PlayerSkin[data.current.txt_id], 0, 0, 1,
+                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility],
+                        PlayerSkin[data.current.txt_id], 0, 0, 1,
                         1.0, 0, 0, 0, 0, 0,
                         1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
                 end
@@ -1436,12 +1440,14 @@ function OpenLifeStyleMenu(table)
                 if data.current.value > 0 then
                     PlayerSkin[data.current.visibility] = 1
                     PlayerSkin[data.current.opac] = data.current.value / 10
-                    toggleOverlayChange(data.current.name, 1, PlayerSkin[data.current.txt_id], 0, 0, 1, 1.0, 0, 0, 0, 0,
+                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility],
+                        PlayerSkin[data.current.txt_id], 0, 0, 1, 1.0, 0, 0, 0, 0,
                         0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
                 else
                     PlayerSkin[data.current.visibility] = 0
                     PlayerSkin[data.current.opac] = 0
-                    toggleOverlayChange(data.current.name, 0, PlayerSkin[data.current.txt_id], 0, 0, 1, 1.0, 0, 0, 0, 0,
+                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility],
+                        PlayerSkin[data.current.txt_id], 0, 0, 1, 1.0, 0, 0, 0, 0,
                         0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
                 end
             end

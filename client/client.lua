@@ -111,7 +111,7 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	local permSnow = Config.charselgroundSnow
 	local hour = Config.timeHour
 	local freeze = Config.timeFreeze
-	
+
 	if #myCharacters < 1 then
 		return TriggerEvent("vorpcharacter:startCharacterCreator") -- if no chars then send back to creator
 	end
@@ -119,10 +119,10 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	MaxCharacters = mc
 	DoScreenFadeOut(1000)
 	Wait(1000)
-	
+
 	if customWeather then
 		exports.weathersync:setMyWeather(weather, 10, permSnow) -- Disable weather and time sync and set a weather for this client.
-		exports.weathersync:setMyTime(hour, 0, 0, 10, freeze) 
+		exports.weathersync:setMyTime(hour, 0, 0, 10, freeze)
 	end
 
 	isInCharacterSelector = true
@@ -319,7 +319,7 @@ function CharSelect()
 	SetPlayerModel(PlayerId(), joaat(nModel), false)
 	Citizen.InvokeNative(0x77FF8D35EEC6BBC4, PlayerPedId(), 0, 0)
 	Wait(1000)
-	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents) 
+	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
 	Wait(1000)
 	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents) -- idky why but only loads if ran twice
 	NetworkClearClockTimeOverride()
@@ -516,15 +516,16 @@ function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 					end
 				end
 				v.opacity = opacity
-                               if opacity == 0 then
-				v.opacity = 1.0
-			       end
+				if opacity == 0 then
+					-- if its visible but opacity is 0 then set visible to 0
+					v.visibility = 0
+					v.opacity = 0
+				end
 			end
 		end
 	end
 	Citizen.CreateThread(StartOverlay)
 end
-
 
 function StartOverlay()
 	local ped = PlayerPedId()
