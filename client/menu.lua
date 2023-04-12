@@ -162,7 +162,7 @@ function OpenCharCreationMenu(clothingtable)
                 }
                 TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
                     local Result = tostring(result)
-                    if Result ~= nil and Result ~= "" then
+                    if Result ~= nil and Result ~= "" and LastName ~= nil and LastName ~= "" and FirstName ~= nil and FirstName ~= "" then
                         if not __GetName(Result) then
                             TriggerEvent("vorp:TipRight", T.Inputs.banned, 4000)
                             return
@@ -200,6 +200,8 @@ function OpenCharCreationMenu(clothingtable)
                         }
                         menu.setElements(elements1)
                         menu.refresh()
+                    else
+                         print('you need to put last name and first name example Konar Plus')
                     end
                 end)
             end
