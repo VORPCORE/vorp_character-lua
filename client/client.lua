@@ -634,3 +634,30 @@ function LoadCharacterSelect(ped, skin, components)
 	Citizen.InvokeNative(0xC6258F41D86676E0, pedHandler, 1, 100)
 	Citizen.InvokeNative(0xC6258F41D86676E0, pedHandler, 0, 100)
 end
+
+if Config.CommandLogoutption then
+	RegisterCommand(Config.CommandName, function()
+		TriggerServerEvent('vorp_GoToSelectionMenu', GetPlayerServerId(PlayerId()))
+	end, false)
+end
+if Config.Logoutption then
+	Citizen.CreateThread(function()
+		while true do
+			local playerPed = PlayerPedId()
+			local playerCoords = GetEntityCoords(playerPed)
+				for k,v in pairs(Config.logoutlocations) do
+					if #(playerCoords - vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3])) < 2.0 then
+						delayThread = 5
+						DrawText("Press E To Log Out", 0.5, 0.9, 0.7, 0.7, 255, 255, 255, 255, true, true);
+						if IsControlJustPressed(2, 0xCEFD9220) then
+							TriggerServerEvent('vorp_GoToSelectionMenu', GetPlayerServerId(PlayerId()))
+						end
+					else
+						delayThread = 1000
+					end
+				end
+			
+			Citizen.Wait(delayThread)
+		end
+	end)
+end

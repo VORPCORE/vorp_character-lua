@@ -2,7 +2,9 @@ Config = {}
 
 Config.DevMode = false
 Config.Align = "top-left" -- menu
-
+Config.Logoutption = true -- put this turn on open logout option
+Config.CommandLogoutption = true -- put this turn on open logout option command
+Config.CommandName = 'logout' -- put this turn on select new characters
 -- check translation file to see if your language is available or add it.
 Lang = "English"
 
@@ -27,7 +29,29 @@ Config.charselgroundSnow = false -- Toggle whether snow should cover the ground 
 -- Set the time of day to have your Character Selection screen set to
 Config.timeHour = 10 -- 0 to 23 | 0 is Midnight
 Config.timeFreeze = true -- false will allow passage of time
+Config.logoutlocations = {
 
+    {
+        name = "Log Out 1", 
+        logoutlocations = {-178.96, 626.7, 114.09, 318.9},
+       
+    },
+    -- {
+    --     name = "Log Out 1", 
+    --     logoutlocations = { 2554.63, -1169.08, 53.68, 2.0 },
+       
+    -- },
+    -- {
+    --     name = "Log Out 2", 
+    --     logoutlocations = { 2554.63, -1169.08, 53.68, 2.0 },
+       
+    -- },
+    -- {
+    --     name = "Log Out 3", 
+    --     logoutlocations = { 2554.63, -1169.08, 53.68, 2.0 },
+       
+    -- },
+}
 Config.selectedCharacter = {
     coords = vector3(-3753.83, -2608.41, -13.99), -- where player will spawn  needs to be close to the char select
     cameraParams = {
