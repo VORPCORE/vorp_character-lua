@@ -653,7 +653,7 @@ if Config.Logoutption then
 							TriggerServerEvent('vorp_GoToSelectionMenu', GetPlayerServerId(PlayerId()))
 						end
 					else
-						delayThread = 1000
+						delayThread = 2000
 					end
 				end
 			
