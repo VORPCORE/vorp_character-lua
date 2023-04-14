@@ -18,6 +18,7 @@ T = Translation.Langs[Lang]
 CachedSkin = {}
 CachedComponents = {}
 boolsafe = true
+boolantispam = true
 
 --Register prompts char select
 local function RegisterLogoutOption()
@@ -586,7 +587,14 @@ RegisterCommand("rc", function() -- reload skin
 	local hogtied = Citizen.InvokeNative(0x3AA24CCC0D451379, PlayerPedId())
 	local cuffed = Citizen.InvokeNative(0x74E559B3BC910685, PlayerPedId())
 	if not hogtied and not cuffed and not IsEntityDead(PlayerPedId()) then
-		LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
+		if boolantispam then
+		   LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
+		   boolantispam = false
+		   Wait(7000)
+		   boolantispam = true
+		else
+			TriggerEvent('vorp:TipRight', 'please stop spam rc command !', 5000)
+		end
 	end
 end)
 
