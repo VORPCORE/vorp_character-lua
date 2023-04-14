@@ -16,6 +16,7 @@ T = Translation.Langs[Lang]
 -- GLOBALS
 CachedSkin = {}
 CachedComponents = {}
+boolsafe = true
 
 --Register prompts char select
 local function RegisterPrompts()
@@ -29,6 +30,17 @@ local function RegisterPrompts()
 	PromptSetHoldMode(createPrompt, 3000)
 	PromptSetGroup(createPrompt, PromptGroup)
 	PromptRegisterEnd(createPrompt)
+
+	local str = Config.keys.prompt_logout.name
+	logoutPrompt = PromptRegisterBegin()
+	PromptSetControlAction(logoutPrompt, Config.keys.prompt_logout.key)
+	str = CreateVarString(10, 'LITERAL_STRING', str)
+	PromptSetText(logoutPrompt, str)
+	PromptSetEnabled(logoutPrompt, 1)
+	PromptSetVisible(logoutPrompt, 1)
+	PromptSetHoldMode(logoutPrompt, 3000)
+	PromptSetGroup(logoutPrompt, PromptGroup)
+	PromptRegisterEnd(logoutPrompt)
 
 
 	local dstr = Config.keys.prompt_delete.name
@@ -111,7 +123,7 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	local permSnow = Config.charselgroundSnow
 	local hour = Config.timeHour
 	local freeze = Config.timeFreeze
-
+    boolsafe = true
 	if #myCharacters < 1 then
 		return TriggerEvent("vorpcharacter:startCharacterCreator") -- if no chars then send back to creator
 	end
@@ -640,17 +652,33 @@ if Config.CommandLogoutption then
 		TriggerServerEvent('vorp_GoToSelectionMenu', GetPlayerServerId(PlayerId()))
 	end, false)
 end
+if Config.showblibsLogout then
+	Citizen.CreateThread(function()
+		for k, v in pairs(Config.logoutlocations) do
+			local blip = Citizen.InvokeNative(0x554D9D53F696D002, Config.BlipSprite,
+			vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3]))
+			SetBlipSprite(blip, v.BlipIcon)
+			SetBlipScale(blip, 0.2)
+			Citizen.InvokeNative(0x9CB1A1623062F402, blip, v.blipname)
+		end
+    end)
+end
 if Config.Logoutption then
 	Citizen.CreateThread(function()
 		while true do
 			local playerPed = PlayerPedId()
 			local playerCoords = GetEntityCoords(playerPed)
 				for k,v in pairs(Config.logoutlocations) do
-					if #(playerCoords - vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3])) < 2.0 then
-						delayThread = 5
-						DrawText("Press E To Log Out", 0.5, 0.9, 0.7, 0.7, 255, 255, 255, 255, true, true);
-						if IsControlJustPressed(2, 0xCEFD9220) then
-							TriggerServerEvent('vorp_GoToSelectionMenu', GetPlayerServerId(PlayerId()))
+					if #(playerCoords - vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3])) < Config.MaxDistance then
+						delayThread = 1
+						if boolsafe then
+							PromptSetEnabled(logoutPrompt, true)
+							if PromptHasHoldModeCompleted(logoutPrompt) then -- Log Out
+								local player = GetPlayerServerId(PlayerId())
+								TriggerServerEvent('vorp_GoToSelectionMenu', player)
+								PromptSetEnabled(logoutPrompt, false)
+								boolsafe = false
+							end
 						end
 					else
 						delayThread = 2000

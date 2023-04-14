@@ -164,13 +164,3 @@ function toggleOverlayChange(name, visibility, tx_id, tx_normal, tx_material, tx
     Citizen.InvokeNative(0x0B46E25761519058, ped, joaat("heads"), textureId)      -- apply texture to current component in category "heads"
     Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, false, true, true, true, false) -- refresh ped components
 end
-
-function DrawText(text, x, y, fScale, fSize, rC, gC, bC, aC, tCentered, shadow)
-	local str = CreateVarString(10, "LITERAL_STRING", text)
-	SetTextScale(fScale, fSize)
-	SetTextColor(rC, gC, bC, aC)
-	SetTextCentre(tCentered)
-	if shadow then SetTextDropshadow(1, 0, 0, 255); end
-	Citizen.InvokeNative(0xADA9255D, 1)
-	DisplayText(str, x, y)
-end
