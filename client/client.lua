@@ -7,6 +7,7 @@ local myChars = {}
 local textureId = -1
 local MaxCharacters
 local PromptGroup = GetRandomIntInRange(0, 0xffffff)
+local PromptGrouplogout = GetRandomIntInRange(0, 0xffffff)
 local createPrompt
 local deletePrompt
 local swapPrompt
@@ -19,6 +20,19 @@ CachedComponents = {}
 boolsafe = true
 
 --Register prompts char select
+local function RegisterLogoutOption()
+	local strlogout = Config.keys.prompt_logout.name
+	logoutPrompt = PromptRegisterBegin()
+	PromptSetControlAction(logoutPrompt, Config.keys.prompt_logout.key)
+	strlogout = CreateVarString(10, 'LITERAL_STRING', strlogout)
+	PromptSetText(logoutPrompt, strlogout)
+	PromptSetEnabled(logoutPrompt, true)
+	PromptSetVisible(logoutPrompt, true)
+	PromptSetHoldMode(logoutPrompt, 3000)
+	PromptSetGroup(logoutPrompt, PromptGrouplogout)
+	PromptRegisterEnd(logoutPrompt)
+
+end
 local function RegisterPrompts()
 	local str = Config.keys.prompt_create.name
 	createPrompt = PromptRegisterBegin()
@@ -31,18 +45,6 @@ local function RegisterPrompts()
 	PromptSetGroup(createPrompt, PromptGroup)
 	PromptRegisterEnd(createPrompt)
 
-	local str = Config.keys.prompt_logout.name
-	logoutPrompt = PromptRegisterBegin()
-	PromptSetControlAction(logoutPrompt, Config.keys.prompt_logout.key)
-	str = CreateVarString(10, 'LITERAL_STRING', str)
-	PromptSetText(logoutPrompt, str)
-	PromptSetEnabled(logoutPrompt, 1)
-	PromptSetVisible(logoutPrompt, 1)
-	PromptSetHoldMode(logoutPrompt, 3000)
-	PromptSetGroup(logoutPrompt, PromptGroup)
-	PromptRegisterEnd(logoutPrompt)
-
-
 	local dstr = Config.keys.prompt_delete.name
 	deletePrompt = PromptRegisterBegin()
 	PromptSetControlAction(deletePrompt, Config.keys.prompt_delete.key)
@@ -53,7 +55,6 @@ local function RegisterPrompts()
 	PromptSetHoldMode(deletePrompt, 5000)
 	PromptSetGroup(deletePrompt, PromptGroup)
 	PromptRegisterEnd(deletePrompt)
-
 
 	local dstr = Config.keys.prompt_swap.name
 	swapPrompt = PromptRegisterBegin()
@@ -84,7 +85,7 @@ AddEventHandler('onClientResourceStart', function(resourceName)
 		return
 	end
 	RegisterPrompts()
-
+	RegisterLogoutOption()
 	if Config.DevMode then
 		print("^3VORP Character Selector is in ^1DevMode^7 dont use in live servers")
 		TriggerServerEvent("vorp_GoToSelectionMenu", GetPlayerServerId(PlayerId()))
@@ -288,11 +289,13 @@ local function EnablePrompt(boolean)
 	PromptSetEnabled(createPrompt, boolean)
 	PromptSetEnabled(deletePrompt, Config.AllowPlayerDeleteCharacter)
 	PromptSetEnabled(swapPrompt, boolean)
+	PromptSetEnabled(logoutPrompt, boolean)
 	PromptSetEnabled(selectPrompt, boolean)
 	PromptSetVisible(createPrompt, boolean)
 	PromptSetVisible(deletePrompt, boolean)
 	PromptSetVisible(swapPrompt, boolean)
 	PromptSetVisible(selectPrompt, boolean)
+	PromptSetVisible(logoutPrompt, boolean)
 end
 
 
@@ -655,37 +658,39 @@ end
 if Config.showblibsLogout then
 	Citizen.CreateThread(function()
 		for k, v in pairs(Config.logoutlocations) do
-			local blip = Citizen.InvokeNative(0x554D9D53F696D002, Config.BlipSprite,
+			local blip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300,
 			vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3]))
-			SetBlipSprite(blip, v.BlipIcon)
+			SetBlipSprite(blip, Config.BlipSprite)
 			SetBlipScale(blip, 0.2)
 			Citizen.InvokeNative(0x9CB1A1623062F402, blip, v.blipname)
 		end
     end)
 end
-if Config.Logoutption then
-	Citizen.CreateThread(function()
-		while true do
-			local playerPed = PlayerPedId()
-			local playerCoords = GetEntityCoords(playerPed)
-				for k,v in pairs(Config.logoutlocations) do
-					if #(playerCoords - vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3])) < Config.MaxDistance then
-						delayThread = 1
-						if boolsafe then
-							PromptSetEnabled(logoutPrompt, true)
-							if PromptHasHoldModeCompleted(logoutPrompt) then -- Log Out
-								local player = GetPlayerServerId(PlayerId())
-								TriggerServerEvent('vorp_GoToSelectionMenu', player)
-								PromptSetEnabled(logoutPrompt, false)
-								boolsafe = false
-							end
+
+Citizen.CreateThread(function()
+	while true do
+		local playerPed = PlayerPedId()
+		local playerCoords = GetEntityCoords(playerPed)
+		if Config.Logoutption then
+			for k,v in pairs(Config.logoutlocations) do
+				if #(playerCoords - vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3])) < Config.MaxDistance then
+					delayThread = 1
+					if boolsafe then
+						PromptSetActiveGroupThisFrame(PromptGrouplogout, 'label')
+						if PromptHasHoldModeCompleted(logoutPrompt) then -- Log Out
+							local player = GetPlayerServerId(PlayerId())
+							TriggerServerEvent('vorp_GoToSelectionMenu', player)
+							PromptDelete(logoutPrompt)
+							boolsafe = false
 						end
-					else
-						delayThread = 2000
 					end
+				else
+					delayThread = 2000
 				end
-			
-			Citizen.Wait(delayThread)
+			end
+		else
+			delayThread = 50000
 		end
-	end)
-end
+		Citizen.Wait(delayThread)
+	end
+end)
