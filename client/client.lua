@@ -350,6 +350,7 @@ function CharSelect()
 	local heading = coords.heading
 	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead)
 	DoScreenFadeIn(1000)
+	boolsafe = true
 end
 
 AddEventHandler("vorpcharacter:reloadafterdeath", function()
