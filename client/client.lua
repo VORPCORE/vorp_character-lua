@@ -652,7 +652,11 @@ end
 
 if Config.CommandLogoutption then
 	RegisterCommand(Config.CommandName, function()
-		TriggerServerEvent('vorp_GoToSelectionMenu', GetPlayerServerId(PlayerId()))
+		if boolsafe then
+			local player = GetPlayerServerId(PlayerId())
+			TriggerServerEvent('vorp_GoToSelectionMenu', player)
+			boolsafe = false
+		end
 	end, false)
 end
 if Config.showblibsLogout then
