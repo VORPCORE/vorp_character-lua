@@ -11,6 +11,7 @@ local PromptGrouplogout = GetRandomIntInRange(0, 0xffffff)
 local createPrompt
 local deletePrompt
 local swapPrompt
+local logoutPrompt
 local selectPrompt
 T = Translation.Langs[Lang]
 
@@ -587,18 +588,9 @@ RegisterCommand("rc", function() -- reload skin
 	local hogtied = Citizen.InvokeNative(0x3AA24CCC0D451379, PlayerPedId())
 	local cuffed = Citizen.InvokeNative(0x74E559B3BC910685, PlayerPedId())
 	if not hogtied and not cuffed and not IsEntityDead(PlayerPedId()) then
-		if Config.antispam then
-			if boolantispam then
-			LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
-			boolantispam = false
-			Wait(7000)
-			boolantispam = true
-			else
-				TriggerEvent('vorp:TipRight', 'please stop spam rc command !', 5000)
-			end
-		else
-			LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
-		end
+		
+          LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
+			
 	end
 end)
 
