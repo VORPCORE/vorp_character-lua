@@ -7,7 +7,6 @@ Config.CommandLogoutption = true -- put this turn on open logout option command
 Config.CommandName = 'logout' -- put this turn on select new characters
 Config.MaxDistance = 2.0 -- max distance from logout location
 Config.showblibsLogout = true -- To Show Blips Log Out Locations
-Config.antispam = true -- if this true you can reload your character from command between 7 sec
 Config.BlipSprite = 1001245999 -- Blips Log Out Location Sprites -- https://filmcrz.github.io/blips/
 
 -- check translation file to see if your language is available or add it.
