@@ -7,6 +7,7 @@ local myChars = {}
 local textureId = -1
 local MaxCharacters
 local PromptGroup = GetRandomIntInRange(0, 0xffffff)
+local PromptGrouplogout = GetRandomIntInRange(0, 0xffffff)
 local createPrompt
 local deletePrompt
 local swapPrompt
@@ -16,8 +17,23 @@ T = Translation.Langs[Lang]
 -- GLOBALS
 CachedSkin = {}
 CachedComponents = {}
+boolsafe = true
+boolantispam = true
 
 --Register prompts char select
+local function RegisterLogoutOption()
+	local strlogout = Config.keys.prompt_logout.name
+	logoutPrompt = PromptRegisterBegin()
+	PromptSetControlAction(logoutPrompt, Config.keys.prompt_logout.key)
+	strlogout = CreateVarString(10, 'LITERAL_STRING', strlogout)
+	PromptSetText(logoutPrompt, strlogout)
+	PromptSetEnabled(logoutPrompt, true)
+	PromptSetVisible(logoutPrompt, true)
+	PromptSetHoldMode(logoutPrompt, 3000)
+	PromptSetGroup(logoutPrompt, PromptGrouplogout)
+	PromptRegisterEnd(logoutPrompt)
+
+end
 local function RegisterPrompts()
 	local str = Config.keys.prompt_create.name
 	createPrompt = PromptRegisterBegin()
@@ -30,7 +46,6 @@ local function RegisterPrompts()
 	PromptSetGroup(createPrompt, PromptGroup)
 	PromptRegisterEnd(createPrompt)
 
-
 	local dstr = Config.keys.prompt_delete.name
 	deletePrompt = PromptRegisterBegin()
 	PromptSetControlAction(deletePrompt, Config.keys.prompt_delete.key)
@@ -41,7 +56,6 @@ local function RegisterPrompts()
 	PromptSetHoldMode(deletePrompt, 5000)
 	PromptSetGroup(deletePrompt, PromptGroup)
 	PromptRegisterEnd(deletePrompt)
-
 
 	local dstr = Config.keys.prompt_swap.name
 	swapPrompt = PromptRegisterBegin()
@@ -72,7 +86,7 @@ AddEventHandler('onClientResourceStart', function(resourceName)
 		return
 	end
 	RegisterPrompts()
-
+	RegisterLogoutOption()
 	if Config.DevMode then
 		print("^3VORP Character Selector is in ^1DevMode^7 dont use in live servers")
 		TriggerServerEvent("vorp_GoToSelectionMenu", GetPlayerServerId(PlayerId()))
@@ -111,7 +125,7 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	local permSnow = Config.charselgroundSnow
 	local hour = Config.timeHour
 	local freeze = Config.timeFreeze
-
+    boolsafe = true
 	if #myCharacters < 1 then
 		return TriggerEvent("vorpcharacter:startCharacterCreator") -- if no chars then send back to creator
 	end
@@ -276,11 +290,13 @@ local function EnablePrompt(boolean)
 	PromptSetEnabled(createPrompt, boolean)
 	PromptSetEnabled(deletePrompt, Config.AllowPlayerDeleteCharacter)
 	PromptSetEnabled(swapPrompt, boolean)
+	PromptSetEnabled(logoutPrompt, boolean)
 	PromptSetEnabled(selectPrompt, boolean)
 	PromptSetVisible(createPrompt, boolean)
 	PromptSetVisible(deletePrompt, boolean)
 	PromptSetVisible(swapPrompt, boolean)
 	PromptSetVisible(selectPrompt, boolean)
+	PromptSetVisible(logoutPrompt, boolean)
 end
 
 
@@ -335,6 +351,7 @@ function CharSelect()
 	local heading = coords.heading
 	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead)
 	DoScreenFadeIn(1000)
+	boolsafe = true
 end
 
 AddEventHandler("vorpcharacter:reloadafterdeath", function()
@@ -570,7 +587,18 @@ RegisterCommand("rc", function() -- reload skin
 	local hogtied = Citizen.InvokeNative(0x3AA24CCC0D451379, PlayerPedId())
 	local cuffed = Citizen.InvokeNative(0x74E559B3BC910685, PlayerPedId())
 	if not hogtied and not cuffed and not IsEntityDead(PlayerPedId()) then
-		LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
+		if Config.antispam then
+			if boolantispam then
+			LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
+			boolantispam = false
+			Wait(7000)
+			boolantispam = true
+			else
+				TriggerEvent('vorp:TipRight', 'please stop spam rc command !', 5000)
+			end
+		else
+			LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
+		end
 	end
 end)
 
@@ -634,3 +662,52 @@ function LoadCharacterSelect(ped, skin, components)
 	Citizen.InvokeNative(0xC6258F41D86676E0, pedHandler, 1, 100)
 	Citizen.InvokeNative(0xC6258F41D86676E0, pedHandler, 0, 100)
 end
+
+if Config.CommandLogoutption then
+	RegisterCommand(Config.CommandName, function()
+		if boolsafe then
+			local player = GetPlayerServerId(PlayerId())
+			TriggerServerEvent('vorp_GoToSelectionMenu', player)
+			boolsafe = false
+		end
+	end, false)
+end
+if Config.showblibsLogout then
+	Citizen.CreateThread(function()
+		for k, v in pairs(Config.logoutlocations) do
+			local blip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300,
+			vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3]))
+			SetBlipSprite(blip, Config.BlipSprite)
+			SetBlipScale(blip, 0.2)
+			Citizen.InvokeNative(0x9CB1A1623062F402, blip, v.blipname)
+		end
+    end)
+end
+
+Citizen.CreateThread(function()
+	while true do
+		local playerPed = PlayerPedId()
+		local playerCoords = GetEntityCoords(playerPed)
+		if Config.Logoutption then
+			for k,v in pairs(Config.logoutlocations) do
+				if #(playerCoords - vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3])) < Config.MaxDistance then
+					delayThread = 1
+					if boolsafe then
+						PromptSetActiveGroupThisFrame(PromptGrouplogout, 'label')
+						if PromptHasHoldModeCompleted(logoutPrompt) then -- Log Out
+							local player = GetPlayerServerId(PlayerId())
+							TriggerServerEvent('vorp_GoToSelectionMenu', player)
+							PromptDelete(logoutPrompt)
+							boolsafe = false
+						end
+					end
+				else
+					delayThread = 2000
+				end
+			end
+		else
+			delayThread = 50000
+		end
+		Citizen.Wait(delayThread)
+	end
+end)
