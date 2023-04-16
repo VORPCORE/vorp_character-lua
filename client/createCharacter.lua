@@ -92,6 +92,9 @@ local function Setup()
 	SetClockTime(10, 00, 0)
 	SetTimecycleModifier('Online_Character_Editor')
 	SetEntityCoords(PlayerPedId(), -563.1345, -3775.811, 237.60, false, false, false, false) -- coords of where it spawns
+	while not HasCollisionLoadedAroundEntity(PlayerPedId()) do
+		Wait(500)
+	end
 	SelectionPeds()
 	createCams()
 	SetCamActive(camera, true)
@@ -426,7 +429,7 @@ function CreatePlayerModel(model, cam, ps)
 		end
 		Clothing[category] = categoryTable
 	end
-	
+
 	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0)        -- remove meta tag
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false) -- update variation
 	SetEntityVisible(PlayerPedId(), true)

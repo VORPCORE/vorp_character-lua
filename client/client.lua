@@ -33,7 +33,6 @@ local function RegisterLogoutOption()
 	PromptSetHoldMode(logoutPrompt, 3000)
 	PromptSetGroup(logoutPrompt, PromptGrouplogout)
 	PromptRegisterEnd(logoutPrompt)
-
 end
 local function RegisterPrompts()
 	local str = Config.keys.prompt_create.name
@@ -126,7 +125,7 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	local permSnow = Config.charselgroundSnow
 	local hour = Config.timeHour
 	local freeze = Config.timeFreeze
-    boolsafe = true
+	boolsafe = true
 	if #myCharacters < 1 then
 		return TriggerEvent("vorpcharacter:startCharacterCreator") -- if no chars then send back to creator
 	end
@@ -146,6 +145,9 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	SetEntityVisible(PlayerPedId(), false)
 	SetEntityInvincible(PlayerPedId(), true)
 	SetEntityCoords(PlayerPedId(), param.coords, false, false, false, false)
+	while not HasCollisionLoadedAroundEntity(PlayerPedId()) do
+		Wait(500)
+	end
 	mainCamera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", param.cameraParams.x, param.cameraParams.y,
 		param.cameraParams.z, param.cameraParams.rotX, param.cameraParams.rotY, param.cameraParams.rotZ,
 		param.cameraParams.fov, false, 0)
@@ -588,9 +590,7 @@ RegisterCommand("rc", function() -- reload skin
 	local hogtied = Citizen.InvokeNative(0x3AA24CCC0D451379, PlayerPedId())
 	local cuffed = Citizen.InvokeNative(0x74E559B3BC910685, PlayerPedId())
 	if not hogtied and not cuffed and not IsEntityDead(PlayerPedId()) then
-		
-          LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
-			
+		LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
 	end
 end)
 
@@ -668,12 +668,12 @@ if Config.showblibsLogout then
 	Citizen.CreateThread(function()
 		for k, v in pairs(Config.logoutlocations) do
 			local blip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300,
-			vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3]))
+				vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3]))
 			SetBlipSprite(blip, Config.BlipSprite)
 			SetBlipScale(blip, 0.2)
 			Citizen.InvokeNative(0x9CB1A1623062F402, blip, v.blipname)
 		end
-    end)
+	end)
 end
 
 Citizen.CreateThread(function()
@@ -681,7 +681,7 @@ Citizen.CreateThread(function()
 		local playerPed = PlayerPedId()
 		local playerCoords = GetEntityCoords(playerPed)
 		if Config.Logoutption then
-			for k,v in pairs(Config.logoutlocations) do
+			for k, v in pairs(Config.logoutlocations) do
 				if #(playerCoords - vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3])) < Config.MaxDistance then
 					delayThread = 1
 					if boolsafe then
