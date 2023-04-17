@@ -7,33 +7,18 @@ local myChars = {}
 local textureId = -1
 local MaxCharacters
 local PromptGroup = GetRandomIntInRange(0, 0xffffff)
-local PromptGrouplogout = GetRandomIntInRange(0, 0xffffff)
 local createPrompt
 local deletePrompt
 local swapPrompt
-local logoutPrompt
 local selectPrompt
 T = Translation.Langs[Lang]
 
 -- GLOBALS
 CachedSkin = {}
 CachedComponents = {}
-boolsafe = true
-boolantispam = true
 
---Register prompts char select
-local function RegisterLogoutOption()
-	local strlogout = Config.keys.prompt_logout.name
-	logoutPrompt = PromptRegisterBegin()
-	PromptSetControlAction(logoutPrompt, Config.keys.prompt_logout.key)
-	strlogout = CreateVarString(10, 'LITERAL_STRING', strlogout)
-	PromptSetText(logoutPrompt, strlogout)
-	PromptSetEnabled(logoutPrompt, true)
-	PromptSetVisible(logoutPrompt, true)
-	PromptSetHoldMode(logoutPrompt, 3000)
-	PromptSetGroup(logoutPrompt, PromptGrouplogout)
-	PromptRegisterEnd(logoutPrompt)
-end
+
+
 local function RegisterPrompts()
 	local str = Config.keys.prompt_create.name
 	createPrompt = PromptRegisterBegin()
@@ -655,51 +640,5 @@ function LoadCharacterSelect(ped, skin, components)
 	Citizen.InvokeNative(0xC6258F41D86676E0, pedHandler, 0, 100)
 end
 
-if Config.CommandLogoutption then
-	RegisterCommand(Config.CommandName, function()
-		if boolsafe then
-			local player = GetPlayerServerId(PlayerId())
-			TriggerServerEvent('vorp_GoToSelectionMenu', player)
-			boolsafe = false
-		end
-	end, false)
-end
-if Config.showblibsLogout then
-	Citizen.CreateThread(function()
-		for k, v in pairs(Config.logoutlocations) do
-			local blip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300,
-				vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3]))
-			SetBlipSprite(blip, Config.BlipSprite)
-			SetBlipScale(blip, 0.2)
-			Citizen.InvokeNative(0x9CB1A1623062F402, blip, v.blipname)
-		end
-	end)
-end
 
-Citizen.CreateThread(function()
-	while true do
-		local playerPed = PlayerPedId()
-		local playerCoords = GetEntityCoords(playerPed)
-		if Config.Logoutption then
-			for k, v in pairs(Config.logoutlocations) do
-				if #(playerCoords - vector3(v.logoutlocations[1], v.logoutlocations[2], v.logoutlocations[3])) < Config.MaxDistance then
-					delayThread = 1
-					if boolsafe then
-						PromptSetActiveGroupThisFrame(PromptGrouplogout, 'label')
-						if PromptHasHoldModeCompleted(logoutPrompt) then -- Log Out
-							local player = GetPlayerServerId(PlayerId())
-							TriggerServerEvent('vorp_GoToSelectionMenu', player)
-							PromptDelete(logoutPrompt)
-							boolsafe = false
-						end
-					end
-				else
-					delayThread = 2000
-				end
-			end
-		else
-			delayThread = 50000
-		end
-		Citizen.Wait(delayThread)
-	end
-end)
+
