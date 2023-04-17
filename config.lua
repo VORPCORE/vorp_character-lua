@@ -2,13 +2,6 @@ Config = {}
 
 Config.DevMode = false
 Config.Align = "top-left" -- menu
-Config.Logoutption = true -- put this turn on open logout option
-Config.CommandLogoutption = true -- put this turn on open logout option command
-Config.CommandName = 'logout' -- put this turn on select new characters
-Config.MaxDistance = 2.0 -- max distance from logout location
-Config.showblibsLogout = true -- To Show Blips Log Out Locations
-Config.BlipSprite = 1001245999 -- Blips Log Out Location Sprites -- https://filmcrz.github.io/blips/
-
 -- check translation file to see if your language is available or add it.
 Lang = "English"
 
@@ -33,29 +26,7 @@ Config.charselgroundSnow = false -- Toggle whether snow should cover the ground 
 -- Set the time of day to have your Character Selection screen set to
 Config.timeHour = 10 -- 0 to 23 | 0 is Midnight
 Config.timeFreeze = true -- false will allow passage of time
-Config.logoutlocations = {
 
-    {
-        blipname = "Log Out Location", 
-        logoutlocations = {-178.96, 626.7, 114.09, 318.9},
-       
-    },
-    -- {
-    --     blipname = "Log Out 1", 
-    --     logoutlocations = { 2554.63, -1169.08, 53.68, 2.0 },
-       
-    -- },
-    -- {
-    --     blipname = "Log Out 2", 
-    --     logoutlocations = { 2554.63, -1169.08, 53.68, 2.0 },
-       
-    -- },
-    -- {
-    --     blipname = "Log Out 3", 
-    --     logoutlocations = { 2554.63, -1169.08, 53.68, 2.0 },
-       
-    -- },
-}
 Config.selectedCharacter = {
     coords = vector3(-3753.83, -2608.41, -13.99), -- where player will spawn  needs to be close to the char select
     cameraParams = {
@@ -87,7 +58,6 @@ Config.keys = {
     prompt_camera_ws = { key = 0x8FD015D8, key2 = 0xD27782E3, name = "up/down" },
     prompt_camera_rotate = { key = 0x7065027D, key2 = 0xB4E465B4, name = 'rotate' },
     prompt_zoom = { key = 0x8BDE7443, key2 = 0x62800C92, name = 'zoom' },
-    prompt_logout = { key = 0xCEFD9220, name = 'Log Out' },
 }
 
 Config.commands = {
