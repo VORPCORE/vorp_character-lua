@@ -71,7 +71,6 @@ AddEventHandler('onClientResourceStart', function(resourceName)
 		return
 	end
 	RegisterPrompts()
-	RegisterLogoutOption()
 	if Config.DevMode then
 		print("^3VORP Character Selector is in ^1DevMode^7 dont use in live servers")
 		TriggerServerEvent("vorp_GoToSelectionMenu", GetPlayerServerId(PlayerId()))
