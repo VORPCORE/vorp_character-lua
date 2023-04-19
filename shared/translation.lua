@@ -10,7 +10,7 @@ Translation.Langs = {
         Inputs = {
             confirm = "Confirm",
             placeholder = "firstname lastname",
-            inputheader = "CHOOSE CHARACTER NAME",
+            inputHeader = "CHOOSE CHARACTER NAME",
             title = "Letters only min 5 max 20",
             banned = "you cant use those names as they are consider banned in this server"
         },
@@ -182,7 +182,7 @@ Translation.Langs = {
         Inputs = {
             confirm = "Confirme",
             placeholder = "Primeiro e Último Nome",
-            inputheader = "Escolha o Nome do Personagem",
+            inputHeader = "Escolha o Nome do Personagem",
             title = "Apenas Letras min 5 max 20",
             banned = "Não pode utilizar os nomes escolhidos uma vez que estão banidos deste servidor."
         },
@@ -354,7 +354,7 @@ Translation.Langs = {
         Inputs = {
             confirm = "Confirmer",
             placeholder = "prénom nom",
-            inputheader = " CHOISIR LE NOM DU PERSONNAGE ",
+            inputHeader = " CHOISIR LE NOM DU PERSONNAGE ",
             title = "Lettres seulement min 5 max 20",
             banned = "vous ne pouvez pas utiliser ces noms car ils sont considérés comme interdits sur ce serveur"
         },
@@ -432,8 +432,11 @@ Translation.Langs = {
             title = "Âge",
             subtitle = "Sous-menu",
             element = { label = "Age", desc = "Choisissez l'âge de votre personnage" },
-            element2 = { label = "Opacité", desc = "il y a ",
-                desc2 = "Choisissez l'opacité de l'âge de votre personnage" },
+            element2 = {
+                label = "Opacité",
+                desc = "il y a ",
+                desc2 = "Choisissez l'opacité de l'âge de votre personnage"
+            },
             label3 = "Non visible",
             label4 = "Visible",
         },
@@ -456,8 +459,10 @@ Translation.Langs = {
             element = { label = "Cheveux", desc = "Choisissez les cheveux des personnages" },
             element2 = { label = "Barbe", desc = "Choisir la barbe du personnage" },
             element3 = { label = " Poil de barbe ", desc = " Choisir le poil de barbe du personnage " },
-            element4 = { label = " Accessoires de cheveux ",
-                desc = " Choisissez les accessoires de cheveux du personnage " },
+            element4 = {
+                label = " Accessoires de cheveux ",
+                desc = " Choisissez les accessoires de cheveux du personnage "
+            },
             element5 = { label = "Sourcils", desc = "Choisissez les sourcils des personnages" },
         },
         MenuHairSelection = {
@@ -501,10 +506,14 @@ Translation.Langs = {
             element2 = { label = "Taches", desc = "Choisissez l'opacité du type d'inperfection de votre personnage" },
             element3 = { label = "Complexe", desc = "Choisissez l'opacité du type d'inperfection de votre personnage" },
             element4 = { label = "Acné", desc = "Choisissez l'opacité du type d'inperfection de votre personnage" },
-            element5 = { label = "Taches de rousseur",
-                desc = "Choisissez l'opacité du type d'inperfection de votre personnage" },
-            element6 = { label = "Discoloration",
-                desc = "Choisissez l'opacité du type d'inperfection de votre personnage" },
+            element5 = {
+                label = "Taches de rousseur",
+                desc = "Choisissez l'opacité du type d'inperfection de votre personnage"
+            },
+            element6 = {
+                label = "Discoloration",
+                desc = "Choisissez l'opacité du type d'inperfection de votre personnage"
+            },
             element7 = { label = "Cicatrices", desc = "Choisissez l'opacité du type d'inperfection de votre personnage" },
             element8 = { label = "Grime", desc = "Choisissez l'opacité du type d'inperfection de votre personnage" },
         },
