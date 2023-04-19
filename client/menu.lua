@@ -369,7 +369,7 @@ function OpenAppearanceMenu(clothingtable)
         {
             label = T.MenuAppearance.element2.label,
             value = "heritage",
-            desc = imgPath:format("character_creator_heritage") .. T.MenuAppearance.element2.desc
+            desc = imgPath:format("character_creator_heritage") .. "<br>" .. T.MenuAppearance.element2.desc
         },
         {
             label = T.MenuAppearance.element3.label,
