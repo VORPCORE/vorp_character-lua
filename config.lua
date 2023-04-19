@@ -20,11 +20,11 @@ Config.AllowPlayerDeleteCharacter = true
 Config.toggleWeatherSync = true
 
 -- Select the weather you would like to be used on the Character Selection Screen
-Config.charselWeather = 'sunny' -- See weathersync config file for a list of available weather types
+Config.charselWeather = 'sunny'  -- See weathersync config file for a list of available weather types
 Config.charselgroundSnow = false -- Toggle whether snow should cover the ground permanently
 
 -- Set the time of day to have your Character Selection screen set to
-Config.timeHour = 10 -- 0 to 23 | 0 is Midnight
+Config.timeHour = 10     -- 0 to 23 | 0 is Midnight
 Config.timeFreeze = true -- false will allow passage of time
 
 Config.selectedCharacter = {
@@ -948,43 +948,7 @@ Config.overlays_info = {
 }
 
 ---------------------------* EYES *--------------------------
---todo
-Config.EyeColor = {
-    Img = { -- * image path
-        "eye1",
-        "eye2",
-        "eye2",
-        "eye2",
-        "eye2",
-        "eye2",
-        "eye2",
-        "eye2",
-        "eye2",
-        "eye2",
-        "eye2",
-        "eye2",
-        "eye2",
-        "eye2",
-    },
-    label = {
-        "Blue",
-        "Blue",
-        "Blue",
-        "Blue",
-        "Green",
-        "Green",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
 
-    }
-}
---#endregion
 
 Config.Eyes = {
     Male = {

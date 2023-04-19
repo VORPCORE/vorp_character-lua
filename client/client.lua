@@ -109,7 +109,6 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	local permSnow = Config.charselgroundSnow
 	local hour = Config.timeHour
 	local freeze = Config.timeFreeze
-	boolsafe = true
 	if #myCharacters < 1 then
 		return TriggerEvent("vorpcharacter:startCharacterCreator") -- if no chars then send back to creator
 	end
@@ -130,7 +129,7 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	SetEntityInvincible(PlayerPedId(), true)
 	SetEntityCoords(PlayerPedId(), param.coords, false, false, false, false)
 	while not HasCollisionLoadedAroundEntity(PlayerPedId()) do
-		Wait(500)
+		Wait(1000)
 	end
 	mainCamera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", param.cameraParams.x, param.cameraParams.y,
 		param.cameraParams.z, param.cameraParams.rotX, param.cameraParams.rotY, param.cameraParams.rotZ,
@@ -338,7 +337,6 @@ function CharSelect()
 	local heading = coords.heading
 	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead)
 	DoScreenFadeIn(1000)
-	boolsafe = true
 end
 
 AddEventHandler("vorpcharacter:reloadafterdeath", function()
@@ -638,6 +636,3 @@ function LoadCharacterSelect(ped, skin, components)
 	Citizen.InvokeNative(0xC6258F41D86676E0, pedHandler, 1, 100)
 	Citizen.InvokeNative(0xC6258F41D86676E0, pedHandler, 0, 100)
 end
-
-
-
