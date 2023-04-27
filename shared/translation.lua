@@ -530,7 +530,7 @@ Translation.Langs = {
             element8 = { label = "Opacité", desc = "Choisissez le maquillage de votre personnage" },
         },
     },
-    Deutsch = {
+    German = {
         promptselect = "Gewählter Charakter:  ~o~",
         promptselect2 = "~q~ | Geld: ~o~",
         promptlabel_select = " Geschlecht auswählen",
