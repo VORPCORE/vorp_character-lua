@@ -9,27 +9,27 @@ end)
 local function RemoveTagFromMetaPed(category)
     local __player = PlayerPedId()
 
-    CreateThread(function()
-        if category == "Coat" then
-            PlayerClothing.CoatClosed = -1
-            Citizen.InvokeNative(0xD710A5007C2AC539, __player, Config.HashList.CoatClosed, 0)
-        end
-        if category == "CoatClosed" then
-            PlayerClothing.Coat = -1
-            Citizen.InvokeNative(0xD710A5007C2AC539, __player, Config.HashList.Coat, 0)
-        end
-        if category == "Pant" and GetGender() == "female" then
+
+    if category == "Coat" then
+        PlayerClothing.CoatClosed = -1
+        Citizen.InvokeNative(0xD710A5007C2AC539, __player, Config.HashList.CoatClosed, 0)
+    end
+    if category == "CoatClosed" then
+        PlayerClothing.Coat = -1
+        Citizen.InvokeNative(0xD710A5007C2AC539, __player, Config.HashList.Coat, 0)
+    end
+    if category == "Pant" then
+        if GetGender() == "female" then
             PlayerClothing.Skirt = -1
             Citizen.InvokeNative(0xD710A5007C2AC539, __player, Config.HashList.Skirt, 0)
-            Citizen.InvokeNative(0xD710A5007C2AC539, __player, Config.HashList.Boots, 0)
-        else
-            Citizen.InvokeNative(0xD710A5007C2AC539, __player, Config.HashList.Boots, 0) -- remove boots when choosing pants so we apply it later for clipping issues
         end
-        if category == "Skirt" and GetGender() == "female" then
-            PlayerClothing.Pant = -1
-            Citizen.InvokeNative(0xD710A5007C2AC539, __player, Config.HashList.Pant, 0)
-        end
-    end)
+        Citizen.InvokeNative(0xD710A5007C2AC539, __player, Config.HashList.Boots, 0)
+    end
+    if category == "Skirt" and GetGender() == "female" then
+        PlayerClothing.Pant = -1
+        Citizen.InvokeNative(0xD710A5007C2AC539, __player, Config.HashList.Pant, 0)
+    end
+
 
     Citizen.InvokeNative(0xD710A5007C2AC539, __player, Config.HashList[category], 0)
     UpdateVariation(__player)
