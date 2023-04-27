@@ -1575,7 +1575,7 @@ function OpenMakeupMenu(table)
             subtext = T.MenuMakeup.subtitle,
             align = Config.Align,
             elements = elements,
-            lastmenu = "OpenFaceMenu"
+            lastmenu = "OpenAppearanceMenu"
         },
 
         function(data, menu)
