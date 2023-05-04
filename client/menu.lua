@@ -211,11 +211,7 @@ function OpenCharCreationMenu(clothingtable)
                 TriggerServerEvent("vorpcharacter:saveCharacter", PlayerSkin, PlayerClothing, FirstName, LastName)
                 CachedComponents = PlayerClothing
                 CachedSkin = PlayerSkin
-
-                DoScreenFadeOut(500)
-                Wait(1000)
                 __CloseAll()
-                DoScreenFadeIn(5000)
             end
         end, function(data, menu)
 
