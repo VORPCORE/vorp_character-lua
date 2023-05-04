@@ -211,7 +211,11 @@ function OpenCharCreationMenu(clothingtable)
                 TriggerServerEvent("vorpcharacter:saveCharacter", PlayerSkin, PlayerClothing, FirstName, LastName)
                 CachedComponents = PlayerClothing
                 CachedSkin = PlayerSkin
+
+                DoScreenFadeOut(500)
+                Wait(1000)
                 __CloseAll()
+                DoScreenFadeIn(5000)
             end
         end, function(data, menu)
 
@@ -329,7 +333,7 @@ function OpenComponentMenu(table, category, label)
                     info = #table[category], -- table of all components will need an index to get hex value
                     min = 0,
                     max = #table[category],  -- quantity of components
-                    desc = string.format(imgPath .. T.MenuComponents.element.desc .. " %d  %s", category,
+                    desc = string.format(imgPath .. '<br>' .. T.MenuComponents.element.desc .. " %d  %s", category,
                         #table[category], label)
                     -- load image same name as category
                 }
@@ -364,7 +368,7 @@ function OpenAppearanceMenu(clothingtable)
         {
             label = T.MenuAppearance.element.label,
             value = "body",
-            desc = imgPath:format("character_creator_build") .. T.MenuAppearance.element.desc
+            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuAppearance.element.desc
         },
         {
             label = T.MenuAppearance.element2.label,
@@ -374,12 +378,12 @@ function OpenAppearanceMenu(clothingtable)
         {
             label = T.MenuAppearance.element3.label,
             value = "hair",
-            desc = imgPath:format("character_creator_hair") .. T.MenuAppearance.element3.desc
+            desc = imgPath:format("character_creator_hair") .. "<br>" .. T.MenuAppearance.element3.desc
         },
         {
             label = T.MenuAppearance.element4.label,
             value = "age",
-            desc = imgPath:format("character_creator_appearance") .. T.MenuAppearance.element4.desc
+            desc = imgPath:format("character_creator_appearance") .. "<br>" .. T.MenuAppearance.element4.desc
         },
         {
             label = heightLabel,
@@ -392,17 +396,17 @@ function OpenAppearanceMenu(clothingtable)
             short = 1,
             tall = 3,
             normal = 2,
-            desc = imgPath:format("character_creator_appearance") .. T.MenuAppearance.element5.desc
+            desc = imgPath:format("character_creator_appearance") .. "<br>" .. T.MenuAppearance.element5.desc
         },
         {
             label = T.MenuAppearance.element6.label,
             value = "face",
-            desc = imgPath:format("character_creator_head") .. T.MenuAppearance.element6.desc
+            desc = imgPath:format("character_creator_head") .. "<br>" .. T.MenuAppearance.element6.desc
         },
         {
             label = T.MenuAppearance.element7.label,
             value = "lifestyle",
-            desc = imgPath:format("character_creator_lifestyle") .. T.MenuAppearance.element7.desc
+            desc = imgPath:format("character_creator_lifestyle") .. "<br>" .. T.MenuAppearance.element7.desc
         },
 
     }
@@ -411,7 +415,7 @@ function OpenAppearanceMenu(clothingtable)
     elements[#elements + 1] = {
         label = T.MenuAppearance.element8.label,
         value = "makeup",
-        desc = imgPath:format("character_creator_makeup") .. T.MenuAppearance.element8.desc
+        desc = imgPath:format("character_creator_makeup") .. "<br>" .. T.MenuAppearance.element8.desc
     }
     -- end
 
@@ -571,42 +575,42 @@ function OpenBodyMenu(table)
 
         {
             -- skin color
-            label = T.MenuBody.element2.label .. #Config.BodyType.Waist,
+            label = T.MenuBody.element2.label,
             type = "slider",
             value = 0,
             tag = "waist",
             comp = Config.BodyType.Waist,
             min = -1,
             max = #Config.BodyType.Waist, -- get color index and update when component changes
-            desc = imgPath:format("character_creator_build") .. "<br>" ..
-                T.MenuBody.element2.desc .. #Config.BodyType.Waist .. T.MenuBody.element2.desc2
+            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element2.desc .. 
+                #Config.BodyType.Waist .. ' ' .. T.MenuBody.element2.desc2
             -- load image same name as category
         },
 
         {
             -- skin color
-            label = "Torso",
+            label = T.MenuBody.element3.label,
             type = "slider",
             value = 0,
             comp = Config.DefaultChar[gender],
             min = 0,
             max = #Config.DefaultChar[gender][__SKINCOLOR].Body, -- get color index and update when component changes
-            desc = imgPath:format("character_creator_build") ..
-                "<br>" .. "types # <br>" .. #Config.DefaultChar[gender][__SKINCOLOR].Body,
+            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element3.desc .. 
+                #Config.DefaultChar[gender][__SKINCOLOR].Body,
             tag = "Body",
             option = "type"
         },
 
         {
             -- skin color
-            label = "Legs",
+            label = T.MenuBody.element4.label,
             type = "slider",
             value = 0,
             comp = Config.DefaultChar[gender],
             min = 0,
             max = #Config.DefaultChar[gender][__SKINCOLOR].Legs, -- get color index and update when component changes
-            desc = imgPath:format("character_creator_build") ..
-                "<br>" .. "types # <br>" .. #Config.DefaultChar[gender][__SKINCOLOR].Legs,
+            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element4.desc .. 
+                #Config.DefaultChar[gender][__SKINCOLOR].Legs,
             tag = "Legs",
             option = "type"
         },
@@ -671,11 +675,9 @@ function OpenHerritageMenu(table)
         info = Config.DefaultChar[gender],
         min = 0,
         max = #Config.DefaultChar[gender],
-        desc = T.MenuHeritage.element.desc .. #Config.DefaultChar[gender] .. T.MenuHeritage.element.desc2,
+        desc = T.MenuHeritage.element.desc .. #Config.DefaultChar[gender] ..' '.. T.MenuHeritage.element.desc2,
         tag = "heritage"
     }
-
-
 
     MenuData.Open('default', GetCurrentResourceName(), 'menuapi',
         {
@@ -765,7 +767,7 @@ function OpenHerritageMenu(table)
                         min = 0,
                         max = #data.current.info[data.current.value].Heads, -- get color index and update when component changes
                         desc = T.MenuHeritage.element3.desc ..
-                            #data.current.info[data.current.value].Heads .. T.MenuHeritage.element3.desc2,
+                            #data.current.info[data.current.value].Heads .. ' ' .. T.MenuHeritage.element3.desc2,
                         tag = "color"
                     }
 
@@ -887,12 +889,10 @@ function OpenHairSelectionMenu(tablehair, table, label, category)
             info = tablehair, -- table of all components will need an index to get hex value
             min = 0,
             max = #tablehair, -- quantity of components
-            desc = T.MenuHairSelection.element.desc .. #tablehair .. T.MenuHairSelection.element.desc2 .. label,
+            desc = T.MenuHairSelection.element.desc .. #tablehair .. ' ' .. T.MenuHairSelection.element.desc2 .. label,
             tag = "component",
         },
-
     }
-
 
     MenuData.Open('default', GetCurrentResourceName(), 'menuapi',
         {
@@ -973,7 +973,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category)
                         min = 0,
                         max = #tablehair[data.current.value],
                         desc = T.MenuHairSelection.element2.desc ..
-                            #tablehair[data.current.value] .. T.MenuHairSelection.element2.desc2,
+                            #tablehair[data.current.value] .. ' ' .. T.MenuHairSelection.element2.desc2,
                         tag = "color"
                     }
                     menu.setElements(elements1)
