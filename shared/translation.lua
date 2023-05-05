@@ -173,7 +173,7 @@ Translation.Langs = {
             element8 = { label = "Opacity", desc = "Choose makeup  of your character" },
         },
     },
-    Portugues = {
+    Portuges_BR = {
         promptselect = "| Personagem selecionado:  ~o~",
         promptselect2 = "~q~ | Dinheiro: ~o~",
         promptlabel_select = " selecione o gênero",
