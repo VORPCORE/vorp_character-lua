@@ -339,12 +339,14 @@ function CharSelect()
 	DoScreenFadeIn(1000)
 end
 
+RegisterNetEvent("vorpcharacter:reloadafterdeath")
 AddEventHandler("vorpcharacter:reloadafterdeath", function()
-	--LoadPlayer(joaat("CS_dutch"))
-	--Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat("CS_dutch"), false)
-	--UpdateVariation(PlayerPedId())
-	Wait(1000)
+	LoadPlayer(joaat("CS_dutch"))
+	Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat("CS_dutch"), false)
+	IsPedReadyToRender()
+	Wait(500)
 	ExecuteCommand("rc")
+	SetModelAsNoLongerNeeded(joaat("CS_dutch"))
 end)
 
 
@@ -379,9 +381,17 @@ local function LoadComps(ped, components)
 end
 
 function LoadPlayerComponents(ped, skin, components)
-	TriggerServerEvent("vorpcharacter:reloadedskinlistener")
 	local normal
 	local gender
+
+	if joaat(skin.sex) ~= GetEntityModel(ped) then
+		LoadPlayer(joaat(skin.sex))
+		Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat(skin.sex), false)
+		IsPedReadyToRender()
+		Citizen.InvokeNative(0xA91E6CF94404E8C9, ped)
+		ped = PlayerPedId()
+		SetModelAsNoLongerNeeded(joaat(skin.sex))
+	end
 
 	if skin.sex ~= "mp_male" then
 		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 7, true)
@@ -393,10 +403,13 @@ function LoadPlayerComponents(ped, skin, components)
 		gender = "Male"
 	end
 
+
+
 	Citizen.InvokeNative(0x0BFA1BD465CDFEFD, ped) -- ResetPedComponents
 	IsPedReadyToRender()
 	Wait(100)
 	RemoveMetaTags(PlayerPedId())
+	Wait(200)
 	local count = 0
 	local uCount = 1
 	for _, v in pairs(Config.DefaultChar[gender]) do
@@ -475,6 +488,7 @@ function LoadPlayerComponents(ped, skin, components)
 		skin.grime_opacity)
 
 	Wait(200)
+	TriggerServerEvent("vorpcharacter:reloadedskinlistener") -- this event can be listened to whenever u need to listen for rc
 	Citizen.InvokeNative(0xD710A5007C2AC539, ped, 0x3F1F01E5, 0)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
 end
