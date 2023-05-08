@@ -47,17 +47,18 @@ Config.selectedCharacter = {
     }
 }
 
+-- Keyboards
 Config.keys = {
-    prompt_create = { key = 0x9959A6F0, name = "Create new" },
-    prompt_delete = { key = 0x3F4DC0EF, name = "Delete current" },
-    prompt_swap = { key = 0xA65EBAB4, name = "swap char" },
-    prompt_select = { key = 0xC7B5340A, name = "select char" },
-    prompt_choose_gender = { key = 0xA65EBAB4, name = "Male" },
-    prompt_choose_gender1 = { key = 0xDEB34313, name = "Female" },
-    prompt_select_gender = { key = 0xD9D0E1C0, name = "Select" },
-    prompt_camera_ws = { key = 0x8FD015D8, key2 = 0xD27782E3, name = "up/down" },
-    prompt_camera_rotate = { key = 0x7065027D, key2 = 0xB4E465B4, name = 'rotate' },
-    prompt_zoom = { key = 0x8BDE7443, key2 = 0x62800C92, name = 'zoom' },
+    prompt_create = { key = 0x9959A6F0 },                           -- [ C ]
+    prompt_delete = { key = 0x3F4DC0EF },                           -- [ DELETE ]
+    prompt_swap = { key = 0xA65EBAB4 },                             -- [ LEFT ARROW ]
+    prompt_select = { key = 0xC7B5340A },                           -- [ NUM ENTER ]
+    prompt_choose_gender_M = { key = 0xA65EBAB4 },                  -- [ LEFT ARROW  ]
+    prompt_choose_gender_F = { key = 0xDEB34313 },                  -- [ RIGHT ARROW ]
+    prompt_select_gender = { key = 0xD9D0E1C0 },                    -- [ SPACE ]
+    prompt_camera_ws = { key = 0x8FD015D8, key2 = 0xD27782E3 },     -- [ W ] and [ S ]
+    prompt_camera_rotate = { key = 0x7065027D, key2 = 0xB4E465B4 }, -- [ A ] and [ D ]
+    prompt_zoom = { key = 0x8BDE7443, key2 = 0x62800C92 },          -- [ MOUSE SCROLL DOWN ] and [ MOUSE SCROLL UP ]
 }
 
 Config.commands = {

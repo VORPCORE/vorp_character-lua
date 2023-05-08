@@ -20,7 +20,7 @@ CachedComponents = {}
 
 
 local function RegisterPrompts()
-	local str = Config.keys.prompt_create.name
+	local str = T.PromptLabels.promptcreateNew
 	createPrompt = PromptRegisterBegin()
 	PromptSetControlAction(createPrompt, Config.keys.prompt_create.key)
 	str = CreateVarString(10, 'LITERAL_STRING', str)
@@ -31,7 +31,7 @@ local function RegisterPrompts()
 	PromptSetGroup(createPrompt, PromptGroup)
 	PromptRegisterEnd(createPrompt)
 
-	local dstr = Config.keys.prompt_delete.name
+	local dstr = T.PromptLabels.promptdeleteCurrent
 	deletePrompt = PromptRegisterBegin()
 	PromptSetControlAction(deletePrompt, Config.keys.prompt_delete.key)
 	dstr = CreateVarString(10, 'LITERAL_STRING', dstr)
@@ -42,7 +42,7 @@ local function RegisterPrompts()
 	PromptSetGroup(deletePrompt, PromptGroup)
 	PromptRegisterEnd(deletePrompt)
 
-	local dstr = Config.keys.prompt_swap.name
+	local dstr = T.PromptLabels.promptswapChar
 	swapPrompt = PromptRegisterBegin()
 	PromptSetControlAction(swapPrompt, Config.keys.prompt_swap.key)
 	dstr = CreateVarString(10, 'LITERAL_STRING', dstr)
@@ -53,7 +53,7 @@ local function RegisterPrompts()
 	PromptSetGroup(swapPrompt, PromptGroup)
 	PromptRegisterEnd(swapPrompt)
 
-	local dstr = Config.keys.prompt_select.name
+	local dstr = T.PromptLabels.promptselectChar
 	selectPrompt = PromptRegisterBegin()
 	PromptSetControlAction(selectPrompt, Config.keys.prompt_select.key)
 	dstr = CreateVarString(10, 'LITERAL_STRING', dstr)
@@ -206,7 +206,7 @@ function Controller()
 				local fullname = (firstname .. " " .. lastname) or ""
 
 				local label = CreateVarString(10, 'LITERAL_STRING',
-					T.promptselect .. fullname .. T.promptselect2 .. myChars[selectedChar].money)
+					T.PromptLabels.promptselect .. fullname .. T.PromptLabels.promptselect2 .. myChars[selectedChar].money)
 				PromptSetActiveGroupThisFrame(PromptGroup, label)
 
 				-- this needs to be prompts
