@@ -1086,65 +1086,69 @@ Config.Teeth = {
         },
     }
 }
--- dont touch this
+-- *TRANSLATE ["inside here"] beloow
+
 Config.FaceFeatures = {
     head = {
-        width = { hash = 0x84D6, comp = "HeadSize" }, -- head width
+        ["width"] = { -- TRANSLATE THIS
+            hash = 0x84D6,
+            comp = "HeadSize"
+        },
     },
     eyesandbrows = {
-        heightbrows = { hash = 0x3303, comp = "EyeBrowH" },
-        widthbrows = { hash = 0x2FF9, comp = "EyeBrowW" },
-        depthbrows = { hash = 0x4AD1, comp = "EyeBrowD" },
-        deptheyes = { hash = 0xEE44, comp = "EyeD" },
-        angleeyes = { hash = 0xD266, comp = "EyeAng" },
-        distanceeyes = { hash = 0xA54E, comp = "EyeDis" },
-        heighteyes = { hash = 0xDDFB, comp = "EyeH" },
-        heighteyelid = { hahs = 0x8B2B, comp = "EyeLidH" },
-        widtheyelid = { hash = 0x1B6B, comp = "EyeLidW" },
+        ["heightbrows"] = { hash = 0x3303, comp = "EyeBrowH" },
+        ["widthbrows"] = { hash = 0x2FF9, comp = "EyeBrowW" },
+        ["depthbrows"] = { hash = 0x4AD1, comp = "EyeBrowD" },
+        ["deptheyes"] = { hash = 0xEE44, comp = "EyeD" },
+        ["angleeyes"] = { hash = 0xD266, comp = "EyeAng" },
+        ["distanceeyes"] = { hash = 0xA54E, comp = "EyeDis" },
+        ["heighteyes"] = { hash = 0xDDFB, comp = "EyeH" },
+        ["heighteyelid"] = { hahs = 0x8B2B, comp = "EyeLidH" },
+        ["widtheyelid"] = { hash = 0x1B6B, comp = "EyeLidW" },
     },
     ears = {
-        width = { hash = 0xC04F, comp = "EarsW" },
-        angle = { hash = 0xB6CE, comp = "EarsL" },
-        height = { hash = 0x2844, comp = "EarsH" },
-        size = { hash = 0xED30, comp = "EarsD" },
+        ["width"] = { hash = 0xC04F, comp = "EarsW" },
+        ["angle"] = { hash = 0xB6CE, comp = "EarsL" },
+        ["height"] = { hash = 0x2844, comp = "EarsH" },
+        ["size"] = { hash = 0xED30, comp = "EarsD" },
     },
     cheek = {
-        height = { hash = 0x6A0B, comp = "CheekBonesH" },
-        width = { hash = 0xABCF, comp = "CheekBonesW" },
-        depth = { hash = 0x358D, comp = "CheekBonesD" },
+        ["height"] = { hash = 0x6A0B, comp = "CheekBonesH" },
+        ["width"] = { hash = 0xABCF, comp = "CheekBonesW" },
+        ["depth"] = { hash = 0x358D, comp = "CheekBonesD" },
     },
     jaw = {
-        height = { hash = 0x8D0A, comp = "JawH" },
-        width = { hash = 0xEBAE, comp = "JawW" },
-        depth = { hash = 0x1DF6, comp = "JawD" },
+        ["height"] = { hash = 0x8D0A, comp = "JawH" },
+        ["width"] = { hash = 0xEBAE, comp = "JawW" },
+        ["depth"] = { hash = 0x1DF6, comp = "JawD" },
     },
     chin = {
-        height = { hash = 0x3C0F, comp = "ChinH" },
-        width = { hash = 0xC3B2, comp = "ChinW" },
-        depth = { hash = 0xE323, comp = "ChinD" },
+        ["height"] = { hash = 0x3C0F, comp = "ChinH" },
+        ["width"] = { hash = 0xC3B2, comp = "ChinW" },
+        ["depth"] = { hash = 0xE323, comp = "ChinD" },
     },
     nose = {
-        width = { hash = 0x6E7F, comp = "NoseW" },
-        size = { hash = 0x3471, comp = "NoseS" },
-        height = { hash = 0x03F5, comp = "NoseH" },
-        angle = { hash = 0x34B1, comp = "NoseAng" },
-        curvature = { hash = 0xF156, comp = "NoseC" },
-        distance = { hash = 0x561E, comp = "NoseDis" },
+        ["width"] = { hash = 0x6E7F, comp = "NoseW" },
+        ["size"] = { hash = 0x3471, comp = "NoseS" },
+        ["height"] = { hash = 0x03F5, comp = "NoseH" },
+        ["angle"] = { hash = 0x34B1, comp = "NoseAng" },
+        ["curvature"] = { hash = 0xF156, comp = "NoseC" },
+        ["distance"] = { hash = 0x561E, comp = "NoseDis" },
     },
     mouthandlips = {
-        widthmouth = { hash = 0xF065, comp = "MouthW" },
-        depthMouth = { hash = 0xAA69, comp = "MouthD" },
-        MouthdistanceX = { hash = 0x7AC3, comp = "MouthX" },
-        MouthdistanceY = { hash = 0x410D, comp = "MouthY" },
-        heightupper = { hash = 0x1A00, comp = "ULiphH" },
-        widthupper = { hash = 0x91C1, comp = "ULiphW" },
-        depthupper = { hash = 0xC375, comp = "ULiphD" },
-        heightlower = { hash = 0xBB4D, comp = "LLiphH" },
-        widthlower = { hash = 0xB0B0, comp = "LLiphW" },
-        depthlower = { hash = 0x5D16, comp = "LLiphD" },
+        ["widthmouth"] = { hash = 0xF065, comp = "MouthW" },
+        ["depthMouth"] = { hash = 0xAA69, comp = "MouthD" },
+        ["MouthdistanceX"] = { hash = 0x7AC3, comp = "MouthX" },
+        ["MouthdistanceY"] = { hash = 0x410D, comp = "MouthY" },
+        ["heightupper"] = { hash = 0x1A00, comp = "ULiphH" },
+        ["widthupper"] = { hash = 0x91C1, comp = "ULiphW" },
+        ["depthupper"] = { hash = 0xC375, comp = "ULiphD" },
+        ["heightlower"] = { hash = 0xBB4D, comp = "LLiphH" },
+        ["widthlower"] = { hash = 0xB0B0, comp = "LLiphW" },
+        ["depthlower"] = { hash = 0x5D16, comp = "LLiphD" },
     },
 }
---* remove
+
 Config.HashList = {
     Gunbelt     = 0x9B2C8B89,
     Mask        = 0x7505EF42,
