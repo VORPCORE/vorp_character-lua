@@ -16,6 +16,7 @@ local selectRight
 local selectEnter
 local PromptGroup1 = GetRandomIntInRange(0, 0xffffff)
 local PromptGroup2 = GetRandomIntInRange(0, 0xffffff)
+T = Translation.Langs[Lang]
 
 --GLOBALS
 VORPcore = {}
@@ -32,9 +33,9 @@ end)
 --PROMPTS
 CreateThread(function()
 	local C = Config.keys
-	local str = C.prompt_choose_gender.name
+	local str = T.PromptLabels.promptsexMale
 	selectLeft = PromptRegisterBegin()
-	PromptSetControlAction(selectLeft, C.prompt_choose_gender.key) -- add to config
+	PromptSetControlAction(selectLeft, C.prompt_choose_gender_M.key) -- add to config
 	str = CreateVarString(10, 'LITERAL_STRING', str)
 	PromptSetText(selectLeft, str)
 	PromptSetEnabled(selectLeft, 1)
@@ -43,9 +44,9 @@ CreateThread(function()
 	PromptSetGroup(selectLeft, PromptGroup1)
 	PromptRegisterEnd(selectLeft)
 
-	local str = C.prompt_choose_gender1.name
+	local str = T.PromptLabels.promptsexFemale
 	selectRight = PromptRegisterBegin()
-	PromptSetControlAction(selectRight, C.prompt_choose_gender1.key)
+	PromptSetControlAction(selectRight, C.prompt_choose_gender_F.key)
 	str = CreateVarString(10, 'LITERAL_STRING', str)
 	PromptSetText(selectRight, str)
 	PromptSetEnabled(selectRight, 1)
@@ -55,7 +56,7 @@ CreateThread(function()
 	PromptRegisterEnd(selectRight)
 
 
-	local str = C.prompt_select_gender.name
+	local str = T.PromptLabels.promptselectConfirm
 	selectEnter = PromptRegisterBegin()
 	PromptSetControlAction(selectEnter, C.prompt_select_gender.key)
 	str = CreateVarString(10, 'LITERAL_STRING', str)
@@ -123,15 +124,15 @@ AddEventHandler("vorpcharacter:startCharacterCreator", function(skin, components
 			-- add prompts instead
 			if not IsInCharCreation then
 				if isSelectSexActive and not IsCamActive(cameraFemale) and not IsCamActive(cameraMale) then
-					Label = CreateVarString(10, "LITERAL_STRING", T.promptlabel_select)
+					Label = CreateVarString(10, "LITERAL_STRING", T.PromptLabels.promptlabel_select)
 				end
 
 				if IsCamActive(cameraFemale) and isSelectSexActive then
-					Label = CreateVarString(10, "LITERAL_STRING", T.promptlabel_female)
+					Label = CreateVarString(10, "LITERAL_STRING", T.PromptLabels.promptlabel_female)
 				end
 
 				if IsCamActive(cameraMale) and isSelectSexActive then
-					Label = CreateVarString(10, "LITERAL_STRING", T.promptlabel_male)
+					Label = CreateVarString(10, "LITERAL_STRING", T.PromptLabels.promptlabel_male)
 				end
 
 				PromptSetActiveGroupThisFrame(PromptGroup1, Label)
@@ -203,7 +204,7 @@ end)
 
 function RegisterGenderPrompt()
 	local C = Config.keys
-	local str = C.prompt_camera_ws.name
+	local str = T.PromptLabels.promptUpDownCam
 	down = PromptRegisterBegin()
 	PromptSetControlAction(down, C.prompt_camera_ws.key)
 	PromptSetControlAction(down, C.prompt_camera_ws.key2)
@@ -216,7 +217,7 @@ function RegisterGenderPrompt()
 	PromptRegisterEnd(down)
 
 
-	str = C.prompt_camera_rotate.name
+	str = T.PromptLabels.promptrotateCam
 	right = PromptRegisterBegin()
 	PromptSetControlAction(right, 0x7065027D)
 	PromptSetControlAction(right, 0xB4E465B4)
@@ -229,7 +230,7 @@ function RegisterGenderPrompt()
 	PromptSetGroup(right, PromptGroup2)
 	PromptRegisterEnd(right)
 
-	str = C.prompt_zoom.name
+	str = T.PromptLabels.promptzoomCam
 	zoomout = PromptRegisterBegin()
 	PromptSetControlAction(zoomout, C.prompt_zoom.key)
 	PromptSetControlAction(zoomout, C.prompt_zoom.key2)
