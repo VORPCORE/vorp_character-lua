@@ -444,7 +444,9 @@ Translation.Langs = {
             title = "Corpo",
             subtitle = "Sub Menu",
             element = { label = "Tipo do corpo", desc = "existem ", },
-            element2 = { label = "Cintura #", desc = "existem #", desc2 = "tipos de cintura" },
+            element2 = { label = "Cintura", desc = "Existem #", desc2 = "Tipos de Cintura" },
+            element3 = { label = "Torso", desc = "Existem " },
+            element4 = { label = "Legs", desc = "Existem " },
         },
         MenuHeritage = {
             title = "Herança",
