@@ -206,8 +206,7 @@ function Controller()
 				local fullname = (firstname .. " " .. lastname) or ""
 
 				local label = CreateVarString(10, 'LITERAL_STRING',
-					T.PromptLabels.promptselect ..
-					fullname .. T.PromptLabels.promptselect2 .. myChars[selectedChar].money)
+					T.PromptLabels.promptselect .. fullname .. T.PromptLabels.promptselect2 .. myChars[selectedChar].money)
 				PromptSetActiveGroupThisFrame(PromptGroup, label)
 
 				-- this needs to be prompts
@@ -390,26 +389,26 @@ function LoadPlayerComponents(ped, skin, components)
 		Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat(skin.sex), false)
 		IsPedReadyToRender()
 		Citizen.InvokeNative(0xA91E6CF94404E8C9, ped)
-		__Player = PlayerPedId()
+		ped = PlayerPedId()
 		SetModelAsNoLongerNeeded(joaat(skin.sex))
 	end
 
 	if skin.sex ~= "mp_male" then
-		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, __Player, 7, true)
+		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 7, true)
 		normal = joaat("head_fr1_mp_002_nm")
 		gender = "Female"
 	else
-		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, __Player, 4, true)
+		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 4, true)
 		normal = joaat("mp_head_mr1_000_nm")
 		gender = "Male"
 	end
 
 
 
-	Citizen.InvokeNative(0x0BFA1BD465CDFEFD, __Player) -- ResetPedComponents
+	Citizen.InvokeNative(0x0BFA1BD465CDFEFD, ped) -- ResetPedComponents
 	IsPedReadyToRender()
 	Wait(100)
-	RemoveMetaTags(__Player)
+	RemoveMetaTags(PlayerPedId())
 	Wait(200)
 	local count = 0
 	local uCount = 1
@@ -435,30 +434,24 @@ function LoadPlayerComponents(ped, skin, components)
 	if skin.LegsType == 0 then
 		skin.LegsType = tonumber("0x" .. Config.DefaultChar[gender][uCount].Legs[1])
 	end
-	if skin.Torso == 0 or nil then
-		skin.Torso = tonumber("0x" .. Config.DefaultChar[gender][uCount].Body[1])
-	end
 
 	--Preload
-
 	Citizen.InvokeNative(0xC5E7204F322E49EB, skin.albedo, normal, 0x7FC5B1E1)
-	Citizen.InvokeNative(0xCC8CA3E88256E58F, __Player, true, true, true, false)
-	Citizen.InvokeNative(0xD3A7B003ED343FD9, __Player, skin.HeadType, false, true, true)
-	Citizen.InvokeNative(0xD3A7B003ED343FD9, __Player, skin.BodyType, false, true, true)
-	Citizen.InvokeNative(0xD3A7B003ED343FD9, __Player, skin.LegsType, false, true, true)
-	Citizen.InvokeNative(0xD3A7B003ED343FD9, __Player, skin.Eyes, false, true, true)
-	Citizen.InvokeNative(0x1902C4CFCC5BE57C, __Player, skin.Waist)
-	Citizen.InvokeNative(0x1902C4CFCC5BE57C, __Player, skin.Body)
-	Citizen.InvokeNative(0x1902C4CFCC5BE57C, __Player, skin.Torso)
-	Citizen.InvokeNative(0xD3A7B003ED343FD9, __Player, skin.Legs, true, true, true)
-	Citizen.InvokeNative(0xD3A7B003ED343FD9, __Player, skin.Hair, false, true, true)
-	Citizen.InvokeNative(0xD3A7B003ED343FD9, __Player, skin.Beard, false, true, true)
+	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
+	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.HeadType, false, true, true)
+	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.BodyType, false, true, true)
+	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.LegsType, false, true, true)
+	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.Eyes, false, true, true)
+	Citizen.InvokeNative(0x1902C4CFCC5BE57C, PlayerPedId(), skin.Waist)
+	Citizen.InvokeNative(0x1902C4CFCC5BE57C, PlayerPedId(), skin.Body)
+	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.Hair, false, true, true)
+	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.Beard, false, true, true)
 
 	Wait(100)
-	SetPedScale(__Player, skin.Scale)
-	LoadFaceFeatures(__Player, skin)
-	LoadComps(__Player, components)
-	UpdateVariation(__player)
+	SetPedScale(PlayerPedId(), skin.Scale)
+	LoadFaceFeatures(PlayerPedId(), skin)
+	LoadComps(PlayerPedId(), components)
+	UpdateVariation(ped)
 
 	-- Setup our face textures
 	faceOverlay("beardstabble", skin.beardstabble_visibility, 1, 1, 0, 0, 1.0, 0, 1,
@@ -496,8 +489,8 @@ function LoadPlayerComponents(ped, skin, components)
 
 	Wait(200)
 	TriggerServerEvent("vorpcharacter:reloadedskinlistener") -- this event can be listened to whenever u need to listen for rc
-	Citizen.InvokeNative(0xD710A5007C2AC539, __Player, 0x3F1F01E5, 0)
-	Citizen.InvokeNative(0xCC8CA3E88256E58F, __Player, true, true, true, false)
+	Citizen.InvokeNative(0xD710A5007C2AC539, ped, 0x3F1F01E5, 0)
+	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false)
 end
 
 function faceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id,
@@ -638,9 +631,6 @@ function LoadCharacterSelect(ped, skin, components)
 	if skin.LegsType == 0 then
 		skin.LegsType = tonumber("0x" .. Config.DefaultChar[gender][uCount].Legs[1])
 	end
-	if skin.Torso == 0 or nil then
-		skin.Torso = tonumber("0x" .. Config.DefaultChar[gender][uCount].Body[1])
-	end
 
 	--Preload
 	Citizen.InvokeNative(0xC5E7204F322E49EB, skin.albedo, normal, 0x7FC5B1E1)
@@ -653,8 +643,6 @@ function LoadCharacterSelect(ped, skin, components)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, pedHandler, skin.Beard, true, true, false)
 	Citizen.InvokeNative(0x1902C4CFCC5BE57C, pedHandler, skin.Waist)
 	Citizen.InvokeNative(0x1902C4CFCC5BE57C, pedHandler, skin.Body)
-	Citizen.InvokeNative(0x1902C4CFCC5BE57C, pedHandler, skin.Torso)
-	Citizen.InvokeNative(0xD3A7B003ED343FD9, pedHandler, skin.Legs, true, true, true)
 	SetPedScale(pedHandler, skin.Scale)
 	LoadFaceFeatures(pedHandler, skin)
 	LoadComps(pedHandler, components)

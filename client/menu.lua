@@ -578,7 +578,7 @@ function OpenBodyMenu(table)
             comp = Config.BodyType.Waist,
             min = -1,
             max = #Config.BodyType.Waist, -- get color index and update when component changes
-            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element2.desc ..
+            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element2.desc .. 
                 #Config.BodyType.Waist .. ' ' .. T.MenuBody.element2.desc2
             -- load image same name as category
         },
@@ -591,11 +591,10 @@ function OpenBodyMenu(table)
             comp = Config.DefaultChar[gender],
             min = 0,
             max = #Config.DefaultChar[gender][__SKINCOLOR].Body, -- get color index and update when component changes
-            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element3.desc ..
+            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element3.desc .. 
                 #Config.DefaultChar[gender][__SKINCOLOR].Body,
             tag = "Body",
-            option = "type",
-            tags = "Torso"
+            option = "type"
         },
 
         {
@@ -606,11 +605,10 @@ function OpenBodyMenu(table)
             comp = Config.DefaultChar[gender],
             min = 0,
             max = #Config.DefaultChar[gender][__SKINCOLOR].Legs, -- get color index and update when component changes
-            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element4.desc ..
+            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element4.desc .. 
                 #Config.DefaultChar[gender][__SKINCOLOR].Legs,
             tag = "Legs",
-            option = "type",
-            tags = "Legs"
+            option = "type"
         },
     }
 
@@ -630,10 +628,10 @@ function OpenBodyMenu(table)
 
             if data.current.option == "type" then
                 if data.current.value > 0 then
-                    local index                   = data.current.value
-                    local Comp                    = Config.DefaultChar[gender][__SKINCOLOR]
-                    local compType                = tonumber("0x" .. Comp[data.current.tag][index])
-                    PlayerSkin[data.current.tags] = compType
+                    local index                  = data.current.value
+                    local Comp                   = Config.DefaultChar[gender][__SKINCOLOR]
+                    local compType               = tonumber("0x" .. Comp[data.current.tag][index])
+                    PlayerSkin[data.current.tag] = compType
                     ApplyComponentToPed(__player, compType)
                 end
             end
@@ -673,7 +671,7 @@ function OpenHerritageMenu(table)
         info = Config.DefaultChar[gender],
         min = 0,
         max = #Config.DefaultChar[gender],
-        desc = T.MenuHeritage.element.desc .. #Config.DefaultChar[gender] .. ' ' .. T.MenuHeritage.element.desc2,
+        desc = T.MenuHeritage.element.desc .. #Config.DefaultChar[gender] ..' '.. T.MenuHeritage.element.desc2,
         tag = "heritage"
     }
 
