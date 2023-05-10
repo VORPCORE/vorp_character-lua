@@ -206,7 +206,8 @@ function Controller()
 				local fullname = (firstname .. " " .. lastname) or ""
 
 				local label = CreateVarString(10, 'LITERAL_STRING',
-					T.PromptLabels.promptselect .. fullname .. T.PromptLabels.promptselect2 .. myChars[selectedChar].money)
+					T.PromptLabels.promptselect ..
+					fullname .. T.PromptLabels.promptselect2 .. myChars[selectedChar].money)
 				PromptSetActiveGroupThisFrame(PromptGroup, label)
 
 				-- this needs to be prompts
@@ -434,6 +435,9 @@ function LoadPlayerComponents(ped, skin, components)
 	if skin.LegsType == 0 then
 		skin.LegsType = tonumber("0x" .. Config.DefaultChar[gender][uCount].Legs[1])
 	end
+	if skin.Torso == 0 or nil then
+		skin.Torso = tonumber("0x" .. Config.DefaultChar[gender][uCount].Body[1])
+	end
 
 	--Preload
 	Citizen.InvokeNative(0xC5E7204F322E49EB, skin.albedo, normal, 0x7FC5B1E1)
@@ -444,6 +448,8 @@ function LoadPlayerComponents(ped, skin, components)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.Eyes, false, true, true)
 	Citizen.InvokeNative(0x1902C4CFCC5BE57C, PlayerPedId(), skin.Waist)
 	Citizen.InvokeNative(0x1902C4CFCC5BE57C, PlayerPedId(), skin.Body)
+	Citizen.InvokeNative(0x1902C4CFCC5BE57C, PlayerPedId(), skin.Torso)
+	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.Legs, true, true, true)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.Hair, false, true, true)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), skin.Beard, false, true, true)
 
@@ -631,6 +637,9 @@ function LoadCharacterSelect(ped, skin, components)
 	if skin.LegsType == 0 then
 		skin.LegsType = tonumber("0x" .. Config.DefaultChar[gender][uCount].Legs[1])
 	end
+	if skin.Torso == 0 or nil then
+		skin.Torso = tonumber("0x" .. Config.DefaultChar[gender][uCount].Body[1])
+	end
 
 	--Preload
 	Citizen.InvokeNative(0xC5E7204F322E49EB, skin.albedo, normal, 0x7FC5B1E1)
@@ -643,6 +652,8 @@ function LoadCharacterSelect(ped, skin, components)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, pedHandler, skin.Beard, true, true, false)
 	Citizen.InvokeNative(0x1902C4CFCC5BE57C, pedHandler, skin.Waist)
 	Citizen.InvokeNative(0x1902C4CFCC5BE57C, pedHandler, skin.Body)
+	Citizen.InvokeNative(0x1902C4CFCC5BE57C, pedHandler, skin.Torso)
+	Citizen.InvokeNative(0xD3A7B003ED343FD9, pedHandler, skin.Legs, true, true, true)
 	SetPedScale(pedHandler, skin.Scale)
 	LoadFaceFeatures(pedHandler, skin)
 	LoadComps(pedHandler, components)
