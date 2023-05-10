@@ -430,12 +430,14 @@ function CreatePlayerModel(model, cam, ps)
 		end
 		Clothing[category] = categoryTable
 	end
-
-	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0)        -- remove meta tag
-	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false) -- update variation
-	SetEntityVisible(PlayerPedId(), true)
-	SetEntityInvincible(PlayerPedId(), true)
-	Citizen.InvokeNative(0x25ACFC650B65C538, PlayerPedId(), 1.0) -- scale
+	local __Player = PlayerPedId()
+	Citizen.InvokeNative(0xD710A5007C2AC539, __Player, 0x3F1F01E5, 0)
+	Citizen.InvokeNative(0xCC8CA3E88256E58F, __Player, true, true, true, false)
+	SetEntityVisible(__Player, true)
+	SetEntityInvincible(__Player, true)
+	Citizen.InvokeNative(0x25ACFC650B65C538, __Player, 1.0) -- scale
 	DoScreenFadeIn(3000)
+	Citizen.InvokeNative(0xC6258F41D86676E0, __Player, 1, 100)
+	Citizen.InvokeNative(0xC6258F41D86676E0, __Player, 0, 100)
 	OpenCharCreationMenu(Clothing)
 end

@@ -847,8 +847,10 @@ Translation.Langs = {
             element2 = { label = "Abstammung", desc = "Wähle die Abstammung deines Charakters" },
             element3 = { label = "Haare", desc = "Wähle die Haarart deines Charakters" },
             element4 = { label = "Alterung", desc = "Charakteralter " },
-            element5 = { label = "Größe",
-                desc = "Wähle die Art des Körpers deines Charakters<br> Groß 3 normal 2 klein 1 " },
+            element5 = {
+                label = "Größe",
+                desc = "Wähle die Art des Körpers deines Charakters<br> Groß 3 normal 2 klein 1 "
+            },
             element6 = { label = "Gesicht", desc = "Wähle Gesichtsmerkmale" },
             element7 = { label = "Lebensstil", desc = "Wähle den Lebensstil deines Charakters" },
             element8 = { label = "Make-up", desc = "Wähle Make-up" },
@@ -860,8 +862,11 @@ Translation.Langs = {
             title = "Alter",
             subtitle = "Untermenü",
             element = { label = "Alter", desc = "Wähle das Alter deines Charakters" },
-            element2 = { label = "Deckkraft", desc = "es gibt ",
-                desc2 = ". Wähle die Deckkraft des Alters deines Charakters" },
+            element2 = {
+                label = "Deckkraft",
+                desc = "es gibt ",
+                desc2 = ". Wähle die Deckkraft des Alters deines Charakters"
+            },
             label3 = "Nicht sichtbar",
             label4 = "Sichtbar ",
         },
@@ -1035,8 +1040,10 @@ Translation.Langs = {
             element2 = { label = "Herencia", desc = "Elige la herencia de tu personaje" },
             element3 = { label = "Pelo", desc = "Elige el tipo de cabello de tu personaje" },
             element4 = { label = "Envejecimiento", desc = "Edad del personaje " },
-            element5 = { label = "Altura",
-                desc = "Elige el tipo de cuerpo de tu personaje<br>3 = Alto<br>2 = Normal<br>1 = Bajo" },
+            element5 = {
+                label = "Altura",
+                desc = "Elige el tipo de cuerpo de tu personaje<br>3 = Alto<br>2 = Normal<br>1 = Bajo"
+            },
             element6 = { label = "Rostro", desc = "Elige características del rostro" },
             element7 = { label = "Estilo de vida", desc = "Elige el estilo de vida de tu personaje" },
             element8 = { label = "Maquillaje", desc = "Elige el maquillaje" },
@@ -1073,8 +1080,10 @@ Translation.Langs = {
             element = { label = "Pelo", desc = "Elige el pelo de tu personaje" },
             element2 = { label = "Barba", desc = "Elige la barba de tu personaje" },
             element3 = { label = "Barba corta", desc = "Elige la barba corta de tu personaje" },
-            element4 = { label = "Accesorios para el cabello",
-                desc = "Elige los accesorios para el cabello de tu personaje" },
+            element4 = {
+                label = "Accesorios para el cabello",
+                desc = "Elige los accesorios para el cabello de tu personaje"
+            },
             element5 = { label = "Cejas", desc = "Elige las cejas de tu personaje" },
         },
         MenuHairSelection = {
