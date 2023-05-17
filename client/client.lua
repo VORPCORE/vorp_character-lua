@@ -342,10 +342,12 @@ end
 
 RegisterNetEvent("vorpcharacter:reloadafterdeath")
 AddEventHandler("vorpcharacter:reloadafterdeath", function()
+	Wait(5000)
 	LoadPlayer(joaat("CS_dutch"))
 	Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat("CS_dutch"), false)
 	IsPedReadyToRender()
-	Wait(500)
+	ExecuteCommand("rc")
+	Wait(1000)
 	ExecuteCommand("rc")
 	SetModelAsNoLongerNeeded(joaat("CS_dutch"))
 end)
