@@ -333,9 +333,16 @@ function CharSelect()
 	DestroyCam(mainCamera, true)
 	RenderScriptCams(true, true, 1000, true, true, 0)
 	local coords = myChars[selectedChar].coords
-	local playerCoords = vector3(tonumber(coords.x), tonumber(coords.y), tonumber(coords.z))
+	local heading
+	local playerCoords
+	if not coords.x then
+		playerCoords = Config.SpawnCoords.position
+		heading = Config.SpawnCoords.heading
+	else
+		playerCoords = vector3(tonumber(coords.x), tonumber(coords.y), tonumber(coords.z))
+		heading = coords.heading
+	end
 	local isDead = myChars[selectedChar].isDead
-	local heading = coords.heading
 	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead)
 	DoScreenFadeIn(1000)
 end
