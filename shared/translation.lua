@@ -184,7 +184,8 @@ Translation.Langs = {
             element5 = { label = "Texture", desc = "Choose makeupof your character" },
             element6 = { label = "Color", desc = "Choose makeup of your character" },
             element7 = { label = "Color secondary", desc = "Choose makeup of your character" },
-            element8 = { label = "Opacity", desc = "Choose makeup  of your character" },
+            element8 = { label = "Variant", desc = "Choose the makeup variant" },
+            element9 = { label = "Opacity", desc = "Choose makeup  of your character" },
         },
     },
     Portugues_PT = {
@@ -370,7 +371,8 @@ Translation.Langs = {
             element5 = { label = "Texturas", desc = "Ajuste as Texturas" },
             element6 = { label = "Cor", desc = "Ajuste a Cor" },
             element7 = { label = "Cor Secundária", desc = "Ajuste a Cor Secundária" },
-            element8 = { label = "Visibilidade", desc = "Ajuste a Visibilidade" },
+            element8 = { label = "Variant", desc = "Choose the makeup variant" },
+            element9 = { label = "Visibilidade", desc = "Ajuste a Visibilidade" },
         },
     },
     Portugues_BR = {
@@ -556,7 +558,8 @@ Translation.Langs = {
             element5 = { label = "Texturas", desc = "Ajuste as Texturas" },
             element6 = { label = "Cor", desc = "Ajuste a Cor" },
             element7 = { label = "Cor Secundária", desc = "Ajuste a Cor Secundária" },
-            element8 = { label = "Visibilidade", desc = "Ajuste a Visibilidade" },
+            element8 = { label = "Variant", desc = "Choose the makeup variant" },
+            element9 = { label = "Visibilidade", desc = "Ajuste a Visibilidade" },
         },
     },
     Francais = {
@@ -755,7 +758,8 @@ Translation.Langs = {
             element5 = { label = "Texture", desc = "Choisissez le maquillage de votre personnage" },
             element6 = { label = " Couleur ", desc = " Choisissez le maquillage de votre personnage " },
             element7 = { label = "Couleur secondaire", desc = "Choisissez le maquillage de votre personnage" },
-            element8 = { label = "Opacité", desc = "Choisissez le maquillage de votre personnage" },
+            element8 = { label = "Variant", desc = "Choose the makeup variant" },
+            element9 = { label = "Opacité", desc = "Choisissez le maquillage de votre personnage" },
         },
     },
     German = {
@@ -943,7 +947,8 @@ Translation.Langs = {
             element5 = { label = "Textur", desc = "Wähle die Schminke deines Charakters" },
             element6 = { label = "Farbe", desc = "Wähle die Schminke deines Charakters" },
             element7 = { label = "Sekundärfarbe", desc = "Wähle die Schminke deines Charakters" },
-            element8 = { label = "Deckkraft", desc = "Wähle die Schminke deines Charakters" },
+            element8 = { label = "Variant", desc = "Choose the makeup variant" },
+            element9 = { label = "Deckkraft", desc = "Wähle die Schminke deines Charakters" },
         },
     },
     Spanish = {
@@ -1131,7 +1136,8 @@ Translation.Langs = {
             element5 = { label = "Textura", desc = "Elige la textura del maquillaje" },
             element6 = { label = "Color", desc = "Elige el color del maquillaje" },
             element7 = { label = "Color secundario", desc = "Elige el color secundario del maquillaje" },
-            element8 = { label = "Opacidad", desc = "Elige la opacidad del maquillaje" },
+            element8 = { label = "Variante", desc = "Elige la variante del maquillaje" },
+            element9 = { label = "Opacidad", desc = "Elige la opacidad del maquillaje" },
         },
     },
 }

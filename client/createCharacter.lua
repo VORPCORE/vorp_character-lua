@@ -70,18 +70,18 @@ end)
 
 
 
-local defaultX, defaultY, defaultZ = -560.83, -3776.33, 239.58
-local defaultPitch, defaultRoll, defaultHeading, defaultZoom = -13.56231, 0.00, -91.93626, 45.00
+local defaultX, defaultY, defaultZ = -561.22, -3776.26, 239.16
+local defaultPitch, defaultRoll, defaultHeading, defaultZoom = -12.0, 0.00, -88.74, 45.00
 
 local function createCams()
 	camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", defaultX, defaultY, defaultZ, defaultPitch, defaultRoll,
 		defaultHeading, defaultZoom, false, 0)
-	cameraMale = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", defaultX + 1.1639, defaultY + 0.69, defaultZ - 0.1534,
-		-9.622695, 0.0, -86.08074, defaultZoom, false, 0)
-	cameraFemale = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", defaultX + 0.9855, defaultY - 0.776, defaultZ - 0.1365,
-		-13.41718, 0.0, -88.04576, defaultZoom, false, 0)
-	cameraEditor = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", defaultX, defaultY - 4.593, defaultZ - 0.1363,
-		-11.32719, 0.0, -90.96693, defaultZoom, false, 0)
+	cameraMale = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -560.21, -3775.38, 239.16,
+		-10.0, 0.0, -93.2, defaultZoom, false, 0)
+	cameraFemale = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -560.21, -3776.57, 239.16,
+		-10.0, 0.0, -93.2, defaultZoom, false, 0)
+	cameraEditor = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -560.1333, -3780.923, 239.44,
+		-11.32719, 0.0, -90.96, defaultZoom, false, 0)
 end
 
 -- request char creator imaps
