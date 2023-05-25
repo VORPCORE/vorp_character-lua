@@ -19,11 +19,50 @@ function IsPedReadyToRender()
     end
 end
 
+---Remove all meta tags from ped
+---@param ped number ped id
 function RemoveMetaTags(ped)
     for _, tag in pairs(Config.HashList) do
         Citizen.InvokeNative(0xD710A5007C2AC539, ped, tag, 0)
         UpdateVariation(ped)
     end
+end
+
+--- set to all white if values are 0
+---@param gender string ped gender
+---@param skin table skin data
+---@return table skin data
+function SetDefaultSkin(gender, skin)
+    local __data = {}
+    for _, value in pairs(Config.DefaultChar[gender]) do
+        for key, _ in pairs(value) do
+            if key == "HeadTexture" then
+                local headtext = joaat(value.HeadTexture[1])
+                if headtext == skin.albedo then
+                    __data = value
+                    break
+                end
+            end
+        end
+    end
+
+    if skin.HeadType == 0 then
+        skin.HeadType = tonumber("0x" .. __data.Heads[1])
+    end
+
+    if skin.BodyType == 0 then
+        skin.BodyType = tonumber("0x" .. __data.Body[1])
+    end
+
+    if skin.LegsType == 0 then
+        skin.LegsType = tonumber("0x" .. __data.Legs[1])
+    end
+
+    if skin.Torso == 0 or nil then
+        skin.Torso = tonumber("0x" .. __data.Body[1])
+    end
+
+    return skin
 end
 
 --CREATOR
