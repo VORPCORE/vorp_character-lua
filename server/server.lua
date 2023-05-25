@@ -64,32 +64,48 @@ RegisterNetEvent("vorpcharacter:setPlayerCompChange", function(skinValues, comps
 end)
 
 
-function Checkmissingkeys(information, key)
+
+
+function Checkmissingkeys(data, key, gender)
 	local switch = false
 	if key == "skin" then
 		for k, v in pairs(PlayerSkin) do
-			if information[k] == nil then
+			if data[k] == nil then
 				switch = true
-				information[k] = v
+				data[k] = v
 			end
-			if information["Eyes"] == 0 then
+			if data["Eyes"] == 0 then
 				switch = true
-				if information["sex"] == "mp_male" then
-					information["Eyes"] = 612262189
+				if data["sex"] == "mp_male" then
+					data["Eyes"] = 612262189
 				else
-					information["Eyes"] = 928002221
+					data["Eyes"] = 928002221
 				end
 			end
+			if data["Hair"] == 0 and gender == "mp_female" then
+				switch = true
+				data["Hair"] = 1484585410 -- *add deafult characters hair so they are not bald to females.
+			end
 		end
-		return information, switch
+		return data, switch
 	end
 	if key == "comps" then
 		for k, v in pairs(PlayerClothing) do
-			if information[k] == nil then
-				information[k] = v
+			if data[k] == nil then
+				data[k] = v
+			end
+			--* add component to body female so it doesnt show it with holes
+			if data["Skirt"] == -1 and gender == "mp_female" then
+				data["Skirt"] = -323977844
+			end
+			if data["Shirt"] == -1 and gender == "mp_female" then
+				data["Shirt"] = -599669674
+			end
+			if data["Boots"] == -1 and gender == "mp_female" then
+				data["Boots"] = 526124654
 			end
 		end
-		return information, switch
+		return data, switch
 	end
 end
 
