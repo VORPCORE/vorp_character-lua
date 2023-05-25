@@ -111,7 +111,7 @@ local function UpdateDatabase(character)
 	local json_skin = json.decode(character.skin)
 	local json_comps = json.decode(character.comps)
 	local skin, updateSkin = Checkmissingkeys(json_skin, "skin")
-	local comps, updateComp = Checkmissingkeys(json_comps, "comps")
+	local comps, updateComp = Checkmissingkeys(json_comps, "comps", skin.sex)
 
 	if updateSkin then
 		character.updateSkin((json.encode(skin)))
