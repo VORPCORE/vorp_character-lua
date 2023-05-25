@@ -2,7 +2,7 @@ Data = {}
 -- todo add images to components , add categories
 
 
-Data.cloths = {
+Data.clothing = {
     male = {
         RingLh = {
             {

@@ -413,7 +413,7 @@ function CreatePlayerModel(model, cam, ps)
 
 	IsInCharCreation = true -- enable light
 
-	for category, value in pairs(Data.cloths[Gender]) do
+	for category, value in pairs(Data.clothing[Gender]) do
 		local categoryTable = {}
 
 		for _, v in pairs(value) do
