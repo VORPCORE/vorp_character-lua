@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local VorpCore
 local MaxCharacters
 
@@ -47,7 +48,6 @@ AddEventHandler("vorpcharacter:getPlayerSkin", function()
 end)
 
 
---* update Core , Core will update DB
 RegisterNetEvent("vorpcharacter:setPlayerCompChange", function(skinValues, compsValues)
 	local _source = source
 	local UserCharacter = VorpCore.getUser(_source)
@@ -62,8 +62,6 @@ RegisterNetEvent("vorpcharacter:setPlayerCompChange", function(skinValues, comps
 		end
 	end
 end)
-
-
 
 
 function Checkmissingkeys(data, key, gender)
@@ -109,19 +107,32 @@ function Checkmissingkeys(data, key, gender)
 	end
 end
 
-AddEventHandler("vorp_SpawnUniqueCharacter", function(source)
+local function UpdateDatabase(character)
+	local json_skin = json.decode(character.skin)
+	local json_comps = json.decode(character.comps)
+	local skin, updateSkin = Checkmissingkeys(json_skin, "skin")
+	local comps, updateComp = Checkmissingkeys(json_comps, "comps")
+
+	if updateSkin then
+		character.updateSkin((json.encode(skin)))
+	end
+	if updateComp then
+		character.updateComps(json.encode(comps))
+	end
+	return skin, comps
+end
+
+local function GetPlayerData(source)
 	local User = VorpCore.getUser(source)
+
+	if not User then
+		return false
+	end
 	local Characters = User.getUserCharacters
+
 	local userCharacters = {}
 	for _, characters in pairs(Characters) do
-		local skin, switch1 = Checkmissingkeys(json.decode(characters.skin), "skin")
-		local comps, switch2 = Checkmissingkeys(json.decode(characters.comps), "comps")
-		if switch1 then
-			characters.updateSkin((json.encode(skin)))
-		end
-		if switch2 then
-			characters.updateComps(json.encode(comps))
-		end
+		local skin, comps = UpdateDatabase(characters)
 		local userChars = {
 			charIdentifier = characters.charIdentifier,
 			money = characters.money,
@@ -135,8 +146,23 @@ AddEventHandler("vorp_SpawnUniqueCharacter", function(source)
 		}
 		userCharacters[#userCharacters + 1] = userChars
 	end
-	TriggerClientEvent("vorpcharacter:spawnUniqueCharacter", source, userCharacters)
+	return userCharacters
+end
+
+AddEventHandler("vorp_SpawnUniqueCharacter", function(source)
+	local _source = source
+	if _source == nil then
+		print("Source is nil")
+		return
+	end
+	local userCharacters = GetPlayerData(_source)
+
+	if not userCharacters then
+		return
+	end
+	TriggerClientEvent("vorpcharacter:spawnUniqueCharacter", _source, userCharacters)
 end)
+
 
 RegisterServerEvent("vorp_GoToSelectionMenu")
 AddEventHandler("vorp_GoToSelectionMenu", function(source)
@@ -145,35 +171,10 @@ AddEventHandler("vorp_GoToSelectionMenu", function(source)
 		print("Source is nil")
 		return
 	end
+	local UserCharacters = GetPlayerData(_source)
 
-	local characters = VorpCore.getUser(_source).getUserCharacters
-	local auxcharacter
-	local UserCharacters = {}
-
-	for _, character in pairs(characters) do
-		local skin, switch1 = Checkmissingkeys(json.decode(character.skin), "skin")
-		local comps, switch2 = Checkmissingkeys(json.decode(character.comps), "comps")
-
-		if switch1 then
-			character.updateSkin((json.encode(skin)))
-		end
-		if switch2 then
-			character.updateComps(json.encode(comps))
-		end
-
-		auxcharacter = {
-			charIdentifier = character.charIdentifier,
-			money = character.money,
-			gold = character.gold,
-			firstname = character.firstname,
-			lastname = character.lastname,
-			skin = skin,
-			components = comps,
-			coords = json.decode(character.coords),
-			isDead = character.isdead
-		}
-		UserCharacters[#UserCharacters + 1] = auxcharacter
+	if not UserCharacters then
+		return
 	end
-
 	TriggerClientEvent("vorpcharacter:selectCharacter", _source, UserCharacters, MaxCharacters)
 end)
