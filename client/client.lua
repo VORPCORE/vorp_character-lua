@@ -12,11 +12,11 @@ local deletePrompt
 local swapPrompt
 local selectPrompt
 local canContinue = false
-T = Translation.Langs[Lang]
 
 -- GLOBALS
 CachedSkin = {}
 CachedComponents = {}
+T = Translation.Langs[Lang]
 
 local function RegisterPrompts()
 	local str = T.PromptLabels.promptcreateNew
@@ -93,7 +93,7 @@ AddEventHandler('onResourceStop', function(resourceName)
 	end
 end)
 
---#endregion
+
 RegisterNetEvent("vorpcharacter:spawnUniqueCharacter", function(myChar)
 	myChars = myChar
 	CharSelect()
@@ -128,15 +128,18 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	SetEntityVisible(PlayerPedId(), false)
 	SetEntityInvincible(PlayerPedId(), true)
 	SetEntityCoords(PlayerPedId(), param.coords, false, false, false, false)
+
+	RequestCollisionAtCoord(param.cameraParams.x, param.cameraParams.y, param.cameraParams.z)
 	while not HasCollisionLoadedAroundEntity(PlayerPedId()) do
-		Wait(1000)
+		Wait(0)
 	end
+
 	mainCamera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", param.cameraParams.x, param.cameraParams.y,
 		param.cameraParams.z, param.cameraParams.rotX, param.cameraParams.rotY, param.cameraParams.rotZ,
 		param.cameraParams.fov, false, 0)
 	SetCamActive(mainCamera, true)
 	RenderScriptCams(true, true, 1000, true, true, 0)
-	DoScreenFadeIn(1000)
+	DoScreenFadeIn(6000)
 	Wait(1000)
 	StartSwapCharacters()
 end)
@@ -194,7 +197,6 @@ AddEventHandler("vorpcharacter:savenew", function(comps, skin)
 	end
 	TriggerServerEvent("vorpcharacter:setPlayerCompChange", CachedSkin, CachedComponents)
 end)
-
 
 
 function Controller()
@@ -303,11 +305,14 @@ local function LoadComps(ped, components)
 				Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, false, false)
 			end
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, true, true, false)
-		elseif category == "Boots" then
+		end
+
+		if value ~= -1 and category == "Boots" then
 			boots = value
 		end
 	end
-	-- loa boots for last so they dont clip with pants
+
+	-- load boots for last so they dont clip with pants
 	if boots ~= -1 then
 		if Config.UseSPclothing then
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, boots, false, false, false)
@@ -346,6 +351,10 @@ local function LoadCharacterSelect(ped, skin, components)
 	end
 
 	LoadAll(gender, ped, skin, components)
+	if skin.sex and skin.sex ~= "mp_male" then
+		UpdateVariation(ped)
+	end
+
 	Citizen.InvokeNative(0xC6258F41D86676E0, ped, 1, 100)
 	Citizen.InvokeNative(0xC6258F41D86676E0, ped, 0, 100)
 end
@@ -375,14 +384,14 @@ function CharSelect()
 	CachedComponents = myChars[selectedChar].components
 	TriggerServerEvent("vorp_CharSelectedCharacter", charIdentifier)
 	DeleteEntity(pedHandler)
-	SetModelAsNoLongerNeeded(nModel)
 	RequestModel(nModel)
 	while not HasModelLoaded(nModel) do
 		Wait(0)
 	end
 	Wait(1000)
 	SetPlayerModel(PlayerId(), joaat(nModel), false)
-	Citizen.InvokeNative(0x77FF8D35EEC6BBC4, PlayerPedId(), 0, 0)
+	SetModelAsNoLongerNeeded(nModel)
+	--Citizen.InvokeNative(0x77FF8D35EEC6BBC4, PlayerPedId(), 0, 0)
 	Wait(1000)
 	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
 	NetworkClearClockTimeOverride()
@@ -588,6 +597,6 @@ RegisterCommand("rc", function()
 		if not next(CachedSkin) and not next(CachedComponents) then
 			return
 		end
-		LoadPlayerComponents(__player, CachedSkin, CachedComponents, false)
+		LoadPlayerComponents(__player, CachedSkin, CachedComponents)
 	end
 end)
