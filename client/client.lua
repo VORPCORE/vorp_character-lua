@@ -559,7 +559,7 @@ function StartOverlay()
 		Citizen.InvokeNative(0x6BEFAA907B076859, textureId) -- remove texture
 	end
 
-	textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, myChars[selectedChar].skin.albedo,
+	textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, CachedSkin.albedo,
 		current_texture_settings.normal, current_texture_settings.material)
 	for k, v in pairs(Config.overlay_all_layers) do
 		if v.visibility ~= 0 then
