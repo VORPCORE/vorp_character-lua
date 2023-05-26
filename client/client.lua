@@ -89,7 +89,7 @@ AddEventHandler('onResourceStop', function(resourceName)
 		RemoveImaps()
 		Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
 		MenuData.CloseAll()
-		myChars[selectedChar] = {}
+		myChars = {}
 	end
 end)
 
@@ -553,8 +553,8 @@ end
 function StartOverlay()
 	local ped = PlayerPedId()
 	local current_texture_settings = Config.texture_types.Male
-	print(selectedChar)
-	if myChars[selectedChar].skin.sex ~= "mp_male" then
+	
+	if CachedSkin.sex ~= tostring("mp_male") then
 		current_texture_settings = Config.texture_types.Female
 	end
 
