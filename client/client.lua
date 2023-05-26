@@ -483,7 +483,7 @@ function LoadPlayerComponents(ped, skin, components)
 	canContinue = true
 	FaceOverlay("grime", skin.grime_visibility, skin.grime_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.grime_opacity)
-
+	SetPedScale(ped, skin.Scale)
 	Wait(200)
 	TriggerServerEvent("vorpcharacter:reloadedskinlistener")            -- this event can be listened to whenever u need to listen for rc
 	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0) -- remove bullets
@@ -594,5 +594,6 @@ RegisterCommand("rc", function()
 			return
 		end
 		LoadPlayerComponents(__player, CachedSkin, CachedComponents)
+		print("This command is not to be used unless you need to fix your skin/clothes")
 	end
 end)
