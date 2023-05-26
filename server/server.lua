@@ -93,12 +93,14 @@ function Checkmissingkeys(data, key, gender)
 				data[k] = v
 			end
 			--* add component to body female so it doesnt show it with holes
-			if data["Skirt"] == -1 and gender == "mp_female" then
+			if data["Skirt"] == -1 and data["Pant"] == -1 and gender == "mp_female" then
 				data["Skirt"] = -323977844
 			end
+
 			if data["Shirt"] == -1 and gender == "mp_female" then
 				data["Shirt"] = -599669674
 			end
+
 			if data["Boots"] == -1 and gender == "mp_female" then
 				data["Boots"] = 526124654
 			end
