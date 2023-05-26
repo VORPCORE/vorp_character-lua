@@ -104,11 +104,11 @@ local function Setup()
 end
 
 RegisterNetEvent("vorpcharacter:startCharacterCreator")
-AddEventHandler("vorpcharacter:startCharacterCreator", function(skin, components)
-	if skin then
-		--psSkin = skin
-		--psComponents = components
-	end
+AddEventHandler("vorpcharacter:startCharacterCreator", function()
+	PrepareMusicEvent("REHR_START")
+	Wait(100)
+	TriggerMusicEvent("REHR_START")
+	Wait(500)
 	InCharacterCreator = true
 	DoScreenFadeOut(500)
 	Wait(1000)

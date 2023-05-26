@@ -89,7 +89,7 @@ AddEventHandler('onResourceStop', function(resourceName)
 		RemoveImaps()
 		Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
 		MenuData.CloseAll()
-		myChars = {}
+		myChars[selectedChar] = {}
 	end
 end)
 
@@ -239,10 +239,6 @@ function Controller()
 						DeletePed(pedHandler)
 						isInCharacterSelector = false
 						TriggerEvent("vorpcharacter:startCharacterCreator")
-						PrepareMusicEvent("REHR_START")
-						Wait(100)
-						TriggerMusicEvent("REHR_START")
-						Wait(500)
 						break
 					else
 						VORPcore.NotifyObjective("you cant create more characers", 8000)
@@ -553,7 +549,7 @@ end
 function StartOverlay()
 	local ped = PlayerPedId()
 	local current_texture_settings = Config.texture_types.Male
-	
+
 	if CachedSkin.sex ~= tostring("mp_male") then
 		current_texture_settings = Config.texture_types.Female
 	end
