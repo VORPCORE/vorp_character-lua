@@ -400,7 +400,7 @@ function CharSelect()
 	local coords = myChars[selectedChar].coords
 	local heading
 	local playerCoords
-	if not coords.x then
+	if not coords then
 		playerCoords = Config.SpawnCoords.position
 		heading = Config.SpawnCoords.heading
 	else
