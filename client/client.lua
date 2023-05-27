@@ -532,9 +532,7 @@ function FaceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 				end
 				v.opacity = opacity
 				if opacity == 0 then
-					-- if its visible but opacity is 0 then set visible to 0
-					v.visibility = 0
-					v.opacity = 0
+					v.opacity = 1.0
 				end
 			end
 		end
