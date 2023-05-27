@@ -492,18 +492,16 @@ end
 function FaceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id,
 					 palette_color_primary, palette_color_secondary, palette_color_tertiary, var, opacity)
 	-- Setup our defaults
-	visibility = visibility or 0
-	tx_id = tx_id or 0
-	palette_color_primary = palette_color_primary or 0
-	palette_color_secondary = palette_color_secondary or 0
-	palette_color_tertiary = palette_color_tertiary or 0
-	var = var or 0
-	opacity = opacity or 1.0
+	local visibility = visibility or 0
+	local tx_id = tx_id or 0
+	local palette_color_primary = palette_color_primary or 0
+	local opacity = opacity or 1.0
 
 
 	for k, v in pairs(Config.overlay_all_layers) do
 		if v.name == name then
 			v.visibility = visibility
+			-- if is set as visible add texture opacity and color
 			if visibility ~= 0 then
 				v.tx_normal = tx_normal
 				v.tx_material = tx_material
@@ -512,28 +510,19 @@ function FaceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 				v.tx_unk = tx_unk
 				if tx_color_type == 0 then
 					v.palette = Config.color_palettes[name][palette_id]
-					if palette_color_primary == 0 then
-						palette_color_primary = 1
-					end
-					v.palette_color_primary = palette_color_primary
-					v.palette_color_secondary = palette_color_secondary
-					v.palette_color_tertiary = palette_color_tertiary
+
+					v.palette_color_primary = palette_color_primary == 0 and 0x3F6E70FF or palette_color_primary
+					v.palette_color_secondary = palette_color_secondary or 0
+					v.palette_color_tertiary = palette_color_tertiary or 0
 				end
 				if name == "shadows" or name == "eyeliners" or name == "lipsticks" then
-					v.var = var
+					v.var = var or 0
 					v.tx_id = Config.overlays_info[name][1].id
 				else
 					v.var = 0
-					if tx_id == 0 then
-						v.tx_id = Config.overlays_info[name][1].id
-					else
-						v.tx_id = Config.overlays_info[name][tx_id].id
-					end
+					v.tx_id = tx_id == 0 and Config.overlays_info[name][1].id or Config.overlays_info[name][tx_id].id
 				end
-				v.opacity = opacity
-				if opacity == 0 then
-					v.opacity = 1.0
-				end
+				v.opacity = opacity == 0 and 1.0 or opacity
 			end
 		end
 	end
