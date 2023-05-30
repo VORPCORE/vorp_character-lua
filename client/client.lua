@@ -430,7 +430,10 @@ end)
 
 
 function LoadPlayerComponents(ped, skin, components)
+	local gender = "Male"
+
 	if joaat(skin.sex) ~= GetEntityModel(ped) then
+		-- then player is npc
 		LoadPlayer(joaat(skin.sex))
 		Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat(skin.sex), false)
 		IsPedReadyToRender()
@@ -439,7 +442,6 @@ function LoadPlayerComponents(ped, skin, components)
 		SetModelAsNoLongerNeeded(joaat(skin.sex))
 	end
 
-	local gender = "Male"
 	if skin.sex ~= "mp_male" then
 		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 7, true)
 		gender = "Female"
@@ -483,15 +485,15 @@ function LoadPlayerComponents(ped, skin, components)
 	canContinue = true
 	FaceOverlay("grime", skin.grime_visibility, skin.grime_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.grime_opacity)
+
 	SetPedScale(ped, skin.Scale)
 	Wait(200)
-	TriggerServerEvent("vorpcharacter:reloadedskinlistener")            -- this event can be listened to whenever u need to listen for rc
-	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0) -- remove bullets
+	TriggerServerEvent("vorpcharacter:reloadedskinlistener") -- this event can be listened to whenever u need to listen for rc
+	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0)
 end
 
 function FaceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id,
 					 palette_color_primary, palette_color_secondary, palette_color_tertiary, var, opacity)
-	-- Setup our defaults
 	local visibility = visibility or 0
 	local tx_id = tx_id or 0
 	local palette_color_primary = palette_color_primary or 0
@@ -501,28 +503,33 @@ function FaceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 	for k, v in pairs(Config.overlay_all_layers) do
 		if v.name == name then
 			v.visibility = visibility
-			-- if is set as visible add texture opacity and color
 			if visibility ~= 0 then
 				v.tx_normal = tx_normal
 				v.tx_material = tx_material
 				v.tx_color_type = tx_color_type
 				v.tx_opacity = tx_opacity
 				v.tx_unk = tx_unk
+
 				if tx_color_type == 0 then
 					v.palette = Config.color_palettes[name][palette_id]
-
 					v.palette_color_primary = palette_color_primary == 0 and 0x3F6E70FF or palette_color_primary
 					v.palette_color_secondary = palette_color_secondary or 0
 					v.palette_color_tertiary = palette_color_tertiary or 0
 				end
+
+				v.var = 0
+				v.tx_id = tx_id == 0 and Config.overlays_info[name][1].id or Config.overlays_info[name][tx_id].id
+
 				if name == "shadows" or name == "eyeliners" or name == "lipsticks" then
 					v.var = var or 0
 					v.tx_id = Config.overlays_info[name][1].id
-				else
-					v.var = 0
-					v.tx_id = tx_id == 0 and Config.overlays_info[name][1].id or Config.overlays_info[name][tx_id].id
 				end
+
 				v.opacity = opacity == 0 and 1.0 or opacity
+
+				if name == "grime" and opacity == 0 and tx_id == 0 then
+					v.visibility = 0
+				end
 			end
 		end
 	end
@@ -571,16 +578,15 @@ function StartOverlay()
 	UpdateVariation(ped)
 end
 
--- reload all
 RegisterCommand("rc", function()
 	local __player = PlayerPedId()
 	local hogtied = Citizen.InvokeNative(0x3AA24CCC0D451379, __player)
 	local cuffed = Citizen.InvokeNative(0x74E559B3BC910685, __player)
-	if not hogtied and not cuffed and not IsEntityDead(__player) then
+	local dead = IsEntityDead(__player)
+	if not hogtied and not cuffed and not dead then
 		if not next(CachedSkin) and not next(CachedComponents) then
 			return
 		end
 		LoadPlayerComponents(__player, CachedSkin, CachedComponents)
-		print("This command is not to be used unless you need to fix your skin/clothes")
 	end
 end)
