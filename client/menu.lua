@@ -823,6 +823,11 @@ function OpenHairMenu(table)
         value = "eyebrows",
         desc = imgPath:format("character_creator_eyebrows") .. "<br>" .. T.MenuHair.element5.desc
     }
+	elements[#elements + 1] = {
+        label = T.MenuHair.element6.label,
+        value = "hair",
+        desc = imgPath:format("character_creator_hair") .. "<br>" .. T.MenuHair.element6.desc
+    }
 
     MenuData.Open('default', GetCurrentResourceName(), 'menuapi',
         {
@@ -862,6 +867,12 @@ function OpenHairMenu(table)
                 local label = data.current.label
                 OpenBeardEyebrowMenu(table, "eyebrows_opacity", "eyebrows_tx_id", "eyebrows", 1,
                     label, "eyebrows_color")
+            end
+			
+			if (data.current.value == "hair") then
+                local label = data.current.label
+                OpenBeardEyebrowMenu(table, "hair_opacity", "hair_tx_id", "hair", 4,
+                    label, "hair_color_primary")
             end
 
             if (data.current.value == "beardstabble") then
@@ -1064,6 +1075,9 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
                 if category == "eyebrows" then
                     PlayerSkin.eyebrows_visibility = 1
                 end
+				if category == "hair" then
+                    PlayerSkin.hair_visibility = 1
+                end
                 PlayerSkin[data.current.txt_id] = data.current.value
                 toggleOverlayChange(data.current.category, 1, PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
@@ -1084,6 +1098,9 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
                     if category == "eyebrows" then
                         PlayerSkin.eyebrows_visibility = 1
                     end
+					if category == "hair" then
+						PlayerSkin.hair_visibility = 1
+					end
                 else
                     if category == "beardstabble" then
                         PlayerSkin.beardstabble_visibility = 0
@@ -1091,6 +1108,9 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
                     if category == "eyebrows" then
                         PlayerSkin.eyebrows_visibility = 0
                     end
+					if category == "hair" then
+						PlayerSkin.hair_visibility = 0
+					end
                 end
                 --* opacity
                 PlayerSkin[data.current.opac] = data.current.value / 10

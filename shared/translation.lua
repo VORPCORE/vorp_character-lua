@@ -127,6 +127,7 @@ Translation.Langs = {
             element3 = { label = "Bear stabble", desc = "Choose characters beard stabble" },
             element4 = { label = "Hair Accessories", desc = "Choose characters hair accessories" },
             element5 = { label = "Eye Brows", desc = "Choose characters eye brows" },
+            element6 = { label = "Overlay", desc = "Choose characters hair overlay" },
         },
         MenuHairSelection = {
             title = "Hair",

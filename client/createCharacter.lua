@@ -326,13 +326,17 @@ function DefaultPedSetup(ped, male)
 	local compLegs
 
 	if male then
-		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 0, 0)
+		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 0, 0)	
+		IsPedReadyToRender()
+		Citizen.InvokeNative(0x0BFA1BD465CDFEFD, ped)
 		compEyes = 612262189
 		compBody = tonumber("0x" .. Config.DefaultChar.Male[1].Body[1])
 		compHead = tonumber("0x" .. Config.DefaultChar.Male[1].Heads[1])
 		compLegs = tonumber("0x" .. Config.DefaultChar.Male[1].Legs[1])
 	else
-		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 7, true) -- female sync
+		Citizen.InvokeNative(0x77FF8D35EEC6BBC4, ped, 4, true)
+		IsPedReadyToRender()
+		Citizen.InvokeNative(0x0BFA1BD465CDFEFD, ped)
 		compEyes = 928002221
 		compBody = tonumber("0x" .. Config.DefaultChar.Female[1].Body[1])
 		compHead = tonumber("0x" .. Config.DefaultChar.Female[1].Heads[1])
@@ -431,8 +435,13 @@ function CreatePlayerModel(model, cam, ps)
 		Clothing[category] = categoryTable
 	end
 
+	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x1D4C528A, 0)
 	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0)        -- remove meta tag
-	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), true, true, true, false) -- update variation
+	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0xDA0E2C55, 0)
+	Citizen.InvokeNative(0x704C908E9C405136, PlayerPedId())
+	
+	Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), false, true, true, true, false) -- update variation
+	
 	SetEntityVisible(PlayerPedId(), true)
 	SetEntityInvincible(PlayerPedId(), true)
 	Citizen.InvokeNative(0x25ACFC650B65C538, PlayerPedId(), 1.0) -- scale
