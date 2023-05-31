@@ -108,9 +108,9 @@ PlayerSkin = {
     blush_palette_color_primary       = 0,
     blush_opacity                     = 0,
     hair_tx_id                	      = 0,
-	hair_visibility					  = 0,
-	hair_color_primary				  = 0,
-	hair_opacity                      = 0,
+    hair_visibility                   = 0,
+    hair_color_primary		      = 0,
+    hair_opacity                      = 0,
 }
 
 
