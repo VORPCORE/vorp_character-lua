@@ -47,6 +47,9 @@ Config.selectedCharacter = {
     }
 }
 
+-- item name for second chance character
+Config.secondChanceItem = "secondchance"
+
 -- Keyboards
 Config.keys = {
     prompt_create = { key = 0x9959A6F0 },                           -- [ C ]

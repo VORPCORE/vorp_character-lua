@@ -61,7 +61,9 @@ local function __CloseAll()
     InCharacterCreator = false
     RemoveImaps()
     ClearTimecycleModifier()
-    TriggerEvent("vorp:initNewCharacter")
+    if not IsInSecondChance then
+        TriggerEvent("vorp:initNewCharacter")
+    end
     SetEntityInvincible(__player, false)
     SetEntityVisible(__player, true)
     NetworkEndTutorialSession()
@@ -107,23 +109,40 @@ function OpenCharCreationMenu(clothingtable)
             value = "appearance",
             desc = imgPath:format(img) .. "<br> " .. T.MenuCreation.element.desc
         },
-        {
+    }
+
+    if not IsInSecondChance then
+        elements[#elements + 1] = {
             label = T.MenuCreation.element2.label,
             value = "clothing",
             desc = imgPath:format(img1) .. "<br> " .. T.MenuCreation.element2.desc,
-        },
-        {
+
+        }
+        elements[#elements + 1] = {
             label = __CHARNAME or T.MenuCreation.element3.label,
             value = __VALUE1 or "name",
             desc = __DESC or imgPath:format(img4) .. "<br> " .. T.MenuCreation.element3.desc,
-        },
-        {
+        }
+        elements[#elements + 1] = {
             label = __LABEL or ("<span style='color: Grey;'>" .. T.MenuCreation.element4.label .. "</span>"),
             value = __VALUE or "not",
             desc = imgPath:format(img3) .. "<br> " .. T.MenuCreation.element4.desc,
-        },
+        }
+    else
+        -- enable clothing
+        elements[#elements + 1] = {
+            label = T.MenuCreation.element2.label,
+            value = "clothing",
+            desc = imgPath:format(img1) .. "<br> " .. T.MenuCreation.element2.desc,
 
-    }
+        }
+        -- enable save button
+        elements[#elements + 1] = {
+            label = T.MenuCreation.element4.label,
+            value = "secondchance",
+            desc = imgPath:format(img3) .. "<br> " .. T.MenuCreation.element4.desc,
+        }
+    end
 
     MenuData.Open('default', GetCurrentResourceName(), 'menuapi',
         {
@@ -136,7 +155,6 @@ function OpenCharCreationMenu(clothingtable)
 
         function(data, menu)
             if (data.current == "backup") then
-                --!dont  allow go back
             end
 
             if (data.current.value == "clothing") then -- check if it has been built
@@ -145,6 +163,15 @@ function OpenCharCreationMenu(clothingtable)
 
             if (data.current.value == "appearance") then -- check if it has been built
                 OpenAppearanceMenu(clothingtable)
+            end
+
+            if data.current.value == "secondchance" then
+                menu.close()
+                --* name character
+                TriggerServerEvent("vorp_character:Client:SecondChanceSave", PlayerSkin, PlayerClothing)
+                CachedComponents = PlayerClothing
+                CachedSkin = PlayerSkin
+                __CloseAll()
             end
 
             if (data.current.value == "name") then -- check if it has been built
@@ -207,7 +234,6 @@ function OpenCharCreationMenu(clothingtable)
             end
 
             if (data.current.value == "save") then
-                Wait(1000)
                 menu.close()
                 --* name character
                 TriggerServerEvent("vorpcharacter:saveCharacter", PlayerSkin, PlayerClothing, FirstName, LastName)
@@ -868,7 +894,7 @@ function OpenHairMenu(table)
                 OpenBeardEyebrowMenu(table, "eyebrows_opacity", "eyebrows_tx_id", "eyebrows", 1,
                     label, "eyebrows_color")
             end
-            
+
             if (data.current.value == "hair") then
                 local label = data.current.label
                 OpenBeardEyebrowMenu(table, "hair_opacity", "hair_tx_id", "hair", 4,

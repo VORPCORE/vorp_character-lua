@@ -130,7 +130,7 @@ local function GetPlayerData(source)
 	if not User then
 		return false
 	end
-	local Characters = User.getUsedCharacter
+	local Characters = User.getUserCharacters
 
 	local userCharacters = {}
 	for _, characters in pairs(Characters) do
@@ -179,4 +179,33 @@ AddEventHandler("vorp_GoToSelectionMenu", function(source)
 		return
 	end
 	TriggerClientEvent("vorpcharacter:selectCharacter", _source, UserCharacters, MaxCharacters)
+end)
+
+local VORPInv = exports.vorp_inventory:vorp_inventoryApi()
+
+VORPInv.RegisterUsableItem(Config.secondChanceItem, function(data)
+	local _source = data.source
+	local User = VorpCore.getUser(_source)
+
+	if not User then
+		return false
+	end
+
+	VORPInv.CloseInv(_source)
+	local Characters = User.getUsedCharacter
+	local CharacterSkin = json.decode(Characters.skin)
+	local CharacterComps = json.decode(Characters.comps)
+	VORPInv.subItem(_source, Config.secondChanceItem, 1)
+	TriggerClientEvent("vorp_character:Server:SecondChance", _source, CharacterSkin, CharacterComps)
+end)
+
+RegisterNetEvent("vorp_character:Client:SecondChanceSave", function(skin, comps)
+	local _source = source
+	local User = VorpCore.getUser(_source)
+	local character = User.getUsedCharacter
+	character.updateSkin((json.encode(skin)))
+	character.updateComps(json.encode(comps))
+	local playerCoords = Config.SpawnCoords.position
+	local playerHeading = Config.SpawnCoords.heading
+	TriggerClientEvent("vorp:initCharacter", _source, playerCoords, playerHeading, false)
 end)
