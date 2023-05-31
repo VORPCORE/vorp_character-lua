@@ -130,7 +130,7 @@ local function GetPlayerData(source)
 	if not User then
 		return false
 	end
-	local Characters = User.getUserCharacters
+	local Characters = User.getUsedCharacter
 
 	local userCharacters = {}
 	for _, characters in pairs(Characters) do
