@@ -1,3 +1,7 @@
+<1.3>
+- added colour hair options pink green etc
+- added second chance option as an item 
+- updated all files including fxmanifest
 <1.2>
 - refactor loading ped skin possibly now fixes eyebrows and other makeup issues
 - request collisions at coords before spawning peds
