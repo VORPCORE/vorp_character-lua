@@ -127,6 +127,7 @@ Translation.Langs = {
             element3 = { label = "Bear stabble", desc = "Choose characters beard stabble" },
             element4 = { label = "Hair Accessories", desc = "Choose characters hair accessories" },
             element5 = { label = "Eye Brows", desc = "Choose characters eye brows" },
+            element6 = { label = "Overlay", desc = "Choose characters hair overlay" },
         },
         MenuHairSelection = {
             title = "Hair",
@@ -314,6 +315,7 @@ Translation.Langs = {
             element3 = { label = "Barba Curta", desc = "<br>Ajuste a Barba Curta" },
             element4 = { label = "Acessórios de Cabelo", desc = "<br>Ajuste os Acessórios para Cabelo" },
             element5 = { label = "Sobrancelhas", desc = "<br>Ajuste as Sobrancelhas" },
+            element6 = { label = "Overlay", desc = "Choose characters hair overlay" },
         },
         MenuHairSelection = {
             title = "Cabelo",
@@ -501,6 +503,7 @@ Translation.Langs = {
             element3 = { label = "Barba Curta", desc = "<br>Ajuste a Barba Curta" },
             element4 = { label = "Acessórios de Cabelo", desc = "<br>Ajuste os Acessórios para Cabelo" },
             element5 = { label = "Sobrancelhas", desc = "<br>Ajuste as Sobrancelhas" },
+            element6 = { label = "Overlay", desc = "Choose characters hair overlay" },
         },
         MenuHairSelection = {
             title = "Cabelo",
@@ -695,6 +698,7 @@ Translation.Langs = {
                 desc = " Choisissez les accessoires de cheveux du personnage "
             },
             element5 = { label = "Sourcils", desc = "Choisissez les sourcils des personnages" },
+            element6 = { label = "Overlay", desc = "Choose characters hair overlay" },
         },
         MenuHairSelection = {
             title = "Cheveux",
@@ -890,6 +894,7 @@ Translation.Langs = {
             element3 = { label = "Bartstoppeln", desc = "Wähle die Bartstoppeln deines Charakters" },
             element4 = { label = "Haar-Accessoires", desc = "Wähle Haar-Accessoires für deinen Charakter" },
             element5 = { label = "Augenbrauen", desc = "Wähle die Augenbrauen deines Charakters" },
+            element6 = { label = "Overlay", desc = "Choose characters hair overlay" },
         },
         MenuHairSelection = {
             title = "Haare",
@@ -1079,6 +1084,7 @@ Translation.Langs = {
             element4 = { label = "Accesorios para el cabello",
                 desc = "Elige los accesorios para el cabello de tu personaje" },
             element5 = { label = "Cejas", desc = "Elige las cejas de tu personaje" },
+            element6 = { label = "Overlay", desc = "Choose characters hair overlay" },
         },
         MenuHairSelection = {
             title = "Pelo",
