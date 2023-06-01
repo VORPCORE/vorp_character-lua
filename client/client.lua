@@ -79,18 +79,18 @@ AddEventHandler('onResourceStop', function(resourceName)
 	if (GetCurrentResourceName() ~= resourceName) then
 		return
 	end
-	if Config.DevMode then
-		Citizen.InvokeNative(0xB63B9178D0F58D82, textureId) -- reset texture
-		Citizen.InvokeNative(0x6BEFAA907B076859, textureId) -- remove texture
-		DeleteEntity(MalePed)
-		DeleteEntity(FemalePed)
-		DeletePed(pedHandler)
-		DoScreenFadeIn(100)
-		RemoveImaps()
-		Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
-		MenuData.CloseAll()
-		myChars[selectedChar] = {}
-	end
+
+	Citizen.InvokeNative(0xB63B9178D0F58D82, textureId) -- reset texture
+	Citizen.InvokeNative(0x6BEFAA907B076859, textureId) -- remove texture
+	DeleteEntity(MalePed)
+	DeleteEntity(FemalePed)
+	DeletePed(pedHandler)
+	DoScreenFadeIn(100)
+	RemoveImaps()
+	Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
+	MenuData.CloseAll()
+	myChars[selectedChar] = {}
+	DestroyAllCams(true)
 end)
 
 
@@ -109,6 +109,7 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc)
 	local permSnow = Config.charselgroundSnow
 	local hour = Config.timeHour
 	local freeze = Config.timeFreeze
+
 	if #myCharacters < 1 then
 		return TriggerEvent("vorpcharacter:startCharacterCreator") -- if no chars then send back to creator
 	end
@@ -286,35 +287,39 @@ end
 
 local function LoadFaceFeatures(ped, skin)
 	for key, value in pairs(FaceFeatures) do
-		Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, true, true, true, false)
 		Citizen.InvokeNative(0x5653AB26C82938CF, ped, value, skin[key])
+		Citizen.InvokeNative(0xAAB86462966168CE, ped, 1) --_CLEAR
 	end
 end
 
 local function LoadComps(ped, components)
 	local boots = -1
 	for category, value in pairs(components) do
-		if value ~= -1 and category ~= "Boots" then
-			Citizen.InvokeNative(0x704C908E9C405136, ped)
-			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
-			if Config.UseSPclothing then
+		if value ~= -1 --[[ and category ~= "Boots" ]] then
+			--Citizen.InvokeNative(0x704C908E9C405136, ped)
+
+			--[[ if Config.UseSPclothing then
 				Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, false, false)
-			end
-			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, true, true, false)
+			end ]]
+			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, true, false)
+			Citizen.InvokeNative(0x66b957aac2eaaeab, ped, value, 0, 0, 1, 1) -- _UPDATE_SHOP_ITEM_WEARABLE_STATE
+			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)        --_CLEAR
 		end
 
-		if value ~= -1 and category == "Boots" then
+		--[[ if value ~= -1 and category == "Boots" then
 			boots = value
-		end
+		end ]]
 	end
 
-	-- load boots for last so they dont clip with pants
+	--[[ -- load boots for last so they dont clip with pants
 	if boots ~= -1 then
 		if Config.UseSPclothing then
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, boots, false, false, false)
 		end
-		Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, boots, true, true, false)
-	end
+		Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, boots, false, true, false)
+		Citizen.InvokeNative(0x66b957aac2eaaeab, ped, boots, 0, 0, 1, 1) -- _UPDATE_SHOP_ITEM_WEARABLE_STATE
+		Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)           --_CLEAR
+	end ]]
 end
 
 local function LoadAll(gender, ped, pedskin, components)
@@ -322,19 +327,24 @@ local function LoadAll(gender, ped, pedskin, components)
 	IsPedReadyToRender()
 	Citizen.InvokeNative(0x0BFA1BD465CDFEFD, ped) -- _RESET_PED_COMPONENTS
 	local skin = SetDefaultSkin(gender, pedskin)
+	--_APPLY_SHOP_ITEM_TO_PED
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, skin.HeadType, false, true, true)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, skin.BodyType, false, true, true)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, skin.LegsType, false, true, true)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, skin.Eyes, false, true, true)
-	Citizen.InvokeNative(0x1902C4CFCC5BE57C, ped, skin.Waist)
-	Citizen.InvokeNative(0x1902C4CFCC5BE57C, ped, skin.Body)
-	Citizen.InvokeNative(0x1902C4CFCC5BE57C, ped, skin.Torso)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, skin.Legs, true, true, true)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, skin.Hair, false, true, true)
 	Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, skin.Beard, false, true, true)
-	SetPedScale(ped, skin.Scale)
+	-- _EQUIP_META_PED_OUTFIT
+	Citizen.InvokeNative(0x1902C4CFCC5BE57C, ped, skin.Waist)
+	Citizen.InvokeNative(0x1902C4CFCC5BE57C, ped, skin.Body)
+	Citizen.InvokeNative(0x1902C4CFCC5BE57C, ped, skin.Torso)
+	Citizen.InvokeNative(0xAAB86462966168CE, ped, 1) --_CLEAR
+
 	LoadFaceFeatures(ped, skin)
+	Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, false, true, true, true, false)
 	LoadComps(ped, components)
+	SetPedScale(ped, skin.Scale)
 	UpdateVariation(ped)
 	return skin
 end
