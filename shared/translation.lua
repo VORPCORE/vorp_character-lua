@@ -464,11 +464,9 @@ Translation.Langs = {
             element6 = { label = "Rosto", desc = "Escolha características faciais" },
             element7 = { label = "Estilo de vida", desc = "Escolha o estilo de vida do seu personagem" },
             element8 = { label = "Maquiagem", desc = "Escolha a maquiagem" },
-            shortOne = "Bem Baixo",
-            shortTwo = "Baixo",
+            short = "Pequeno",
             normal = "Normal",
-            tallOne = "Alto",
-            tallTwo = "Bem Alto",
+            tall = "Grande",
         },
         MenuAge = {
             title = "Idade",
