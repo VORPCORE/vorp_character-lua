@@ -656,10 +656,15 @@ function OpenBodyMenu(table)
 
             if data.current.option == "type" then
                 if data.current.value > 0 then
-                    local index                  = data.current.value
-                    local Comp                   = Config.DefaultChar[gender][__SKINCOLOR]
-                    local compType               = tonumber("0x" .. Comp[data.current.tag][index])
-                    PlayerSkin[data.current.tag] = compType
+                    local index    = data.current.value
+                    local Comp     = Config.DefaultChar[gender][__SKINCOLOR]
+                    local compType = tonumber("0x" .. Comp[data.current.tag][index])
+
+                    if data.current.tag == "Body" then
+                        PlayerSkin["Torso"] = compType
+                    else
+                        PlayerSkin[data.current.tag] = compType
+                    end
                     ApplyComponentToPed(__player, compType)
                 end
             end
