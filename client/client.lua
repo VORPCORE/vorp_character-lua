@@ -298,9 +298,8 @@ local function LoadComps(ped, components)
 		if value ~= -1 --[[ and category ~= "Boots" ]] then
 			--Citizen.InvokeNative(0x704C908E9C405136, ped)
 
-			--[[ if Config.UseSPclothing then
-				Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, false, false)
-			end ]]
+
+			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, false, false)
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, true, false)
 			Citizen.InvokeNative(0x66b957aac2eaaeab, ped, value, 0, 0, 1, 1) -- _UPDATE_SHOP_ITEM_WEARABLE_STATE
 			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)        --_CLEAR
@@ -344,8 +343,8 @@ local function LoadAll(gender, ped, pedskin, components)
 	LoadFaceFeatures(ped, skin)
 	Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, false, true, true, true, false)
 	LoadComps(ped, components)
-	SetPedScale(ped, skin.Scale)
-	UpdateVariation(ped)
+	SetPedScale(PlayerPedId(), skin.Scale)
+	UpdateVariation(PlayerPedId())
 	return skin
 end
 
@@ -497,8 +496,6 @@ function LoadPlayerComponents(ped, skin, components)
 	canContinue = true
 	FaceOverlay("grime", skin.grime_visibility, skin.grime_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.grime_opacity)
-
-	SetPedScale(ped, skin.Scale)
 	Wait(200)
 	TriggerServerEvent("vorpcharacter:reloadedskinlistener") -- this event can be listened to whenever u need to listen for rc
 	Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0)

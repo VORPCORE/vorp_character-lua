@@ -12,7 +12,7 @@ Config.SpawnCoords = {
     position = vector3(-67.27, -392.34, 71.79),
     heading = 171.98
 }
-Config.UseSPclothing = true -- if this is true you can use SP mode clothing , it will bring problems like clothes clipping boots clipping and skin missing.
+
 -- disable or allow players delete their characters
 Config.AllowPlayerDeleteCharacter = true
 
