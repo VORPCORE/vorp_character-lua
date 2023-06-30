@@ -1279,8 +1279,8 @@ function OpenFaceMenu(table)
 
             if data.current.tag == "eyes" then
                 __StartAnimation("mood_normal_eyes_wide")
-                PlayerSkin.Eyes = Config.Eyes[gender][data.current.value]
 
+                PlayerSkin.Eyes = Config.Eyes[gender][data.current.value]
                 Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, PlayerSkin.Eyes, true, true, true)
                 UpdateVariation(__player)
             end

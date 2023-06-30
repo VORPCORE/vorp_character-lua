@@ -12,6 +12,7 @@ local deletePrompt
 local swapPrompt
 local selectPrompt
 local canContinue = false
+local Custom
 
 -- GLOBALS
 CachedSkin = {}
@@ -295,30 +296,13 @@ end
 local function LoadComps(ped, components)
 	local boots = -1
 	for category, value in pairs(components) do
-		if value ~= -1 --[[ and category ~= "Boots" ]] then
-			--Citizen.InvokeNative(0x704C908E9C405136, ped)
-
-
+		if value ~= -1 then
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, false, false)
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, true, false)
 			Citizen.InvokeNative(0x66b957aac2eaaeab, ped, value, 0, 0, 1, 1) -- _UPDATE_SHOP_ITEM_WEARABLE_STATE
 			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)        --_CLEAR
 		end
-
-		--[[ if value ~= -1 and category == "Boots" then
-			boots = value
-		end ]]
 	end
-
-	--[[ -- load boots for last so they dont clip with pants
-	if boots ~= -1 then
-		if Config.UseSPclothing then
-			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, boots, false, false, false)
-		end
-		Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, boots, false, true, false)
-		Citizen.InvokeNative(0x66b957aac2eaaeab, ped, boots, 0, 0, 1, 1) -- _UPDATE_SHOP_ITEM_WEARABLE_STATE
-		Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)           --_CLEAR
-	end ]]
 end
 
 local function LoadAll(gender, ped, pedskin, components)
@@ -396,7 +380,6 @@ function CharSelect()
 	Wait(1000)
 	SetPlayerModel(PlayerId(), joaat(nModel), false)
 	SetModelAsNoLongerNeeded(nModel)
-	--Citizen.InvokeNative(0x77FF8D35EEC6BBC4, PlayerPedId(), 0, 0)
 	Wait(1000)
 	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
 	NetworkClearClockTimeOverride()
@@ -442,13 +425,20 @@ function LoadPlayerComponents(ped, skin, components)
 	local gender = "Male"
 
 	if joaat(skin.sex) ~= GetEntityModel(ped) then
+		local skinS
+		if not Custom then
+			skinS = skin.sex
+		else
+			skinS = Custom
+		end
 		-- then player is npc
-		LoadPlayer(joaat(skin.sex))
-		Citizen.InvokeNative(0xED40380076A31506, PlayerId(), joaat(skin.sex), false)
+		LoadPlayer(joaat(skinS))
+		SetPlayerModel(PlayerId(), joaat(skinS), false)
 		IsPedReadyToRender()
 		Citizen.InvokeNative(0xA91E6CF94404E8C9, ped)
 		ped = PlayerPedId()
-		SetModelAsNoLongerNeeded(joaat(skin.sex))
+		SetModelAsNoLongerNeeded(joaat(skinS))
+		Custom = nil
 	end
 
 	if skin.sex ~= "mp_male" then
@@ -587,7 +577,7 @@ function StartOverlay()
 	UpdateVariation(ped)
 end
 
-RegisterCommand("rc", function()
+RegisterCommand("rc", function(source, args)
 	local __player = PlayerPedId()
 	local hogtied = Citizen.InvokeNative(0x3AA24CCC0D451379, __player)
 	local cuffed = Citizen.InvokeNative(0x74E559B3BC910685, __player)
@@ -596,6 +586,11 @@ RegisterCommand("rc", function()
 		if not next(CachedSkin) and not next(CachedComponents) then
 			return
 		end
+
+		if args[1] ~= "" then
+			Custom = args[1]
+		end
+
 		LoadPlayerComponents(__player, CachedSkin, CachedComponents)
 	end
 end)
