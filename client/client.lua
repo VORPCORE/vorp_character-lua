@@ -594,3 +594,14 @@ RegisterCommand("rc", function(source, args)
 		LoadPlayerComponents(__player, CachedSkin, CachedComponents)
 	end
 end)
+
+-- work arround just like its in the C# version to fix ped scale
+CreateThread(function()
+	while true do
+		local dead = IsEntityDead(PlayerPedId())
+		if myChars[selectedChar].skin and not dead then
+			SetPedScale(PlayerPedId(), myChars[selectedChar].skin.Scale)
+		end
+		Wait(1000)
+	end
+end)
