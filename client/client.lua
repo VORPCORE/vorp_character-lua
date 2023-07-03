@@ -599,7 +599,7 @@ end)
 CreateThread(function()
 	while true do
 		local dead = IsEntityDead(PlayerPedId())
-		if selectedChar then
+		if myChars[selectedChar] then
 			if myChars[selectedChar].skin and not dead then
 				SetPedScale(PlayerPedId(), myChars[selectedChar].skin.Scale)
 			end
