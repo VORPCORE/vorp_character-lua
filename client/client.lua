@@ -526,7 +526,7 @@ function FaceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 
 				v.opacity = opacity == 0 and 1.0 or opacity
 
-				if name == "grime" and opacity == 0 and tx_id == 0 then
+				if name == "grime" then
 					v.visibility = 0
 				end
 			end
