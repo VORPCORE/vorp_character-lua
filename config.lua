@@ -2,53 +2,162 @@ Config = {}
 
 Config.DevMode = false
 Config.Align = "top-left" -- menu
+
 -- check translation file to see if your language is available or add it.
 Lang = "English"
 
 --* when player choosing a name  make sure it doesn't contain any of the words in the list below
 Config.BannedNames = { "Arthur", "Marshton", "Shit", "Dick" } --* you can add more words
 
+Config.AllowPlayerDeleteCharacter = true
+-- item name for second chance character
+Config.secondChanceItem = "secondchance"
+-- after creating character player will spawn here
 Config.SpawnCoords = {
     position = vector3(-67.27, -392.34, 71.79),
     heading = 171.98
 }
 
--- disable or allow players delete their characters
-Config.AllowPlayerDeleteCharacter = true
+-- * PLAYER SELECTION MENU * --
+-- loactions will be random each restart
+-- max characters in vorp core will have to match the number of positions , so if its allowed 3 characters then add 3 positions if its 5 add 5
+Config.SpawnPosition = {
+    -- location 1 vanhorn
+    {
+        options = {
+            timecycle = { name = "teaser_trainShot", strenght = 1.0 },                                         -- you can find more in RDR3 discoveries github
+            music = "REHR_START",                                                                              -- you can find more in RDR3 discoveries github
+            weather = { type = "sunny", transition = 10, snow = false },                                       -- weather to choose
+            time = { hour = 12, transition = 10 },                                                             -- time to choose
+            playerpos = vector3(2967.38, 488.73, 47.21),                                                       -- player spawn for textures to load in
+            mainCam = { x = 2967.38, y = 488.73, z = 47.21, rotx = 0.0, roty = 0.0, rotz = 105.0, fov = 60.0 } -- main
+        },
 
--- Toggle on/off weathersync integration for the character selection options below
-Config.toggleWeatherSync = true
+        positions = {
 
--- Select the weather you would like to be used on the Character Selection Screen
-Config.charselWeather = 'sunny'  -- See weathersync config file for a list of available weather types
-Config.charselgroundSnow = false -- Toggle whether snow should cover the ground permanently
-
--- Set the time of day to have your Character Selection screen set to
-Config.timeHour = 10     -- 0 to 23 | 0 is Midnight
-Config.timeFreeze = true -- false will allow passage of time
-
-Config.selectedCharacter = {
-    coords = vector3(-3753.83, -2608.41, -13.99), -- where player will spawn  needs to be close to the char select
-    cameraParams = {
-        x = -3743.11,
-        y = -2607.66,
-        z = -13.0,
-        rotX = 7.82,
-        rotY = 0,
-        rotZ = -90.67,
-        fov = 50.00 -- camera coords
+            {
+                spawn = vector4(2959.76, 483.66, 47.39, 282.33),                                                 --location of ped
+                camera = { x = 2963.62, y = 484.0, z = 47.87, rotx = 0.0, roty = 0.0, rotz = 90.0, fov = 60.0 }, --camera to look at ped
+                scenario = {
+                    -- animations will be random every time you join will choose one from the list
+                    mp_female = {
+                        "WORLD_HUMAN_SMOKE_CARRYING",
+                        "MP_LOBBY_SCENARIO_08",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    },
+                    mp_male = {
+                        "WORLD_HUMAN_SMOKE_CARRYING",
+                        "MP_LOBBY_SCENARIO_08",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    }
+                }
+            },
+            {
+                spawn = vector4(2960.83, 486.49, 46.82, 286.13),
+                camera = { x = 2964.67, y = 487.25, z = 46.74, rotx = 0.0, roty = 0.0, rotz = 100.0, fov = 40.0 },
+                scenario = {
+                    mp_female = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "MP_LOBBY_SCENARIO_07",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    },
+                    mp_male = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "MP_LOBBY_SCENARIO_07",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    },
+                }
+            },
+            {
+                spawn = vector4(2957.83, 488.6, 47.4, 279.92),
+                camera = { x = 2961.18, y = 488.70, z = 46.90, rotx = 0.0, roty = 0.0, rotz = 90.0, fov = 60.0 },
+                scenario = {
+                    mp_female = {
+                        "WORLD_HUMAN_SIT_GROUND_COFFEE_DRINK",
+                        "MP_LOBBY_CROUCHING_B",
+                        "WORLD_HUMAN_SIT_DRINK",
+                        "WORLD_HUMAN_SIT_GROUND_READ_NEWSPAPER"
+                    },
+                    mp_male = {
+                        "WORLD_HUMAN_SIT_GROUND_COFFEE_DRINK",
+                        "MP_LOBBY_CROUCHING_B",
+                        "WORLD_HUMAN_SIT_DRINK",
+                        "WORLD_HUMAN_SIT_GROUND_READ_NEWSPAPER"
+                    },
+                }
+            },
+        }
     },
-    initialPos = {
-        coords = vector3(-3730.9, -2606.34, -12.92), -- where npcs will spawn
-        heading = 116.70
-    },
-    gotoPos = {
-        coords = vector3(-3737.73, -2607.67, -12.85), -- where npc will have to go
+    -- armadillo saloon
+    {
+        options = {
+            timecycle = { name = "teaser_trainShot", strenght = 1.0 },                                             -- you can find more in RDR3 discoveries github
+            music = "REHR_START",                                                                                  -- you can find more in RDR3 discoveries github
+            weather = { type = "sunny", transition = 10, snow = false },                                           -- weather to choose
+            time = { hour = 12, transition = 10 },                                                                 -- time to choose
+            playerpos = vector3(-3703.26, -2602.17, -13.27),                                                       -- where invisible player needs to spawn for textures to load in location
+            mainCam = { x = -3707.83, y = -2599.98, z = -12.80, rotx = 5.0, roty = 0.0, rotz = -20.0, fov = 40.0 } -- main camera position
+        },
+        positions = {
+
+            {
+                spawn = vector4(-3706.8, -2589.74, -13.27, 204.89),                                                    --location of ped
+                camera = { x = -3706.97, y = -2594.06, z = -12.90, rotx = -5.0, roty = 0.0, rotz = -3.0, fov = 30.0 }, --camera to look at ped
+                scenario = {
+                    mp_female = {
+                        "WORLD_HUMAN_SMOKE_CARRYING",
+                        "MP_LOBBY_SCENARIO_08",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    }, -- animations still animation ,select ,spawn for females
+                    mp_male = {
+                        "WORLD_HUMAN_SMOKE_CARRYING",
+                        "MP_LOBBY_SCENARIO_08",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    }
+                }
+            },
+            {
+                spawn = vector4(-3701.46, -2592.47, -13.27, 139.94),
+                camera = { x = -3703.89, y = -2596.37, z = -12.60, rotx = -10.0, roty = 0.0, rotz = -30.0, fov = 35.0 },
+                scenario = {
+                    mp_female = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "MP_LOBBY_SCENARIO_07",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    },
+                    mp_male = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "MP_LOBBY_SCENARIO_07",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    },
+                }
+            },
+            {
+                spawn = vector4(-3702.79, -2587.09, -10.24, 176.87),
+                camera = { x = -3702.87, y = -2589.9, z = -9.66, rotx = -15.0, roty = 0.0, rotz = 5.0, fov = 50.0 },
+                scenario = {
+                    mp_female = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "MP_LOBBY_SCENARIO_07",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    },
+                    mp_male = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "MP_LOBBY_SCENARIO_07",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    },
+                }
+            },
+        }
     }
+    -- add more here if you want
 }
-
--- item name for second chance character
-Config.secondChanceItem = "secondchance"
 
 -- Keyboards
 Config.keys = {

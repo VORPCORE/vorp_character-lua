@@ -2,10 +2,12 @@
 local VorpCore
 local MaxCharacters
 local VORPInv = exports.vorp_inventory:vorp_inventoryApi()
+local random
 
 TriggerEvent("getCore", function(core)
 	VorpCore = core
 	MaxCharacters = VorpCore.maxCharacters
+	random = math.random(1, #Config.SpawnPosition)
 	VorpCore.addRpcCallback("vorp_characters:getMaxCharacters", function(source, cb, args)
 		cb(#MaxCharacters)
 	end)
@@ -179,7 +181,8 @@ AddEventHandler("vorp_GoToSelectionMenu", function(source)
 	if not UserCharacters then
 		return
 	end
-	TriggerClientEvent("vorpcharacter:selectCharacter", _source, UserCharacters, MaxCharacters)
+
+	TriggerClientEvent("vorpcharacter:selectCharacter", _source, UserCharacters, MaxCharacters, random)
 end)
 
 CreateThread(function()
