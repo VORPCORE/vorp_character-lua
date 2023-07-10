@@ -133,6 +133,7 @@ end
 local function LoadComps(ped, components)
 	for category, value in pairs(components) do
 		if value ~= -1 then
+			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, false, false)
 			Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, value, false, true, false)
 			Citizen.InvokeNative(0x66b957aac2eaaeab, ped, value, 0, 0, 1, 1) -- _UPDATE_SHOP_ITEM_WEARABLE_STATE
 			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)        --_CLEAR
@@ -539,7 +540,7 @@ function LoadPlayerComponents(ped, skin, components)
 	-- Load our face textures
 	FaceOverlay("beardstabble", skin.beardstabble_visibility, 1, 1, 0, 0, 1.0, 0, 1,
 		skin.beardstabble_color_primary, 0, 0, 1, skin.beardstabble_opacity)
-		FaceOverlay("hair", skin.hair_visibility, 1, 1, 0, 0, 1.0, 0, 1,
+	FaceOverlay("hair", skin.hair_visibility, 1, 1, 0, 0, 1.0, 0, 1,
 		skin.hair_color_primary, 0, 0, 1, skin.hair_opacity)
 	FaceOverlay("scars", skin.scars_visibility, skin.scars_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
 		skin.scars_opacity)
