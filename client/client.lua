@@ -270,9 +270,9 @@ local function addNewelements(menu)
 	local available = MaxCharacters - #myChars
 	for i = 1, available, 1 do
 		menu.addNewElement({
-			label = "Create a new character",
+			label = T.MainMenu.NewChar,
 			value = "create",
-			desc = imgPath:format("character_creator_appearance") .. "<br> Switch characters by pressing enter",
+			desc = imgPath:format("character_creator_appearance") .. "<br>" .. T.MainMenu.NewCharDesc,
 			itemHeight = "2vh"
 
 		})
@@ -297,9 +297,9 @@ function OpenMenuSelect()
 
 	for key, value in pairs(myChars) do
 		elements[#elements + 1] = {
-			label = "Name: " .. value.firstname .. " " .. value.lastname .. "<br>Money: $" .. value.money,
+			label = T.MainMenu.Name .. value.firstname .. " " .. value.lastname .. "<br>" .. T.MainMenu.Money .. value.money,
 			value = "choose",
-			desc = imgPath:format("character_creator_appearance") .. "<br> select character by pressing enter",
+			desc = imgPath:format("character_creator_appearance") .. "<br>" .. T.MainMenu.NameDesc,
 			char = value,
 			index = key, -- selected character index
 		}
@@ -307,9 +307,9 @@ function OpenMenuSelect()
 
 	for i = 1, available, 1 do
 		elements[#elements + 1] = {
-			label = "Create a new character",
+			label = T.MainMenu.CreateNewCharT,
 			value = "create",
-			desc = imgPath:format("character_creator_appearance") .. "<br>create a new character by pressing enter",
+			desc = imgPath:format("character_creator_appearance") .. "<br>" .. T.MainMenu.CreateNewCharDesc,
 			itemHeight = "2vh",
 		}
 	end
@@ -362,28 +362,28 @@ function OpenMenuSelect()
 						end
 					end
 					menu.addNewElement({
-						label = "Spawn",
+						label = T.MainMenu.Choose,
 						value = "select",
 						desc = imgPath:format("character_creator_appearance") ..
-							"<br> select this character to spawn in the world",
+							"<br>" .. T.MainMenu.ChooseDesc,
 						char = selectedChar,
 						itemHeight = "2vh",
 					})
 					if Config.AllowPlayerDeleteCharacter then
 						menu.addNewElement({
-							label = "Delete",
+							label = T.MainMenu.Delete,
 							value = "delete",
 							desc = imgPath:format("character_creator_appearance") ..
-								"<br> delete this character",
+								"<br>" .. T.MainMenu.DeleteDesc,
 							char = selectedChar,
 							Data = dataConfig,
 							itemHeight = "2vh",
 						})
 					end
 					menu.addNewElement({
-						label = "Go back",
+						label = T.MainMenu.ReturnMenu,
 						value = "back",
-						desc = imgPath:format("character_creator_appearance") .. "<br> go back to character selection",
+						desc = imgPath:format("character_creator_appearance") .. "<br>" .. T.MainMenu.ReturnMenuDesc,
 						char = data.current.char,
 						itemHeight = "2vh",
 					})
