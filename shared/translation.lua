@@ -1,6 +1,6 @@
-Translation = {}
+TranslationCharacter = {}
 
-Translation.Langs = {
+TranslationCharacter.Langs = {
     English = {
         MainMenu = {
             NewChar = "Create a new character",
@@ -205,6 +205,21 @@ Translation.Langs = {
         },
     },
     Portugues_PT = {
+        MainMenu = {
+            NewChar = "Criar um novo personagem",
+            NewCharDesc = "Trocar de personagem ao pressionar Enter",
+            Name = "Nome: ",
+            Money = "Dinheiro: $ ",
+            NameDesc = "Selecionar personagem ao pressionar Enter",
+            CreateNewCharT = "Criar um novo personagem",
+            CreateNewCharDesc = "Trocar de personagem ao pressionar Enter",
+            Choose = "Spawn",
+            ChooseDesc = "Selecionar este personagem para aparecer no mundo",
+            Delete = "Apagar",
+            DeleteDesc = "Apagar este personagem",
+            ReturnMenu = "Voltar",
+            ReturnMenuDesc = "Voltar à seleção de personagem",
+        },
         PromptLabels = {
             promptselect = "| Personagem Selecionado:  ~o~",
             promptselect2 = "~q~ | Dinheiro: ~o~",
@@ -393,6 +408,21 @@ Translation.Langs = {
         },
     },
     Portugues_BR = {
+        MainMenu = {
+            NewChar = "Criar um novo personagem",
+            NewCharDesc = "Trocar de personagem pressionando Enter",
+            Name = "Nome: ",
+            Money = "Dinheiro: $ ",
+            NameDesc = "Selecionar personagem pressionando Enter",
+            CreateNewCharT = "Criar um novo personagem",
+            CreateNewCharDesc = "Trocar de personagem pressionando Enter",
+            Choose = "Spawn",
+            ChooseDesc = "Selecionar este personagem para aparecer no mundo",
+            Delete = "Excluir",
+            DeleteDesc = "Excluir este personagem",
+            ReturnMenu = "Voltar",
+            ReturnMenuDesc = "Voltar à seleção de personagem",
+        },
         PromptLabels = {
             promptselect = "| Personagem selecionado:  ~o~",
             promptselect2 = "~q~ | Dinheiro: ~o~",
@@ -577,6 +607,21 @@ Translation.Langs = {
         }
     },
     Francais = {
+        MainMenu = {
+            NewChar = "Créer un nouveau personnage",
+            NewCharDesc = "Changer de personnage en appuyant sur Entrée",
+            Name = "Nom: ",
+            Money = "Argent: $ ",
+            NameDesc = "Sélectionner un personnage en appuyant sur Entrée",
+            CreateNewCharT = "Créer un nouveau personnage",
+            CreateNewCharDesc = "Changer de personnage en appuyant sur Entrée",
+            Choose = "Apparaître",
+            ChooseDesc = "Sélectionner ce personnage pour apparaître dans le monde",
+            Delete = "Supprimer",
+            DeleteDesc = "Supprimer ce personnage",
+            ReturnMenu = "Retour",
+            ReturnMenuDesc = "Retourner à la sélection de personnage",
+        },
         PromptLabels = {
             promptselect = "| Personnage sélectionné :  ~o~",
             promptselect2 = "~q~ | Argent: ~o~",
@@ -778,6 +823,21 @@ Translation.Langs = {
         },
     },
     German = {
+        MainMenu = {
+            NewChar = "Erstelle einen neuen Charakter",
+            NewCharDesc = "Charakter wechseln durch Drücken von Enter",
+            Name = "Name: ",
+            Money = "Geld: $ ",
+            NameDesc = "Charakter auswählen durch Drücken von Enter",
+            CreateNewCharT = "Erstelle einen neuen Charakter",
+            CreateNewCharDesc = "Charakter wechseln durch Drücken von Enter",
+            Choose = "Spawn",
+            ChooseDesc = "Wähle diesen Charakter, um in der Welt zu spawnen",
+            Delete = "Löschen",
+            DeleteDesc = "Diesen Charakter löschen",
+            ReturnMenu = "Zurück",
+            ReturnMenuDesc = "Zurück zur Charakterauswahl",
+        },
         PromptLabels = {
             promptselect = "Gewählter Charakter:  ~o~",
             promptselect2 = "~q~ | Geld: ~o~",
@@ -968,6 +1028,21 @@ Translation.Langs = {
         },
     },
     Spanish = {
+        MainMenu = {
+            NewChar = "Crear un nuevo personaje",
+            NewCharDesc = "Cambiar de personaje presionando Enter",
+            Name = "Nombre: ",
+            Money = "Dinero: $ ",
+            NameDesc = "Seleccionar personaje presionando Enter",
+            CreateNewCharT = "Crear un nuevo personaje",
+            CreateNewCharDesc = "Cambiar de personaje presionando Enter",
+            Choose = "Spawn",
+            ChooseDesc = "Seleccionar este personaje para aparecer en el mundo",
+            Delete = "Eliminar",
+            DeleteDesc = "Eliminar este personaje",
+            ReturnMenu = "Volver",
+            ReturnMenuDesc = "Volver a la selección de personaje",
+        },
         PromptLabels = {
             promptselect = "| Personaje seleccionado:  ~o~",
             promptselect2 = "~q~ | Dinero: ~o~",
