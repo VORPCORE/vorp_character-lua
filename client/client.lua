@@ -13,7 +13,7 @@ local Peds         = {}
 -- GLOBALS
 CachedSkin         = {}
 CachedComponents   = {}
-T                  = TranslationCharacter.Langs[Lang]
+T                  = Translation.Langs[Lang]
 
 
 AddEventHandler('onClientResourceStart', function(resourceName)

@@ -1,6 +1,6 @@
-TranslationCharacter = {}
+Translation = {}
 
-TranslationCharacter.Langs = {
+Translation.Langs = {
     English = {
         MainMenu = {
             NewChar = "Create a new character",

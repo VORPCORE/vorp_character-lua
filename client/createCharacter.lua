@@ -16,7 +16,7 @@ local selectRight
 local selectEnter
 local PromptGroup1 = GetRandomIntInRange(0, 0xffffff)
 local PromptGroup2 = GetRandomIntInRange(0, 0xffffff)
-T = TranslationCharacter.Langs[Lang]
+T = Translation.Langs[Lang]
 
 --GLOBALS
 VORPcore = {}
