@@ -2,6 +2,21 @@ Translation = {}
 
 Translation.Langs = {
     English = {
+        MainMenu = {
+            NewChar = "Create a new character",
+            NewCharDesc = "Switch characters by pressing enter",
+            Name = "Name: ",
+            Money = "Money: $ ",
+            NameDesc = "Select character by pressing enter",
+            CreateNewCharT = "Create a new character",
+            CreateNewCharDesc = "Switch characters by pressing enter",
+            Choose = "Spawn",
+            ChooseDesc = "Select this character to spawn in the world",
+            Delete = "Delete",
+            DeleteDesc = "Delete this character",
+            ReturnMenu = "Go back",
+            ReturnMenuDesc = "Go back to character selection",
+        },
         PromptLabels = {
             promptselect = "| Character selected:  ~o~",
             promptselect2 = "~q~ | Money: ~o~",
