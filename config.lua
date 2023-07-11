@@ -20,7 +20,7 @@ Config.SpawnCoords = {
 
 -- * PLAYER SELECTION MENU * --
 -- loactions will be random each restart
--- max characters in vorp core will have to match the number of positions , so if its allowed 3 characters then add 3 positions if its 5 add 5
+-- max characters in vorp core will have to match the number of positions
 Config.SpawnPosition = {
     -- location 1 vanhorn
     {
@@ -32,9 +32,7 @@ Config.SpawnPosition = {
             playerpos = vector3(2967.38, 488.73, 47.21),                                                       -- player spawn for textures to load in
             mainCam = { x = 2967.38, y = 488.73, z = 47.21, rotx = 0.0, roty = 0.0, rotz = 105.0, fov = 60.0 } -- main
         },
-
         positions = {
-
             {
                 spawn = vector4(2959.76, 483.66, 47.39, 282.33),                                                 --location of ped
                 camera = { x = 2963.62, y = 484.0, z = 47.87, rotx = 0.0, roty = 0.0, rotz = 90.0, fov = 60.0 }, --camera to look at ped
@@ -71,8 +69,8 @@ Config.SpawnPosition = {
                 }
             },
             {
-                spawn = vector4(2957.83, 488.6, 47.4, 279.92),
-                camera = { x = 2961.18, y = 488.70, z = 46.90, rotx = 0.0, roty = 0.0, rotz = 90.0, fov = 60.0 },
+                spawn = vector4(2958.35, 487.81, 47.35, 283.9),
+                camera = { x = 2962.18, y = 488.70, z = 46.90, rotx = 0.0, roty = 0.0, rotz = 90.0, fov = 60.0 },
                 scenario = {
                     mp_female = {
                         "WORLD_HUMAN_SIT_GROUND_COFFEE_DRINK",
@@ -88,6 +86,41 @@ Config.SpawnPosition = {
                     },
                 }
             },
+            {
+                spawn = vector4(2960.69, 489.96, 46.59, 275.78),
+                camera = { x = 2964.19, y = 490.46, z = 46.20, rotx = 0.0, roty = 0.0, rotz = 90.0, fov = 60.0 },
+                scenario = {
+                    mp_female = {
+                        "WORLD_HUMAN_SIT_GROUND_COFFEE_DRINK",
+                        "MP_LOBBY_CROUCHING_B",
+                        "WORLD_HUMAN_SIT_DRINK",
+                        "WORLD_HUMAN_SIT_GROUND_READ_NEWSPAPER"
+                    },
+                    mp_male = {
+                        "WORLD_HUMAN_SIT_GROUND_COFFEE_DRINK",
+                        "MP_LOBBY_CROUCHING_B",
+                        "WORLD_HUMAN_SIT_DRINK",
+                        "WORLD_HUMAN_SIT_GROUND_READ_NEWSPAPER"
+                    },
+                }
+            },
+            {
+                spawn = vector4(2957.17, 490.24, 47.34, 257.62),                                                  --location of ped
+                camera = { x = 2961.37, y = 490.16, z = 47.37, rotx = 0.0, roty = 0.0, rotz = 90.0, fov = 60.0 }, --camera to look at ped
+                scenario = {
+                    -- animations will be random every time you join will choose one from the list
+                    mp_female = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "WORLD_HUMAN_SMOKE_CARRYING",
+                    },
+                    mp_male = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "WORLD_HUMAN_SMOKE_CARRYING",
+                    }
+                }
+            },
         }
     },
     -- armadillo saloon
@@ -101,7 +134,6 @@ Config.SpawnPosition = {
             mainCam = { x = -3707.83, y = -2599.98, z = -12.80, rotx = 5.0, roty = 0.0, rotz = -20.0, fov = 40.0 } -- main camera position
         },
         positions = {
-
             {
                 spawn = vector4(-3706.8, -2589.74, -13.27, 204.89),                                                    --location of ped
                 camera = { x = -3706.97, y = -2594.06, z = -12.90, rotx = -5.0, roty = 0.0, rotz = -3.0, fov = 30.0 }, --camera to look at ped
@@ -115,7 +147,7 @@ Config.SpawnPosition = {
                         "WORLD_HUMAN_SMOKE_CARRYING",
                         "MP_LOBBY_SCENARIO_08",
                         "WORLD_HUMAN_SMOKE_CARRYING"
-                    }
+                    },
                 }
             },
             {
@@ -154,8 +186,44 @@ Config.SpawnPosition = {
                     },
                 }
             },
+            {
+                spawn = vector4(-3702.5, -2589.02, -13.32, 160.76),
+                camera = { x = -3702.7, y = -2592.5, z = -12.8, rotx = -15.0, roty = 0.0, rotz = 5.0, fov = 50.0 },
+                scenario = {
+                    mp_female = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "MP_LOBBY_SCENARIO_07",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    },
+                    mp_male = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "MP_LOBBY_SCENARIO_07",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    },
+                }
+            },
+            {
+                spawn = vector4(-3698.99, -2589.17, -10.29, 85.26),
+                camera = { x = -3700.80, y = -2590.87, z = -9.59, rotx = -15.0, roty = 0.0, rotz = -50.0, fov = 50.0 },
+                scenario = {
+                    mp_female = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "MP_LOBBY_SCENARIO_07",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    },
+                    mp_male = {
+                        "MP_LOBBY_SCENARIO_02",
+                        "MP_LOBBY_SCENARIO_04",
+                        "MP_LOBBY_SCENARIO_07",
+                        "WORLD_HUMAN_SMOKE_CARRYING"
+                    },
+                }
+            },
         }
-    }
+    },
     -- add more here if you want
 }
 
@@ -205,8 +273,6 @@ Config.commands = {
     Suspender = { command = "suspender" },
     armor = { command = "armor" },
 }
-
-
 
 Config.DefaultChar = {
     Male = {
@@ -341,7 +407,6 @@ Config.DefaultChar = {
         }
     }
 }
-
 
 Config.texture_types = {
     Male = {
@@ -582,7 +647,6 @@ Config.color_palettes = {
         0xA4041CEF,
     }
 }
-
 
 Config.overlay_all_layers = {
     {
@@ -1104,8 +1168,6 @@ Config.overlays_info = {
 }
 
 ---------------------------* EYES *--------------------------
-
-
 Config.Eyes = {
     Male = {
         612262189,
@@ -1122,7 +1184,6 @@ Config.Eyes = {
         2739887825,
         2432743988,
         3065185688,
-
     },
     Female = {
         928002221,
@@ -1139,12 +1200,10 @@ Config.Eyes = {
         3045109292,
         2210319017,
         2451302243,
-
     }
 }
+
 -------------------------- * BODY TYPE * --------------------------------------
-
-
 Config.BodyType = {
     Body = {
         61606861,
@@ -1176,7 +1235,6 @@ Config.BodyType = {
         -1173634986,
         -867801909,
         1960266524,
-
     }
 }
 
@@ -1242,8 +1300,8 @@ Config.Teeth = {
         },
     }
 }
--- *TRANSLATE ["inside here"] beloow
 
+-- *TRANSLATE ["inside here"] beloow
 Config.FaceFeatures = {
     head = {
         ["width"] = { -- TRANSLATE THIS
