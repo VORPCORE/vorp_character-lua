@@ -3,9 +3,8 @@ local function toggleComp(hash, item)
 	if Citizen.InvokeNative(0xFB4891BD7578CDC1, __player, hash) then
 		Citizen.InvokeNative(0xD710A5007C2AC539, __player, hash, 0)
 	else
-		if Config.UseSPclothing then
-			Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, item, false, false, false)
-		end
+		Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, item, false, false, false)
+
 		Citizen.InvokeNative(0xD3A7B003ED343FD9, __player, item, true, true, true)
 	end
 	UpdateVariation(__player)
