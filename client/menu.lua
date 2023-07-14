@@ -1465,14 +1465,14 @@ function OpenLifeStyleMenu(table)
             --* Texture
             if data.current.tag == "texture" then
                 if data.current.value > 0 then
-                    PlayerSkin[data.current.visibility] = 1
+                    --PlayerSkin[data.current.visibility] = 1
                     PlayerSkin[data.current.txt_id] = data.current.value
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility],
                         PlayerSkin[data.current.txt_id], 0, 0, 1,
                         1.0, 0, 0, 0, 0, 0,
                         1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
                 else
-                    PlayerSkin[data.current.visibility] = 0
+                   -- PlayerSkin[data.current.visibility] = 0
                     PlayerSkin[data.current.txt_id] = 0
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility],
                         PlayerSkin[data.current.txt_id], 0, 0, 1,
