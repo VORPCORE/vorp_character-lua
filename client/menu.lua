@@ -1665,7 +1665,7 @@ function OpenMakeupMenu(table)
 
             if data.current.tag == "texture" then
                 --* texture id
-                if data.current.value < 0 then
+                if data.current.value <= 0 then
                     PlayerSkin[data.current.visibility] = 0
                 else
                     PlayerSkin[data.current.visibility] = 1
@@ -1710,7 +1710,7 @@ function OpenMakeupMenu(table)
 
             if data.current.tag == "opacity" then
                 --* opacity
-                if data.current.value < 0 then
+                if data.current.value <= 0 then
                     PlayerSkin[data.current.visibility] = 0
                 else
                     PlayerSkin[data.current.visibility] = 1
