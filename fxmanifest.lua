@@ -14,6 +14,7 @@ shared_scripts {
 
 client_scripts {
 	'client/*.lua',
+	'client/notify.js'
 }
 
 server_scripts {
