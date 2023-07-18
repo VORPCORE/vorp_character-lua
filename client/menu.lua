@@ -1472,7 +1472,7 @@ function OpenLifeStyleMenu(table)
                         1.0, 0, 0, 0, 0, 0,
                         1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
                 else
-                   -- PlayerSkin[data.current.visibility] = 0
+                    -- PlayerSkin[data.current.visibility] = 0
                     PlayerSkin[data.current.txt_id] = 0
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility],
                         PlayerSkin[data.current.txt_id], 0, 0, 1,
