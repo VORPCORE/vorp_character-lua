@@ -293,7 +293,7 @@ function OpenMenuSelect()
 	local elements = {}
 	local available = MaxCharacters - #myChars
 	local created = true
-
+	local pressed = false
 
 	for key, value in pairs(myChars) do
 		elements[#elements + 1] = {
@@ -405,7 +405,8 @@ function OpenMenuSelect()
 			end
 
 			if Config.AllowPlayerDeleteCharacter then
-				if (data.current.value == "delete") then
+				if (data.current.value == "delete") and not pressed then
+					pressed = true
 					DisplayHud(true)
 					exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1,
 						'Press Delete to erase this character , or  press backspace to cancel')
@@ -419,6 +420,7 @@ function OpenMenuSelect()
 
 						if IsControlJustPressed(0, joaat("INPUT_FRONTEND_CANCEL")) then
 							N_0xdd1232b332cbb9e7(3, 1, 0)
+							pressed = false
 							return
 						end
 					end
@@ -448,6 +450,7 @@ function OpenMenuSelect()
 					addNewelements(menu)
 					menu.refresh()
 					created = true
+					pressed = false
 				end
 			end
 
