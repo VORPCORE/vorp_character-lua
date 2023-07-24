@@ -1624,7 +1624,7 @@ function OpenMakeupMenu(table)
                 --*Variant
                 elements[#elements + 1] = {
                     label = overlayLookup[key].label .. ' ' .. T.MenuMakeup.element8.label,
-                    value = PlayerSkin[overlayLookup[key].variant],
+                    value = PlayerSkin[overlayLookup[key].variant] or 0,
                     min = 0,
                     max = overlayLookup[key].varvalue,
                     type = "slider",
