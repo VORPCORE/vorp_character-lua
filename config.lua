@@ -4,7 +4,7 @@ Config.DevMode = false
 Config.Align = "top-left" -- menu
 
 -- check translation file to see if your language is available or add it.
-Lang = "English"
+Lang = "Spanish"
 
 --* when player choosing a name  make sure it doesn't contain any of the words in the list below
 Config.BannedNames = { "Arthur", "Marshton", "Shit", "Dick" } --* you can add more words

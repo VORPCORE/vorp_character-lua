@@ -33,6 +33,8 @@ Translation.Langs = {
             promptUpDownCam = "up/down",
             promptrotateCam = "rotate",
             promptzoomCam = "zoom",
+            CamAdjustments = "Impostazioni della fotocamera",
+            CamAdjustments = "Camera adjustments",
         },
         Inputs = {
             confirm = "Confirm",
@@ -235,7 +237,8 @@ Translation.Langs = {
             promptselectConfirm = "~q~Seleziona",
             promptUpDownCam = "su/giù",
             promptrotateCam = "ruota",
-            promptzoomCam = "zoom",    
+            promptzoomCam = "zoom",
+            CamAdjustments = "Impostazioni della fotocamera",
         },
         Inputs = {
             confirm = "Conferma",
@@ -441,6 +444,7 @@ Translation.Langs = {
             promptUpDownCam = "cima/baixo",
             promptrotateCam = "rodar",
             promptzoomCam = "aproximar/afastar",
+            CamAdjustments = "Configurações da câmera",
         },
         Inputs = {
             confirm = "Confirme",
@@ -644,6 +648,7 @@ Translation.Langs = {
             promptUpDownCam = "cima/baixo",
             promptrotateCam = "rotacionar",
             promptzoomCam = "zoom",
+            CamAdjustments = "Configurações da câmera",
         },
         Inputs = {
             confirm = "Confirmar",
@@ -843,6 +848,7 @@ Translation.Langs = {
             promptUpDownCam = "haut/bas",
             promptrotateCam = "tourner",
             promptzoomCam = "zoom",
+            CamAdjustments = "Réglages de l'appareil photo",
         },
         Inputs = {
             confirm = "Confirmer",
@@ -1059,6 +1065,7 @@ Translation.Langs = {
             promptUpDownCam = "Hoch/Runter",
             promptrotateCam = "Drehen",
             promptzoomCam = "Zoomen",
+            CamAdjustments = "Kameraeinstellungen",
         },
         Inputs = {
             confirm = "Bestätigen",
@@ -1264,6 +1271,7 @@ Translation.Langs = {
             promptUpDownCam = "Arriba/abajo",
             promptrotateCam = "Rotar",
             promptzoomCam = "Zoom",
+            CamAdjustments = "Ajustes de cámara",
         },
         Inputs = {
             confirm = "Confirmar",
