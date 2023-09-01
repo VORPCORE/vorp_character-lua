@@ -515,7 +515,7 @@ AddEventHandler("vorpcharacter:reloadafterdeath", function()
 	LoadPlayer(joaat("CS_dutch"))
 	SetPlayerModel(PlayerId(), joaat("CS_dutch"), false)
 	IsPedReadyToRender()
-	LoadPlayerComponents(PlayerPedId(), myChars[selectedChar].skin, myChars[selectedChar].components)
+	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
 	SetModelAsNoLongerNeeded(joaat("CS_dutch"))
 	--heal ped after death
 	local ped = PlayerPedId()
