@@ -481,7 +481,7 @@ function CharSelect()
 	CachedComponents = myChars[selectedChar].components
 	TriggerServerEvent("vorp_CharSelectedCharacter", charIdentifier)
 
-	RequestModel(nModel)
+	RequestModel(nModel, false)
 	while not HasModelLoaded(nModel) do
 		Wait(0)
 	end
@@ -690,15 +690,17 @@ RegisterCommand("rc", function(source, args, rawCommand)
 
 		LoadPlayerComponents(__player, CachedSkin, CachedComponents)
 	end
-end)
+end, false)
+
 
 -- work arround to fix scale issues
 CreateThread(function()
 	while true do
 		local dead = IsEntityDead(PlayerPedId())
-		if myChars[selectedChar] then
-			if myChars[selectedChar].skin and not dead then
-				SetPedScale(PlayerPedId(), myChars[selectedChar].skin.Scale)
+		if CachedSkin then
+			local PlayerHeight = CachedSkin.Scale
+			if PlayerHeight and not dead then
+				SetPedScale(PlayerPedId(), PlayerHeight)
 			end
 		end
 		Wait(1000)
