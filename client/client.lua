@@ -3,13 +3,15 @@ local selectedChar = 1
 local myChars      = {}
 local textureId    = -1
 local MaxCharacters
-local mainCam      = nil
-local LastCam      = nil
+local mainCam
+local LastCam
 local random
 local canContinue  = false
 local Custom       = nil
 local Peds         = {}
-
+local MalePed
+local FemalePed
+local stopLoop     = false
 -- GLOBALS
 CachedSkin         = {}
 CachedComponents   = {}
@@ -27,6 +29,7 @@ AddEventHandler('onClientResourceStart', function(resourceName)
 	end
 end)
 
+--clean up
 AddEventHandler('onResourceStop', function(resourceName)
 	if (GetCurrentResourceName() ~= resourceName) then
 		return
@@ -265,6 +268,7 @@ local function finish(boolean)
 	Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
 	exports.weathersync:setSyncEnabled(true)
 end
+
 local imgPath = "<img style='max-height:532px;max-width:344px;float: center;'src='nui://vorp_character/images/%s.png'>"
 local function addNewelements(menu)
 	local available = MaxCharacters - #myChars
@@ -285,7 +289,7 @@ local function createMainCam()
 		data.mainCam.rotx, data.mainCam.roty,
 		data.mainCam.rotz, data.mainCam.fov, false, 2)
 	SetCamActive(mainCam, true)
-	RenderScriptCams(true, false, 0, true, true)
+	RenderScriptCams(true, false, 0, true, true, 0)
 end
 
 function OpenMenuSelect()
@@ -406,11 +410,11 @@ function OpenMenuSelect()
 
 			if Config.AllowPlayerDeleteCharacter then
 				if (data.current.value == "delete") and not pressed then
+					stopLoop = false
 					pressed = true
 					DisplayHud(true)
-					exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1,
-						'Press Delete to erase this character , or  press backspace to cancel')
-					while true do
+					exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1, Translation.Langs[Lang].Inputs.notify)
+					while not stopLoop do
 						Wait(0)
 
 						if IsControlJustPressed(0, joaat("INPUT_CREATOR_DELETE")) then
@@ -467,6 +471,7 @@ function OpenMenuSelect()
 				Citizen.InvokeNative(0x524B54361229154F, dataConfig.PedHandler, "", -1, false, "", -1.0, 0)
 				finish(true)
 				CharSelect()
+				stopLoop = true
 			end
 		end, function(menu, data)
 
