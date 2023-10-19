@@ -429,6 +429,11 @@ function OpenMenuSelect()
 							return
 						end
 					end
+
+					if stopLoop then
+						return
+					end
+
 					DeleteEntity(data.current.Data.PedHandler)
 
 					-- * remove elements not needed * --
