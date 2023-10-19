@@ -75,6 +75,10 @@ local function __GetName(Result)
         splitString[#splitString + 1] = i
     end
 
+    if splitString[1] == nil or splitString[2] == nil then
+        return nil
+    end
+
     for _, word in ipairs(Config.BannedNames) do
         if string.find(splitString[1], word) or string.find(splitString[2], word) then
             return nil
