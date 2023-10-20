@@ -343,6 +343,7 @@ function OpenMenuSelect()
 				SetCamActiveWithInterp(mainCam, LastCam, 3000, 500, 500)
 				created = true
 				stopLoop = true
+				N_0xdd1232b332cbb9e7(3, 1, 0)
 			end
 
 			if (data.current.value == "choose") then
@@ -479,6 +480,7 @@ function OpenMenuSelect()
 				finish(true)
 				CharSelect()
 				stopLoop = true
+				N_0xdd1232b332cbb9e7(3, 1, 0) --UI_FEED_CLEAR_CHANNEL
 			end
 		end, function(menu, data)
 	end)
