@@ -36,7 +36,7 @@ end)
 RegisterServerEvent("vorpcharacter:deleteCharacter")
 AddEventHandler("vorpcharacter:deleteCharacter", function(charid)
 	local _source = source
-	local webhook = Config.Webhook['deleteCharacter']
+	local webhook = Config.Webhook.deleteCharacter
 	local User = VorpCore.getUser(_source)
 	User.removeCharacter(charid)
 	VorpCore.AddWebhook('Character Deleted', webhook, 'Steam Name: '..GetPlayerName(_source)..' \n Character ID: '..charid)

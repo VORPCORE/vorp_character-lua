@@ -19,7 +19,7 @@ Config.SpawnCoords = {
 }
 
 Config.Webhook = {
-    ['deleteCharacter'] = ''
+    deleteCharacter = ''
 }
 
 -- * PLAYER SELECTION MENU * --

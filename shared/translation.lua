@@ -40,8 +40,9 @@ Translation.Langs = {
             placeholder = "Firstname Lastname",
             inputHeader = "CHOOSE CHARACTER NAME",
             title = "Letters only min 5 max 20",
-            banned = "You cant use this name as they are consider banned in this server or you have provided incorrect name",
-            notify = "Press ~INPUT_CREATOR_DELETE~ to erase this character or press ~INPUT_FRONTEND_CANCEL~ to cancel"
+            banned = "You cant use this name as they are consider banned in this server",
+            notify = "Press ~INPUT_CREATOR_DELETE~ to erase this character or press ~INPUT_FRONTEND_CANCEL~ to cancel",
+            missingname = "You have provided incorrect first or last name"
         },
         MenuCreation = {
             title = "Character Creation",
@@ -246,8 +247,8 @@ Translation.Langs = {
             inputHeader = "Come si chiamerà il tuo personaggio?",
             title = "Solo lettere, minimo 5 massimo 20",
             banned = "Non puoi utilizzare quei nomi, sono considerati vietati in questo server",
-            notify = "Premi Canc per eliminare questo personaggio, o premi Backspace per annullare"
-
+            notify = "Premi Canc per eliminare questo personaggio, o premi Backspace per annullare",
+            missingname = "Hai fornito un nome o cognome incorretto"
         },
         MenuCreation = {
             title = "Menu personaggio",
@@ -453,7 +454,8 @@ Translation.Langs = {
             inputHeader = "Escolha o Nome do Personagem",
             title = "Apenas Letras min 5 max 20",
             banned = "Não pode utilizar os nomes escolhidos uma vez que estão banidos deste servidor.",
-            notify = "Pressione Delete para apagar este personagem, ou pressione Backspace para cancelar"
+            notify = "Pressione Delete para apagar este personagem, ou pressione Backspace para cancelar",
+            missingname = "Você forneceu um primeiro nome ou sobrenome incorreto"
         },
         MenuCreation = {
             title = "Criação do Personagem",
@@ -658,7 +660,8 @@ Translation.Langs = {
             inputHeader = "ESCOLHER NOME DO PERSONAGEM",
             title = "Somente letras, mínimo de 5 e máximo de 20 caracteres",
             banned = "Você não pode usar esses nomes, pois eles são considerados proibidos neste servidor",
-            notify = "Pressione Delete para excluir este personagem ou pressione Backspace para cancelar"
+            notify = "Pressione Delete para excluir este personagem ou pressione Backspace para cancelar",
+            missingname = "Você forneceu um primeiro nome ou sobrenome incorreto"
         },
         MenuCreation = {
             title = "Criação de Personagem",
@@ -859,7 +862,8 @@ Translation.Langs = {
             inputHeader = " CHOISIR LE NOM DU PERSONNAGE ",
             title = "Lettres seulement min 5 max 20",
             banned = "vous ne pouvez pas utiliser ces noms car ils sont considérés comme interdits sur ce serveur",
-            notify = "Appuyez sur Supprimer pour supprimer ce personnage ou appuyez sur Retour arrière pour annuler"
+            notify = "Appuyez sur Supprimer pour supprimer ce personnage ou appuyez sur Retour arrière pour annuler",
+            missingname = "Vous avez fourni un prénom ou un nom de famille incorrect"
         },
         MenuCreation = {
             title = "Création de personnage",
@@ -1077,7 +1081,8 @@ Translation.Langs = {
             inputHeader = "CHARAKTERNAMEN WÄHLEN",
             title = "Nur Buchstaben min 5 max 20",
             banned = "Diese Namen dürfen nicht verwendet werden, da sie auf diesem Server verboten sind",
-            notify = "Drücke Entf, um diesen Charakter zu löschen oder drücke Rücktaste, um abzubrechen"
+            notify = "Drücke Entf, um diesen Charakter zu löschen oder drücke Rücktaste, um abzubrechen",
+            missingname = "Sie haben einen falschen Vornamen oder Nachnamen angegeben"
         },
         MenuCreation = {
             title = "Charaktererstellung",
@@ -1289,7 +1294,8 @@ Translation.Langs = {
             inputHeader = "Elige un nombre y apellido",
             title = "Solo letras min 5 max 20",
             banned = "No puedes usar ese nombre, ya que está prohibido en este servidor",
-            notify = "Presiona Supr para eliminar este personaje o presiona Retroceso para cancelar"
+            notify = "Presiona Supr para eliminar este personaje o presiona Retroceso para cancelar",
+            missingname = "Ha proporcionado un nombre o apellido incorrecto"
         },
         MenuCreation = {
             title = "Creación de personaje",
