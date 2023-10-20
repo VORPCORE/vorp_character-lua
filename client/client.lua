@@ -11,6 +11,7 @@ local Custom       = nil
 local Peds         = {}
 local MalePed
 local FemalePed
+local stopLoop     = false
 
 -- GLOBALS
 CachedSkin         = {}
@@ -411,11 +412,11 @@ function OpenMenuSelect()
 
 			if Config.AllowPlayerDeleteCharacter then
 				if (data.current.value == "delete") and not pressed then
+					stopLoop = false
 					pressed = true
 					DisplayHud(true)
 					exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1, Translation.Langs[Lang].Inputs.notify)
-					Wait(500)
-					while true do
+					while not stopLoop do
 						Wait(0)
 
 						if IsControlJustPressed(0, joaat("INPUT_CREATOR_DELETE")) then
@@ -477,6 +478,7 @@ function OpenMenuSelect()
 				Citizen.InvokeNative(0x524B54361229154F, dataConfig.PedHandler, "", -1, false, "", -1.0, 0)
 				finish(true)
 				CharSelect()
+				stopLoop = true
 			end
 		end, function(menu, data)
 	end)
