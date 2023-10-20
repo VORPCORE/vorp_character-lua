@@ -23,10 +23,9 @@ AddEventHandler("vorpcharacter:saveCharacter", function(skin, clothes, firstname
 	local _source = source
 	local playerCoords = Config.SpawnCoords.position
 	local playerHeading = Config.SpawnCoords.heading
-	local charid = VorpCore.getUser(_source).addCharacter(firstname, lastname, json.encode(skin), json.encode(clothes))
+	VorpCore.getUser(_source).addCharacter(firstname, lastname, json.encode(skin), json.encode(clothes))
 	Wait(600)
 	TriggerClientEvent("vorp:initCharacter", _source, playerCoords, playerHeading, false)
-	VorpCore.getUser(_source).setUsedCharacter(charid)
 	-- wait for char to be made
 	SetTimeout(3000, function()
 		TriggerEvent("vorp_NewCharacter", _source)
