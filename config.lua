@@ -18,6 +18,10 @@ Config.SpawnCoords = {
     heading = 171.98
 }
 
+Config.Webhook = {
+    deleteCharacter = ''
+}
+
 -- * PLAYER SELECTION MENU * --
 -- loactions will be random each restart
 -- max characters in vorp core will have to match the number of positions

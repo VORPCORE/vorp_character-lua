@@ -12,6 +12,7 @@ local Peds         = {}
 local MalePed
 local FemalePed
 local stopLoop     = false
+
 -- GLOBALS
 CachedSkin         = {}
 CachedComponents   = {}
@@ -480,8 +481,7 @@ function OpenMenuSelect()
 				stopLoop = true
 			end
 		end, function(menu, data)
-
-		end)
+	end)
 end
 
 function CharSelect()
@@ -526,7 +526,9 @@ AddEventHandler("vorpcharacter:reloadafterdeath", function()
 	LoadPlayer(joaat("CS_dutch"))
 	SetPlayerModel(PlayerId(), joaat("CS_dutch"), false)
 	IsPedReadyToRender()
-	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
+	if CachedSkin and CachedComponents then
+		LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
+	end
 	SetModelAsNoLongerNeeded(joaat("CS_dutch"))
 	--heal ped after death
 	local ped = PlayerPedId()
@@ -535,7 +537,6 @@ AddEventHandler("vorpcharacter:reloadafterdeath", function()
 	Citizen.InvokeNative(0xC6258F41D86676E0, ped, 1, 100)
 	Citizen.InvokeNative(0x675680D089BFA21F, ped, 1065330373)
 end)
-
 
 function LoadPlayerComponents(ped, skin, components)
 	local gender = "Male"

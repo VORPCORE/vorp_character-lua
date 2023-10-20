@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global
-local VorpCore
-local MaxCharacters
+local VorpCore = {}
+local MaxCharacters = nil
 local VORPInv = exports.vorp_inventory:vorp_inventoryApi()
 local random
 
@@ -35,9 +35,10 @@ end)
 RegisterServerEvent("vorpcharacter:deleteCharacter")
 AddEventHandler("vorpcharacter:deleteCharacter", function(charid)
 	local _source = source
-
+	local webhook = Config.Webhook.deleteCharacter
 	local User = VorpCore.getUser(_source)
 	User.removeCharacter(charid)
+	VorpCore.AddWebhook('Character Deleted', webhook, 'Steam Name: '..GetPlayerName(_source)..' \n Character ID: '..charid)
 end)
 
 RegisterServerEvent("vorp_CharSelectedCharacter")

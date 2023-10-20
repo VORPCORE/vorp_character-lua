@@ -75,6 +75,10 @@ local function __GetName(Result)
         splitString[#splitString + 1] = i
     end
 
+    if splitString[1] == nil or splitString[2] == nil then
+        return 'missingname'
+    end
+
     for _, word in ipairs(Config.BannedNames) do
         if string.find(splitString[1], word) or string.find(splitString[2], word) then
             return nil
@@ -194,6 +198,9 @@ function OpenCharCreationMenu(clothingtable)
                     if Result ~= nil and Result ~= "" then
                         if not __GetName(Result) then
                             TriggerEvent("vorp:TipRight", T.Inputs.banned, 4000)
+                            return
+                        elseif __GetName(Result) == 'missingname' then
+                            TriggerEvent("vorp:TipRight", T.Inputs.missingname, 4000)
                             return
                         end
                         FirstName, LastName = __GetName(Result)
