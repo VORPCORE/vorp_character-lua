@@ -341,6 +341,7 @@ function OpenMenuSelect()
 				menu.refresh()
 				SetCamActiveWithInterp(mainCam, LastCam, 3000, 500, 500)
 				created = true
+				stopLoop = true
 			end
 
 			if (data.current.value == "choose") then
@@ -428,6 +429,11 @@ function OpenMenuSelect()
 							return
 						end
 					end
+
+					if stopLoop then
+						return
+					end
+
 					DeleteEntity(data.current.Data.PedHandler)
 
 					-- * remove elements not needed * --
