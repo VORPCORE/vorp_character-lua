@@ -187,12 +187,10 @@ local function LoadCharacterSelect(ped, skin, components)
 	Citizen.InvokeNative(0xC6258F41D86676E0, ped, 1, 100)
 	Citizen.InvokeNative(0xC6258F41D86676E0, ped, 0, 100)
 end
--- if you have 3 positions here it means  you can olny have max characters of 3 or add more make sure you add 3 for each in case they only want females or only males
-
 
 function StartSwapCharacters()
 	local options = Config.SpawnPosition[random].options
-	exports.weathersync:setMyWeather(options.weather.type, options.weather.transition, options.weather.snow) -- Disable weather and time sync and set a weather for this client.
+	exports.weathersync:setMyWeather(options.weather.type, options.weather.transition, options.weather.snow)
 	exports.weathersync:setMyTime(options.time.hour, 0, 0, options.time.transition, true)
 	SetTimecycleModifier(options.timecycle.name)
 	Citizen.InvokeNative(0xFDB74C9CC54C3F37, options.timecycle.strenght)
@@ -206,10 +204,10 @@ function StartSwapCharacters()
 		Wait(2000)
 	end
 
-	while not HasCollisionLoadedAroundEntity(PlayerPedId()) do
+	repeat
+		Wait(0)
 		RequestCollisionAtCoord(options.playerpos.x, options.playerpos.y, options.playerpos.z)
-		Wait(100)
-	end
+	until HasCollisionLoadedAroundEntity(PlayerPedId())
 
 	PrepareMusicEvent(options.music)
 	Wait(100)
@@ -222,14 +220,13 @@ function StartSwapCharacters()
 
 		local data = Config.SpawnPosition[random].positions[key]
 		data.PedHandler = CreatePed(joaat(value.skin.sex), data.spawn, false, true, true, true)
-
-		while not DoesEntityExist(data.PedHandler) do
-			Wait(100)
-		end
+		repeat
+			Wait(0)
+		until DoesEntityExist(data.PedHandler)
 
 		LoadCharacterSelect(data.PedHandler, value.skin, value.components)
-		data.Cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",
-			data.camera.x, data.camera.y, data.camera.z, data.camera.rotx, data.camera.roty, data.camera.rotz,
+		data.Cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", data.camera.x, data.camera.y, data.camera.z,
+			data.camera.rotx, data.camera.roty, data.camera.rotz,
 			data.camera.fov, false, 2)
 		SetEntityInvincible(data.PedHandler, true)
 		Wait(100)
@@ -244,7 +241,7 @@ function StartSwapCharacters()
 		options.mainCam.rotx,
 		options.mainCam.roty, options.mainCam.rotz, options.mainCam.fov, false, 0)
 	SetCamActive(mainCam, true)
-	RenderScriptCams(true, false, 0, true, true)
+	RenderScriptCams(true, false, 0, true, true, 0)
 	Wait(2000)
 	DoScreenFadeIn(4000)
 	OpenMenuSelect()
@@ -348,11 +345,9 @@ function OpenMenuSelect()
 
 			if (data.current.value == "choose") then
 				selectedChar = data.current.index
-				--local char = data.current.char
 				local dataConfig = Config.SpawnPosition[random].positions[selectedChar]
 				local cam = dataConfig.Cam
 				SetCamActiveWithInterp(cam, mainCam or LastCam, 3000, 500, 500)
-				--local playername = char.firstname .. " " .. char.lastname
 				LastCam = cam
 				-- MOTION BLUR
 				Citizen.InvokeNative(0x45FD891364181F9E, cam, 30.0)
@@ -483,7 +478,7 @@ function OpenMenuSelect()
 				N_0xdd1232b332cbb9e7(3, 1, 0) --UI_FEED_CLEAR_CHANNEL
 			end
 		end, function(menu, data)
-	end)
+		end)
 end
 
 function CharSelect()
@@ -493,11 +488,8 @@ function CharSelect()
 	CachedSkin = myChars[selectedChar].skin
 	CachedComponents = myChars[selectedChar].components
 	TriggerServerEvent("vorp_CharSelectedCharacter", charIdentifier)
-
 	RequestModel(nModel, false)
-	while not HasModelLoaded(nModel) do
-		Wait(0)
-	end
+	repeat Wait(0) until HasModelLoaded(nModel)
 	Wait(1000)
 	SetPlayerModel(PlayerId(), joaat(nModel), false)
 	SetModelAsNoLongerNeeded(nModel)
@@ -680,9 +672,7 @@ function StartOverlay()
 		end
 	end
 
-	while not Citizen.InvokeNative(0x31DC8D3F216D8509, textureId) do -- wait till texture fully loaded
-		Wait(0)
-	end
+	repeat Wait(0) until Citizen.InvokeNative(0x31DC8D3F216D8509, textureId) -- wait till texture fully loaded
 
 	Citizen.InvokeNative(0x0B46E25761519058, ped, joaat("heads"), textureId) -- apply texture to current component in category "heads"
 	Citizen.InvokeNative(0x92DAABA2C1C10B0E, textureId)                   -- update texture
