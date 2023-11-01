@@ -292,29 +292,29 @@ function StartPrompts()
 		local label = CreateVarString(10, "LITERAL_STRING", T.PromptLabels.CamAdjustments)
 		PromptSetActiveGroupThisFrame(PromptGroup2, label)
 
-		if IsControlPressed(2, Config.Keys.prompt_camera_rotate.key) then --right
+		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key) then --right
 			adjustHeading(-5.0)
 		end
 
-		if IsControlPressed(2, Config.Keys.prompt_camera_rotate.key2) then -- left
+		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key2) then -- left
 			adjustHeading(5.0)
 		end
 
-		if IsControlPressed(2, Config.Keys.prompt_camera_ws.key) then -- up
+		if IsControlPressed(2, Config.keys.prompt_camera_ws.key) then -- up
 			z_position = math.min(z_position + 0.02, 240.0)
 			StartCam(-560.1333, -3780.923, z_position, -90.96693, zoom)
 		end
 
-		if IsControlPressed(2, Config.Keys.prompt_camera_ws.key2) then -- down
+		if IsControlPressed(2, Config.keys.prompt_camera_ws.key2) then -- down
 			z_position = math.max(z_position - 0.02, 237.70)
 			StartCam(-560.1333, -3780.923, z_position, -90.96693, zoom)
 		end
 
-		if IsControlPressed(2, Config.Keys.prompt_zoom.key) then -- zoom out
+		if IsControlPressed(2, Config.keys.prompt_zoom.key) then -- zoom out
 			AdjustZoom(4.0)
 		end
 
-		if IsControlPressed(2, Config.Keys.prompt_zoom.key2) then --zoom in
+		if IsControlPressed(2, Config.keys.prompt_zoom.key2) then --zoom in
 			AdjustZoom(-4.0)
 		end
 	end
