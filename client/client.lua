@@ -581,8 +581,9 @@ function LoadPlayerComponents(ped, skin, components)
 		skin.shadows_opacity)
 	FaceOverlay("eyebrows", skin.eyebrows_visibility, skin.eyebrows_tx_id, 1, 0, 0, 1.0, 0, 1, skin.eyebrows_color, 0, 0,
 		1, skin.eyebrows_opacity)
-	FaceOverlay("eyeliners", skin.eyeliner_visibility, 1, 1, 0, 0, 1.0, 0, 1, skin.eyeliner_color_primary, 0, 0,
-		skin.eyeliner_tx_id, skin.eyeliner_opacity)
+	FaceOverlay("eyeliners", skin.eyeliner_visibility, skin.eyeliner_tx_id, 1, 0, 0, 1.0, 0, 1,
+		skin.eyeliner_color_primary, 0, 0,
+		skin.eyeliner_pallete_id, skin.eyeliner_opacity)
 	FaceOverlay("blush", skin.blush_visibility, skin.blush_tx_id, 1, 0, 0, 1.0, 0, 1, skin.blush_palette_color_primary, 0,
 		0, 1, skin.blush_opacity)
 	FaceOverlay("lipsticks", skin.lipsticks_visibility, 1, 1, 0, 0, 1.0, 0, 1, skin.lipsticks_palette_color_primary,
