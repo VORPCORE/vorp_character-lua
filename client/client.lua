@@ -498,7 +498,7 @@ function CharSelect()
 	NetworkClearClockTimeOverride()
 	FreezeEntityPosition(PlayerPedId(), false)
 	SetEntityVisible(PlayerPedId(), true)
-	SetEntityInvincible(PlayerPedId(), false)
+	SetPlayerInvincible(PlayerId(), false)
 	local coords = myChars[selectedChar].coords
 	local heading
 	local playerCoords
