@@ -276,6 +276,7 @@ Config.commands = {
     Holster = { command = "holster" },
     Suspender = { command = "suspender" },
     armor = { command = "armor" },
+    Gunbelt = { command = "gunbelt" },
 }
 
 Config.DefaultChar = {
