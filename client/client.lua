@@ -500,16 +500,13 @@ function CharSelect()
 	SetEntityVisible(PlayerPedId(), true)
 	SetPlayerInvincible(PlayerId(), false)
 	local coords = myChars[selectedChar].coords
-	local heading
-	local playerCoords
+
 	if not coords.x or not coords.y or not coords.z or not coords.heading then
-		print("No coords found, using default spawn coords")
-		playerCoords = Config.SpawnCoords.position
-		heading = Config.SpawnCoords.heading
-	else
-		playerCoords = vector3(tonumber(coords.x), tonumber(coords.y), tonumber(coords.z))
-		heading = coords.heading
+		return error("No coords found,fix your characters coords sql from varchar to LONGTEXT", 1)
 	end
+
+	local playerCoords = vector3(tonumber(coords.x), tonumber(coords.y), tonumber(coords.z))
+	local heading = coords.heading
 	local isDead = myChars[selectedChar].isDead
 	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead) -- in here players will be removed from instance
 	DoScreenFadeIn(1000)
