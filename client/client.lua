@@ -502,7 +502,8 @@ function CharSelect()
 	local coords = myChars[selectedChar].coords
 	local heading
 	local playerCoords
-	if not coords then
+	if not coords.x or not coords.y or not coords.z or not coords.heading then
+		print("No coords found, using default spawn coords")
 		playerCoords = Config.SpawnCoords.position
 		heading = Config.SpawnCoords.heading
 	else
