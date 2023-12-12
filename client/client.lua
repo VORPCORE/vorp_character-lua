@@ -482,9 +482,9 @@ function OpenMenuSelect()
 end
 
 function CharSelect()
-	Wait(1000)
-	DoScreenFadeOut(1000)
+	DoScreenFadeOut(0)
 	repeat Wait(0) until IsScreenFadedOut()
+	Wait(1000)
 	local charIdentifier = myChars[selectedChar].charIdentifier
 	local nModel = tostring(myChars[selectedChar].skin.sex)
 	CachedSkin = myChars[selectedChar].skin
