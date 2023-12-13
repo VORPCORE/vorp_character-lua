@@ -511,7 +511,6 @@ function CharSelect()
 	local heading = coords.heading
 	local isDead = myChars[selectedChar].isDead
 	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead) -- in here players will be removed from instance
-	DoScreenFadeIn(1000)
 end
 
 RegisterNetEvent("vorpcharacter:reloadafterdeath")
