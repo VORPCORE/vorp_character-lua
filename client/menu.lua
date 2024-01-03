@@ -75,17 +75,20 @@ local function __GetName(Result)
         splitString[#splitString + 1] = i
     end
 
-    if splitString[1] == nil or splitString[2] == nil then
-        return 'missingname'
-    end
+    local firstName = splitString[1]
+    local lastName = splitString[2]
 
     for _, word in ipairs(Config.BannedNames) do
-        if string.find(splitString[1], word) or string.find(splitString[2], word) then
+        if (firstName and string.find(firstName, word)) or (lastName and string.find(lastName, word)) then
             return nil
         end
     end
 
-    return splitString[1], splitString[2]
+    if firstName and lastName then
+        return firstName, lastName
+    else
+        return nil
+    end
 end
 
 local imgPath = "<img style='max-height:532px;max-width:344px;float: center;'src='nui://vorp_character/images/%s.png'>"
