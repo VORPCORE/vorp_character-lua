@@ -87,7 +87,7 @@ local function __GetName(Result)
     if firstName and lastName then
         return firstName, lastName
     else
-        return nil
+        TriggerEvent("vorp:TipRight", T.Inputs.missingname, 4000)
     end
 end
 
