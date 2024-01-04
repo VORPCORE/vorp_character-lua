@@ -82,36 +82,39 @@ local function Setup()
 	NetworkClockTimeOverride(10, 0, 0, 0, true)
 	SetTimecycleModifier('Online_Character_Editor')
 	StartPlayerTeleport(PlayerId(), -561.22, -3776.26, 239.16, 93.2, true, true, true, true)
+
 	repeat Wait(0) until not IsPlayerTeleportActive()
+
 	if not HasCollisionLoadedAroundEntity(PlayerPedId()) then
 		RequestCollisionAtCoord(-561.22, -3776.26, 239.16)
 	end
+
 	repeat Wait(0) until HasCollisionLoadedAroundEntity(PlayerPedId())
+
 	local cam = SetupCamera()
 	local animscene, peds = SetupAnimscene()
+
 	LoadAnimScene(animscene)
-	while not Citizen.InvokeNative(0x477122B8D05E7968, animscene) do
-		Citizen.Wait(0)
-	end
+	repeat Wait(0) until Citizen.InvokeNative(0x477122B8D05E7968, animscene)
 
 	StartAnimScene(animscene)
+
 	DoScreenFadeIn(3000)
 	repeat Wait(0) until IsScreenFadedIn()
 
-	while not Citizen.InvokeNative(0xCBFC7725DE6CE2E0, animscene) do
-		Citizen.Wait(0)
-	end
+	repeat Wait(0) until Citizen.InvokeNative(0xCBFC7725DE6CE2E0, animscene)
 
 	SetCamParams(cam, vector3(-562.15, -3776.22, 239.11), vector3(-4.71, 0.0, -93.14), 45.0, 0, 1, 1, 2, 1, 1, 0, 0)
-	N_0x11f32bb61b756732(cam, 4.0) -- set cam focus distance
-	DisplayHud(true)
+
+	Wait(1000)
 	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1,
-		'~INPUT_CREATOR_MENU_TOGGLE~  to Choose gender, to accept press ~INPUT_CREATOR_ACCEPT~')
+		'~INPUT_CREATOR_MENU_TOGGLE~ to Choose gender, to accept press ~INPUT_CREATOR_ACCEPT~')
+	N_0x11f32bb61b756732(cam, 4.0)
 	local char = 1
 	while true do
 		if IsControlJustPressed(0, `INPUT_CREATOR_MENU_TOGGLE`) then
 			char = (char + 1) % 2
-			local view = Config.Intro["views"][char + 1]
+			local view = Config.Intro.views[char + 1]
 			if view then
 				SetCamParams(cam, view.pos, view.rot, view.fov, 1200, 1, 1, 2, 1, 1, 0, 0)
 				N_0x11f32bb61b756732(cam, 4.0)
@@ -131,7 +134,7 @@ local function Setup()
 			break
 		end
 
-		Citizen.Wait(0)
+		Wait(0)
 	end
 
 	N_0xdd1232b332cbb9e7(3, 1, 0) -- clse ui feed
@@ -160,7 +163,7 @@ end
 
 RegisterNetEvent("vorpcharacter:startCharacterCreator")
 AddEventHandler("vorpcharacter:startCharacterCreator", function()
-	exports.weathersync:setSyncEnabled(false)
+	ShutdownLoadingScreen()
 	ShowBusyspinnerWithText("Character creation Loading")
 	Wait(500)
 	InCharacterCreator = true
@@ -323,9 +326,11 @@ function CreatePlayerModel(model, cam, peds)
 	end
 	DoScreenFadeOut(0)
 	repeat Wait(0) until IsScreenFadedOut()
+
 	for key, value in pairs(peds) do
 		DeleteEntity(value)
 	end
+
 	SetEntityCoords(PlayerPedId(), -558.3258, -3781.111, 237.60, true, true, true, false) -- set player to start creation
 	SetEntityHeading(PlayerPedId(), 93.2)
 	LoadPlayer(model)
@@ -431,7 +436,6 @@ RegisterNetEvent('vorp_character:Server:SecondChance', function(skin, comps)
 		while IsInCharCreation do
 			Wait(0)
 			FreezeEntityPosition(PlayerPedId(), false)
-			--DrawLightWithRange(-560.1646, -3782.066, 238.5975, 250, 250, 250, 7.0, 130.0)
 		end
 	end)
 	PrepareMusicEvent("MP_CHARACTER_CREATION_START")
