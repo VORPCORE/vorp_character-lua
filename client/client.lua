@@ -260,13 +260,7 @@ local function finish(boolean)
 		end
 		DestroyAllCams(true)
 	end)
-	SetTimeout(1000, function()
-		if not boolean then
-			ClearTimecycleModifier()
-			exports.weathersync:setSyncEnabled(true)
-		end
-		Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
-	end)
+	Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
 end
 
 local imgPath = "<img style='max-height:532px;max-width:344px;float: center;'src='nui://vorp_character/images/%s.png'>"
@@ -480,6 +474,8 @@ function OpenMenuSelect()
 				local dataConfig = Config.SpawnPosition[random].positions[selectedChar]
 				Citizen.InvokeNative(0x524B54361229154F, dataConfig.PedHandler, "", -1, false, "", -1.0, 0)
 				finish(true)
+				ClearTimecycleModifier()
+				exports.weathersync:setSyncEnabled(true)
 				CharSelect()
 				stopLoop = true
 			end
