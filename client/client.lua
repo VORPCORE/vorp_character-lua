@@ -199,15 +199,18 @@ function StartSwapCharacters()
 	Citizen.InvokeNative(0xFDB74C9CC54C3F37, options.timecycle.strenght)
 	StartPlayerTeleport(PlayerId(), options.playerpos.x, options.playerpos.y, options.playerpos.z, 0.0, true, true, true,
 		true)
-	--SetEntityCoords(PlayerPedId(), options.playerpos.x, options.playerpos.y, options.playerpos.z, 0.0, 0.0, 0.0, false)
+
 	repeat Wait(0) until not IsPlayerTeleportActive()
+
 	PrepareMusicEvent(options.music)
 	Wait(100)
 	TriggerMusicEvent(options.music)
 	Wait(1000)
+
 	if not HasCollisionLoadedAroundEntity(PlayerPedId()) then
 		RequestCollisionAtCoord(options.playerpos.x, options.playerpos.y, options.playerpos.z)
 	end
+
 	repeat Wait(0) until HasCollisionLoadedAroundEntity(PlayerPedId())
 
 	FreezeEntityPosition(PlayerPedId(), true)
@@ -258,9 +261,11 @@ local function finish(boolean)
 		DestroyAllCams(true)
 	end)
 	SetTimeout(1000, function()
-		ClearTimecycleModifier()
+		if not boolean then
+			ClearTimecycleModifier()
+			exports.weathersync:setSyncEnabled(true)
+		end
 		Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
-		exports.weathersync:setSyncEnabled(true)
 	end)
 end
 
