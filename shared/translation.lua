@@ -47,7 +47,9 @@ Translation.Langs = {
         MenuCreation = {
             title = "Character Creation",
             subtitle = "Sub Menu",
+            title1 = "Character Selection",
             label = "Name Choosen",
+            subtitle1 = "Character Menu",
             element = { label = "Appearance", desc = "Choose Appearance of your character" },
             element2 = { label = "Clothes", desc = "Choose Character Clothing" },
             element3 = {
@@ -252,7 +254,9 @@ Translation.Langs = {
         },
         MenuCreation = {
             title = "Menu personaggio",
+            title1 = "Selezione personaggio",
             subtitle = "Sotto-menu",
+            subtitle1 = "Menu personaggio",
             label = "Nome scelto",
             element = { label = "Aspetto", desc = "Scegli l'aspetto del tuo personaggio" },
             element2 = { label = "Abbigliamento", desc = "Scegli l'abbigliamento del personaggio" },
@@ -459,7 +463,9 @@ Translation.Langs = {
         },
         MenuCreation = {
             title = "Criação do Personagem",
+            title1 = "Seleção do Personagem",
             subtitle = "Escolha o seu Personagem",
+            subtitle1 = "Menu do Personagem",
             label = "Nome Escolhido",
             element = { label = "Aparência", desc = "Escolha a Aparência do seu Personagem" },
             element2 = { label = "Roupas", desc = "Escolha a Roupa do seu Personagem" },
@@ -665,7 +671,9 @@ Translation.Langs = {
         },
         MenuCreation = {
             title = "Criação de Personagem",
+            title1 = "Seleção de Personagem",
             subtitle = "Submenu",
+            subtitle1 = "Menu de Personagem",
             label = "Nome escolhido",
             element = { label = "Aparência", desc = "Escolha a aparência do seu personagem" },
             element2 = { label = "Roupas", desc = "Escolha as roupas do seu personagem" },
@@ -867,7 +875,9 @@ Translation.Langs = {
         },
         MenuCreation = {
             title = "Création de personnage",
+            title1 = "Sélection de personnage",
             subtitle = "Sous-menu",
+            subtitle1 = "Menu du personnage",
             label = "Choix du nom",
             element = { label = "Apparence", desc = "Choisissez l'apparence de votre personnage" },
             element2 = { label = "Vêtements", desc = "Choisissez les vêtements de votre personnage" },
@@ -1086,7 +1096,9 @@ Translation.Langs = {
         },
         MenuCreation = {
             title = "Charaktererstellung",
+            title1 = "Charakterauswahl",
             subtitle = "Untermenü",
+            subtitle1 = "Charaktermenü",
             label = "Name gewählt",
             element = { label = "Aussehen", desc = "Wähle das Aussehen deines Charakters" },
             element2 = { label = "Kleidung", desc = "Wähle die Kleidung deines Charakters" },
@@ -1299,7 +1311,9 @@ Translation.Langs = {
         },
         MenuCreation = {
             title = "Creación de personaje",
+            title1 = "Selección de personaje",
             subtitle = "Submenú",
+            subtitle1 = "Menú de personaje",
             label = "Nombre elegido",
             element = { label = "Apariencia", desc = "Elige la apariencia de tu personaje" },
             element2 = { label = "Ropa", desc = "Elige la ropa para tu personaje" },
