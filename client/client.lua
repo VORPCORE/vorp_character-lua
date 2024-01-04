@@ -510,16 +510,16 @@ function CharSelect()
 	SetPlayerInvincible(PlayerId(), false)
 	SetEntityCanBeDamaged(PlayerPedId(), true)
 	local coords = myChars[selectedChar].coords
-	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead)
+	TriggerEvent("vorp:initCharacter", coords, heading, isDead)
 
 	if not coords.x or not coords.y or not coords.z or not coords.heading then
 		return error("No coords found,fix your characters coords sql from varchar to LONGTEXT", 1)
 	end
 
-	local playerCoords = vector3(tonumber(coords.x), tonumber(coords.y), tonumber(coords.z))
+	local coords = vector3(tonumber(coords.x), tonumber(coords.y), tonumber(coords.z))
 	local heading = coords.heading
 	local isDead = myChars[selectedChar].isDead
-	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead) -- in here players will be removed from instance
+	TriggerEvent("vorp:initCharacter", coords, heading, isDead) -- in here players will be removed from instance
 end
 
 RegisterNetEvent("vorpcharacter:reloadafterdeath")
