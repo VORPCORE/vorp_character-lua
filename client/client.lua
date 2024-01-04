@@ -510,7 +510,7 @@ function CharSelect()
 	SetPlayerInvincible(PlayerId(), false)
 	SetEntityCanBeDamaged(PlayerPedId(), true)
 	local coords = myChars[selectedChar].coords
-	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead)
+	TriggerEvent("vorp:initCharacter", coords, heading, isDead)
 
 	if not coords.x or not coords.y or not coords.z or not coords.heading then
 		return error("No coords found,fix your characters coords sql from varchar to LONGTEXT", 1)
