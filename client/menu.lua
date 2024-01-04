@@ -2,7 +2,7 @@
 local img =
 "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://vorp_character/images/%s.png'>"
 local Divider = img:format("divider_line")
-local imgPath = "<img style='max-height:532px;max-width:344px;float: center;'src='nui://vorp_character/images/%s.png'>"
+local imgPath = "<img style='max-height:500px;max-width:300px;float: center;'src='nui://vorp_character/images/%s.png'>"
 local imgPath1 =
 "<img style='max-height:20px;max-width:20px;margin-left: 10px;' src='nui://vorp_character/images/%s.png'>"
 local __CHARNAME = nil
@@ -95,7 +95,7 @@ function OpenCharCreationMenu(clothingtable)
             label = T.MenuCreation.element.label,
             value = "appearance",
             desc = imgPath:format("character_creator_head") ..
-                "<br>" .. T.MenuCreation.element.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                "<br>" .. T.MenuCreation.element.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
     }
 
@@ -104,7 +104,7 @@ function OpenCharCreationMenu(clothingtable)
             label = T.MenuCreation.element2.label,
             value = "clothing",
             desc = imgPath:format("clothing_generic_outfit") ..
-                "<br> " .. T.MenuCreation.element2.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br> " .. T.MenuCreation.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
 
         }
         elements[#elements + 1] = {
@@ -112,20 +112,20 @@ function OpenCharCreationMenu(clothingtable)
             value = __VALUE1 or "name",
             desc = __DESC or
                 imgPath:format("emote_greet_hey_you") ..
-                "<br> " .. T.MenuCreation.element3.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br> " .. T.MenuCreation.element3.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
         elements[#elements + 1] = {
             label = __LABEL or ("<span style='color: Grey;'>" .. T.MenuCreation.element4.label .. "</span>"),
             value = __VALUE or "not",
             desc = imgPath:format("generic_walk_style") ..
-                "<br> " .. T.MenuCreation.element4.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br> " .. T.MenuCreation.element4.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
     else
         elements[#elements + 1] = {
             label = T.MenuCreation.element2.label,
             value = "clothing",
             desc = imgPath:format("clothing_generic_outfit") ..
-                "<br> " .. T.MenuCreation.element2.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br> " .. T.MenuCreation.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
 
         }
 
@@ -133,7 +133,7 @@ function OpenCharCreationMenu(clothingtable)
             label = T.MenuCreation.element4.label,
             value = "secondchance",
             desc = imgPath:format("generic_walk_style") ..
-                "<br> " .. T.MenuCreation.element4.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br> " .. T.MenuCreation.element4.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
     end
 
@@ -198,7 +198,7 @@ function OpenCharCreationMenu(clothingtable)
                         __CHARNAME = FirstName .. " " .. LastName .. imgPath1:format("menu_icon_tick")
                         __DESC = T.MenuCreation.label ..
                             "<br> " ..
-                            FirstName .. " " .. LastName .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                            FirstName .. " " .. LastName .. "<br><br>" .. Divider .. "<br><br>"
                         __VALUE = "save"
                         __VALUE1 = "not"
                         __LABEL = T.MenuCreation.element4.label
@@ -209,14 +209,14 @@ function OpenCharCreationMenu(clothingtable)
                                 value = "appearance",
                                 desc = string.format(imgPath, "character_creator_head") ..
                                     "<br> " ..
-                                    T.MenuCreation.element.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                                    T.MenuCreation.element.desc .. "<br><br>" .. Divider .. "<br><br>"
                             },
                             {
                                 label = T.MenuCreation.element2.label,
                                 value = "clothing",
                                 desc = string.format(imgPath, "clothing_generic_outfit") ..
                                     "<br> " ..
-                                    T.MenuCreation.element2.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                                    T.MenuCreation.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
                             },
                             {
                                 label = __CHARNAME,
@@ -228,7 +228,7 @@ function OpenCharCreationMenu(clothingtable)
                                 value = __VALUE,
                                 desc = string.format(imgPath, "generic_walk_style") ..
                                     "<br> " ..
-                                    T.MenuCreation.element4.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                                    T.MenuCreation.element4.desc .. "<br><br>" .. Divider .. "<br><br>",
                             },
 
                         }
@@ -298,13 +298,13 @@ function OpenClothingMenu(table)
                 elements[#elements + 1] = {
                     label = ToLabel[category],
                     value = category,
-                    desc = path:format(category) .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                    desc = path:format(category) .. "<br><br>" .. Divider .. "<br><br>"
                 }
             else
                 elements[#elements + 1] = {
                     label = ToLabel[category],
                     value = category,
-                    desc = imgPath:format(category) .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                    desc = imgPath:format(category) .. "<br><br>" .. Divider .. "<br><br>"
                 }
             end
         end
@@ -346,7 +346,7 @@ function OpenComponentMenu(table, category, label)
         info = #table[category],
         min = 0,
         max = #table[category],
-        desc = string.format(imgPath, category) .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+        desc = string.format(imgPath, category) .. "<br><br>" .. Divider .. "<br><br>"
     }
 
     MenuData.Open('default', GetCurrentResourceName(), 'menuapi',
@@ -394,7 +394,7 @@ function OpenComponentMenu(table, category, label)
                     min = 0,
                     max = #table[category],
                     desc = string.format(imgPath .. '<br>' .. T.MenuComponents.element.desc .. " %d  %s", category,
-                        #table[category], label) .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                        #table[category], label) .. "<br><br>" .. Divider .. "<br><br>"
 
                 }
 
@@ -407,7 +407,7 @@ function OpenComponentMenu(table, category, label)
                     min = 0,
                     max = #table[category][data.current.value],
                     desc = string.format(imgPath .. "<br>%d<br>" .. T.MenuComponents.element2.desc, category,
-                        #table[category][data.current.value]) .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                        #table[category][data.current.value]) .. "<br><br>" .. Divider .. "<br><br>"
 
                 }
                 menu.setElements(elements1)
@@ -428,25 +428,25 @@ function OpenAppearanceMenu(clothingtable)
             label = T.MenuAppearance.element.label,
             value = "body",
             desc = imgPath:format("character_creator_build") ..
-                "<br>" .. T.MenuAppearance.element.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                "<br>" .. T.MenuAppearance.element.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
         {
             label = T.MenuAppearance.element2.label,
             value = "heritage",
             desc = imgPath:format("character_creator_heritage") ..
-                "<br>" .. T.MenuAppearance.element2.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                "<br>" .. T.MenuAppearance.element2.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
         {
             label = T.MenuAppearance.element3.label,
             value = "hair",
             desc = imgPath:format("character_creator_hair") ..
-                "<br>" .. T.MenuAppearance.element3.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                "<br>" .. T.MenuAppearance.element3.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
         {
             label = T.MenuAppearance.element4.label,
             value = "age",
             desc = imgPath:format("character_creator_appearance") ..
-                "<br>" .. T.MenuAppearance.element4.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                "<br>" .. T.MenuAppearance.element4.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
         {
             label = heightLabel,
@@ -460,19 +460,19 @@ function OpenAppearanceMenu(clothingtable)
             tall = 3,
             normal = 2,
             desc = imgPath:format("character_creator_appearance") ..
-                "<br>" .. T.MenuAppearance.element5.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                "<br>" .. T.MenuAppearance.element5.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
         {
             label = T.MenuAppearance.element6.label,
             value = "face",
             desc = imgPath:format("character_creator_head") ..
-                "<br>" .. T.MenuAppearance.element6.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                "<br>" .. T.MenuAppearance.element6.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
         {
             label = T.MenuAppearance.element7.label,
             value = "lifestyle",
             desc = imgPath:format("character_creator_lifestyle") ..
-                "<br>" .. T.MenuAppearance.element7.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                "<br>" .. T.MenuAppearance.element7.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
 
     }
@@ -482,7 +482,7 @@ function OpenAppearanceMenu(clothingtable)
         label = T.MenuAppearance.element8.label,
         value = "makeup",
         desc = imgPath:format("character_creator_makeup") ..
-            "<br>" .. T.MenuAppearance.element8.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+            "<br>" .. T.MenuAppearance.element8.desc .. "<br><br>" .. Divider .. "<br><br>"
     }
     -- end
 
@@ -565,7 +565,7 @@ function OpenAgeMenu(table)
             compname = Config.overlay_all_layers[9].name,
             max = #Config.overlays_info.ageing,
             value = 0,
-            desc = T.MenuAge.element.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+            desc = T.MenuAge.element.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
         {
             label = T.MenuAge.element2.label,
@@ -575,7 +575,7 @@ function OpenAgeMenu(table)
             comp = Config.overlay_all_layers,
             min = 0,
             max = 10,
-            desc = T.MenuAge.element2.desc2 .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+            desc = T.MenuAge.element2.desc2 .. "<br><br>" .. Divider .. "<br><br>"
         },
     }
 
@@ -634,7 +634,7 @@ function OpenBodyMenu(table)
             max = #Config.BodyType.Body,
             desc = imgPath:format("character_creator_build") ..
                 "<br>" ..
-                T.MenuBody.element.desc .. #Config.BodyType.Body .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                T.MenuBody.element.desc .. #Config.BodyType.Body .. "<br><br>" .. Divider .. "<br><br>"
         },
 
         {
@@ -650,7 +650,7 @@ function OpenBodyMenu(table)
                 "<br>" ..
                 T.MenuBody.element2.desc ..
                 #Config.BodyType.Waist ..
-                ' ' .. T.MenuBody.element2.desc2 .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                ' ' .. T.MenuBody.element2.desc2 .. "<br><br>" .. Divider .. "<br><br>"
 
         },
 
@@ -665,7 +665,7 @@ function OpenBodyMenu(table)
             desc = imgPath:format("character_creator_build") ..
                 "<br>" ..
                 T.MenuBody.element3.desc ..
-                #Config.DefaultChar[gender][__SKINCOLOR].Body .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                #Config.DefaultChar[gender][__SKINCOLOR].Body .. "<br><br>" .. Divider .. "<br><br>",
             tag = "Body",
             option = "type"
         },
@@ -681,7 +681,7 @@ function OpenBodyMenu(table)
             desc = imgPath:format("character_creator_build") ..
                 "<br>" ..
                 T.MenuBody.element4.desc ..
-                #Config.DefaultChar[gender][__SKINCOLOR].Legs .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                #Config.DefaultChar[gender][__SKINCOLOR].Legs .. "<br><br>" .. Divider .. "<br><br>",
             tag = "Legs",
             option = "type"
         },
@@ -754,7 +754,7 @@ function OpenHerritageMenu(table)
         max = #Config.DefaultChar[gender],
         desc = T.MenuHeritage.element.desc ..
             #Config.DefaultChar[gender] ..
-            ' ' .. T.MenuHeritage.element.desc2 .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+            ' ' .. T.MenuHeritage.element.desc2 .. "<br><br>" .. Divider .. "<br><br>",
         tag = "heritage"
     }
 
@@ -878,7 +878,7 @@ function OpenHairMenu(table)
             label = T.MenuHair.element.label,
             value = "Hair",
             desc = imgPath:format("character_creator_hair") ..
-                "<br>" .. T.MenuHair.element.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br>" .. T.MenuHair.element.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
     }
 
@@ -887,32 +887,32 @@ function OpenHairMenu(table)
             label = T.MenuHair.element2.label,
             value = "Beard",
             desc = imgPath:format("character_creator_facial_hair") ..
-                "<br>" .. T.MenuHair.element2.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                "<br>" .. T.MenuHair.element2.desc .. "<br><br>" .. Divider .. "<br><br>"
         }
         elements[#elements + 1] = {
             label = T.MenuHair.element3.label,
             value = "beardstabble",
             desc = imgPath:format("character_creator_facial_hair") ..
-                "<br>" .. T.MenuHair.element3.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+                "<br>" .. T.MenuHair.element3.desc .. "<br><br>" .. Divider .. "<br><br>"
         }
     else
         elements[#elements + 1] = {
             label = T.MenuHair.element4.label,
             value = "bow",
-            desc = T.MenuHair.element4.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+            desc = T.MenuHair.element4.desc .. "<br><br>" .. Divider .. "<br><br>"
         }
     end
     elements[#elements + 1] = {
         label = T.MenuHair.element5.label,
         value = "eyebrows",
         desc = imgPath:format("character_creator_eyebrows") ..
-            "<br>" .. T.MenuHair.element5.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+            "<br>" .. T.MenuHair.element5.desc .. "<br><br>" .. Divider .. "<br><br>"
     }
     elements[#elements + 1] = {
         label = T.MenuHair.element6.label,
         value = "hair",
         desc = imgPath:format("character_creator_hair") ..
-            "<br>" .. T.MenuHair.element6.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>"
+            "<br>" .. T.MenuHair.element6.desc .. "<br><br>" .. Divider .. "<br><br>"
     }
 
     MenuData.Open('default', GetCurrentResourceName(), 'menuapi',
@@ -986,7 +986,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category)
             max = #tablehair, -- quantity of components
             desc = T.MenuHairSelection.element.desc ..
                 #tablehair ..
-                ' ' .. T.MenuHairSelection.element.desc2 .. label .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                ' ' .. T.MenuHairSelection.element.desc2 .. label .. "<br><br>" .. Divider .. "<br><br>",
             tag = "component",
         },
     }
@@ -1102,7 +1102,7 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
             comp = Config.overlay_all_layers,
             compname = Config.overlay_all_layers[index].name,
             max = #Config.overlays_info[category],
-            desc = T.MenuBeardEyeBrows.element.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+            desc = T.MenuBeardEyeBrows.element.desc .. "<br><br>" .. Divider .. "<br><br>",
             color = color,
             txt_id = txt_id,
             opac = opacity,
@@ -1117,7 +1117,7 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
             comp = Config.color_palettes[category],
             min = 0,
             max = #Config.color_palettes[category],
-            desc = T.MenuBeardEyeBrows.element2.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+            desc = T.MenuBeardEyeBrows.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
             color = color,
             txt_id = txt_id,
             opac = opacity,
@@ -1131,7 +1131,7 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
             comp = Config.overlay_all_layers,
             min = 0,
             max = 10,
-            desc = T.MenuBeardEyeBrows.element3.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+            desc = T.MenuBeardEyeBrows.element3.desc .. "<br><br>" .. Divider .. "<br><br>",
             color = color,
             txt_id = txt_id,
             opac = opacity,
@@ -1236,7 +1236,7 @@ function OpenFaceMenu(table)
             min = 0,
             tag = "eyes",
             desc = imgPath:format("character_creator_eyes") ..
-                "<br>" .. T.MenuFacial.element.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br>" .. T.MenuFacial.element.desc .. "<br><br>" .. Divider .. "<br><br>",
         },
         {
             label = T.MenuFacial.element2.label,
@@ -1246,7 +1246,7 @@ function OpenFaceMenu(table)
             max = #Config.Teeth[gender],
             tag = "teeth",
             desc = imgPath:format("character_creator_teeth") ..
-                "<br>" .. T.MenuFacial.element2.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br>" .. T.MenuFacial.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
         },
 
         {
@@ -1254,7 +1254,7 @@ function OpenFaceMenu(table)
             value = 0,
             tag = "jaw",
             desc = imgPath:format("character_creator_jaw") ..
-                "<br>" .. T.MenuFacial.element3.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br>" .. T.MenuFacial.element3.desc .. "<br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_jaw"
         },
@@ -1263,7 +1263,7 @@ function OpenFaceMenu(table)
             value = 0,
             tag = "chin",
             desc = imgPath:format("character_creator_jaw") ..
-                "<br>" .. T.MenuFacial.element4.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br>" .. T.MenuFacial.element4.desc .. "<br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_jaw"
         },
@@ -1272,7 +1272,7 @@ function OpenFaceMenu(table)
             value = "life",
             tag = "head",
             desc = imgPath:format("character_creator_cranial_proportions") ..
-                "<br>" .. T.MenuFacial.element5.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br>" .. T.MenuFacial.element5.desc .. "<br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_cranial_proportions"
         },
@@ -1282,7 +1282,7 @@ function OpenFaceMenu(table)
             value = "life",
             tag = "nose",
             desc = imgPath:format("character_creator_nose") ..
-                "<br>" .. T.MenuFacial.element6.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br>" .. T.MenuFacial.element6.desc .. "<br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_nose"
         },
@@ -1291,7 +1291,7 @@ function OpenFaceMenu(table)
             value = "life",
             tag = "ears",
             desc = imgPath:format("character_creator_ears") ..
-                "<br>" .. T.MenuFacial.element7.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br>" .. T.MenuFacial.element7.desc .. "<br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_ears"
         },
@@ -1300,7 +1300,7 @@ function OpenFaceMenu(table)
             value = "life",
             tag = "mouthandlips",
             desc = imgPath:format("character_creator_mouth") ..
-                "<br>" .. T.MenuFacial.element8.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br>" .. T.MenuFacial.element8.desc .. "<br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_mouth"
         },
@@ -1310,7 +1310,7 @@ function OpenFaceMenu(table)
             value = "life",
             tag = "cheek",
             desc = imgPath:format("character_creator_cheeks") ..
-                "<br>" .. T.MenuFacial.element9.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br>" .. T.MenuFacial.element9.desc .. "<br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_cheeks"
         },
@@ -1319,7 +1319,7 @@ function OpenFaceMenu(table)
             value = "life",
             tag = "eyesandbrows",
             desc = imgPath:format("character_creator_eyebrows") ..
-                "<br>" .. T.MenuFacial.element10.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                "<br>" .. T.MenuFacial.element10.desc .. "<br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_eyebrows"
         },
@@ -1395,7 +1395,7 @@ function OpenFaceModificationMenu(table, comp, img)
             desc = imgPath:format(img) ..
                 "<br>" ..
                 T.MenuFaceModify.element.desc ..
-                PlayerSkin[value.comp] .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                PlayerSkin[value.comp] .. "<br><br>" .. Divider .. "<br><br>",
             tag = key
         }
     end
@@ -1495,7 +1495,7 @@ function OpenLifeStyleMenu(table)
                 txt_id = labelLookup[key].txt_id,
                 opac = labelLookup[key].opacity,
                 visibility = labelLookup[key].vis,
-                desc = T.MenuLifeStyle.element.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                desc = T.MenuLifeStyle.element.desc .. "<br><br>" .. Divider .. "<br><br>",
                 name = key,
                 tag = "texture"
             }
@@ -1509,7 +1509,7 @@ function OpenLifeStyleMenu(table)
                 txt_id = labelLookup[key].txt_id,
                 opac = labelLookup[key].opacity,
                 visibility = labelLookup[key].vis,
-                desc = T.MenuLifeStyle.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                desc = T.MenuLifeStyle.desc .. "<br><br>" .. Divider .. "<br><br>",
                 name = key,
                 tag = "opacity"
             }
@@ -1630,7 +1630,7 @@ function OpenMakeupMenu(table)
                 color = overlayLookup[key].color,
                 variant = overlayLookup[key].variant,
                 visibility = overlayLookup[key].visibility,
-                desc = T.MenuMakeup.element5.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                desc = T.MenuMakeup.element5.desc .. "<br><br>" .. Divider .. "<br><br>",
                 name = key,
                 tag = "texture"
             }
@@ -1654,7 +1654,7 @@ function OpenMakeupMenu(table)
                 color = overlayLookup[key].color,
                 visibility = overlayLookup[key].visibility,
                 variant = overlayLookup[key].variant,
-                desc = T.MenuMakeup.element6.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                desc = T.MenuMakeup.element6.desc .. "<br><br>" .. Divider .. "<br><br>",
                 name = key,
                 tag = "color"
             }
@@ -1683,7 +1683,7 @@ function OpenMakeupMenu(table)
                     color3 = overlayLookup[key].color3,
                     variant = overlayLookup[key].variant,
                     visibility = overlayLookup[key].visibility,
-                    desc = T.MenuMakeup.element7.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                    desc = T.MenuMakeup.element7.desc .. "<br><br>" .. Divider .. "<br><br>",
                     name = key,
                     tag = "color2"
                 }
@@ -1705,7 +1705,7 @@ function OpenMakeupMenu(table)
                     color3 = overlayLookup[key].color3,
                     variant = overlayLookup[key].variant,
                     visibility = overlayLookup[key].visibility,
-                    desc = T.MenuMakeup.element8.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                    desc = T.MenuMakeup.element8.desc .. "<br><br>" .. Divider .. "<br><br>",
                     name = key,
                     tag = "variant"
                 }
@@ -1724,7 +1724,7 @@ function OpenMakeupMenu(table)
                 color = overlayLookup[key].color,
                 variant = overlayLookup[key].variant,
                 visibility = overlayLookup[key].visibility,
-                desc = T.MenuMakeup.element9.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                desc = T.MenuMakeup.element9.desc .. "<br><br>" .. Divider .. "<br><br>",
                 name = key,
                 tag = "opacity"
             }

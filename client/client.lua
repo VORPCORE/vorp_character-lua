@@ -304,7 +304,7 @@ function OpenMenuSelect()
 				"<br> <span style ='font-family:crock;'>Job </span>" .. value.job .. " " .. value.grade ..
 				"<br>" ..
 				"<span style ='font-family:crock;'>Group </span>" ..
-				value.group .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. T.MainMenu.NameDesc,
+				value.group .. "<br><br>" .. Divider .. "<br><br>" .. T.MainMenu.NameDesc,
 			char = value,
 			index = key,
 		}
@@ -315,7 +315,7 @@ function OpenMenuSelect()
 			label = T.MainMenu.CreateNewCharT,
 			value = "create",
 			desc = imgPath:format("character_creator_appearance") ..
-				"<br><br><br><br><br><br><br>" .. Divider .. "<br><br>" .. T.MainMenu.CreateNewCharDesc,
+				"<br><br>" .. Divider .. "<br><br>" .. T.MainMenu.CreateNewCharDesc,
 			itemHeight = "2vh",
 		}
 	end
@@ -368,7 +368,7 @@ function OpenMenuSelect()
 						label = T.MainMenu.Choose,
 						value = "select",
 						desc = imgPath:format("character_creator_appearance") ..
-							" <br><br><br><br><br><br><br>" .. Divider .. "<br>" .. T.MainMenu.ChooseDesc,
+							" <br><br>" .. Divider .. "<br>" .. T.MainMenu.ChooseDesc,
 						char = selectedChar,
 						itemHeight = "2vh",
 					})
@@ -377,7 +377,7 @@ function OpenMenuSelect()
 							label = T.MainMenu.Delete,
 							value = "delete",
 							desc = imgPath:format("character_creator_appearance") ..
-								" <br><br><br><br><br><br><br>" .. Divider .. "<br>" .. T.MainMenu.DeleteDesc,
+								" <br><br>" .. Divider .. "<br>" .. T.MainMenu.DeleteDesc,
 							char = selectedChar,
 							Data = dataConfig,
 							itemHeight = "2vh",
@@ -387,7 +387,7 @@ function OpenMenuSelect()
 						label = T.MainMenu.ReturnMenu,
 						value = "back",
 						desc = imgPath:format("character_creator_appearance") ..
-							" <br><br><br><br><br><br><br>" .. Divider .. "<br>" .. T.MainMenu.ReturnMenuDesc,
+							" <br><br>" .. Divider .. "<br>" .. T.MainMenu.ReturnMenuDesc,
 						char = data.current.char,
 						itemHeight = "2vh",
 					})
