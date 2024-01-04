@@ -128,9 +128,9 @@ function GetPlayerData(source)
 			components = comps,
 			coords = json.decode(characters.coords),
 			isDead = characters.isdead,
-			job = characters.jobLabel,
-			grade = characters.jobGrade,
-			group = characters.group
+			job = characters.jobLabel or "Unemployed",
+			grade = characters.jobGrade or "",
+			group = characters.group or ""
 		}
 		userCharacters[#userCharacters + 1] = userChars
 	end
