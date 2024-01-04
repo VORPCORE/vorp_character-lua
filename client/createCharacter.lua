@@ -104,6 +104,7 @@ local function Setup()
 
 	SetCamParams(cam, vector3(-562.15, -3776.22, 239.11), vector3(-4.71, 0.0, -93.14), 45.0, 0, 1, 1, 2, 1, 1, 0, 0)
 	N_0x11f32bb61b756732(cam, 4.0) -- set cam focus distance
+	DisplayHud(true)
 	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1,
 		'~INPUT_CREATOR_MENU_TOGGLE~  to Choose gender, to accept press ~INPUT_CREATOR_ACCEPT~')
 	local char = 1
