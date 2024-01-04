@@ -263,7 +263,7 @@ local function finish(boolean)
 	Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
 end
 
-local imgPath = "<img style='max-height:532px;max-width:344px;float: center;'src='nui://vorp_character/images/%s.png'>"
+local imgPath = "<img style='max-height:500px;max-width:300px;float: center;'src='nui://vorp_character/images/%s.png'>"
 local function addNewelements(menu)
 	local available = MaxCharacters - #myChars
 	for i = 1, available, 1 do
