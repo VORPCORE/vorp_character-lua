@@ -8,12 +8,11 @@ local LastCam
 local random
 local canContinue  = false
 local Custom       = nil
-local Peds         = {}
 local MalePed
 local FemalePed
 local stopLoop     = false
-
 -- GLOBALS
+Peds               = {}
 CachedSkin         = {}
 CachedComponents   = {}
 T                  = Translation.Langs[Lang]
@@ -49,6 +48,8 @@ AddEventHandler('onResourceStop', function(resourceName)
 	MenuData.CloseAll()
 	myChars[selectedChar] = {}
 	DestroyAllCams(true)
+	N_0xdd1232b332cbb9e7(3, 1, 0)
+	AnimpostfxStopAll()
 end)
 
 
@@ -67,8 +68,8 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc, rand
 	random = rand
 	myChars = myCharacters
 	MaxCharacters = mc
-	DoScreenFadeOut(1000)
-	Wait(1000)
+	DoScreenFadeOut(0)
+	repeat Wait(0) until IsScreenFadedOut()
 	StartSwapCharacters()
 end)
 
@@ -189,47 +190,40 @@ local function LoadCharacterSelect(ped, skin, components)
 end
 
 function StartSwapCharacters()
+	ShowBusyspinnerWithText("Character selection Loading")
 	local options = Config.SpawnPosition[random].options
-	exports.weathersync:setMyWeather(options.weather.type, options.weather.transition, options.weather.snow)
-	exports.weathersync:setMyTime(options.time.hour, 0, 0, options.time.transition, true)
+	exports.weathersync:setSyncEnabled(false)                                                             -- Disable weather and time sync and set a weather for this client.
+	exports.weathersync:setMyWeather(options.weather.type, options.weather.transition, options.weather.snow) -- set this client wheather.
+	exports.weathersync:setMyTime(options.time.hour, 0, 0, options.time.transition, true)                 -- set this client time.
 	SetTimecycleModifier(options.timecycle.name)
 	Citizen.InvokeNative(0xFDB74C9CC54C3F37, options.timecycle.strenght)
-	FreezeEntityPosition(PlayerPedId(), true)
-	SetEntityVisible(PlayerPedId(), false)
-	SetEntityInvincible(PlayerPedId(), true)
-	SetEntityCoords(PlayerPedId(), options.playerpos, false, false, false, false)
-
-	if not HasCollisionLoadedAroundEntity(PlayerPedId()) then
-		RequestCollisionAtCoord(options.playerpos.x, options.playerpos.y, options.playerpos.z)
-		Wait(2000)
-	end
-
-	repeat
-		Wait(0)
-		RequestCollisionAtCoord(options.playerpos.x, options.playerpos.y, options.playerpos.z)
-	until HasCollisionLoadedAroundEntity(PlayerPedId())
-
+	StartPlayerTeleport(PlayerId(), options.playerpos.x, options.playerpos.y, options.playerpos.z, 0.0, true, true, true,
+		true)
+	--SetEntityCoords(PlayerPedId(), options.playerpos.x, options.playerpos.y, options.playerpos.z, 0.0, 0.0, 0.0, false)
+	repeat Wait(0) until not IsPlayerTeleportActive()
 	PrepareMusicEvent(options.music)
 	Wait(100)
 	TriggerMusicEvent(options.music)
+	Wait(1000)
+	if not HasCollisionLoadedAroundEntity(PlayerPedId()) then
+		RequestCollisionAtCoord(options.playerpos.x, options.playerpos.y, options.playerpos.z)
+	end
+	repeat Wait(0) until HasCollisionLoadedAroundEntity(PlayerPedId())
+
+	FreezeEntityPosition(PlayerPedId(), true)
+	SetEntityVisible(PlayerPedId(), false)
+	SetEntityInvincible(PlayerPedId(), true)
 
 	Wait(2000)
-
 	for key, value in pairs(myChars) do
 		LoadPlayer(value.skin.sex)
-
 		local data = Config.SpawnPosition[random].positions[key]
 		data.PedHandler = CreatePed(joaat(value.skin.sex), data.spawn, false, true, true, true)
-		repeat
-			Wait(0)
-		until DoesEntityExist(data.PedHandler)
-
+		repeat Wait(0) until DoesEntityExist(data.PedHandler)
 		LoadCharacterSelect(data.PedHandler, value.skin, value.components)
 		data.Cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", data.camera.x, data.camera.y, data.camera.z,
-			data.camera.rotx, data.camera.roty, data.camera.rotz,
-			data.camera.fov, false, 2)
+			data.camera.rotx, data.camera.roty, data.camera.rotz, data.camera.fov, false, 2)
 		SetEntityInvincible(data.PedHandler, true)
-		Wait(100)
 		local randomScenario = math.random(1, #data.scenario[value.skin.sex])
 		Citizen.InvokeNative(0x524B54361229154F, data.PedHandler, joaat(data.scenario[value.skin.sex][randomScenario]),
 			-1, false, joaat(data.scenario[value.skin.sex][randomScenario]), -1.0, 0)
@@ -238,33 +232,36 @@ function StartSwapCharacters()
 
 	-- create main camera
 	mainCam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", options.mainCam.x, options.mainCam.y, options.mainCam.z,
-		options.mainCam.rotx,
-		options.mainCam.roty, options.mainCam.rotz, options.mainCam.fov, false, 0)
+		options.mainCam.rotx, options.mainCam.roty, options.mainCam.rotz, options.mainCam.fov, false, 0)
 	SetCamActive(mainCam, true)
 	RenderScriptCams(true, false, 0, true, true, 0)
+	repeat Wait(0) until IsCamActive(mainCam)
 	Wait(2000)
 	DoScreenFadeIn(4000)
+	BusyspinnerOff()
+	repeat Wait(500) until IsScreenFadedIn()
 	OpenMenuSelect()
 end
 
 local function finish(boolean)
 	MenuData.CloseAll()
-	--RenderScriptCams(false, true, 5000, true, true)
 	if boolean then
-		DoScreenFadeOut(1000)
-		Wait(5000)
+		DoScreenFadeOut(2000)
+		repeat Wait(0) until IsScreenFadedOut()
 	end
+	Wait(1000)
 	CreateThread(function()
 		Wait(2000)
 		for _, value in pairs(Peds) do
 			DeleteEntity(value)
 		end
-
 		DestroyAllCams(true)
 	end)
-	ClearTimecycleModifier()
-	Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
-	exports.weathersync:setSyncEnabled(true)
+	SetTimeout(1000, function()
+		ClearTimecycleModifier()
+		Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
+		exports.weathersync:setSyncEnabled(true)
+	end)
 end
 
 local imgPath = "<img style='max-height:532px;max-width:344px;float: center;'src='nui://vorp_character/images/%s.png'>"
@@ -292,6 +289,9 @@ end
 
 function OpenMenuSelect()
 	MenuData.CloseAll()
+	local img =
+	"<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://vorp_character/images/%s.png'>"
+	local Divider = img:format("divider_line")
 	local elements = {}
 	local available = MaxCharacters - #myChars
 	local created = true
@@ -299,12 +299,15 @@ function OpenMenuSelect()
 
 	for key, value in pairs(myChars) do
 		elements[#elements + 1] = {
-			label = T.MainMenu.Name ..
-				value.firstname .. " " .. value.lastname .. " <br> " .. T.MainMenu.Money .. " " .. value.money,
+			label = value.firstname .. " " .. value.lastname .. "<br>$" .. value.money,
 			value = "choose",
-			desc = imgPath:format("character_creator_appearance") .. " <br> " .. T.MainMenu.NameDesc,
+			desc = imgPath:format("character_creator_appearance") ..
+				"<br> <span style ='font-family:crock;'>Job </span>" .. value.job .. " " .. value.grade ..
+				"<br>" ..
+				"<span style ='font-family:crock;'>Group </span>" ..
+				value.group .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. T.MainMenu.NameDesc,
 			char = value,
-			index = key, -- selected character index
+			index = key,
 		}
 	end
 
@@ -312,16 +315,17 @@ function OpenMenuSelect()
 		elements[#elements + 1] = {
 			label = T.MainMenu.CreateNewCharT,
 			value = "create",
-			desc = imgPath:format("character_creator_appearance") .. " <br> " .. T.MainMenu.CreateNewCharDesc,
+			desc = imgPath:format("character_creator_appearance") ..
+				"<br><br><br><br><br><br><br>" .. Divider .. "<br><br>" .. T.MainMenu.CreateNewCharDesc,
 			itemHeight = "2vh",
 		}
 	end
-	Wait(1000)
 	AnimpostfxPlay("RespawnPulse01")
-	MenuData.Open('default', GetCurrentResourceName(), 'menuapi',
+
+	MenuData.Open('default', GetCurrentResourceName(), 'character_select',
 		{
-			title = T.MenuCreation.title,
-			subtext = T.MenuCreation.subtitle,
+			title = T.MenuCreation.title1,
+			subtext = "<span style='font-size: 25px;'>" .. T.MenuCreation.subtitle1 .. "<br><br></span>",
 			align = Config.Align,
 			elements = elements,
 			itemHeight = "4vh",
@@ -340,7 +344,6 @@ function OpenMenuSelect()
 				SetCamActiveWithInterp(mainCam, LastCam, 3000, 500, 500)
 				created = true
 				stopLoop = true
-				N_0xdd1232b332cbb9e7(3, 1, 0)
 			end
 
 			if (data.current.value == "choose") then
@@ -349,9 +352,7 @@ function OpenMenuSelect()
 				local cam = dataConfig.Cam
 				SetCamActiveWithInterp(cam, mainCam or LastCam, 3000, 500, 500)
 				LastCam = cam
-				-- MOTION BLUR
 				Citizen.InvokeNative(0x45FD891364181F9E, cam, 30.0)
-
 				if IsCamActive(mainCam) then
 					SetCamActive(mainCam, false)
 					mainCam = nil
@@ -367,7 +368,8 @@ function OpenMenuSelect()
 					menu.addNewElement({
 						label = T.MainMenu.Choose,
 						value = "select",
-						desc = imgPath:format("character_creator_appearance") .. " <br> " .. T.MainMenu.ChooseDesc,
+						desc = imgPath:format("character_creator_appearance") ..
+							" <br><br><br><br><br><br><br>" .. Divider .. "<br>" .. T.MainMenu.ChooseDesc,
 						char = selectedChar,
 						itemHeight = "2vh",
 					})
@@ -375,7 +377,8 @@ function OpenMenuSelect()
 						menu.addNewElement({
 							label = T.MainMenu.Delete,
 							value = "delete",
-							desc = imgPath:format("character_creator_appearance") .. " <br> " .. T.MainMenu.DeleteDesc,
+							desc = imgPath:format("character_creator_appearance") ..
+								" <br><br><br><br><br><br><br>" .. Divider .. "<br>" .. T.MainMenu.DeleteDesc,
 							char = selectedChar,
 							Data = dataConfig,
 							itemHeight = "2vh",
@@ -384,7 +387,8 @@ function OpenMenuSelect()
 					menu.addNewElement({
 						label = T.MainMenu.ReturnMenu,
 						value = "back",
-						desc = imgPath:format("character_creator_appearance") .. " <br> " .. T.MainMenu.ReturnMenuDesc,
+						desc = imgPath:format("character_creator_appearance") ..
+							" <br><br><br><br><br><br><br>" .. Divider .. "<br>" .. T.MainMenu.ReturnMenuDesc,
 						char = data.current.char,
 						itemHeight = "2vh",
 					})
@@ -433,7 +437,6 @@ function OpenMenuSelect()
 
 					DeleteEntity(data.current.Data.PedHandler)
 
-					-- * remove elements not needed * --
 					for key, value in pairs(menu.data.elements) do
 						if value.value == "choose" and key == selectedChar then
 							menu.removeElementByIndex(key, true)
@@ -446,7 +449,6 @@ function OpenMenuSelect()
 					TriggerServerEvent("vorpcharacter:deleteCharacter", myChars[selectedChar].charIdentifier)
 					table.remove(myChars, selectedChar)
 
-					-- * if no characters left, go back to character creation * --
 					if #myChars == 0 or myChars == nil then
 						TriggerEvent("vorpcharacter:startCharacterCreator")
 						return finish(false)
@@ -462,7 +464,7 @@ function OpenMenuSelect()
 			end
 
 			if (data.current.value == "create") then
-				finish(false)
+				finish(true)
 				Wait(2000)
 				TriggerEvent("vorpcharacter:startCharacterCreator")
 			end
@@ -475,9 +477,9 @@ function OpenMenuSelect()
 				finish(true)
 				CharSelect()
 				stopLoop = true
-				N_0xdd1232b332cbb9e7(3, 1, 0) --UI_FEED_CLEAR_CHANNEL
 			end
 		end, function(menu, data)
+
 		end)
 end
 
@@ -501,7 +503,9 @@ function CharSelect()
 	FreezeEntityPosition(PlayerPedId(), false)
 	SetEntityVisible(PlayerPedId(), true)
 	SetPlayerInvincible(PlayerId(), false)
+	SetEntityCanBeDamaged(PlayerPedId(), true)
 	local coords = myChars[selectedChar].coords
+	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead)
 
 	if not coords.x or not coords.y or not coords.z or not coords.heading then
 		return error("No coords found,fix your characters coords sql from varchar to LONGTEXT", 1)
@@ -518,7 +522,7 @@ AddEventHandler("vorpcharacter:reloadafterdeath", function()
 	Wait(5000)
 	LoadPlayer(joaat("CS_dutch"))
 	SetPlayerModel(PlayerId(), joaat("CS_dutch"), false)
-	IsPedReadyToRender()
+	IsPedReadyToRender(PlayerPedId())
 	if CachedSkin and CachedComponents then
 		LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
 	end
@@ -530,6 +534,7 @@ AddEventHandler("vorpcharacter:reloadafterdeath", function()
 	Citizen.InvokeNative(0xC6258F41D86676E0, ped, 1, 100)
 	Citizen.InvokeNative(0x675680D089BFA21F, ped, 1065330373)
 end)
+
 
 function LoadPlayerComponents(ped, skin, components)
 	local gender = "Male"
@@ -581,8 +586,7 @@ function LoadPlayerComponents(ped, skin, components)
 	FaceOverlay("eyebrows", skin.eyebrows_visibility, skin.eyebrows_tx_id, 1, 0, 0, 1.0, 0, 1, skin.eyebrows_color, 0, 0,
 		1, skin.eyebrows_opacity)
 	FaceOverlay("eyeliners", skin.eyeliner_visibility, skin.eyeliner_tx_id, 1, 0, 0, 1.0, 0, 1,
-		skin.eyeliner_color_primary, 0, 0,
-		skin.eyeliner_palette_id, skin.eyeliner_opacity)
+		skin.eyeliner_color_primary, 0, 0, skin.eyeliner_palette_id, skin.eyeliner_opacity)
 	FaceOverlay("blush", skin.blush_visibility, skin.blush_tx_id, 1, 0, 0, 1.0, 0, 1, skin.blush_palette_color_primary, 0,
 		0, 1, skin.blush_opacity)
 	FaceOverlay("lipsticks", skin.lipsticks_visibility, 1, 1, 0, 0, 1.0, 0, 1, skin.lipsticks_palette_color_primary,

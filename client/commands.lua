@@ -80,8 +80,7 @@ RegisterCommand("sleeves", function()
 	if CachedComponents["Shirt"] == -1 then return end
 
 	if not sleeves then
-		Citizen.InvokeNative(0x66B957AAC2EAAEAB, PlayerPedId(), CachedComponents.Shirt,
-			joaat("Closed_Collar_Rolled_Sleeve"), 0, true, 1)
+		Citizen.InvokeNative(0x66B957AAC2EAAEAB, PlayerPedId(), CachedComponents.Shirt, joaat("Closed_Collar_Rolled_Sleeve"), 0, true, 1)
 		Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, false)
 		sleeves = true
 	else
