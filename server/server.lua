@@ -1,16 +1,12 @@
 ---@diagnostic disable: undefined-global
-local VorpCore = {}
-local MaxCharacters = nil
-local VORPInv = exports.vorp_inventory:vorp_inventoryApi()
-local random
 
-TriggerEvent("getCore", function(core)
-	VorpCore = core
-	MaxCharacters = VorpCore.maxCharacters
-	random = math.random(1, #Config.SpawnPosition)
-	VorpCore.addRpcCallback("vorp_characters:getMaxCharacters", function(source, cb, args)
-		cb(#MaxCharacters)
-	end)
+local VORPInv = exports.vorp_inventory:vorp_inventoryApi()
+local random = math.random(1, #Config.SpawnPosition)
+local Core = exports.vorp_core:GetCore()
+local MaxCharacters = Core.maxCharacters
+
+Core.Callback.Register("vorp_characters:getMaxCharacters", function(source, cb)
+	cb(#MaxCharacters)
 end)
 
 RegisterServerEvent("vorp_CreateNewCharacter", function(source)
@@ -18,12 +14,11 @@ RegisterServerEvent("vorp_CreateNewCharacter", function(source)
 end)
 
 
-RegisterServerEvent("vorpcharacter:saveCharacter")
-AddEventHandler("vorpcharacter:saveCharacter", function(skin, clothes, firstname, lastname)
+RegisterServerEvent("vorpcharacter:saveCharacter", function(skin, clothes, firstname, lastname)
 	local _source = source
 	local playerCoords = Config.SpawnCoords.position
 	local playerHeading = Config.SpawnCoords.heading
-	VorpCore.getUser(_source).addCharacter(firstname, lastname, json.encode(skin), json.encode(clothes))
+	Core.getUser(_source).addCharacter(firstname, lastname, json.encode(skin), json.encode(clothes))
 	Wait(600)
 	TriggerClientEvent("vorp:initCharacter", _source, playerCoords, playerHeading, false)
 	-- wait for char to be made
@@ -32,32 +27,29 @@ AddEventHandler("vorpcharacter:saveCharacter", function(skin, clothes, firstname
 	end)
 end)
 
-RegisterServerEvent("vorpcharacter:deleteCharacter")
-AddEventHandler("vorpcharacter:deleteCharacter", function(charid)
+RegisterServerEvent("vorpcharacter:deleteCharacter", function(charid)
 	local _source = source
-	local webhook = Config.Webhook.deleteCharacter
-	local User = VorpCore.getUser(_source)
+	local User = Core.getUser(_source)
 	User.removeCharacter(charid)
-	VorpCore.AddWebhook('Character Deleted', webhook, 'Steam Name: '..GetPlayerName(_source)..' \n Character ID: '..charid)
 end)
 
 RegisterServerEvent("vorp_CharSelectedCharacter")
 AddEventHandler("vorp_CharSelectedCharacter", function(charid)
 	local _source = source
-	VorpCore.getUser(_source).setUsedCharacter(charid)
+	Core.getUser(_source).setUsedCharacter(charid)
 end)
 
 RegisterServerEvent("vorpcharacter:getPlayerSkin")
 AddEventHandler("vorpcharacter:getPlayerSkin", function()
 	local _source = source
-	local Character = VorpCore.getUser(_source).getUsedCharacter
+	local Character = Core.getUser(_source).getUsedCharacter
 	TriggerClientEvent("vorpcharacter:updateCache", _source, json.decode(Character.skin), json.decode(Character.comps))
 end)
 
 
 RegisterNetEvent("vorpcharacter:setPlayerCompChange", function(skinValues, compsValues)
 	local _source = source
-	local UserCharacter = VorpCore.getUser(_source)
+	local UserCharacter = Core.getUser(_source)
 	if UserCharacter then
 		local User = UserCharacter.getUsedCharacter
 		if compsValues then
@@ -115,8 +107,8 @@ local function UpdateDatabase(character)
 	return skin, comps
 end
 
-local function GetPlayerData(source)
-	local User = VorpCore.getUser(source)
+function GetPlayerData(source)
+	local User = Core.getUser(source)
 
 	if not User then
 		return false
@@ -135,7 +127,10 @@ local function GetPlayerData(source)
 			skin = skin,
 			components = comps,
 			coords = json.decode(characters.coords),
-			isDead = characters.isdead
+			isDead = characters.isdead,
+			job = characters.jobLabel,
+			grade = characters.jobGrade,
+			group = characters.group
 		}
 		userCharacters[#userCharacters + 1] = userChars
 	end
@@ -143,17 +138,11 @@ local function GetPlayerData(source)
 end
 
 AddEventHandler("vorp_SpawnUniqueCharacter", function(source)
-	local _source = source
-	if _source == nil then
-		print("Source is nil")
-		return
-	end
-	local userCharacters = GetPlayerData(_source)
-
+	local userCharacters = GetPlayerData(source)
 	if not userCharacters then
 		return
 	end
-	TriggerClientEvent("vorpcharacter:spawnUniqueCharacter", _source, userCharacters)
+	TriggerClientEvent("vorpcharacter:spawnUniqueCharacter", source, userCharacters)
 end)
 
 
@@ -177,7 +166,7 @@ CreateThread(function()
 	Wait(1000)
 	VORPInv.RegisterUsableItem(Config.secondChanceItem, function(data)
 		local _source = data.source
-		local User = VorpCore.getUser(_source)
+		local User = Core.getUser(_source)
 
 		if not User then
 			return false
@@ -195,7 +184,7 @@ end)
 
 RegisterNetEvent("vorp_character:Client:SecondChanceSave", function(skin, comps)
 	local _source = source
-	local User = VorpCore.getUser(_source)
+	local User = Core.getUser(_source)
 	local character = User.getUsedCharacter
 	character.updateSkin((json.encode(skin)))
 	character.updateComps(json.encode(comps))
