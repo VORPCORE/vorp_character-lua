@@ -788,7 +788,7 @@ function OpenHerritageMenu(table)
                         info = data.current.info,
                         min = 0,
                         max = #data.current.info,
-                        desc = data.current.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                        desc = data.current.desc,
                         tag = "heritage"
                     }
 
@@ -801,7 +801,7 @@ function OpenHerritageMenu(table)
                         comp = data.current.info[data.current.value].Heads,
                         min = 0,
                         max = #data.current.info[data.current.value].Heads,
-                        desc = T.MenuHeritage.element3.desc .. #data.current.info[data.current.value].Heads .. ' ' .. T.MenuHeritage.element3.desc2 .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                        desc = T.MenuHeritage.element3.desc .. #data.current.info[data.current.value].Heads .. ' ' .. T.MenuHeritage.element3.desc2,
                         tag = "color"
                     }
 
@@ -1005,7 +1005,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category)
                         info = tablehair,
                         min = 0,
                         max = #tablehair,
-                        desc = data.current.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                        desc = data.current.desc,
                         tag = "component"
                     }
 
@@ -1017,8 +1017,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category)
                         comp = tablehair[data.current.value],
                         min = 0,
                         max = #tablehair[data.current.value],
-                        desc = T.MenuHairSelection.element2.desc ..
-                            #tablehair[data.current.value] .. ' ' .. T.MenuHairSelection.element2.desc2 .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>",
+                        desc = T.MenuHairSelection.element2.desc .. #tablehair[data.current.value] .. ' ' .. T.MenuHairSelection.element2.desc2,
                         tag = "color"
                     }
                     menu.setElements(elements1)
