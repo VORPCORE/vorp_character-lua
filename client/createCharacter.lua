@@ -26,11 +26,11 @@ MalePed = nil
 IsInSecondChance = false
 
 --PROMPTS
-CreateThread(function()
+--[[ CreateThread(function()
 	local C = Config.keys
-	local str = T.PromptLabels.promptsexMale
+	local str = "press"
 	selectLeft = PromptRegisterBegin()
-	PromptSetControlAction(selectLeft, C.prompt_choose_gender_M.key) -- add to config
+	PromptSetControlAction(selectLeft, `INPUT_CREATOR_MENU_TOGGLE`) -- add to config
 	str = CreateVarString(10, 'LITERAL_STRING', str)
 	PromptSetText(selectLeft, str)
 	PromptSetEnabled(selectLeft, 1)
@@ -39,9 +39,9 @@ CreateThread(function()
 	PromptSetGroup(selectLeft, PromptGroup1)
 	PromptRegisterEnd(selectLeft)
 
-	local str = T.PromptLabels.promptsexFemale
+	local str = "confirm"
 	selectRight = PromptRegisterBegin()
-	PromptSetControlAction(selectRight, C.prompt_choose_gender_F.key)
+	PromptSetControlAction(selectRight, `INPUT_CREATOR_ACCEPT`)
 	str = CreateVarString(10, 'LITERAL_STRING', str)
 	PromptSetText(selectRight, str)
 	PromptSetEnabled(selectRight, 1)
@@ -50,7 +50,7 @@ CreateThread(function()
 	PromptSetGroup(selectRight, PromptGroup1)
 	PromptRegisterEnd(selectRight)
 
-
+	
 	local str = T.PromptLabels.promptselectConfirm
 	selectEnter = PromptRegisterBegin()
 	PromptSetControlAction(selectEnter, C.prompt_select_gender.key)
@@ -61,7 +61,7 @@ CreateThread(function()
 	PromptSetStandardMode(selectEnter, 1)
 	PromptSetGroup(selectEnter, PromptGroup1)
 	PromptRegisterEnd(selectEnter)
-end)
+end) ]]
 
 function SetupCamera()
 	local camera = CreateCamera(`DEFAULT_SCRIPTED_CAMERA`, true)
@@ -106,10 +106,11 @@ local function Setup()
 
 	SetCamParams(cam, vector3(-562.15, -3776.22, 239.11), vector3(-4.71, 0.0, -93.14), 45.0, 0, 1, 1, 2, 1, 1, 0, 0)
 
-	Wait(1000)
+	Wait(2500) 
 	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1,
 		'~INPUT_CREATOR_MENU_TOGGLE~ to Choose gender, to accept press ~INPUT_CREATOR_ACCEPT~')
 	N_0x11f32bb61b756732(cam, 4.0)
+
 	local char = 1
 	while true do
 		if IsControlJustPressed(0, `INPUT_CREATOR_MENU_TOGGLE`) then
