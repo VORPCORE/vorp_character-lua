@@ -106,7 +106,7 @@ local function Setup()
 
 	SetCamParams(cam, vector3(-562.15, -3776.22, 239.11), vector3(-4.71, 0.0, -93.14), 45.0, 0, 1, 1, 2, 1, 1, 0, 0)
 
-	Wait(2500) 
+	Wait(2500)
 	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1,
 		'~INPUT_CREATOR_MENU_TOGGLE~ to Choose gender, to accept press ~INPUT_CREATOR_ACCEPT~')
 	N_0x11f32bb61b756732(cam, 4.0)
@@ -437,6 +437,7 @@ RegisterNetEvent('vorp_character:Server:SecondChance', function(skin, comps)
 		while IsInCharCreation do
 			Wait(0)
 			FreezeEntityPosition(PlayerPedId(), false)
+			DrawLightWithRange(-560.1646, -3782.066, 238.5975, 250, 250, 250, 7.0, 130.0)
 		end
 	end)
 	PrepareMusicEvent("MP_CHARACTER_CREATION_START")
