@@ -164,6 +164,7 @@ end
 
 RegisterNetEvent("vorpcharacter:startCharacterCreator")
 AddEventHandler("vorpcharacter:startCharacterCreator", function()
+	exports.weathersync:setSyncEnabled(false)
 	ShutdownLoadingScreen()
 	ShowBusyspinnerWithText("Character creation Loading")
 	Wait(500)
