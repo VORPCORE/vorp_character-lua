@@ -376,6 +376,7 @@ function CreatePlayerModel(model, cam, peds)
 		while IsInCharCreation do
 			Wait(0)
 			FreezeEntityPosition(PlayerPedId(), false)
+			DrawLightWithRange(-560.1646, -3782.066, 238.5975, 250, 250, 250, 7.0, 130.0)
 		end
 	end)
 	Wait(2000)
