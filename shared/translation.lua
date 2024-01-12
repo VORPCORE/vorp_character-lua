@@ -44,7 +44,13 @@ Translation.Langs = {
             notify = "Press ~INPUT_CREATOR_DELETE~ to erase this character or press ~INPUT_FRONTEND_CANCEL~ to cancel",
             missingname = "You have provided incorrect first or last name"
         },
+        SpinnerText = {
+            CharacterCreation = "Character creation Loading",
+            CharacterSelection = "Character selection Loading",
+            TakeScreenshot = "take a screenshot now",
+        },
         MenuCreation = {
+            Toggle = '%s to Choose gender, to accept press %s',
             title = "Character Creation",
             subtitle = "Sub Menu",
             title1 = "Character Selection",
@@ -252,7 +258,14 @@ Translation.Langs = {
             notify = "Premi Canc per eliminare questo personaggio, o premi Backspace per annullare",
             missingname = "Hai fornito un nome o cognome incorretto"
         },
+        SpinnerText = {
+            CharacterCreation = "Creazione del personaggio in corso",
+            CharacterSelection = "Selezione del personaggio in corso",
+            TakeScreenshot = "fai uno screenshot ora",
+        },
         MenuCreation = {
+            Toggle = '%s per scegliere il genere, per accettare premi %s',
+            Toggle = '%s to Choose gender, to accept press %s',
             title = "Menu personaggio",
             title1 = "Selezione personaggio",
             subtitle = "Sotto-menu",
@@ -461,7 +474,13 @@ Translation.Langs = {
             notify = "Pressione Delete para apagar este personagem, ou pressione Backspace para cancelar",
             missingname = "Você forneceu um primeiro nome ou sobrenome incorreto"
         },
+        SpinnerText = {
+            CharacterCreation = "Criação de personagem em andamento",
+            CharacterSelection = "Seleção de personagem em andamento",
+            TakeScreenshot = "tire uma captura de tela agora",
+        },
         MenuCreation = {
+            Toggle = '%s para escolher o género, para aceitar, pressione %s',
             title = "Criação do Personagem",
             title1 = "Seleção do Personagem",
             subtitle = "Escolha o seu Personagem",
@@ -670,7 +689,13 @@ Translation.Langs = {
             "Pressione ~INPUT_CREATOR_DELETE~ para apagar este personagem ou pressione ~INPUT_FRONTEND_CANCEL~ para cancelar",
             missingname = "Você forneceu um nome ou sobrenome incorreto"
         },
+        SpinnerText = {
+            CharacterCreation = "Criação de personagem em andamento",
+            CharacterSelection = "Seleção de personagem em andamento",
+            TakeScreenshot = "tire uma captura de tela agora",
+        },
         MenuCreation = {
+            Toggle = '%s para escolher o gênero, para aceitar, pressione %s',
             title = "Criação de Personagem",
             subtitle = "Sub Menu",
             title1 = "Seleção de Personagem",
@@ -878,7 +903,13 @@ Translation.Langs = {
             notify = "Appuyez sur Supprimer pour supprimer ce personnage ou appuyez sur Retour arrière pour annuler",
             missingname = "Vous avez fourni un prénom ou un nom de famille incorrect"
         },
+        SpinnerText = {
+            CharacterCreation = "Création de personnage en cours",
+            CharacterSelection = "Sélection de personnage en cours",
+            TakeScreenshot = "prends une capture d'écran maintenant",
+        },
         MenuCreation = {
+            Toggle = '%s pour choisir le genre, pour accepter, appuyez sur %s',
             title = "Création de personnage",
             title1 = "Sélection de personnage",
             subtitle = "Sous-menu",
@@ -1099,7 +1130,13 @@ Translation.Langs = {
             notify = "Drücke Entf, um diesen Charakter zu löschen oder drücke Rücktaste, um abzubrechen",
             missingname = "Sie haben einen falschen Vornamen oder Nachnamen angegeben"
         },
+        SpinnerText = {
+            CharacterCreation = "Charaktererstellung läuft",
+            CharacterSelection = "Charakterauswahl läuft",
+            TakeScreenshot = "mache jetzt einen Screenshot",
+        },
         MenuCreation = {
+            Toggle = '%s, um das Geschlecht zu wählen, zum Akzeptieren drücken Sie %s',
             title = "Charaktererstellung",
             title1 = "Charakterauswahl",
             subtitle = "Untermenü",
@@ -1314,7 +1351,13 @@ Translation.Langs = {
             notify = "Presiona Supr para eliminar este personaje o presiona Retroceso para cancelar",
             missingname = "Ha proporcionado un nombre o apellido incorrecto"
         },
+        SpinnerText = {
+            CharacterCreation = "Creación de personaje en curso",
+            CharacterSelection = "Selección de personaje en curso",
+            TakeScreenshot = "toma una captura de pantalla ahora",
+        },
         MenuCreation = {
+            Toggle = '%s para elegir el género, para aceptar, presiona %s',
             title = "Creación de personaje",
             title1 = "Selección de personaje",
             subtitle = "Submenú",

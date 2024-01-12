@@ -190,7 +190,7 @@ local function LoadCharacterSelect(ped, skin, components)
 end
 
 function StartSwapCharacters()
-	ShowBusyspinnerWithText("Character selection Loading")
+	ShowBusyspinnerWithText(T.SpinnerText.CharacterSelection)
 	local options = Config.SpawnPosition[random].options
 	exports.weathersync:setSyncEnabled(false)                                                             -- Disable weather and time sync and set a weather for this client.
 	exports.weathersync:setMyWeather(options.weather.type, options.weather.transition, options.weather.snow) -- set this client wheather.

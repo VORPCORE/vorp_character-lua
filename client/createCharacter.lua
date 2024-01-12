@@ -107,8 +107,8 @@ local function Setup()
 	SetCamParams(cam, vector3(-562.15, -3776.22, 239.11), vector3(-4.71, 0.0, -93.14), 45.0, 0, 1, 1, 2, 1, 1, 0, 0)
 
 	Wait(2500)
-	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1,
-		'~INPUT_CREATOR_MENU_TOGGLE~ to Choose gender, to accept press ~INPUT_CREATOR_ACCEPT~')
+	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1, 
+		string.format(T.MenuCreation.Toggle, '~INPUT_CREATOR_MENU_TOGGLE~', '~INPUT_CREATOR_ACCEPT~'))
 	N_0x11f32bb61b756732(cam, 4.0)
 
 	local char = 1
@@ -148,6 +148,7 @@ local function Setup()
 
 	SetCamParams(cam, vector3(-561.82, -3780.97, 239.08), vector3(-4.21, 0.0, -87.88), 30.0, 0, 1, 1, 2, 1, 1, 0, 0)
 	N_0x11f32bb61b756732(cam, 1.0)
+	cameraEditor = cam
 
 	while not (N_0xd8254cb2c586412b(animscene) == 1) do
 		Citizen.Wait(0)
@@ -166,7 +167,7 @@ RegisterNetEvent("vorpcharacter:startCharacterCreator")
 AddEventHandler("vorpcharacter:startCharacterCreator", function()
 	exports.weathersync:setSyncEnabled(false)
 	ShutdownLoadingScreen()
-	ShowBusyspinnerWithText("Character creation Loading")
+	ShowBusyspinnerWithText(T.SpinnerText.CharacterCreation)
 	Wait(500)
 	InCharacterCreator = true
 	Wait(2000)
@@ -187,7 +188,6 @@ function RegisterGenderPrompt()
 	PromptSetStandardMode(down, 1)
 	PromptSetGroup(down, PromptGroup2)
 	PromptRegisterEnd(down)
-
 
 	str = T.PromptLabels.promptrotateCam
 	right = PromptRegisterBegin()
@@ -215,29 +215,15 @@ function RegisterGenderPrompt()
 	PromptRegisterEnd(zoomout)
 end
 
-local function StartCam(x, y, z, heading, zoom)
-	Citizen.InvokeNative(0x17E0198B3882C2CB, PlayerPedId())
-	DestroyAllCams(true)
-	local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", x, y, z, -11.32719, 0.0, heading, zoom, true, 0)
-	SetCamActive(cam, true)
-	RenderScriptCams(true, true, 500, true, true, 0)
-end
-
-local z_position = 239.44
-local heading = 93.2
-local zoom = 45.00
-
-local function adjustHeading(amount)
-	heading = heading + amount
-	SetPedDesiredHeading(PlayerPedId(), heading)
-end
-
-function AdjustZoom(amount)
-	zoom = zoom + amount
-	StartCam(-560.1333, -3780.923, z_position, -90.96693, zoom)
-end
-
 function StartPrompts()
+	local zoom = GetCamFov(cameraEditor)
+	local heading = GetEntityHeading(PlayerPedId())
+
+	local coords = GetCamCoord(cameraEditor)
+	local z_position = coords.z
+
+	N_0x11f32bb61b756732(cameraEditor, 2.5)
+
 	while IsInCharCreation do
 		Wait(0)
 
@@ -245,29 +231,35 @@ function StartPrompts()
 		PromptSetActiveGroupThisFrame(PromptGroup2, label)
 
 		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key) then --right
-			adjustHeading(-5.0)
+			heading = heading - 1.5
+			SetPedDesiredHeading(PlayerPedId(), heading)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key2) then -- left
-			adjustHeading(5.0)
+			heading = heading + 1.5
+			SetPedDesiredHeading(PlayerPedId(), heading)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_camera_ws.key) then -- up
 			z_position = math.min(z_position + 0.02, 240.0)
-			StartCam(-560.1333, -3780.923, z_position, -90.96693, zoom)
+			local coords = GetCamCoord(cameraEditor)
+			SetCamCoord(cameraEditor, coords.x, coords.y, z_position)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_camera_ws.key2) then -- down
 			z_position = math.max(z_position - 0.02, 237.70)
-			StartCam(-560.1333, -3780.923, z_position, -90.96693, zoom)
+			local coords = GetCamCoord(cameraEditor)
+			SetCamCoord(cameraEditor, coords.x, coords.y, z_position)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_zoom.key) then -- zoom out
-			AdjustZoom(4.0)
+			zoom = zoom + 2
+			SetCamFov(cameraEditor, zoom)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_zoom.key2) then --zoom in
-			AdjustZoom(-4.0)
+			zoom = zoom - 2
+			SetCamFov(cameraEditor, zoom)
 		end
 	end
 end

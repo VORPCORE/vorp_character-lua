@@ -268,7 +268,7 @@ function OpenCharCreationMenu(clothingtable)
                         DrawText3D(-558.64, -3782.30, 238.5, FirstName .. " " .. LastName, { 255, 255, 255, 255 })
                     end
                 end)
-                ShowBusyspinnerWithText("take a screenshot now")
+                ShowBusyspinnerWithText(T.SpinnerText.TakeScreenshot)
                 PlaySoundFrontend("Ready_Up_Flash", "RDRO_In_Game_Menu_Sounds", true, 0)
                 TakePhoto()
                 Wait(7000)
