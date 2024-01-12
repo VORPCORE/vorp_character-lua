@@ -394,18 +394,20 @@ RegisterNetEvent('vorp_character:Server:SecondChance', function(skin, comps)
 	VORPcore.instancePlayers(math.floor(instanced))
 	RequestImapCreator()
 	RegisterGenderPrompt()
-	CreateThread(StartPrompts)
 	EnableCharCreationPrompts(true)
-	IsInCharCreation = true
 
 	SetEntityCoords(PlayerPedId(), -558.3258, -3781.111, 237.60, true, true, true, false) -- set player to start creation
 	SetEntityHeading(PlayerPedId(), 93.2)
 	Wait(1000)
-	cameraEditor = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -560.1333, -3780.923, 239.44,
-		-11.32719, 0.0, -90.96, defaultZoom, false, 0)
+	cameraEditor = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", vector3(-561.82, -3780.97, 239.08), 
+		vector3(-4.21, 0.0, -87.88), defaultZoom, false, 0)
 	Wait(1000)
 	SetCamActive(cameraEditor, true)
 	RenderScriptCams(true, true, 1000, true, true, 0)
+
+	CreateThread(StartPrompts)
+
+	IsInCharCreation = true
 
 	Clothing = {}
 
