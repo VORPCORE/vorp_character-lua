@@ -47,6 +47,66 @@ ConfigShops.Locations = {
         TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
 
     },
+    {                                                  -- Rhodes
+        Prompt = {
+            Position = vector3(1324.66, -1291.59, 77.08), -- prompt location
+            Label = "Enter Clothing Store",                  -- prompt label
+        },
+        Npc = {
+            Enable = true,
+            Model = "CS_FRANCIS_SINCLAIR",
+            Position = vector4(1323.02, -1292.14, 77.08, 239.01),
+        },
+        Blip = {
+            Enable = true,
+            Sprite = 1195729388,
+            Name = "Rhodes Clothing Store",
+        },
+        EditCharacter = { -- where the player will be teleported to edit character
+            Position = vector4(1324.24, -1287.88, 77.07, 164.22),
+        },
+        SpawnBack = { -- where the player will be teleported to after editing character
+            Position = vector4(1324.78, -1292.34, 77.08, 250.13),
+        },
+        CameraPosition = { -- camera position for the character editor
+            Position = vector3(1323.14, -1290.03, 77.72),
+            Heading = -26.27,
+            MaxUp = 78.13,
+            MaxDown = 76.95,
+        },
+        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
+
+    },
+    {                                                  -- Saint Denis
+        Prompt = {
+            Position = vector3(2552.4, -1165.22, 53.73), -- prompt location
+            Label = "Enter Clothing Store",                  -- prompt label
+        },
+        Npc = {
+            Enable = true,
+            Model = "CS_FRANCIS_SINCLAIR",
+            Position = vector4(2552.89, -1163.73, 53.73, 144.93),
+        },
+        Blip = {
+            Enable = true,
+            Sprite = 1195729388,
+            Name = "Saint Denis Clothing Store",
+        },
+        EditCharacter = { -- where the player will be teleported to edit character
+            Position = vector4(2556.66, -1159.76, 53.75, 191.14),
+        },
+        SpawnBack = { -- where the player will be teleported to after editing character
+            Position = vector4(2553.0, -1161.22, 53.73, 85.61),
+        },
+        CameraPosition = { -- camera position for the character editor
+            Position = vector3(2556.56, -1161.72, 54.10),
+            Heading = 0.32,
+            MaxUp = 54.82,
+            MaxDown = 53.00,
+        },
+        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
+
+    },
     -- add more here
 }
 
