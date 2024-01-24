@@ -59,8 +59,7 @@ local function Setup()
 	SetCamParams(cam, vec3(-562.15, -3776.22, 239.11), vec3(-4.71, 0.0, -93.14), 45.0, 0, 1, 1, 2, 1, 1)
 
 	Wait(1000)
-	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1,
-		'~INPUT_CREATOR_MENU_TOGGLE~ to Choose gender, to accept press ~INPUT_CREATOR_ACCEPT~')
+	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1, '~INPUT_CREATOR_MENU_TOGGLE~'..T.Other.GenderChoice..'~INPUT_CREATOR_ACCEPT~')
 	SetCamFocusDistance(cam, 4.0)
 
 	local char = 1
@@ -119,7 +118,7 @@ RegisterNetEvent("vorpcharacter:startCharacterCreator")
 AddEventHandler("vorpcharacter:startCharacterCreator", function()
 	exports.weathersync:setSyncEnabled(false)
 	ShutdownLoadingScreen()
-	ShowBusyspinnerWithText("Character creation Loading")
+	ShowBusyspinnerWithText(T.Other.spinnertext2)
 	Wait(500)
 	InCharacterCreator = true
 	Wait(2000)
