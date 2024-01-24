@@ -1,6 +1,6 @@
 Config = {}
 
-Config.DevMode = true
+Config.DevMode = false
 Config.Align = "top-left" -- menu
 
 -- check translation file to see if your language is available or add it.
