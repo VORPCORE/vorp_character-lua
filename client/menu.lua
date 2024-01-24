@@ -1,8 +1,11 @@
 ---@diagnostic disable: undefined-global
-local Divider = "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://vorp_character/images/divider_line.png'>"
+local Divider =
+"<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://vorp_character/images/divider_line.png'>"
 local imgPath = "<img style='max-height:500px;max-width:300px;float: center;'src='nui://vorp_character/images/%s.png'>"
-local imgPath1 = "<img style='max-height:20px;max-width:20px;margin-left: 10px;' src='nui://vorp_character/images/%s.png'>"
-local path = "<img style='max-height:532px;max-width:344px;float: center;'src='nui://vorp_character/clothingfemale/%s.png'>"
+local imgPath1 =
+"<img style='max-height:20px;max-width:20px;margin-left: 10px;' src='nui://vorp_character/images/%s.png'>"
+local path =
+"<img style='max-height:532px;max-width:344px;float: center;'src='nui://vorp_character/clothingfemale/%s.png'>"
 local __CHARNAME = nil
 local __DESC = nil
 local __VALUE = nil
@@ -88,7 +91,8 @@ function ReloadAllComponents()
                     if data.tint0 ~= 0 or data.tint1 ~= 0 or data.tint2 ~= 0 then
                         local TagData = GetMetaPedData(key == "Boots" and "boots" or key)
                         if TagData then
-                            SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material, TagData.palette, data.tint0, data.tint1, data.tint2)
+                            SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal,
+                                TagData.material, TagData.palette, data.tint0, data.tint1, data.tint2)
                         end
                     end
                 end
@@ -168,8 +172,10 @@ local function FinishCreation(anim, anim1)
 end
 local TotalAmountToPay = {}
 function GetDescriptionLayout(value, price)
-    local desc = imgPath:format(value.img) .. "<br><br>" .. value.desc .. "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>" .. Divider ..
-        "<br><span style='font-family:crock; float:left; font-size: 22px;'>Total </span><span style='font-family:crock;float:right; font-size: 22px;'>$" .. (price or GetCurrentAmmountToPay()) .. "</span><br>" .. Divider
+    local desc = imgPath:format(value.img) ..
+        "<br><br>" .. value.desc .. "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>" .. Divider ..
+        "<br><span style='font-family:crock; float:left; font-size: 22px;'>Total </span><span style='font-family:crock;float:right; font-size: 22px;'>$" ..
+        (price or GetCurrentAmmountToPay()) .. "</span><br>" .. Divider
     return desc
 end
 
@@ -185,19 +191,24 @@ function OpenCharCreationMenu(clothingtable, value)
 
     if IsInCharCreation or ShopType == "secondchance" then
         elements[#elements + 1] = {
-            label = T.MenuCreation.element.label .. "<br><span style='opacity:0.6;'>facial body makeup height hair</span>",
+            label = T.MenuCreation.element.label ..
+                "<br><span style='opacity:0.6;'>facial body makeup height hair</span>",
             value = "appearance",
-            desc = imgPath:format("character_creator_head") .. "<br>" .. T.MenuCreation.element.desc .. "<br><br>" .. Divider .. "<br><br>"
+            desc = imgPath:format("character_creator_head") ..
+                "<br>" .. T.MenuCreation.element.desc .. "<br><br>" .. Divider .. "<br><br>"
         }
 
         elements[#elements + 1] = {
-            label = T.MenuCreation.element2.label .. "<br><span style='opacity:0.6;'>" .. "boots vests coats shirts belts hats" .. "</span>",
+            label = T.MenuCreation.element2.label ..
+                "<br><span style='opacity:0.6;'>" .. "boots vests coats shirts belts hats" .. "</span>",
             value = "clothing",
-            desc = imgPath:format("clothing_generic_outfit") .. "<br> " .. T.MenuCreation.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("clothing_generic_outfit") ..
+                "<br> " .. T.MenuCreation.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
         -- confirm pay
         if not IsInCharCreation then
-            local descLayout = GetDescriptionLayout({ img = "menu_icon_tick", desc = "Confirm Purchase" }, ConfigShops.SecondChancePrice)
+            local descLayout = GetDescriptionLayout({ img = "menu_icon_tick", desc = "Confirm Purchase" },
+                ConfigShops.SecondChancePrice)
             elements[#elements + 1] = {
                 label = "Confirm Purchase",
                 value = "buy",
@@ -211,31 +222,43 @@ function OpenCharCreationMenu(clothingtable, value)
         elements[#elements + 1] = {
             label = __Age or "Character Age <br><span style='opacity:0.6;'>none</span>",
             value = "age",
-            desc = imgPath:format("emote_greet_hey_you") .. "<br> " .. "age of your character" .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("emote_greet_hey_you") ..
+                "<br> " .. "age of your character" .. "<br><br>" .. Divider .. "<br><br>",
 
         }
         elements[#elements + 1] = {
             label = __CharDescription or "Character Description<br><span style='opacity:0.6;'>none</span>",
             value = "desc",
-            desc = imgPath:format("emote_greet_hey_you") .. "<br>" .. "describe your character phisical Appearance  this will be used to identify you " .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("emote_greet_hey_you") ..
+                "<br>" ..
+                "describe your character phisical Appearance  this will be used to identify you " ..
+                "<br><br>" .. Divider .. "<br><br>",
 
         }
         elements[#elements + 1] = {
             label = __NickName or "Choose a nick name <br><span style='opacity:0.6;'> none </span>",
             value = "nickname",
-            desc = imgPath:format("emote_greet_hey_you") .. "<br> " .. " what you want people to call you as or what you are known as <br> example: Skinny boy" .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("emote_greet_hey_you") ..
+                "<br> " ..
+                " what you want people to call you as or what you are known as <br> example: Skinny boy" ..
+                "<br><br>" .. Divider .. "<br><br>",
 
         }
         elements[#elements + 1] = {
-            label = __CHARNAME or T.MenuCreation.element3.label .. "<br><span style='opacity:0.6;'>" .. "none" .. "</span>",
+            label = __CHARNAME or
+                T.MenuCreation.element3.label .. "<br><span style='opacity:0.6;'>" .. "none" .. "</span>",
             value = __VALUE1 or "name",
-            desc = __DESC or imgPath:format("emote_greet_hey_you") .. "<br> " .. T.MenuCreation.element3.desc .. "<br><br>" .. Divider .. "<br><br>",
+            desc = __DESC or
+                imgPath:format("emote_greet_hey_you") ..
+                "<br> " .. T.MenuCreation.element3.desc .. "<br><br>" .. Divider .. "<br><br>",
 
         }
         elements[#elements + 1] = {
-            label = __LABEL or ("<span style='color: Grey;'>" .. T.MenuCreation.element4.label .. "<br> Finish Details First " .. "</span>"),
+            label = __LABEL or
+                ("<span style='color: Grey;'>" .. T.MenuCreation.element4.label .. "<br> Finish Details First " .. "</span>"),
             value = __VALUE or "not",
-            desc = imgPath:format("generic_walk_style") .. "<br> " .. "<br><br>" .. Divider .. "<br><br>" .. T.MenuCreation.element4.desc,
+            desc = imgPath:format("generic_walk_style") ..
+                "<br> " .. "<br><br>" .. Divider .. "<br><br>" .. T.MenuCreation.element4.desc,
 
         }
     end
@@ -251,7 +274,8 @@ function OpenCharCreationMenu(clothingtable, value)
         function(data, menu)
             if (data.current.value == "buy") then
                 local NewTable = GetNewCompOldStructure(PlayerClothing)
-                local result = Core.Callback.TriggerAwait("vorp_character:callback:PayForSecondChance", { skin = PlayerSkin, comps = NewTable, compTints = PlayerTrackingData })
+                local result = Core.Callback.TriggerAwait("vorp_character:callback:PayForSecondChance",
+                    { skin = PlayerSkin, comps = NewTable, compTints = PlayerTrackingData })
                 if result then
                     CachedComponents = ConvertTableComps(PlayerClothing, PlayerTrackingData)
                     CachedSkin = PlayerSkin
@@ -286,7 +310,9 @@ function OpenCharCreationMenu(clothingtable, value)
                 TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
-                        __CharDescription = "Character Description" .. "<br><span style='opacity:0.6;'>" .. "Added " .. "</span>" .. imgPath1:format("menu_icon_tick")
+                        __CharDescription = "Character Description" ..
+                            "<br><span style='opacity:0.6;'>" ..
+                            "Added " .. "</span>" .. imgPath1:format("menu_icon_tick")
                         Playerdata.desc = Result
                         menu.setElement(4, "desc", imgPath:format("emote_greet_hey_you") .. "<br><br>" .. Result)
                         menu.setElement(4, "label", __CharDescription)
@@ -315,7 +341,9 @@ function OpenCharCreationMenu(clothingtable, value)
                 TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
-                        __NickName = "Character NickName " .. "<br> <span style='opacity:0.6;'>" .. Result .. "</span>" .. imgPath1:format("menu_icon_tick")
+                        __NickName = "Character NickName " ..
+                            "<br> <span style='opacity:0.6;'>" ..
+                            Result .. "</span>" .. imgPath1:format("menu_icon_tick")
                         Playerdata.nickname = Result
                         menu.setElement(5, "label", __NickName)
                         menu.setElement(5, "itemHeight", "4vh")
@@ -342,7 +370,8 @@ function OpenCharCreationMenu(clothingtable, value)
                 TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
-                        __Age = "Character Age" .. "<br><span style='opacity:0.6;'>" .. Result .. "</span>" .. imgPath1:format("menu_icon_tick")
+                        __Age = "Character Age" ..
+                            "<br><span style='opacity:0.6;'>" .. Result .. "</span>" .. imgPath1:format("menu_icon_tick")
                         Playerdata.age = Result
                         menu.setElement(3, "label", __Age)
                         menu.setElement(3, "itemHeight", "4vh")
@@ -382,8 +411,13 @@ function OpenCharCreationMenu(clothingtable, value)
                         local FirstName, LastName = GetName(Result)
                         Playerdata.firstname = FirstName
                         Playerdata.lastname = LastName
-                        __CHARNAME = "Character Name" .. "<br><span style='opacity:0.6;'>" .. FirstName .. " " .. LastName .. "</span>" .. imgPath1:format("menu_icon_tick")
-                        __DESC = imgPath:format("emote_greet_hey_you") .. "<br>" .. T.MenuCreation.label .. "<br> " .. FirstName .. " " .. LastName .. "<br><br>" .. Divider .. "<br><br>"
+                        __CHARNAME = "Character Name" ..
+                            "<br><span style='opacity:0.6;'>" ..
+                            FirstName .. " " .. LastName .. "</span>" .. imgPath1:format("menu_icon_tick")
+                        __DESC = imgPath:format("emote_greet_hey_you") ..
+                            "<br>" ..
+                            T.MenuCreation.label ..
+                            "<br> " .. FirstName .. " " .. LastName .. "<br><br>" .. Divider .. "<br><br>"
                         __VALUE = "save"
                         __VALUE1 = "not"
                         __LABEL = T.MenuCreation.element4.label
@@ -419,7 +453,8 @@ function OpenCharCreationMenu(clothingtable, value)
                 local animscene = SetupScenes("Pl_Edit_to_Photo_" .. GetGender())
                 StartAnimScene(animscene)
                 repeat Wait(0) until Citizen.InvokeNative(0xCBFC7725DE6CE2E0, animscene)
-                local NewCam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -560.55, -3782.15, 238.93, -5.73, 0.00, -96.05, 45, false, 0)
+                local NewCam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -560.55, -3782.15, 238.93, -5.73, 0.00,
+                    -96.05, 45, false, 0)
                 SetCamFov(NewCam, 40.0)
                 RenderScriptCams(true, false, 0, true, true, 0)
                 Wait(2100)
@@ -438,7 +473,8 @@ function OpenCharCreationMenu(clothingtable, value)
                 CreateThread(function()
                     while InCharacterCreator do
                         Wait(0)
-                        DrawText3D(-558.64, -3782.30, 238.5, Playerdata.firstname .. " " .. Playerdata.lastname, { 255, 255, 255, 255 })
+                        DrawText3D(-558.64, -3782.30, 238.5, Playerdata.firstname .. " " .. Playerdata.lastname,
+                            { 255, 255, 255, 255 })
                     end
                 end)
                 ShowBusyspinnerWithText("take a screenshot now")
@@ -466,7 +502,8 @@ function BackFromMenu(value)
     SetEntityInvincible(PlayerPedId(), false)
     SetEntityVisible(PlayerPedId(), true)
     FreezeEntityPosition(PlayerPedId(), true)
-    SetEntityCoords(PlayerPedId(), value.SpawnBack.Position.x, value.SpawnBack.Position.y, value.SpawnBack.Position.z, true, true, true, false)
+    SetEntityCoords(PlayerPedId(), value.SpawnBack.Position.x, value.SpawnBack.Position.y, value.SpawnBack.Position.z,
+        true, true, true, false)
     SetEntityHeading(PlayerPedId(), value.SpawnBack.Position.w)
     FreezeEntityPosition(PlayerPedId(), false)
     ExecuteCommand("rc")
@@ -502,9 +539,12 @@ function OpenClothingMenu(Table, value)
         local ToLabel = T.MenuClothes
         if ToLabel[category] then
             elements[#elements + 1] = {
-                label = ToLabel[category] .. "<br><span style='opacity:0.6;'>" .. #Table[category] .. " components" .. "</span>",
+                label = ToLabel[category] ..
+                    "<br><span style='opacity:0.6;'>" .. #Table[category] .. " components" .. "</span>",
                 value = category,
-                desc = gender == "female" and path:format(category) .. menuSpace .. Divider .. "<br><br> clothing options for this category" or imgPath:format(category) .. menuSpace .. Divider .. "<br> clothing options for this category",
+                desc = gender == "female" and
+                    path:format(category) .. menuSpace .. Divider .. "<br><br> clothing options for this category" or
+                    imgPath:format(category) .. menuSpace .. Divider .. "<br> clothing options for this category",
             }
         end
     end
@@ -551,7 +591,14 @@ function OpenClothingMenu(Table, value)
             if data.current.value == "buy" then
                 if GetCurrentAmmountToPay() > 0 then
                     local NewTable = GetNewCompOldStructure(PlayerClothing)
-                    local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop", { comps = NewTable, skin = CachedSkin, compTints = PlayerTrackingData, amount = GetCurrentAmmountToPay() })
+                    local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop",
+                        {
+                            comps = NewTable,
+                            skin = CachedSkin,
+                            compTints = PlayerTrackingData,
+                            amount =
+                                GetCurrentAmmountToPay()
+                        })
                     if result then
                         AssertCachedComponents()
                     end
@@ -605,7 +652,8 @@ function OpenComponentMenu(table, category, value)
     MenuData.CloseAll()
     local ToLabel = T.MenuClothes
     local label = ToLabel[category]
-    local imgPath = "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://vorp_character/images/%s.png'>"
+    local imgPath =
+    "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://vorp_character/images/%s.png'>"
     local elements = {}
 
     TagData = GetMetaPedData(category == "Boots" and "boots" or category)
@@ -613,6 +661,8 @@ function OpenComponentMenu(table, category, value)
 
     if CachedComponents[category] then
         InnitComp = CachedComponents[category].comp
+    else
+        CachedComponents[category] = { comp = -1 }
     end
 
     local indexComp, indexColor, tint0, tint1, tint2 = GetTrackedData(category)
@@ -625,7 +675,8 @@ function OpenComponentMenu(table, category, value)
     local menuSpace = "<br><br><br><br><br><br><br>"
     local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuComponents.subtitle .. "</span><br><br>"
     if Resolution.width <= 1920 then
-        imgPath = "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://vorp_character/images/%s.png'>"
+        imgPath =
+        "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://vorp_character/images/%s.png'>"
         menuSpace = "<br><br>"
         SubTitle = T.MenuComponents.subtitle
     end
@@ -641,7 +692,12 @@ function OpenComponentMenu(table, category, value)
         info = true,
         min = 0,
         max = #table[category],
-        desc = "<br><br>" .. imgPath:format(category) .. "<br><br><br>" .. " There's are about " .. #table[category] .. " of" .. category .. " for this category" .. menuSpace .. Divider .. "<br> choose by scrolling to the sides",
+        desc = "<br><br>" ..
+            imgPath:format(category) ..
+            "<br><br><br>" ..
+            " There's are about " ..
+            #table[category] ..
+            " of" .. category .. " for this category" .. menuSpace .. Divider .. "<br> choose by scrolling to the sides",
         itemHeight = "4vh",
     }
 
@@ -652,14 +708,19 @@ function OpenComponentMenu(table, category, value)
         comp = table[category][(indexColor or 1)],
         min = 0,
         max = colorValue,
-        desc = "<br><br>" .. imgPath:format(category) .. "<br><br><br>" .. T.MenuComponents.element2.desc .. menuSpace .. Divider .. "<br> choose by scrolling to the sides",
+        desc = "<br><br>" ..
+            imgPath:format(category) ..
+            "<br><br><br>" ..
+            T.MenuComponents.element2.desc .. menuSpace .. Divider .. "<br> choose by scrolling to the sides",
         itemHeight = "4vh",
     }
 
     elements[#elements + 1] = {
         label = "Remove Component",
         type = "remove",
-        desc = "<br><br>" .. imgPath:format(category) .. "<br><br><br>" .. " Remove this component" .. menuSpace .. Divider .. "<br> pess to remove",
+        desc = "<br><br>" ..
+            imgPath:format(category) ..
+            "<br><br><br>" .. " Remove this component" .. menuSpace .. Divider .. "<br> pess to remove",
     }
 
     elements[#elements + 1] = {
@@ -672,7 +733,11 @@ function OpenComponentMenu(table, category, value)
         min = 0,
         comp = InnitComp,
         max = 255,
-        desc = "<br><br>" .. imgPath:format(category) .. "<br><br><br>" .. " Customisation  Tint 0 some clothing wont have any" .. menuSpace .. Divider .. "<br> choose by scrolling to the sides"
+        desc = "<br><br>" ..
+            imgPath:format(category) ..
+            "<br><br><br>" ..
+            " Customisation  Tint 0 some clothing wont have any" ..
+            menuSpace .. Divider .. "<br> choose by scrolling to the sides"
     }
 
     elements[#elements + 1] = {
@@ -685,7 +750,11 @@ function OpenComponentMenu(table, category, value)
         comp = InnitComp,
         min = 0,
         max = 255,
-        desc = "<br><br>" .. imgPath:format(category) .. "<br><br><br>" .. " Customisation  Tint 1 some clothing wont have any" .. menuSpace .. Divider .. "<br> choose by scrolling to the sides"
+        desc = "<br><br>" ..
+            imgPath:format(category) ..
+            "<br><br><br>" ..
+            " Customisation  Tint 1 some clothing wont have any" ..
+            menuSpace .. Divider .. "<br> choose by scrolling to the sides"
     }
 
     elements[#elements + 1] = {
@@ -698,9 +767,10 @@ function OpenComponentMenu(table, category, value)
         comp = InnitComp,
         min = 0,
         max = 255,
-        desc = "<br><br>" .. imgPath:format(category) .. "<br><br><br>" .. " Customisation Tint 2 some clothing wont have any" .. menuSpace .. Divider .. "<br> choose by scrolling to the sides"
+        desc = "<br><br>" ..
+            imgPath:format(category) .. "<br><br><br>" .. " Customisation Tint 2 some clothing wont have any" ..
+            menuSpace .. Divider .. "<br> choose by scrolling to the sides"
     }
-
 
     MenuData.Open('default', GetCurrentResourceName(), 'OpenComponentMenu',
         {
@@ -720,7 +790,8 @@ function OpenComponentMenu(table, category, value)
                 IsPedReadyToRender()
                 local comp = data.current.comp
                 local tint0, tint1, tint2 = data.current.value, data.current.tint1, data.current.tint2
-                SetMetaPedTag(PlayerPedId(), TagData?.drawable, TagData?.albedo, TagData?.normal, TagData?.material, TagData?.palette, tint0, tint1, tint2)
+                SetMetaPedTag(PlayerPedId(), TagData?.drawable, TagData?.albedo, TagData?.normal, TagData?.material,
+                    TagData?.palette, tint0, tint1, tint2)
                 UpdatePedVariation()
                 menu.setElement(5, "tint0", tint0)
                 menu.setElement(6, "tint0", tint0)
@@ -736,7 +807,8 @@ function OpenComponentMenu(table, category, value)
                 IsPedReadyToRender()
                 local comp = data.current.comp
                 local tint0, tint1, tint2 = data.current.tint0, data.current.value, data.current.tint2
-                SetMetaPedTag(PlayerPedId(), TagData?.drawable, TagData?.albedo, TagData?.normal, TagData?.material, TagData?.palette, tint0, tint1, tint2)
+                SetMetaPedTag(PlayerPedId(), TagData?.drawable, TagData?.albedo, TagData?.normal, TagData?.material,
+                    TagData?.palette, tint0, tint1, tint2)
                 UpdatePedVariation()
                 menu.setElement(4, "tint1", tint1)
                 menu.setElement(6, "tint1", tint1)
@@ -753,7 +825,8 @@ function OpenComponentMenu(table, category, value)
                 IsPedReadyToRender()
                 local comp = data.current.comp
                 local tint0, tint1, tint2 = data.current.tint0, data.current.tint1, data.current.value
-                SetMetaPedTag(PlayerPedId(), TagData?.drawable, TagData?.albedo, TagData?.normal, TagData?.material, TagData?.palette, tint0, tint1, tint2)
+                SetMetaPedTag(PlayerPedId(), TagData?.drawable, TagData?.albedo, TagData?.normal, TagData?.material,
+                    TagData?.palette, tint0, tint1, tint2)
                 UpdatePedVariation()
                 menu.setElement(4, "tint2", tint2)
                 menu.setElement(5, "tint2", tint2)
@@ -794,7 +867,14 @@ function OpenComponentMenu(table, category, value)
                     local index = GetTrackedData(category)
                     if not PlayerTrackingData[category][data.current.comp[data.current.value].hex] then
                         PlayerTrackingData[category] = {}
-                        PlayerTrackingData[category][data.current.comp[data.current.value].hex] = { tint0 = 0, tint1 = 0, tint2 = 0, color = data.current.value, index = index }
+                        PlayerTrackingData[category][data.current.comp[data.current.value].hex] = {
+                            tint0 = 0,
+                            tint1 = 0,
+                            tint2 = 0,
+                            color =
+                                data.current.value,
+                            index = index
+                        }
                     end
                     -- need to reset tings of elements
                     menu.setElement(4, "value", 0)
@@ -809,7 +889,9 @@ function OpenComponentMenu(table, category, value)
                         CachedComponents[category].comp = data.current.comp[data.current.value].hex
                     else
                         if data.current.comp[data.current.value].hex ~= InnitComp then
-                            TotalAmountToPay[category] = GetExtraPrice(category, data.current.comp[data.current.value].hex) or ConfigShops.Prices.clothing[category].price
+                            TotalAmountToPay[category] = GetExtraPrice(category,
+                                    data.current.comp[data.current.value].hex) or ConfigShops.Prices.clothing[category]
+                                .price
                         else
                             TotalAmountToPay[category] = 0
                         end
@@ -828,11 +910,25 @@ function OpenComponentMenu(table, category, value)
                     -- we need to keep track of the index where comp is so when we come back we start there
                     if not PlayerTrackingData[category][component.hex] then
                         PlayerTrackingData[category] = {}
-                        PlayerTrackingData[category][component.hex] = { tint0 = 0, tint1 = 0, tint2 = 0, index = data.current.value, color = 0 }
+                        PlayerTrackingData[category][component.hex] = {
+                            tint0 = 0,
+                            tint1 = 0,
+                            tint2 = 0,
+                            index = data
+                                .current.value,
+                            color = 0
+                        }
                     end
                     menu.setElement(1, "value", data.current.value)
                     menu.setElement(2, "comp", total)
-                    menu.setElement(2, "desc", "<br><br>" .. imgPath:format(category) .. "<br><br><br>" .. T.MenuComponents.element2.desc .. " " .. #total .. " Colors for this component" .. menuSpace .. Divider .. "<br> choose by scrolling to the sides")
+                    menu.setElement(2, "desc",
+                        "<br><br>" ..
+                        imgPath:format(category) ..
+                        "<br><br><br>" ..
+                        T.MenuComponents.element2.desc ..
+                        " " ..
+                        #total ..
+                        " Colors for this component" .. menuSpace .. Divider .. "<br> choose by scrolling to the sides")
                     menu.setElement(2, "max", #total)
                     menu.setElement(2, "value", 0)
                     menu.setElement(2, "label", label .. "<br>" .. #total .. T.MenuComponents.element2.label)
@@ -856,7 +952,8 @@ function OpenComponentMenu(table, category, value)
                     else
                         if ShopType == "clothing" then
                             if component.hex ~= InnitComp then
-                                TotalAmountToPay[category] = GetExtraPrice(category, component.hex) or ConfigShops.Prices.clothing[category].price
+                                TotalAmountToPay[category] = GetExtraPrice(category, component.hex) or
+                                    ConfigShops.Prices.clothing[category].price
                             else
                                 TotalAmountToPay[category] = 0
                             end
@@ -870,14 +967,17 @@ function OpenComponentMenu(table, category, value)
 end
 
 local HeightChosen = 2
-local heightLabel = T.MenuAppearance.element5.label .. "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.normal .. "</span>"
+local heightLabel = T.MenuAppearance.element5.label ..
+    "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.normal .. "</span>"
 function OpenAppearanceMenu(clothingtable, value)
     Title = IsInClothingStore and "Main Menu" or T.MenuCreation.title
     local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuAppearance.subtitle .. "</span><br><br>"
-    local imgPath = "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://vorp_character/images/%s.png'>"
+    local imgPath =
+    "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://vorp_character/images/%s.png'>"
     if Resolution.width <= 1920 then
         SubTitle = T.MenuAppearance.subtitle
-        imgPath = "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://vorp_character/images/%s.png'>"
+        imgPath =
+        "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://vorp_character/images/%s.png'>"
     end
     MenuData.CloseAll()
     local elements = {
@@ -886,24 +986,29 @@ function OpenAppearanceMenu(clothingtable, value)
         {
             label = T.MenuAppearance.element.label .. "<br><span style='opacity:0.6;'>body types </span>",
             value = "body",
-            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuAppearance.element.desc .. "<br><br>" .. Divider .. "<br><br>"
+            desc = imgPath:format("character_creator_build") ..
+                "<br>" .. T.MenuAppearance.element.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
 
         {
             label = T.MenuAppearance.element2.label .. "<br><span style='opacity:0.6;'>skin & head options</span>",
             value = "heritage",
-            desc = imgPath:format("character_creator_heritage") .. "<br>" .. T.MenuAppearance.element2.desc .. "<br><br>" .. Divider .. "<br><br>"
+            desc = imgPath:format("character_creator_heritage") ..
+                "<br>" .. T.MenuAppearance.element2.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
 
         {
-            label = T.MenuAppearance.element3.label .. "<br><span style='opacity:0.6;'>hair facial eyebrows Options</span>",
+            label = T.MenuAppearance.element3.label ..
+                "<br><span style='opacity:0.6;'>hair facial eyebrows Options</span>",
             value = "hair",
-            desc = imgPath:format("character_creator_hair") .. "<br>" .. T.MenuAppearance.element3.desc .. "<br><br>" .. Divider .. "<br><br>"
+            desc = imgPath:format("character_creator_hair") ..
+                "<br>" .. T.MenuAppearance.element3.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
         {
             label = T.MenuAppearance.element4.label .. "<br><span style='opacity:0.6;'>face wrinkles ageing</span>",
             value = "age",
-            desc = imgPath:format("character_creator_appearance") .. "<br>" .. T.MenuAppearance.element4.desc .. "<br><br>" .. Divider .. "<br><br>"
+            desc = imgPath:format("character_creator_appearance") ..
+                "<br>" .. T.MenuAppearance.element4.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
 
         {
@@ -917,25 +1022,30 @@ function OpenAppearanceMenu(clothingtable, value)
             short = 1,
             tall = 3,
             normal = 2,
-            desc = imgPath:format("character_creator_appearance") .. "<br>" .. T.MenuAppearance.element5.desc .. "<br><br>" .. Divider .. "<br><br>"
+            desc = imgPath:format("character_creator_appearance") ..
+                "<br>" .. T.MenuAppearance.element5.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
 
         {
             label = T.MenuAppearance.element6.label .. "<br><span style='opacity:0.6;'>cheeks ears eyes nose </span>",
             value = "face",
-            desc = imgPath:format("character_creator_head") .. "<br>" .. T.MenuAppearance.element6.desc .. "<br><br>" .. Divider .. "<br><br>"
+            desc = imgPath:format("character_creator_head") ..
+                "<br>" .. T.MenuAppearance.element6.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
 
         {
             label = T.MenuAppearance.element7.label .. "<br><span style='opacity:0.6;'>sunburn spots freckles </span>",
             value = "lifestyle",
-            desc = imgPath:format("character_creator_lifestyle") .. "<br>" .. T.MenuAppearance.element7.desc .. "<br><br>" .. Divider .. "<br><br>"
+            desc = imgPath:format("character_creator_lifestyle") ..
+                "<br>" .. T.MenuAppearance.element7.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
 
         {
-            label = T.MenuAppearance.element8.label .. "<br><span style='opacity:0.6;'>foundation lipstick blush eyeliner </span>",
+            label = T.MenuAppearance.element8.label ..
+                "<br><span style='opacity:0.6;'>foundation lipstick blush eyeliner </span>",
             value = "makeup",
-            desc = imgPath:format("character_creator_makeup") .. "<br>" .. T.MenuAppearance.element8.desc .. "<br><br>" .. Divider .. "<br><br>"
+            desc = imgPath:format("character_creator_makeup") ..
+                "<br>" .. T.MenuAppearance.element8.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
     }
 
@@ -973,17 +1083,20 @@ function OpenAppearanceMenu(clothingtable, value)
                     if value.tag == data.current.tag then
                         if data.current.value == data.current.short then
                             height = 0.95
-                            heightLabel = T.MenuAppearance.element5.label .. "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.short .. "</span>"
+                            heightLabel = T.MenuAppearance.element5.label ..
+                                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.short .. "</span>"
                             HeightChosen = 1
                         end
                         if data.current.value == data.current.normal then
                             height = 1.0
-                            heightLabel = T.MenuAppearance.element5.label .. "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.normal .. "</span>"
+                            heightLabel = T.MenuAppearance.element5.label ..
+                                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.normal .. "</span>"
                             HeightChosen = 2
                         end
                         if data.current.value == data.current.tall then
                             height = 1.05
-                            heightLabel = T.MenuAppearance.element5.label .. "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.tall .. "</span>"
+                            heightLabel = T.MenuAppearance.element5.label ..
+                                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.tall .. "</span>"
                             HeightChosen = 3
                         end
                         SetPedScale(PlayerPedId(), height)
@@ -1026,7 +1139,8 @@ function OpenAgeMenu(table, value)
     MenuData.CloseAll()
     local elements = {
         {
-            label = T.MenuAge.element.label .. "<br><span style='opacity:0.6;'> wrinkles " .. #Config.overlays_info.ageing .. "</span>",
+            label = T.MenuAge.element.label ..
+                "<br><span style='opacity:0.6;'> wrinkles " .. #Config.overlays_info.ageing .. "</span>",
             type = "slider",
             min = 0,
             info = Config.overlay_all_layers,
@@ -1067,7 +1181,8 @@ function OpenAgeMenu(table, value)
                 if data.current.value > 0 then
                     PlayerSkin.ageing_opacity = data.current.value / 10
                     PlayerSkin.ageing_visibility = 1
-                    toggleOverlayChange("ageing", 1, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1, PlayerSkin.ageing_opacity, PlayerSkin.albedo)
+                    toggleOverlayChange("ageing", 1, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1,
+                        PlayerSkin.ageing_opacity, PlayerSkin.albedo)
                 else
                     PlayerSkin.ageing_visibility = 0
                     if PlayerSkin.ageing_tx_id == 1 then
@@ -1080,7 +1195,8 @@ function OpenAgeMenu(table, value)
 
             if data.current.type == "slider" and data.current.value > 0 and data.current.info then -- * texture id
                 PlayerSkin.ageing_tx_id = data.current.value
-                toggleOverlayChange("ageing", PlayerSkin.ageing_visibility, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1, PlayerSkin.ageing_opacity, PlayerSkin.albedo)
+                toggleOverlayChange("ageing", PlayerSkin.ageing_visibility, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0, 0, 0,
+                    0, 0, 0, 1, PlayerSkin.ageing_opacity, PlayerSkin.albedo)
                 AgingTextureTracker = data.current.value
             end
         end, function(data, menu)
@@ -1104,38 +1220,49 @@ function OpenBodyMenu(table, value)
     local elements = {
 
         {
-            label = T.MenuBody.element.label .. "<br><span style='opacity:0.6;'>Ammount " .. #Config.BodyType.Body .. "</span>",
+            label = T.MenuBody.element.label ..
+                "<br><span style='opacity:0.6;'>Ammount " .. #Config.BodyType.Body .. "</span>",
             type = "slider",
             value = BodyTracker,
             tag = "body",
             min = -1,
             max = #Config.BodyType.Body,
-            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element.desc .. #Config.BodyType.Body .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_build") ..
+                "<br>" .. T.MenuBody.element.desc .. #Config.BodyType.Body .. "<br><br>" .. Divider .. "<br><br>",
             itemHeight = "4vh",
         },
 
         {
 
-            label = T.MenuBody.element2.label .. "<br><span style='opacity:0.6;'>Ammount " .. #Config.BodyType.Waist .. "</span>",
+            label = T.MenuBody.element2.label ..
+                "<br><span style='opacity:0.6;'>Ammount " .. #Config.BodyType.Waist .. "</span>",
             type = "slider",
             value = WaistTracker,
             tag = "waist",
             comp = Config.BodyType.Waist,
             min = -1,
             max = #Config.BodyType.Waist,
-            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element2.desc .. #Config.BodyType.Waist .. ' ' .. T.MenuBody.element2.desc2 .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_build") ..
+                "<br>" ..
+                T.MenuBody.element2.desc ..
+                #Config.BodyType.Waist .. ' ' .. T.MenuBody.element2.desc2 .. "<br><br>" .. Divider .. "<br><br>",
             itemHeight = "4vh",
         },
 
         {
 
-            label = T.MenuBody.element3.label .. "<br><span style='opacity:0.6;'>Ammount " .. #Config.DefaultChar[gender][SkinColorTracker].Body .. "</span>",
+            label = T.MenuBody.element3.label ..
+                "<br><span style='opacity:0.6;'>Ammount " ..
+                #Config.DefaultChar[gender][SkinColorTracker].Body .. "</span>",
             type = "slider",
             value = BodyTypeTracker,
             comp = Config.DefaultChar[gender],
             min = 0,
             max = #Config.DefaultChar[gender][SkinColorTracker].Body,
-            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element3.desc .. #Config.DefaultChar[gender][SkinColorTracker].Body .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_build") ..
+                "<br>" ..
+                T.MenuBody.element3.desc ..
+                #Config.DefaultChar[gender][SkinColorTracker].Body .. "<br><br>" .. Divider .. "<br><br>",
             tag = "Body",
             option = "type",
             itemHeight = "4vh",
@@ -1143,13 +1270,18 @@ function OpenBodyMenu(table, value)
 
         {
 
-            label = T.MenuBody.element4.label .. "<br><span style='opacity:0.6;'>Ammount " .. #Config.DefaultChar[gender][SkinColorTracker].Legs .. "</span>",
+            label = T.MenuBody.element4.label ..
+                "<br><span style='opacity:0.6;'>Ammount " ..
+                #Config.DefaultChar[gender][SkinColorTracker].Legs .. "</span>",
             type = "slider",
             value = LegsTypeTracker,
             comp = Config.DefaultChar[gender],
             min = 0,
             max = #Config.DefaultChar[gender][SkinColorTracker].Legs,
-            desc = imgPath:format("character_creator_build") .. "<br>" .. T.MenuBody.element4.desc .. #Config.DefaultChar[gender][SkinColorTracker].Legs .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_build") ..
+                "<br>" ..
+                T.MenuBody.element4.desc ..
+                #Config.DefaultChar[gender][SkinColorTracker].Legs .. "<br><br>" .. Divider .. "<br><br>",
             tag = "Legs",
             option = "type",
             itemHeight = "4vh",
@@ -1158,13 +1290,17 @@ function OpenBodyMenu(table, value)
         {
             label = "undress",
             value = "undress",
-            desc = "<br><br>" .. imgPath:format("character_creator_build") .. "<br><br><br>" .. " Remove all clothes" .. "<br><br>" .. Divider .. "<br><br>",
+            desc = "<br><br>" ..
+                imgPath:format("character_creator_build") ..
+                "<br><br><br>" .. " Remove all clothes" .. "<br><br>" .. Divider .. "<br><br>",
         },
 
         {
             label = "dress",
             value = "dress",
-            desc = "<br><br>" .. imgPath:format("character_creator_build") .. "<br><br><br>" .. " Put on all clothes" .. "<br><br>" .. Divider .. "<br><br>",
+            desc = "<br><br>" ..
+                imgPath:format("character_creator_build") ..
+                "<br><br><br>" .. " Put on all clothes" .. "<br><br>" .. Divider .. "<br><br>",
         }
     }
 
@@ -1270,7 +1406,8 @@ function OpenHerritageMenu(table, value)
         info = Config.DefaultChar[gender],
         min = 1,
         max = #Config.DefaultChar[gender],
-        desc = T.MenuHeritage.element.desc .. #Config.DefaultChar[gender] .. ' ' .. T.MenuHeritage.element.desc2 .. "<br><br>" .. Divider .. "<br><br>",
+        desc = T.MenuHeritage.element.desc ..
+            #Config.DefaultChar[gender] .. ' ' .. T.MenuHeritage.element.desc2 .. "<br><br>" .. Divider .. "<br><br>",
         tag = "heritage"
     }
 
@@ -1290,13 +1427,17 @@ function OpenHerritageMenu(table, value)
     elements[#elements + 1] = {
         label = "undress",
         value = "undress",
-        desc = "<br><br>" .. imgPath:format("character_creator_build") .. "<br><br><br>" .. " Remove all clothes" .. "<br><br>" .. Divider .. "<br><br>",
+        desc = "<br><br>" ..
+            imgPath:format("character_creator_build") ..
+            "<br><br><br>" .. " Remove all clothes" .. "<br><br>" .. Divider .. "<br><br>",
     }
 
     elements[#elements + 1] = {
         label = "dress",
         value = "dress",
-        desc = "<br><br>" .. imgPath:format("character_creator_build") .. "<br><br><br>" .. " Put on all clothes" .. "<br><br>" .. Divider .. "<br><br>",
+        desc = "<br><br>" ..
+            imgPath:format("character_creator_build") ..
+            "<br><br><br>" .. " Put on all clothes" .. "<br><br>" .. Divider .. "<br><br>",
     }
 
     MenuData.Open('default', GetCurrentResourceName(), 'OpenHerritageMenu',
@@ -1335,7 +1476,8 @@ function OpenHerritageMenu(table, value)
 
             if data.current.tag == "color" then -- * component varitaion
                 if data.current.value > 0 then
-                    local heads = tonumber("0x" .. Config.DefaultChar[gender][SkinColorTracker].Heads[data.current.value])
+                    local heads = tonumber("0x" .. Config.DefaultChar[gender][SkinColorTracker].Heads
+                        [data.current.value])
                     IsPedReadyToRender()
                     ApplyShopItemToPed(heads)
                     UpdatePedVariation()
@@ -1389,7 +1531,8 @@ function OpenHairMenu(table, value)
         {
             label = T.MenuHair.element.label .. "<br><span style='opacity:0.6;'>hair styles</span>",
             value = "hair",
-            desc = imgPath:format("character_creator_hair") .. "<br>" .. T.MenuHair.element.desc .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_hair") ..
+                "<br>" .. T.MenuHair.element.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
     }
 
@@ -1397,12 +1540,14 @@ function OpenHairMenu(table, value)
         elements[#elements + 1] = {
             label = T.MenuHair.element2.label .. "<br><span style='opacity:0.6;'>facial hair</span>",
             value = "beard",
-            desc = imgPath:format("character_creator_facial_hair") .. "<br>" .. T.MenuHair.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_facial_hair") ..
+                "<br>" .. T.MenuHair.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
         elements[#elements + 1] = {
             label = T.MenuHair.element3.label .. "<br><span style='opacity:0.6;'>shaved beard styles</span>",
             value = "beardstabble",
-            desc = imgPath:format("character_creator_facial_hair") .. "<br>" .. T.MenuHair.element3.desc .. "<br><br>" .. Divider .. "<br><br>"
+            desc = imgPath:format("character_creator_facial_hair") ..
+                "<br>" .. T.MenuHair.element3.desc .. "<br><br>" .. Divider .. "<br><br>"
         }
     else
         elements[#elements + 1] = {
@@ -1414,25 +1559,31 @@ function OpenHairMenu(table, value)
     elements[#elements + 1] = {
         label = T.MenuHair.element5.label .. "<br><span style='opacity:0.6;'>eyebrow styles </span>",
         value = "eyebrows",
-        desc = imgPath:format("character_creator_eyebrows") .. "<br>" .. T.MenuHair.element5.desc .. "<br><br>" .. Divider .. "<br><br>"
+        desc = imgPath:format("character_creator_eyebrows") ..
+            "<br>" .. T.MenuHair.element5.desc .. "<br><br>" .. Divider .. "<br><br>"
     }
     elements[#elements + 1] = {
         label = T.MenuHair.element6.label .. "<br><span style='opacity:0.6;'>shaved hair styles</span>",
         value = "overlay",
-        desc = imgPath:format("character_creator_hair") .. "<br>" .. T.MenuHair.element6.desc .. "<br><br>" .. Divider .. "<br><br>"
+        desc = imgPath:format("character_creator_hair") ..
+            "<br>" .. T.MenuHair.element6.desc .. "<br><br>" .. Divider .. "<br><br>"
     }
     -- got add element to confimr pay
     if ShopType == "hair" then
         elements[#elements + 1] = {
             label = "Confirm" .. "<br><span style='opacity:0.6;'>confirm purchase</span>",
             value = "confirm",
-            desc = "<br><br>" .. imgPath:format("character_creator_hair") .. "<br><br><br>" .. "Confimr purchase" .. "<br><br>" .. Divider .. "<br><br>"
+            desc = "<br><br>" ..
+                imgPath:format("character_creator_hair") ..
+                "<br><br><br>" .. "Confimr purchase" .. "<br><br>" .. Divider .. "<br><br>"
         }
         -- close
         elements[#elements + 1] = {
             label = "Close" .. "<br><span style='opacity:0.6;'>close menu</span>",
             value = "close",
-            desc = "<br><br>" .. imgPath:format("character_creator_hair") .. "<br><br><br>" .. "Close menu" .. "<br><br>" .. Divider .. "<br><br>"
+            desc = "<br><br>" ..
+                imgPath:format("character_creator_hair") ..
+                "<br><br><br>" .. "Close menu" .. "<br><br>" .. Divider .. "<br><br>"
         }
     end
     local lastmenu = (IsInCharCreation or ShopType == "secondchance") and "OpenAppearanceMenu" or nil
@@ -1462,7 +1613,8 @@ function OpenHairMenu(table, value)
             if data.current.value == "confirm" then
                 if GetCurrentAmmountToPay() > 0 then
                     local NewTable = GetNewCompOldStructure(PlayerClothing)
-                    local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop", { skin = PlayerSkin, comps = NewTable, amount = GetCurrentAmmountToPay() })
+                    local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop",
+                        { skin = PlayerSkin, comps = NewTable, amount = GetCurrentAmmountToPay() })
                     if result then
                         CachedSkin = PlayerSkin
                         UpdateCache(NewTable)
@@ -1486,15 +1638,18 @@ function OpenHairMenu(table, value)
             end
 
             if (data.current.value == "eyebrows") then
-                return OpenBeardEyebrowMenu(table, "eyebrows_opacity", "eyebrows_tx_id", "eyebrows", 1, data.current.label, "eyebrows_color", value)
+                return OpenBeardEyebrowMenu(table, "eyebrows_opacity", "eyebrows_tx_id", "eyebrows", 1,
+                    data.current.label, "eyebrows_color", value)
             end
 
             if (data.current.value == "overlay") then
-                return OpenBeardEyebrowMenu(table, "hair_opacity", "hair_tx_id", "hair", 4, data.current.label, "hair_color_primary", value)
+                return OpenBeardEyebrowMenu(table, "hair_opacity", "hair_tx_id", "hair", 4, data.current.label,
+                    "hair_color_primary", value)
             end
 
             if (data.current.value == "beardstabble") then
-                OpenBeardEyebrowMenu(table, "beardstabble_opacity", "beardstabble_tx_id", "beardstabble", 7, data.current.label, "beardstabble_color_primary", value)
+                OpenBeardEyebrowMenu(table, "beardstabble_opacity", "beardstabble_tx_id", "beardstabble", 7,
+                    data.current.label, "beardstabble_color_primary", value)
             end
         end,
 
@@ -1542,24 +1697,29 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
             info = tablehair,
             min = 0,
             max = #tablehair,
-            desc = T.MenuHairSelection.element.desc .. #tablehair .. ' ' .. T.MenuHairSelection.element.desc2 .. label .. "<br><br>" .. Divider .. "<br><br>",
+            desc = T.MenuHairSelection.element.desc ..
+                #tablehair .. ' ' .. T.MenuHairSelection.element.desc2 .. label .. "<br><br>" .. Divider .. "<br><br>",
             tag = "component",
             itemHeight = "4vh",
         },
         {
-            label = T.MenuHairSelection.element2.label .. "<br><span style='opacity:0.6;'>" .. "Ammount " .. #tablehair[HairIndexTracker[category]] .. "</span>",
+            label = T.MenuHairSelection.element2.label ..
+                "<br><span style='opacity:0.6;'>" .. "Ammount " .. #tablehair[HairIndexTracker[category]] .. "</span>",
             type = "slider",
             value = HairColorIndexTracker[category],
             min = 0,
             max = #tablehair[HairIndexTracker[category]],
-            desc = T.MenuHairSelection.element2.desc .. #tablehair[HairIndexTracker[category]] .. ' ' .. T.MenuHairSelection.element2.desc2,
+            desc = T.MenuHairSelection.element2.desc ..
+                #tablehair[HairIndexTracker[category]] .. ' ' .. T.MenuHairSelection.element2.desc2,
             tag = "color",
             itemHeight = "4vh",
         },
         {
             label = "Remove",
             value = 1,
-            desc = "<br><br>" .. imgPath:format("character_creator_hair") .. "<br><br><br>" .. " Remove this component to be bald" .. "<br><br>" .. Divider .. "<br><br>",
+            desc = "<br><br>" ..
+                imgPath:format("character_creator_hair") ..
+                "<br><br><br>" .. " Remove this component to be bald" .. "<br><br>" .. Divider .. "<br><br>",
             tag = "remove"
         }
     }
@@ -1623,7 +1783,9 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
                 IsPedReadyToRender()
                 ApplyShopItemToPed(COMP)
                 UpdatePedVariation()
-                menu.setElement(2, "label", T.MenuHairSelection.element2.label .. "<br><span style='opacity:0.6;'>" .. "Ammount " .. #total .. "</span>")
+                menu.setElement(2, "label",
+                    T.MenuHairSelection.element2.label ..
+                    "<br><span style='opacity:0.6;'>" .. "Ammount " .. #total .. "</span>")
                 menu.setElement(2, "max", #total)
                 if #tablehair == data.current.value then -- workaround
                     menu.setElement(2, "value", 1)
@@ -1683,7 +1845,8 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
         },
 
         {
-            label = T.MenuBeardEyeBrows.element2.label .. "<br><span style='opacity:0.6;'>Ammount " .. #Config.color_palettes[category] .. "</span>",
+            label = T.MenuBeardEyeBrows.element2.label ..
+                "<br><span style='opacity:0.6;'>Ammount " .. #Config.color_palettes[category] .. "</span>",
             type = "slider",
             tag = "color",
             value = MakeupColorIndexTracker[category],
@@ -1713,7 +1876,9 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
         {
             label = "Remove",
             value = 1,
-            desc = "<br><br>" .. imgPath:format("character_creator_hair") .. "<br><br><br>" .. " Remove this component" .. "<br><br>" .. Divider .. "<br><br>",
+            desc = "<br><br>" ..
+                imgPath:format("character_creator_hair") ..
+                "<br><br><br>" .. " Remove this component" .. "<br><br>" .. Divider .. "<br><br>",
             tag = "remove",
             color = color,
             txt_id = txt_id,
@@ -1807,28 +1972,34 @@ function OpenFaceMenu(table, value)
 
     local elements = {
         {
-            label = T.MenuFacial.element2.label .. "<br><span style='opacity:0.6;'>Amount " .. #Config.Teeth[gender] .. "</span>",
+            label = T.MenuFacial.element2.label ..
+                "<br><span style='opacity:0.6;'>Amount " .. #Config.Teeth[gender] .. "</span>",
             value = TheethIndexTracker,
             type = "slider",
             min = -1,
             max = #Config.Teeth[gender],
             tag = "teeth",
-            desc = imgPath:format("character_creator_teeth") .. "<br>" .. T.MenuFacial.element2.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_teeth") ..
+                "<br>" .. T.MenuFacial.element2.desc .. "<br><br><br>" .. Divider .. "<br><br>",
         },
 
         {
-            label = T.MenuFacial.element3.label .. "<br><span style='opacity:0.6;'> " .. "width height depth " .. "</span>",
+            label = T.MenuFacial.element3.label ..
+                "<br><span style='opacity:0.6;'> " .. "width height depth " .. "</span>",
             value = 0,
             tag = "jaw",
-            desc = imgPath:format("character_creator_jaw") .. "<br>" .. T.MenuFacial.element3.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_jaw") ..
+                "<br>" .. T.MenuFacial.element3.desc .. "<br><br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_jaw"
         },
         {
-            label = T.MenuFacial.element4.label .. "<br><span style='opacity:0.6;'> " .. "width height depth " .. "</span>",
+            label = T.MenuFacial.element4.label ..
+                "<br><span style='opacity:0.6;'> " .. "width height depth " .. "</span>",
             value = 0,
             tag = "chin",
-            desc = imgPath:format("character_creator_jaw") .. "<br>" .. T.MenuFacial.element4.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_jaw") ..
+                "<br>" .. T.MenuFacial.element4.desc .. "<br><br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_jaw"
         },
@@ -1836,49 +2007,60 @@ function OpenFaceMenu(table, value)
             label = T.MenuFacial.element5.label .. "<br><span style='opacity:0.6;'> " .. " height " .. "</span>",
             value = "life",
             tag = "head",
-            desc = imgPath:format("character_creator_cranial_proportions") .. "<br>" .. T.MenuFacial.element5.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_cranial_proportions") ..
+                "<br>" .. T.MenuFacial.element5.desc .. "<br><br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_cranial_proportions"
         },
 
         {
-            label = T.MenuFacial.element6.label .. "<br><span style='opacity:0.6;'> " .. " width height depth angle curvature" .. "</span>",
+            label = T.MenuFacial.element6.label ..
+                "<br><span style='opacity:0.6;'> " .. " width height depth angle curvature" .. "</span>",
             value = "life",
             tag = "nose",
-            desc = imgPath:format("character_creator_nose") .. "<br>" .. T.MenuFacial.element6.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_nose") ..
+                "<br>" .. T.MenuFacial.element6.desc .. "<br><br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_nose"
         },
         {
-            label = T.MenuFacial.element7.label .. "<br><span style='opacity:0.6;'> " .. " width height size angle" .. "</span>",
+            label = T.MenuFacial.element7.label ..
+                "<br><span style='opacity:0.6;'> " .. " width height size angle" .. "</span>",
             value = "life",
             tag = "ears",
-            desc = imgPath:format("character_creator_ears") .. "<br>" .. T.MenuFacial.element7.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_ears") ..
+                "<br>" .. T.MenuFacial.element7.desc .. "<br><br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_ears"
         },
         {
-            label = T.MenuFacial.element8.label .. "<br><span style='opacity:0.6;'> " .. "upper lip lower lip" .. "</span>",
+            label = T.MenuFacial.element8.label ..
+                "<br><span style='opacity:0.6;'> " .. "upper lip lower lip" .. "</span>",
             value = "life",
             tag = "mouthandlips",
-            desc = imgPath:format("character_creator_mouth") .. "<br>" .. T.MenuFacial.element8.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_mouth") ..
+                "<br>" .. T.MenuFacial.element8.desc .. "<br><br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_mouth"
         },
 
         {
-            label = T.MenuFacial.element9.label .. "<br><span style='opacity:0.6;'> " .. "width height depth" .. "</span>",
+            label = T.MenuFacial.element9.label ..
+                "<br><span style='opacity:0.6;'> " .. "width height depth" .. "</span>",
             value = "life",
             tag = "cheek",
-            desc = imgPath:format("character_creator_cheeks") .. "<br>" .. T.MenuFacial.element9.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_cheeks") ..
+                "<br>" .. T.MenuFacial.element9.desc .. "<br><br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_cheeks"
         },
         {
-            label = T.MenuFacial.element10.label .. "<br><span style='opacity:0.6;'> " .. "eyelid eyes brows" .. "</span>",
+            label = T.MenuFacial.element10.label ..
+                "<br><span style='opacity:0.6;'> " .. "eyelid eyes brows" .. "</span>",
             value = "life",
             tag = "eyesandbrows",
-            desc = imgPath:format("character_creator_eyebrows") .. "<br>" .. T.MenuFacial.element10.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_eyebrows") ..
+                "<br>" .. T.MenuFacial.element10.desc .. "<br><br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_eyebrows"
         },
@@ -1886,7 +2068,8 @@ function OpenFaceMenu(table, value)
             label = "Upper Body" .. "<br><span style='opacity:0.6;'> " .. "hip waist chest arms" .. "</span>",
             value = "life",
             tag = "upperbody",
-            desc = imgPath:format("character_creator_eyebrows") .. "<br>" .. T.MenuFacial.element10.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_eyebrows") ..
+                "<br>" .. T.MenuFacial.element10.desc .. "<br><br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_eyebrows"
         },
@@ -1894,7 +2077,8 @@ function OpenFaceMenu(table, value)
             label = "Lower body" .. "<br><span style='opacity:0.6;'> " .. "legs calves" .. "</span>",
             value = "life",
             tag = "lowerbody",
-            desc = imgPath:format("character_creator_eyebrows") .. "<br>" .. T.MenuFacial.element10.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_eyebrows") ..
+                "<br>" .. T.MenuFacial.element10.desc .. "<br><br><br>" .. Divider .. "<br><br>",
             option = "facefeatures",
             img = "character_creator_eyebrows"
         },
@@ -1903,13 +2087,17 @@ function OpenFaceMenu(table, value)
 
     if IsInCharCreation or ShopType == "secondcance" then
         elements[#elements + 1] = {
-            label = T.MenuFacial.element.label .. " Amount " .. #Config.Eyes[gender] .. "<br><span style='opacity:0.6;'> " .. Config.EyeImgColor[EyeColorIndexTracker] .. "</span>",
+            label = T.MenuFacial.element.label ..
+                " Amount " ..
+                #Config.Eyes[gender] ..
+                "<br><span style='opacity:0.6;'> " .. Config.EyeImgColor[EyeColorIndexTracker] .. "</span>",
             value = EyeColorIndexTracker,
             type = "slider",
             max = #Config.Eyes[gender],
             min = 0,
             tag = "eyes",
-            desc = imgPath:format("character_creator_eyes") .. "<br>" .. T.MenuFacial.element.desc .. "<br><br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("character_creator_eyes") ..
+                "<br>" .. T.MenuFacial.element.desc .. "<br><br><br>" .. Divider .. "<br><br>",
         }
     end
 
@@ -1917,13 +2105,17 @@ function OpenFaceMenu(table, value)
         elements[#elements + 1] = {
             label = "Confirm" .. "<br><span style='opacity:0.6;'>" .. "confirm purchase" .. "</span>",
             value = "confirm",
-            desc = "<br><br>" .. imgPath:format("character_creator_hair") .. "<br><br><br>" .. "Confirm purchase or leave" .. "<br><br>" .. Divider .. "<br><br>"
+            desc = "<br><br>" ..
+                imgPath:format("character_creator_hair") ..
+                "<br><br><br>" .. "Confirm purchase or leave" .. "<br><br>" .. Divider .. "<br><br>"
         }
         -- close
         elements[#elements + 1] = {
             label = "Close" .. "<br><span style='opacity:0.6;'>" .. "close menu" .. "</span>",
             value = "close",
-            desc = "<br><br>" .. imgPath:format("character_creator_hair") .. "<br><br><br>" .. "Close menu" .. "<br><br>" .. Divider .. "<br><br>"
+            desc = "<br><br>" ..
+                imgPath:format("character_creator_hair") ..
+                "<br><br><br>" .. "Close menu" .. "<br><br>" .. Divider .. "<br><br>"
         }
     end
 
@@ -1953,7 +2145,8 @@ function OpenFaceMenu(table, value)
             if data.current.value == "confirm" then
                 if GetCurrentAmmountToPay() > 0 then
                     local NewTable = GetNewCompOldStructure(PlayerClothing)
-                    local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop", { skin = PlayerSkin, comps = NewTable, amount = GetCurrentAmmountToPay() })
+                    local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop",
+                        { skin = PlayerSkin, comps = NewTable, amount = GetCurrentAmmountToPay() })
                     if result then
                         CachedSkin = PlayerSkin
                         UpdateCache(NewTable)
@@ -1972,12 +2165,15 @@ function OpenFaceMenu(table, value)
                 UpdatePedVariation()
                 EyeColorIndexTracker = data.current.value
                 -- add label
-                menu.setElement(1, "label", T.MenuFacial.element.label .. " Amount " .. #Config.Eyes[gender] .. "<br><span style='opacity:0.6;'> " .. Config.EyeImgColor[EyeColorIndexTracker] .. "</span>")
+                menu.setElement(1, "label",
+                    T.MenuFacial.element.label ..
+                    " Amount " ..
+                    #Config.Eyes[gender] ..
+                    "<br><span style='opacity:0.6;'> " .. Config.EyeImgColor[EyeColorIndexTracker] .. "</span>")
                 menu.refresh()
             end
 
             if data.current.tag == "teeth" then
-            
                 IsPedReadyToRender()
                 if data.current.value > 0 then
                     StartAnimation("Face_Dentistry_Loop")
@@ -2121,12 +2317,14 @@ function OpenLifeStyleMenu(table, value)
                 txt_id = labelLookup[key].txt_id,
                 opac = labelLookup[key].opacity,
                 visibility = labelLookup[key].vis,
-                desc = T.MenuLifeStyle.element.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
+                desc = T.MenuLifeStyle.element.desc ..
+                    "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
                 name = key,
                 tag = "texture"
             }
             elements[#elements + 1] = {
-                label = labelLookup[key].label .. T.MenuLifeStyle.label .. "<br><span style='opacity:0.6;'>opacity</span>",
+                label = labelLookup[key].label ..
+                    T.MenuLifeStyle.label .. "<br><span style='opacity:0.6;'>opacity</span>",
                 value = PlayerSkin[labelLookup[key].opacity],
                 min = 0,
                 max = 10,
@@ -2134,7 +2332,8 @@ function OpenLifeStyleMenu(table, value)
                 txt_id = labelLookup[key].txt_id,
                 opac = labelLookup[key].opacity,
                 visibility = labelLookup[key].vis,
-                desc = T.MenuLifeStyle.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
+                desc = T.MenuLifeStyle.desc ..
+                    "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
                 name = key,
                 tag = "opacity"
             }
@@ -2260,7 +2459,8 @@ function OpenMakeupMenu(table, value)
     for key, value in pairs(Config.overlays_info) do
         if overlayLookup[key] then
             elements[#elements + 1] = {
-                label = overlayLookup[key].label .. "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element5.label .. " max " .. #value .. "</span>",
+                label = overlayLookup[key].label ..
+                    "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element5.label .. " max " .. #value .. "</span>",
                 value = PlayerSkin[overlayLookup[key].txt_id],
                 min = 0,
                 max = #value,
@@ -2270,7 +2470,8 @@ function OpenMakeupMenu(table, value)
                 color = overlayLookup[key].color,
                 variant = overlayLookup[key].variant,
                 visibility = overlayLookup[key].visibility,
-                desc = T.MenuMakeup.element5.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
+                desc = T.MenuMakeup.element5.desc ..
+                    "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
                 name = key,
                 tag = "texture"
             }
@@ -2283,7 +2484,8 @@ function OpenMakeupMenu(table, value)
             end
 
             elements[#elements + 1] = {
-                label = overlayLookup[key].label .. "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element6.label .. " max 10" .. "</span>",
+                label = overlayLookup[key].label ..
+                    "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element6.label .. " max 10" .. "</span>",
                 value = ColorValue,
                 min = 0,
                 max = 10,
@@ -2294,7 +2496,8 @@ function OpenMakeupMenu(table, value)
                 color = overlayLookup[key].color,
                 visibility = overlayLookup[key].visibility,
                 variant = overlayLookup[key].variant,
-                desc = T.MenuMakeup.element6.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
+                desc = T.MenuMakeup.element6.desc ..
+                    "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
                 name = key,
                 tag = "color"
             }
@@ -2309,7 +2512,8 @@ function OpenMakeupMenu(table, value)
                 end
 
                 elements[#elements + 1] = {
-                    label = overlayLookup[key].label .. "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element7.label .. " max 10" .. "</span>",
+                    label = overlayLookup[key].label ..
+                        "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element7.label .. " max 10" .. "</span>",
                     value = Color2Value,
                     min = 0,
                     max = 10,
@@ -2322,7 +2526,8 @@ function OpenMakeupMenu(table, value)
                     color3 = overlayLookup[key].color3,
                     variant = overlayLookup[key].variant,
                     visibility = overlayLookup[key].visibility,
-                    desc = T.MenuMakeup.element7.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
+                    desc = T.MenuMakeup.element7.desc ..
+                        "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
                     name = key,
                     tag = "color2"
                 }
@@ -2330,7 +2535,9 @@ function OpenMakeupMenu(table, value)
 
             if key == "lipsticks" or key == "shadows" or key == "eyeliners" or key == "foundation" then
                 elements[#elements + 1] = {
-                    label = overlayLookup[key].label .. "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element8.label .. " max " .. overlayLookup[key].varvalue .. "</span>",
+                    label = overlayLookup[key].label ..
+                        "<br><span style='opacity:0.6;'>" ..
+                        T.MenuMakeup.element8.label .. " max " .. overlayLookup[key].varvalue .. "</span>",
                     value = PlayerSkin[overlayLookup[key].variant] or 0,
                     min = 0,
                     max = overlayLookup[key].varvalue,
@@ -2343,14 +2550,16 @@ function OpenMakeupMenu(table, value)
                     color3 = overlayLookup[key].color3,
                     variant = overlayLookup[key].variant,
                     visibility = overlayLookup[key].visibility,
-                    desc = T.MenuMakeup.element8.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
+                    desc = T.MenuMakeup.element8.desc ..
+                        "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
                     name = key,
                     tag = "variant"
                 }
             end
 
             elements[#elements + 1] = {
-                label = overlayLookup[key].label .. "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element9.label .. " max 0.9" .. "</span>",
+                label = overlayLookup[key].label ..
+                    "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element9.label .. " max 0.9" .. "</span>",
                 value = PlayerSkin[overlayLookup[key].opacity],
                 min = 0,
                 max = 0.9,
@@ -2361,7 +2570,8 @@ function OpenMakeupMenu(table, value)
                 color = overlayLookup[key].color,
                 variant = overlayLookup[key].variant,
                 visibility = overlayLookup[key].visibility,
-                desc = T.MenuMakeup.element9.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
+                desc = T.MenuMakeup.element9.desc ..
+                    "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. "scroll to the sides to apply",
                 name = key,
                 tag = "opacity"
             }
@@ -2372,13 +2582,17 @@ function OpenMakeupMenu(table, value)
         elements[#elements + 1] = {
             label = "Confirm" .. "<br><span style='opacity:0.6;'>confirm purchase</span>",
             value = "confirm",
-            desc = "<br><br>" .. imgPath:format("character_creator_hair") .. "<br><br><br>" .. "Confimr purchase" .. "<br><br>" .. Divider .. "<br><br>"
+            desc = "<br><br>" ..
+                imgPath:format("character_creator_hair") ..
+                "<br><br><br>" .. "Confimr purchase" .. "<br><br>" .. Divider .. "<br><br>"
         }
         -- close
         elements[#elements + 1] = {
             label = "Close" .. "<br><span style='opacity:0.6;'>close menu</span>",
             value = "close",
-            desc = "<br><br>" .. imgPath:format("character_creator_hair") .. "<br><br><br>" .. "Close menu" .. "<br><br>" .. Divider .. "<br><br>"
+            desc = "<br><br>" ..
+                imgPath:format("character_creator_hair") ..
+                "<br><br><br>" .. "Close menu" .. "<br><br>" .. Divider .. "<br><br>"
         }
     end
 
@@ -2406,7 +2620,8 @@ function OpenMakeupMenu(table, value)
 
             if data.current.value == "confirm" then
                 if GetCurrentAmmountToPay() > 0 then
-                    local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop", { amount = GetCurrentAmmountToPay(), skin = PlayerSkin })
+                    local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop",
+                        { amount = GetCurrentAmmountToPay(), skin = PlayerSkin })
                     if result then
                         CachedSkin = PlayerSkin
                     end
