@@ -44,9 +44,10 @@ ConfigShops.Locations = {
             MaxUp = 44.85,
             MaxDown = 42.95,
         },
-        TypeOfShop = "face", -- means all will be avaialble with a price to be paid to enter
+        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
 
     },
+    -- add more here
 }
 
 
