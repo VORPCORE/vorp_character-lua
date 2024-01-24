@@ -45,7 +45,8 @@ Translation.Langs = {
             banned = "You cant use this name as they are consider banned in this server",
             notify = "Press ~INPUT_CREATOR_DELETE~ to erase this character or press ~INPUT_FRONTEND_CANCEL~ to cancel",
             missingname = "You have provided incorrect first or last name",
-            inputHeadertype = "Type in here..."
+            inputHeadertype = "Type in here...",
+            fristlast = "Insert first and last name!"
         },
         Other = {
             spinnertext = "Character selection is loading",
@@ -58,6 +59,8 @@ Translation.Langs = {
             Money = "Money: ",
             Gold = "Gold: ",
             GenderChoice = " to choose gender, press to accept ",
+            undress = "Undress",
+            dress = "Dress"
         },
 
         Placeholder = {
@@ -1101,8 +1104,8 @@ Translation.Langs = {
             NameDesc = "Um einen Charakter auszuwählen, drücken Sie bitte die Enter-Taste.",
             CreateNewCharT = "Erstelle einen neuen Charakter",
             CreateNewCharDesc = "Um einen Charakter auszuwählen, drücken Sie bitte die Enter-Taste.",
-            CreateNewSlot = "Slot verfügbar",--NEW
-            CreateNewChar = "Erstelle einen neuen Charakter, schreibe deine Geschichte neu, Viel Spaß!",--NEW
+            CreateNewSlot = "Slot verfügbar",
+            CreateNewChar = "Erstelle einen neuen Charakter, schreibe deine Geschichte neu, Viel Spaß!",
             Choose = "Spawn",
             ChooseDesc = "Wähle diesen Charakter, um in der Welt zu spawnen",
             Delete = "Löschen",
@@ -1120,7 +1123,7 @@ Translation.Langs = {
             promptdeleteCurrent = "Löschen",
             promptswapChar = "Charakter tauschen",
             promptselectChar = "Charakter auswählen",
-            promptback = "Zurück",--NEW
+            promptback = "Zurück",
             promptsexMale = "Männlich",
             promptsexFemale = "Weiblich",
             promptselectConfirm = "Auswählen",
@@ -1136,9 +1139,10 @@ Translation.Langs = {
             banned = "Diese Namen dürfen nicht verwendet werden, da sie auf diesem Server verboten sind",
             notify = "Drücken die Entf-Taste, um dieses Charakter zu löschen, oder die Rücktaste, um den Vorgang abzubrechen",
             missingname = "Sie haben einen falschen Vornamen oder Nachnamen angegeben",
-            inputHeadertype = "Hier eintippen...",--NEW
+            inputHeadertype = "Hier eintippen...",
+            fristlast = "Vor- und Nachname einfügen!"
         },
-        Other = {--NEW
+        Other = {
             spinnertext = "Charakterauswahl wird geladen",
             spinnertext2 = "Charaktererstellung wird geladen",
             spinnertext3 = "Mach einen Screenshot wenn du willst",
@@ -1149,9 +1153,10 @@ Translation.Langs = {
             Money = "Geld: ",
             Gold = "Gold: ",
             GenderChoice = " um das Geschlecht auszuwählen, zum Akzeptieren drücken Sie ",
-
+            undress = "Kleidung ausziehen",
+            dress = "Kleidung anziehen",
         },
-        Placeholder = {--NEW
+        Placeholder = {
             CharDesc = "characer description",
             NickName = "Nick Name",
             SetAge = "set age",
@@ -1170,7 +1175,7 @@ Translation.Langs = {
                 desc = "Wähle einen Namen für deinen Charakter und achte darauf, dass du die Regeln für die Namensgebung beachtest.<br> Wenn du die Regeln nicht befolgst, wird dieser Charakter ohne Vorwarnung gelöscht"
             },
             element4 = { label = "Reise beginnen", desc = "Starte deine Reise mit der Enter Taste" },
-            element5 = { label = "Alter", desc = "Alter deines Charakters" },--NEW
+            element5 = { label = "Alter", desc = "Alter deines Charakters" },
             element6 = { label = "Beschreibung des Charakters",
                 desc = "Beschreibe deinen Charakter und das Aussehen möglichst genau, damit wir dich identifizieren können.",
                 desc2 = "Hinzugefügt",
@@ -1183,7 +1188,7 @@ Translation.Langs = {
             charname = "Charaktername",
             none = "Leer!",
             finish = "Fülle zuerst alles aus!",
-        },--NEW
+        },
         -- this list will show in alphabetical order
         MenuClothes = {
             title       = "Kleidung",

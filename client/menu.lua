@@ -398,7 +398,7 @@ function OpenCharCreationMenu(clothingtable, value)
                         end
 
                         if GetName(Result) == false then
-                            TriggerEvent("vorp:TipRight", "insert first and last name", 4000)
+                            TriggerEvent("vorp:TipRight", T.Inputs.fristlast, 4000)
                             return
                         end
 
@@ -1282,7 +1282,7 @@ function OpenBodyMenu(table, value)
         },
 
         {
-            label = "undress",
+            label = T.Other.undress,
             value = "undress",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_build") ..
@@ -1290,7 +1290,7 @@ function OpenBodyMenu(table, value)
         },
 
         {
-            label = "dress",
+            label = T.Other.dress,
             value = "dress",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_build") ..
@@ -1419,7 +1419,7 @@ function OpenHerritageMenu(table, value)
 
     -- add elements to remove or put clothes in
     elements[#elements + 1] = {
-        label = "undress",
+        label = T.Other.undress,
         value = "undress",
         desc = "<br><br>" ..
             imgPath:format("character_creator_build") ..
@@ -1427,7 +1427,7 @@ function OpenHerritageMenu(table, value)
     }
 
     elements[#elements + 1] = {
-        label = "dress",
+        label = T.Other.dress,
         value = "dress",
         desc = "<br><br>" ..
             imgPath:format("character_creator_build") ..
