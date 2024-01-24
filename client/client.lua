@@ -26,7 +26,7 @@ T                  = Translation.Langs[Lang]
 
 --PROMPTS
 CreateThread(function()
-	local str = "Delete"
+	local str = T.PromptLabels.promptdeleteCurrent
 	DeletePrompt = PromptRegisterBegin()
 	PromptSetControlAction(DeletePrompt, Config.keys.prompt_delete.key)
 	str = CreateVarString(10, 'LITERAL_STRING', str)
@@ -38,7 +38,7 @@ CreateThread(function()
 	Citizen.InvokeNative(0xC5F428EE08FA7F2C, DeletePrompt, true)
 	PromptRegisterEnd(DeletePrompt)
 
-	str = "Spawn"
+	str = T.PromptLabels.promptselectConfirm
 	SelectPrompt = PromptRegisterBegin()
 	PromptSetControlAction(SelectPrompt, 0xDEB34313)
 	str = CreateVarString(10, 'LITERAL_STRING', str)
@@ -50,7 +50,7 @@ CreateThread(function()
 	Citizen.InvokeNative(0xC5F428EE08FA7F2C, SelectPrompt, true)
 	PromptRegisterEnd(SelectPrompt)
 
-	str = "Back"
+	str = T.PromptLabels.promptback
 	GoBackPrompt = PromptRegisterBegin()
 	PromptSetControlAction(GoBackPrompt, 0x760A9C6F)
 	str = CreateVarString(10, 'LITERAL_STRING', str)
@@ -210,7 +210,7 @@ end
 
 
 function StartSwapCharacters()
-	ShowBusyspinnerWithText("Character selection Loading")
+	ShowBusyspinnerWithText(T.Other.spinnertext)
 	local options = Config.SpawnPosition[random].options
 	exports.weathersync:setSyncEnabled(false)
 	exports.weathersync:setMyWeather(options.weather.type, options.weather.transition, options.weather.snow)
@@ -297,9 +297,9 @@ end
 
 local function addNewelements(menu)
 	menu.addNewElement({
-		label = "Slot Available" .. "<br>" .. "<span style ='opacity:0.6;'>" .. T.MainMenu.CreateNewCharT .. "</span>",
+		label = T.MainMenu.CreateNewSlot .. "<br>" .. "<span style ='opacity:0.6;'>" .. T.MainMenu.CreateNewCharT .. "</span>",
 		value = "create",
-		desc = imgPath:format("character_creator_appearance") .. "<br> Create a new character a new story" .. "<br><br><br>" .. Divider .. T.MainMenu.CreateNewCharDesc
+		desc = imgPath:format("character_creator_appearance") .. "<br>" ..T.MainMenu.CreateNewChar.. "<br><br><br>" .. Divider .. T.MainMenu.CreateNewCharDesc
 	})
 end
 
@@ -340,28 +340,28 @@ local function GetCharacterDescDetails(value)
 	local desc = "<table style='width: 100%; color: white; font-size: " .. fontSize .. "; margin-left: 50px; margin-right: auto;'>" ..
 		"<span style='font-family:crock;'> </span>" .. ""
 	desc       = desc .. "<tr>"
-	desc       = desc .. "<th style='text-align: left; font-family:crock;'>Job</th>"
+	desc       = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Job.."</th>"
 	desc       = desc .. "<td style='text-align: center;'>" .. value.job .. " " .. value.grade .. "</td>"
 	desc       = desc .. "</tr>"
 	desc       = desc .. "<tr>"
-	desc       = desc .. "<th style='text-align: left; font-family:crock;'>Group</th>"
+	desc       = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Group.."</th>"
 	desc       = desc .. "<td style='text-align: center;'>" .. value.group .. "</td>"
 	desc       = desc .. "</tr>"
 	desc       = desc .. "<tr>"
-	desc       = desc .. "<th style='text-align: left; font-family:crock;'>Gender</th>"
+	desc       = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Gender.."</th>"
 	desc       = desc .. "<td style='text-align: center;'>" .. value.gender .. "</td>"
 	desc       = desc .. "</tr>"
 	desc       = desc .. "<tr>"
-	desc       = desc .. "<th style='text-align: left; font-family:crock;'>Age</th>"
+	desc       = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Age.."</th>"
 	desc       = desc .. "<td style='text-align: center;'>" .. value.age .. "</td>"
 	desc       = desc .. "</tr>"
 	desc       = desc .. "<tr>"
-	desc       = desc .. "<th style='text-align: left; font-family:crock;'>Money</th>"
+	desc       = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Money.."</th>"
 	desc       = desc .. "<td style='text-align: center;'>$ " .. value.money .. "</td>"
 	desc       = desc .. "</tr>"
 	if Config.ShowGold then
 		desc = desc .. "<tr>"
-		desc = desc .. "<th style='text-align: left; font-family:crock;'>Gold</th>"
+		desc = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Gold.."</th>"
 		desc = desc .. "<td style='text-align: center;'>* " .. value.gold .. "</td>"
 	end
 	desc = desc .. "</tr>"
@@ -447,9 +447,9 @@ function OpenMenuSelect()
 
 	for i = 1, MaxCharacters - #myChars, 1 do
 		elements[#elements + 1] = {
-			label = "Slot Available" .. "<br>" .. "<span style ='opacity:0.6;'>" .. T.MainMenu.CreateNewCharT .. "</span>",
+			label = T.MainMenu.CreateNewSlot .. "<br>" .. "<span style ='opacity:0.6;'>" .. T.MainMenu.CreateNewCharT .. "</span>",
 			value = "create",
-			desc = imgPath:format("character_creator_appearance") .. "<br><br>" .. "Create a new character a new story" .. "<br><br>" .. Divider .. T.MainMenu.CreateNewCharDesc,
+			desc = imgPath:format("character_creator_appearance") .. "<br><br>" .. T.MainMenu.CreateNewChar .. "<br><br>" .. Divider .. T.MainMenu.CreateNewCharDesc,
 		}
 	end
 

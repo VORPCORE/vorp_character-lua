@@ -220,33 +220,27 @@ function OpenCharCreationMenu(clothingtable, value)
 
     if IsInCharCreation then
         elements[#elements + 1] = {
-            label = __Age or "Character Age <br><span style='opacity:0.6;'>none</span>",
+            label = __Age or T.MenuCreation.element5.label.. "<br><span style='opacity:0.6;'>"..T.MenuCreation.none.."</span>",
             value = "age",
             desc = imgPath:format("emote_greet_hey_you") ..
-                "<br> " .. "age of your character" .. "<br><br>" .. Divider .. "<br><br>",
+                "<br> " .. T.MenuCreation.element5.desc .. "<br><br>" .. Divider .. "<br><br>",
 
         }
         elements[#elements + 1] = {
-            label = __CharDescription or "Character Description<br><span style='opacity:0.6;'>none</span>",
+            label = __CharDescription or T.MenuCreation.element6.label.."<br><span style='opacity:0.6;'>"..T.MenuCreation.none.."</span>",
             value = "desc",
             desc = imgPath:format("emote_greet_hey_you") ..
-                "<br>" ..
-                "describe your character phisical Appearance  this will be used to identify you " ..
-                "<br><br>" .. Divider .. "<br><br>",
-
+                "<br>" .. T.MenuCreation.element6.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
         elements[#elements + 1] = {
-            label = __NickName or "Choose a nick name <br><span style='opacity:0.6;'> none </span>",
+            label = __NickName or T.MenuCreation.element7.label.. "<br><span style='opacity:0.6;'>"..T.MenuCreation.none.."</span>",
             value = "nickname",
             desc = imgPath:format("emote_greet_hey_you") ..
-                "<br> " ..
-                " what you want people to call you as or what you are known as <br> example: Skinny boy" ..
-                "<br><br>" .. Divider .. "<br><br>",
-
+                "<br> " ..T.MenuCreation.element7.desc.. "<br>" ..T.MenuCreation.element7.desc2.. "<br><br>" .. Divider .. "<br><br>",
         }
         elements[#elements + 1] = {
             label = __CHARNAME or
-                T.MenuCreation.element3.label .. "<br><span style='opacity:0.6;'>" .. "none" .. "</span>",
+                T.MenuCreation.element3.label .. "<br><span style='opacity:0.6;'>" .. ""..T.MenuCreation.none.."" .. "</span>",
             value = __VALUE1 or "name",
             desc = __DESC or
                 imgPath:format("emote_greet_hey_you") ..
@@ -255,7 +249,7 @@ function OpenCharCreationMenu(clothingtable, value)
         }
         elements[#elements + 1] = {
             label = __LABEL or
-                ("<span style='color: Grey;'>" .. T.MenuCreation.element4.label .. "<br> Finish Details First " .. "</span>"),
+                ("<span style='color: Grey;'>" .. T.MenuCreation.element4.label .. "<br>" ..T.MenuCreation.finish.."" .. "</span>"),
             value = __VALUE or "not",
             desc = imgPath:format("generic_walk_style") ..
                 "<br> " .. "<br><br>" .. Divider .. "<br><br>" .. T.MenuCreation.element4.desc,
@@ -297,10 +291,10 @@ function OpenCharCreationMenu(clothingtable, value)
                     type = "enableinput",
                     inputType = "textarea",
                     button = T.Inputs.confirm,
-                    placeholder = "characer description",
+                    placeholder = T.Placeholder.CharDesc,
                     style = "block",
                     attributes = {
-                        inputHeader = "type here",
+                        inputHeader = T.Inputs.inputHeadertype,
                         type = "text",
                         pattern = "[A-Za-z ]{5,2000000}", -- can change here for your language
                         title = T.Inputs.title,
@@ -310,9 +304,9 @@ function OpenCharCreationMenu(clothingtable, value)
                 TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
-                        __CharDescription = "Character Description" ..
+                        __CharDescription = T.MenuCreation.element6.label ..
                             "<br><span style='opacity:0.6;'>" ..
-                            "Added " .. "</span>" .. imgPath1:format("menu_icon_tick")
+                            T.MenuCreation.element6.desc2 .. "</span>" .. imgPath1:format("menu_icon_tick")
                         Playerdata.desc = Result
                         menu.setElement(4, "desc", imgPath:format("emote_greet_hey_you") .. "<br><br>" .. Result)
                         menu.setElement(4, "label", __CharDescription)
@@ -328,10 +322,10 @@ function OpenCharCreationMenu(clothingtable, value)
                     type = "enableinput",
                     inputType = "input",
                     button = T.Inputs.confirm,
-                    placeholder = "Nick Name",
+                    placeholder = T.Placeholder.NickName,
                     style = "block",
                     attributes = {
-                        inputHeader = "type here",
+                        inputHeader = T.Inputs.inputHeadertype,
                         type = "text",
                         pattern = "[A-Za-z ]{5,20}", -- can change here for your language
                         title = T.Inputs.title,
@@ -341,7 +335,7 @@ function OpenCharCreationMenu(clothingtable, value)
                 TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
-                        __NickName = "Character NickName " ..
+                        __NickName = T.MenuCreation.element7.nickname ..
                             "<br> <span style='opacity:0.6;'>" ..
                             Result .. "</span>" .. imgPath1:format("menu_icon_tick")
                         Playerdata.nickname = Result
@@ -357,10 +351,10 @@ function OpenCharCreationMenu(clothingtable, value)
                     type = "enableinput",
                     inputType = "input",
                     button = T.Inputs.confirm,
-                    placeholder = "set age",
+                    placeholder = T.Placeholder.NickName,
                     style = "block",
                     attributes = {
-                        inputHeader = "type here",
+                        inputHeader = T.Inputs.inputHeadertype,
                         type = "number",
                         pattern = "[A-Za-z ]{5,20}", -- can change here for your language
                         title = T.Inputs.title,
@@ -370,7 +364,7 @@ function OpenCharCreationMenu(clothingtable, value)
                 TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
-                        __Age = "Character Age" ..
+                        __Age = T.MenuCreation.element5.label ..
                             "<br><span style='opacity:0.6;'>" .. Result .. "</span>" .. imgPath1:format("menu_icon_tick")
                         Playerdata.age = Result
                         menu.setElement(3, "label", __Age)
@@ -385,10 +379,10 @@ function OpenCharCreationMenu(clothingtable, value)
                     type = "enableinput",
                     inputType = "input",
                     button = T.Inputs.confirm,
-                    placeholder = T.Inputs.placeholder,
+                    placeholder = T.Placeholder.FirstLastName,
                     style = "block",
                     attributes = {
-                        inputHeader = "type here",
+                        inputHeader = T.Inputs.inputHeadertype,
                         type = "text",
                         pattern = "[A-Za-z ]{5,20}", -- can change here for your language
                         title = T.Inputs.title,
@@ -411,7 +405,7 @@ function OpenCharCreationMenu(clothingtable, value)
                         local FirstName, LastName = GetName(Result)
                         Playerdata.firstname = FirstName
                         Playerdata.lastname = LastName
-                        __CHARNAME = "Character Name" ..
+                        __CHARNAME = T.MenuCreation.charname ..
                             "<br><span style='opacity:0.6;'>" ..
                             FirstName .. " " .. LastName .. "</span>" .. imgPath1:format("menu_icon_tick")
                         __DESC = imgPath:format("emote_greet_hey_you") ..
@@ -477,7 +471,7 @@ function OpenCharCreationMenu(clothingtable, value)
                             { 255, 255, 255, 255 })
                     end
                 end)
-                ShowBusyspinnerWithText("take a screenshot now")
+                ShowBusyspinnerWithText(T.Other.spinnertext3)
                 PlaySoundFrontend("Ready_Up_Flash", "RDRO_In_Game_Menu_Sounds", true, 0)
                 TakePhoto()
                 Wait(7000)
