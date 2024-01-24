@@ -1458,7 +1458,7 @@ Config.FaceFeatures = {
         ["Mouth Corner Left Height"] = { hash = 46661, comp = "MouthCLH" },
         ["Mouth Corner Right Height"] = { hash = 55718, comp = "MouthCRH" },
         ["Mouth Corner Left Lips Distance"] = { hash = 22344, comp = "MouthCLLD" },
-        ["Mouth Corner Right Lips Distance"] = { hash = 9423, comp = "MouthCRD" },
+        ["Mouth Corner Right Lips Distance"] = { hash = 9423, comp = "MouthCRLD" },
     },
     upperbody = {
         ["Arms Size"] = { hash = 46032, comp = "ArmsS" },

@@ -423,8 +423,7 @@ function OpenCharCreationMenu(clothingtable, value)
                         menu.addNewElement({
                             label = T.MenuCreation.element4.label,
                             value = __VALUE,
-                            desc = imgPath:format("generic_walk_style") ..
-                                "<br> " .. T.MenuCreation.element4.desc .. "<br><br>" .. Divider .. "<br><br>",
+                            desc = imgPath:format("generic_walk_style") ..   "<br> " .. T.MenuCreation.element4.desc .. "<br><br>" .. Divider .. "<br><br>",
                         })
                         menu.refresh()
                     end
