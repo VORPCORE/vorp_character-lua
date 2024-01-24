@@ -1,30 +1,9 @@
---LOAD COMPS
-function ApplyComponentToPed(ped, comp)
-    Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, comp, false, true, true)
-    Citizen.InvokeNative(0x66b957aac2eaaeab, ped, comp, 0, 0, 1, 1) -- _UPDATE_SHOP_ITEM_WEARABLE_STATE
-    Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
-    UpdateVariation(ped)
-end
-
-function UpdateVariation(ped)
-    Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, false, true, true, true, false)
-    IsPedReadyToRender()
-end
-
-function IsPedReadyToRender()
-    Citizen.InvokeNative(0xA0BC8FAED8CFEB3C, PlayerPedId())
-    while not Citizen.InvokeNative(0xA0BC8FAED8CFEB3C, PlayerPedId()) do
-        Citizen.InvokeNative(0xA0BC8FAED8CFEB3C, PlayerPedId())
-        Wait(0)
-    end
-end
-
 ---Remove all meta tags from ped
 ---@param ped number ped id
 function RemoveMetaTags(ped)
     for _, tag in pairs(Config.HashList) do
-        Citizen.InvokeNative(0xD710A5007C2AC539, ped, tag, 0)
-        UpdateVariation(ped)
+        RemoveTagFromMetaPed(tag)
+        UpdatePedVariation()
     end
 end
 
@@ -34,8 +13,8 @@ end
 ---@return table skin data
 function SetDefaultSkin(gender, skin)
     local __data = {}
-    for _, value in pairs(Config.DefaultChar[gender]) do
-        for key, _ in pairs(value) do
+    for skinColor, value in pairs(Config.DefaultChar[gender]) do
+        for key, info in pairs(value) do
             if key == "HeadTexture" then
                 local headtext = joaat(value.HeadTexture[1])
                 if headtext == skin.albedo then
@@ -46,19 +25,19 @@ function SetDefaultSkin(gender, skin)
         end
     end
 
-    if skin.HeadType == 0 then
+    if skin.HeadType and skin.HeadType == 0 then
         skin.HeadType = tonumber("0x" .. __data.Heads[1])
     end
 
-    if skin.BodyType == 0 then
+    if skin.BodyType and skin.BodyType == 0 then
         skin.BodyType = tonumber("0x" .. __data.Body[1])
     end
 
-    if skin.LegsType == 0 then
+    if skin.LegsType and skin.LegsType == 0 then
         skin.LegsType = tonumber("0x" .. __data.Legs[1])
     end
 
-    if skin.Torso == 0 or nil then
+    if skin.Torso and skin.Torso == 0 or nil then
         skin.Torso = tonumber("0x" .. __data.Body[1])
     end
 
@@ -101,18 +80,19 @@ end
 
 function DeleteNpc(pedHandler)
     if pedHandler then
-        while DoesEntityExist(pedHandler) do
-            DeleteEntity(pedHandler)
+        DeleteEntity(pedHandler)
+        repeat
             Wait(0)
-        end
+            DeleteEntity(pedHandler)
+        until DoesEntityExist(pedHandler)
     end
 end
 
 TableHair = {}
 function GetHair(gender, category)
     TableHair = {}
-    for key, value in pairs(HairComponents[gender][category]) do
-        for k, v in pairs(value) do
+    for key, value in ipairs(HairComponents[gender][category]) do
+        for k, v in ipairs(value) do
             if not TableHair[key] then
                 TableHair[key] = {}
             end
@@ -121,14 +101,39 @@ function GetHair(gender, category)
             end
         end
     end
+    return TableHair
+end
+
+function GetHairIndex(category, tablehair)
+    for key, value in pairs(CachedSkin) do
+        for hairIndex, val in ipairs(tablehair) do
+            for colorIndex, v in ipairs(val) do
+                if key == category then
+                    if v == value then
+                        return hairIndex, colorIndex
+                    end
+                end
+            end
+        end
+    end
+    return 1, 1
+end
+
+function StartAnimation(anim)
+    local __player = PlayerPedId()
+    if not HasAnimDictLoaded("FACE_HUMAN@GEN_MALE@BASE") then
+        RequestAnimDict("FACE_HUMAN@GEN_MALE@BASE")
+        repeat Wait(0) until HasAnimDictLoaded("FACE_HUMAN@GEN_MALE@BASE")
+    end
+
+    if not IsEntityPlayingAnim(__player, "FACE_HUMAN@GEN_MALE@BASE", anim, 1) then
+        TaskPlayAnim(__player, "FACE_HUMAN@GEN_MALE@BASE", anim, 8.0, -8.0, -1, 16, 0.0, false, 0, false, "", false)
+    end
 end
 
 function GetGender()
-    if not IsPedMale(PlayerPedId()) then
-        return "Female"
-    end
-
-    return "Male"
+    local Gender = IsPedMale(PlayerPedId()) and "Male" or "Female"
+    return Gender
 end
 
 local textureId = -1
@@ -270,7 +275,7 @@ Config.Intro = {
     }
 }
 
--- players can find their mugh shots in their rockstars account
+
 function TakePhoto()
     N_0x3c8f74e8fe751614()
     Citizen.InvokeNative(0xD45547D8396F002A)
@@ -278,7 +283,7 @@ function TakePhoto()
     Citizen.InvokeNative(0xFA91736933AB3D93, true)
     Citizen.InvokeNative(0x8B3296278328B5EB, 2)
     Citizen.InvokeNative(0x2705D18C11B61046, false)
-    Citizen.InvokeNative(0xD1031B83AC093BC7, "SetRegionPhotoTakenStat") -- I guess need create_var_string
+    Citizen.InvokeNative(0xD1031B83AC093BC7, "SetRegionPhotoTakenStat")
     Citizen.InvokeNative(0x9937FACBBF267244, "SetDistrictPhotoTakenStat")
     Citizen.InvokeNative(0x8952E857696B8A79, "SetStatePhotoTakenStat")
     Citizen.InvokeNative(0x57639FD876B68A91, 0)
@@ -323,4 +328,248 @@ function GetName(Result)
     end
 
     return splitString[1], splitString[2]
+end
+
+function ApplyDefaultClothing()
+    local ped = PlayerPedId()
+    local isPedMale = IsPedMale(ped)
+    local numComponents = GetNumComponentsInPed(ped)
+    local componentsWithWearableState = {}
+    for componentIndex = 0, numComponents - 1, 1 do
+        local componentHash = GetComponentAtIndex(ped, componentIndex, true)
+        if componentHash ~= 0 then
+            local numWearableStates = Citizen.InvokeNative(0xFFCC2DB2D9953401, componentHash, not isPedMale, true, Citizen.ResultAsInteger())
+            if numWearableStates > 0 then
+                local wearableStates = { `base` }
+                for wearableStateIndex = 0, numWearableStates - 1, 1 do
+                    local wearableState = Citizen.InvokeNative(0x6243635AF2F1B826, componentHash, wearableStateIndex, not isPedMale, true, Citizen.ResultAsInteger())
+                    if wearableState ~= 0 then
+                        table.insert(wearableStates, wearableState)
+                    end
+                end
+
+                table.insert(componentsWithWearableState,
+                    {
+                        componentHash = componentHash,
+                        componentCategory = GetCategoryOfComponentAtIndex(ped, componentIndex),
+                        wearableStates = wearableStates
+                    })
+            end
+        end
+    end
+
+    if #componentsWithWearableState < 1 then
+        return print("no components with wearable state")
+    end
+
+    local Helper = {
+        Pant = `pants`,
+        Shirt = `shirts_full`,
+        Boots = `boots`,
+        Gunbelt = `gunbelts`,
+        Holster = `holsters_left`,
+        Belt = `belts`,
+        Hair = `hair`,
+        Eyebrows = `eyebrows`,
+        Belts = `belts`,
+    }
+
+    for category, _ in pairs(PlayerClothing) do
+        for _, component in ipairs(componentsWithWearableState) do
+            if Helper[category] and Helper[category] == component.componentCategory then
+                PlayerClothing[category].comp = component.componentHash
+                CachedComponents[category] = { comp = component.componentHash }
+                if not PlayerTrackingData[category] then
+                    PlayerTrackingData[category] = {}
+                    PlayerTrackingData[category][component.componentHash] = { tint0 = 0, tint1 = 0, tint2 = 0 }
+                end
+            end
+        end
+    end
+    CachedComponents.Gunbelt = { comp = isPedMale and 795591403 or 1511461630, tint0 = 0, tint1 = 0, tint2 = 0 }
+end
+
+function SortData(data)
+    local sortedCategories = {}
+    for category, _ in pairs(data) do
+        table.insert(sortedCategories, category)
+    end
+    table.sort(sortedCategories)
+    return sortedCategories
+end
+
+function SetCamFocusDistance(cam, focus)
+    N_0x11f32bb61b756732(cam, focus)
+end
+
+function SetCamMotionBlurStrength(cam, strength)
+    Citizen.InvokeNative(0x45FD891364181F9E, cam, strength)
+end
+
+function UiFeedClearChannel()
+    N_0xdd1232b332cbb9e7(3, 1, 0)
+end
+
+function PrepareCreatorMusic()
+    Citizen.InvokeNative(0x120C48C614909FA4, "AZL_RDRO_Character_Creation_Area", true)                     -- CLEAR_AMBIENT_ZONE_LIST_STATE
+    Citizen.InvokeNative(0x9D5A25BADB742ACD, "AZL_RDRO_Character_Creation_Area_Other_Zones_Disable", true) -- CLEAR_AMBIENT_ZONE_LIST_STATE
+    PrepareMusicEvent("MP_CHARACTER_CREATION_START")
+    Wait(100)
+    TriggerMusicEvent("MP_CHARACTER_CREATION_START")
+end
+
+function DrawLight(shop)
+    local locationx = shop and shop.x or -560.1646
+    local locationy = shop and shop.y or -3782.066
+    local locationz = shop and shop.z or 238.5975
+    while IsInCharCreation or IsInClothingStore do
+        Wait(0)
+        FreezeEntityPosition(PlayerPedId(), false)
+        DrawLightWithRange(locationx, locationy, locationz, 250, 250, 250, 7.0, 50.0)
+    end
+end
+
+--- organise and included data for clothing table
+function OrganiseClothingData(Gender)
+    Clothing = {}
+    for category, value in pairs(Data.clothing[Gender]) do
+        local categoryTable = {}
+
+        for _, v in ipairs(value) do
+            local typeTable = {}
+            for _, va in ipairs(v) do
+                table.insert(typeTable, { hex = va.hash, remove = va.remove, showSkin = va.showSkin or false, needsFix = va.needsFix or false })
+            end
+            table.insert(categoryTable, typeTable)
+        end
+        Clothing[category] = categoryTable
+    end
+    return Clothing
+end
+
+--- update cachedComponents for creator
+function UpdateCache(newcomponents)
+    for key, value in pairs(newcomponents) do
+        if not CachedComponents[key] then
+            CachedComponents[key] = {
+                comp = value,
+                tint0 = 0,
+                tint1 = 0,
+                tint2 = 0,
+            }
+        else
+            CachedComponents[key].comp = value
+        end
+    end
+    return CachedComponents
+end
+
+--- get old table structure from the new
+function GetNewCompOldStructure(comps)
+    local NewComps = {}
+    for key, value in pairs(comps) do
+        NewComps[key] = value.comp
+    end
+    return NewComps
+end
+
+--- update CachedComponents with whatever the player have bought
+function AssertCachedComponents()
+    for category, value in pairs(PlayerTrackingData) do
+        for component, v in pairs(value) do
+            if not CachedComponents[category] then
+                CachedComponents[category] = {}
+            end
+            CachedComponents[category] = { comp = component, tint0 = v.tint0, tint1 = v.tint1, tint2 = v.tint2, index = v.index, color = v.color }
+        end
+    end
+end
+
+function MergeNewDataWithOld(new, old)
+    for key, value in pairs(new) do
+        if not old[key] then
+            old[key] = value
+        end
+    end
+    return old
+end
+
+function RegisterBodyIndexs(skin)
+    for gender, value in pairs(Config.DefaultChar) do
+        if GetGender() == gender then
+            for skinColor, v in ipairs(value) do
+                for bodyIndex, a in ipairs(v.Body) do
+                    if skin.BodyType == tonumber("0x" .. a) then
+                        BodyTypeTracker = bodyIndex
+                        SkinColorTracker = skinColor
+
+                        break
+                    end
+                end
+
+                for legIndex, j in ipairs(v.Legs) do
+                    if skin.Legs == tonumber("0x" .. j) then
+                        LegsTypeTracker = legIndex
+                        break
+                    end
+                end
+
+                for index, d in ipairs(v.Heads) do
+                    if skin.HeadType == tonumber("0x" .. d) then
+                        HeadIndexTracker = index
+                        break
+                    end
+                end
+            end
+        end
+    end
+
+    for key, value in pairs(Config.BodyType.Body) do
+        if skin.Body == value then
+            BodyTracker = key
+            break
+        end
+    end
+
+    for key, value in pairs(Config.BodyType.Waist) do
+        if skin.Waist == value then
+            WaistTracker = key
+            break
+        end
+    end
+
+    if WaistTracker == 0 then
+        WaistTracker = 1
+    end
+
+    if BodyTracker == 0 then
+        BodyTracker = 1
+    end
+
+    if BodyTypeTracker == 0 then
+        BodyTypeTracker = 1
+    end
+
+    if SkinColorTracker == 0 then
+        SkinColorTracker = 1
+    end
+end
+
+function SetClothingStatus(components)
+    for key, value in pairs(components) do
+        if value.comp ~= -1 then
+            local status = GetResourceKvpString(tostring(value.comp))
+            if status == "true" then
+                RemoveTagFromMetaPed(Config.HashList[key])
+            end
+        end
+    end
+end
+
+function SetCachedSkin()
+    for k, v in pairs(CachedSkin) do
+        if PlayerSkin[k] then
+            PlayerSkin[k] = v
+        end
+    end
 end

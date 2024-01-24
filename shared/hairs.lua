@@ -1,11 +1,12 @@
 HairComponents = {
 	Female = {
 		bow = {
-			[1] = { {
-				hashname = "CLOTHING_ITEM_F_HAIR_ACCS_001_TINT_001",
-				hash = 0xA5941B67,
-				hash_dec_signed = -1517020313,
-			},
+			[1] = {
+				{
+					hashname = "CLOTHING_ITEM_F_HAIR_ACCS_001_TINT_001",
+					hash = 0xA5941B67,
+					hash_dec_signed = -1517020313,
+				},
 				{
 					hashname = "CLOTHING_ITEM_F_HAIR_ACCS_001_TINT_002",
 					hash = 0xB7DDBFFA,

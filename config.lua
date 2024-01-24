@@ -1,6 +1,6 @@
 Config = {}
 
-Config.DevMode = false
+Config.DevMode = true
 Config.Align = "top-left" -- menu
 
 -- check translation file to see if your language is available or add it.
@@ -10,13 +10,14 @@ Lang = "English"
 Config.BannedNames = { "Arthur", "Marshton", "Shit", "Dick" } --* you can add more words
 
 Config.AllowPlayerDeleteCharacter = true
--- item name for second chance character
-Config.secondChanceItem = "secondchance"
+
 -- after creating character player will spawn here
 Config.SpawnCoords = {
     position = vector3(-67.27, -392.34, 71.79),
     heading = 171.98
 }
+
+Config.ShowGold = true -- this will show gold next to money in character selection
 
 Config.Webhook = {
     deleteCharacter = ''
@@ -279,6 +280,7 @@ Config.commands = {
     Gunbelt = { command = "gunbelt" },
 }
 
+
 Config.DefaultChar = {
     Male = {
         {
@@ -318,7 +320,7 @@ Config.DefaultChar = {
             imgColor = "brown",
             Heads = { "4C5C14D1", "2BADE2F9", "32E0BD65", "51EE52F8", "53361205", "7150F35A", "7320223C",
                 "8036DB0B", "8239BA1C", "4DAD06D9", "93C8CFE3", "B0B07238", "BC310F75", "B9C497C7",
-                "C00E8CF7", "C2978B19", "FEC87D01", "89601857", "364F2807", "FEB1F6D4" },
+                "C00E8CF7", "C2978B19", "FEC87D01", "89601857", "FEB1F6D4", "936FAFDE", },
             Body = { "34C3B131", "5C1686B", "8C9686C8", "BF787383" },
             Legs = { "F5E0272A", "B897BFA0", "C17616E", "73710076", "B897BFA0" },
             HeadTexture = { "MP_head_fr1_sc01_c0_000_ab" },
@@ -329,7 +331,7 @@ Config.DefaultChar = {
             Heads = { "1EF1D4F5", "20BEAD17", "17E48A5C", "1D1391CB", "3E1D8D10", "41FB09E2", "421209B8",
                 "44C938AE", "465D3511", "48531C43", "5A5A4569", "69A6DC4D", "87198A9F", "8C099185",
                 "9AD0D9E0",
-                "9B593624", "A9918F1E", "AF4B1442", "E2BED257", "F769DA58", "936FAFDE", },
+                "9B593624", "A9918F1E", "AF4B1442", "E2BED257", "F769DA58", },
             Body = { "4824ED39", "3B6F503", "5EA984F8", "B4485D23", "6BB6BC48" },
             Legs = { "D3A7708B", "5B835093", "DDF48A5D", "35D1FB67" },
             HeadTexture = { "mp_head_mr1_sc04_c0_000_ab" },
@@ -345,6 +347,7 @@ Config.DefaultChar = {
             Legs = { "52CC3F25", "6577142C", "6CBCE93C", "887C4C70", "EF9D2DAE" },
             HeadTexture = { "mp_head_fr1_sc05_c0_000_ab" },
         },
+
     },
     Female = {
         {
@@ -432,7 +435,7 @@ Config.texture_types = {
     }
 }
 
--- you can choose the color you want people to use
+-- you can choose the color you want people to use by removing it from each category for example grime you dont want people to use pink
 Config.color_palettes = {
     eyebrows = {
         0x3F6E70FF, -- black
@@ -460,6 +463,13 @@ Config.color_palettes = {
         0xF93DB0C8, -- redish
         0xFB71527B, -- gray dark
         0xA4041CEF, --orange
+
+    },
+    grime = {
+        0x3F6E70FF, -- black
+        0x4101ED87, -- brown medium
+        0xBBF43EF8, -- light brown
+        0xDFB1F64C, -- brown
 
     },
     beardstabble = {
@@ -625,6 +635,60 @@ Config.color_palettes = {
         0xA4041CEF,
     },
     blush = {
+        0x3F6E70FF,
+        0x0105607B,
+        0x17CBCC83,
+        0x29F81B2A,
+        0x3385C5DB,
+        0x37CD36D4,
+        0x4101ED87,
+        0x63838A81,
+        0x6765BC15,
+        0x8BA18876,
+        0x9AC34F34,
+        0x9E4803A0,
+        0xA4CFABD0,
+        0xAA65D8A3,
+        0xB562025C,
+        0xB9E7F722,
+        0xBBF43EF8,
+        0xD1476963,
+        0xD799E1C2,
+        0xDC6BC93B,
+        0xDFB1F64C,
+        0xF509C745,
+        0xF93DB0C8,
+        0xFB71527B,
+        0xA4041CEF,
+    },
+    foundation = {
+        0x3F6E70FF,
+        0x0105607B,
+        0x17CBCC83,
+        0x29F81B2A,
+        0x3385C5DB,
+        0x37CD36D4,
+        0x4101ED87,
+        0x63838A81,
+        0x6765BC15,
+        0x8BA18876,
+        0x9AC34F34,
+        0x9E4803A0,
+        0xA4CFABD0,
+        0xAA65D8A3,
+        0xB562025C,
+        0xB9E7F722,
+        0xBBF43EF8,
+        0xD1476963,
+        0xD799E1C2,
+        0xDC6BC93B,
+        0xDFB1F64C,
+        0xF509C745,
+        0xF93DB0C8,
+        0xFB71527B,
+        0xA4041CEF,
+    },
+    paintedmasks = {
         0x3F6E70FF,
         0x0105607B,
         0x17CBCC83,
@@ -1172,10 +1236,28 @@ Config.overlays_info = {
     },
 }
 
+Config.EyeImgColor = {
+    "Brown 1",
+    "Brown 2",
+    "Blue 1",
+    "Blue 2",
+    "Blue 3",
+    "Blue 4",
+    "Blue 5",
+    "Green 1",
+    "Green 2",
+    "Green 3",
+    "Green 4",
+    "Green 5",
+    "Green 6",
+    "Green 7",
+}
+
 ---------------------------* EYES *--------------------------
 Config.Eyes = {
     Male = {
         612262189,
+        3065185688,
         1864171073,
         1552505114,
         46507404,
@@ -1188,7 +1270,6 @@ Config.Eyes = {
         3983864603,
         2739887825,
         2432743988,
-        3065185688,
     },
     Female = {
         928002221,
@@ -1306,67 +1387,97 @@ Config.Teeth = {
     }
 }
 
--- *TRANSLATE ["inside here"] beloow
+-- *TRANSLATE ["inside here"] below to your language*
 Config.FaceFeatures = {
     head = {
-        ["width"] = { -- TRANSLATE THIS
-            hash = 0x84D6,
-            comp = "HeadSize"
-        },
+        ["Head Width"] = { hash = 0x84D6, comp = "HeadSize" },
+        ["Face Width"] = { hash = 41396, comp = "FaceW" },
+        ["Face Depth"] = { hash = 12281, comp = "FaceD" },
+        ["Forehead Size"] = { hash = 13059, comp = "FaceS" },
+        ["Neck Width"] = { hash = 36277, comp = "NeckW" },
+        ["Neck Depth"] = { hash = 60890, comp = "NeckD" },
     },
+
     eyesandbrows = {
-        ["heightbrows"] = { hash = 0x3303, comp = "EyeBrowH" },
-        ["widthbrows"] = { hash = 0x2FF9, comp = "EyeBrowW" },
-        ["depthbrows"] = { hash = 0x4AD1, comp = "EyeBrowD" },
-        ["deptheyes"] = { hash = 0xEE44, comp = "EyeD" },
-        ["angleeyes"] = { hash = 0xD266, comp = "EyeAng" },
-        ["distanceeyes"] = { hash = 0xA54E, comp = "EyeDis" },
-        ["heighteyes"] = { hash = 0xDDFB, comp = "EyeH" },
-        ["heighteyelid"] = { hahs = 0x8B2B, comp = "EyeLidH" },
-        ["widtheyelid"] = { hash = 0x1B6B, comp = "EyeLidW" },
+        ["Brows Height"] = { hash = 0x3303, comp = "EyeBrowH" },
+        ["Brows Width"] = { hash = 0x2FF9, comp = "EyeBrowW" },
+        ["Brows Depth"] = { hash = 0x4AD1, comp = "EyeBrowD" },
+        ["Eyes Depth"] = { hash = 0xEE44, comp = "EyeD" },
+        ["Eyes Angle"] = { hash = 0xD266, comp = "EyeAng" },
+        ["Eyes Distance"] = { hash = 0xA54E, comp = "EyeDis" },
+        ["Eyes Height"] = { hash = 0xDDFB, comp = "EyeH" },
+        ["Eyelid Height"] = { hahs = 0x8B2B, comp = "EyeLidH" },
+        ["Eyelid Width"] = { hash = 0x1B6B, comp = "EyeLidW" },
+        ["Eyelid Left O/Close"] = { hash = 52902, comp = "EyeLidL" },
+        ["Eyelid Right O/Close"] = { hash = 22421, comp = "EyeLidR" },
     },
     ears = {
-        ["width"] = { hash = 0xC04F, comp = "EarsW" },
-        ["angle"] = { hash = 0xB6CE, comp = "EarsL" },
-        ["height"] = { hash = 0x2844, comp = "EarsH" },
-        ["size"] = { hash = 0xED30, comp = "EarsD" },
+        ["Ears Width"] = { hash = 0xC04F, comp = "EarsW" },
+        ["Ears Angle"] = { hash = 0xB6CE, comp = "EarsA" },
+        ["Ears Height"] = { hash = 0x2844, comp = "EarsH" },
+        ["Ears Depth"] = { hash = 0xED30, comp = "EarsD" },
     },
     cheek = {
-        ["height"] = { hash = 0x6A0B, comp = "CheekBonesH" },
-        ["width"] = { hash = 0xABCF, comp = "CheekBonesW" },
-        ["depth"] = { hash = 0x358D, comp = "CheekBonesD" },
+        ["CheekBone Height"] = { hash = 0x6A0B, comp = "CheekBonesH" },
+        ["CheekBone Width"] = { hash = 0xABCF, comp = "CheekBonesW" },
+        ["CheekBone Depth"] = { hash = 0x358D, comp = "CheekBonesD" },
     },
     jaw = {
-        ["height"] = { hash = 0x8D0A, comp = "JawH" },
-        ["width"] = { hash = 0xEBAE, comp = "JawW" },
-        ["depth"] = { hash = 0x1DF6, comp = "JawD" },
+        ["Jaw Height"] = { hash = 0x8D0A, comp = "JawH" },
+        ["Jaw Width"] = { hash = 0xEBAE, comp = "JawW" },
+        ["Jaw Depth"] = { hash = 0x1DF6, comp = "JawD" },
     },
     chin = {
-        ["height"] = { hash = 0x3C0F, comp = "ChinH" },
-        ["width"] = { hash = 0xC3B2, comp = "ChinW" },
-        ["depth"] = { hash = 0xE323, comp = "ChinD" },
+        ["Chin Height"] = { hash = 0x3C0F, comp = "ChinH" },
+        ["Chin Width"] = { hash = 0xC3B2, comp = "ChinW" },
+        ["Chin Depth"] = { hash = 0xE323, comp = "ChinD" },
     },
     nose = {
-        ["width"] = { hash = 0x6E7F, comp = "NoseW" },
-        ["size"] = { hash = 0x3471, comp = "NoseS" },
-        ["height"] = { hash = 0x03F5, comp = "NoseH" },
-        ["angle"] = { hash = 0x34B1, comp = "NoseAng" },
-        ["curvature"] = { hash = 0xF156, comp = "NoseC" },
-        ["distance"] = { hash = 0x561E, comp = "NoseDis" },
+        ["Nose Width"] = { hash = 0x6E7F, comp = "NoseW" },
+        ["Nose Size"] = { hash = 0x3471, comp = "NoseS" },
+        ["Nose Height"] = { hash = 0x03F5, comp = "NoseH" },
+        ["Nose Angle"] = { hash = 0x34B1, comp = "NoseAng" },
+        ["Nose Curvature"] = { hash = 0xF156, comp = "NoseC" },
+        ["Nose Distance"] = { hash = 0x561E, comp = "NoseDis" },
     },
     mouthandlips = {
-        ["widthmouth"] = { hash = 0xF065, comp = "MouthW" },
-        ["depthMouth"] = { hash = 0xAA69, comp = "MouthD" },
-        ["MouthdistanceX"] = { hash = 0x7AC3, comp = "MouthX" },
-        ["MouthdistanceY"] = { hash = 0x410D, comp = "MouthY" },
-        ["heightupper"] = { hash = 0x1A00, comp = "ULiphH" },
-        ["widthupper"] = { hash = 0x91C1, comp = "ULiphW" },
-        ["depthupper"] = { hash = 0xC375, comp = "ULiphD" },
-        ["heightlower"] = { hash = 0xBB4D, comp = "LLiphH" },
-        ["widthlower"] = { hash = 0xB0B0, comp = "LLiphW" },
-        ["depthlower"] = { hash = 0x5D16, comp = "LLiphD" },
+        ["Mouth Width"] = { hash = 0xF065, comp = "MouthW" },
+        ["Mouth Depth"] = { hash = 0xAA69, comp = "MouthD" },
+        ["Mouth DistanceX"] = { hash = 0x7AC3, comp = "MouthX" },
+        ["Mouth DistanceY"] = { hash = 0x410D, comp = "MouthY" },
+        ["Lip Upper Height"] = { hash = 0x1A00, comp = "ULiphH" },
+        ["Lip Upper Width"] = { hash = 0x91C1, comp = "ULiphW" },
+        ["Lip Upper Depth"] = { hash = 0xC375, comp = "ULiphD" },
+        ["Lip Lower Height"] = { hash = 0xBB4D, comp = "LLiphH" },
+        ["Lip Lower Width"] = { hash = 0xB0B0, comp = "LLiphW" },
+        ["Lip Lower Depth"] = { hash = 0x5D16, comp = "LLiphD" },
+        ["Mouth Corner Left Withd"] = { hash = 57350, comp = "MouthCLW" },
+        ["Mouth Corner Right Withd"] = { hash = 60292, comp = "MouthCRW" },
+        ["Mouth Corner Left Depth"] = { hash = 40950, comp = "MouthCLD" },
+        ["Mouth Corner Right Depth"] = { hash = 49299, comp = "MouthCRD" },
+        ["Mouth Corner Left Height"] = { hash = 46661, comp = "MouthCLH" },
+        ["Mouth Corner Right Height"] = { hash = 55718, comp = "MouthCRH" },
+        ["Mouth Corner Left Lips Distance"] = { hash = 22344, comp = "MouthCLLD" },
+        ["Mouth Corner Right Lips Distance"] = { hash = 9423, comp = "MouthCRD" },
     },
+    upperbody = {
+        ["Arms Size"] = { hash = 46032, comp = "ArmsS" },
+        ["Upper Shoulders Size"] = { hash = 50039, comp = "ShouldersS" },
+        ["Back Shoulders Thickness"] = { hash = 7010, comp = "ShouldersT" },
+        ["Back Muscles"] = { hash = 18046, comp = "ShouldersM" }, -- shoulder blades / back muscles
+        ["Chest Size"] = { hash = 27779, comp = "ChestS" },
+        ["Waist Width"] = { hash = 50460, comp = "WaistW" },
+        ["Hips Size"] = { hash = 49787, comp = "HipsS" }, -- hip width / stomach size
+    },
+
+    lowerbody = {
+        ["Tights Size"] = { hash = 64834, comp = "LegsS" },
+        ["Calves Size"] = { hash = 42067, comp = "CalvesS" },
+    },
+
 }
+
+
 
 Config.HashList = {
     Gunbelt     = 0x9B2C8B89,
