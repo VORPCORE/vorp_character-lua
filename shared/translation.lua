@@ -254,13 +254,13 @@ Translation.Langs = {
             missingname = "Hai fornito un nome o cognome incorretto"
         },
         MenuCreation = {
-            title = "Menu personaggio",
-            title1 = "Selezione personaggio",
-            subtitle = "Sotto-menu",
-            subtitle1 = "Menu personaggio",
+            title = "Creazione del personaggio",
+            subtitle = "Sottomenu",
+            title1 = "Selezione del personaggio",
             label = "Nome scelto",
-            element = { label = "Aspetto", desc = "Scegli l'aspetto del tuo personaggio" },
-            element2 = { label = "Abbigliamento", desc = "Scegli l'abbigliamento del personaggio" },
+            subtitle1 = "Menù dei personaggi",
+            element = { label = "Aspetto del personaggio", desc = "Scegli l'aspetto del tuo personaggio" },
+            element2 = { label = "Menù Abbigliamento", desc = "Scegli l'abbigliamento del personaggio" },
             element3 = {
                 label = "Scegli un Nome",
                 desc =
@@ -270,7 +270,7 @@ Translation.Langs = {
         },
         MenuClothes = {
             title       = "Abbigliamento",
-            subtitle    = "Sottomenu",
+            subtitle    = "Menù Abbigliamento",
             CoatClosed  = "Cappotti Chiusi",
             Coat        = "Cappotti",
             Hat         = "Cappelli",
@@ -308,7 +308,7 @@ Translation.Langs = {
             title = "Componenti",
             subtitle = "Sottomenu",
             element = { label = "Componente ", desc = "ce ne sono " },
-            element2 = { label = " Colore  #", desc = "Scegli il colore del componente" },
+            element2 = { label = " Colore ", desc = "C'è" },
         },
         MenuAppearance = {
             title = "Aspetto",
@@ -318,19 +318,18 @@ Translation.Langs = {
             element3 = { label = "Capelli", desc = "Scegli il tipo di capelli del tuo personaggio" },
             element4 = { label = "Invecchiamento", desc = "Età del personaggio" },
             element5 = { label = "Altezza", desc = "Scegli il tipo di corpo del tuo personaggio<br>Alto 3 Normale 2 Basso 1" },
-            element6 = { label = "Viso", desc = "Scegli le caratteristiche del viso" },
+            element6 = { label = "Caratteristiche del corpo", desc = "Scegli tra i cambiamenti della parte superiore del corpo o del viso della parte inferiore del corpo, delle labbra della testa, degli occhi, ecc" },
             element7 = { label = "Stile di vita", desc = "Scegli lo stile di vita del tuo personaggio" },
             element8 = { label = "Trucco", desc = "Scegli il trucco" },
             short = "Basso",
             normal = "Normale",
             tall = "Alto",
         },
-
         MenuAge = {
             title = "Età",
             subtitle = "Sotto-menu",
             element = { label = "Età", desc = "Scegli l'età del tuo personaggio" },
-            element2 = { label = "Opacità", desc = "Ci sono " .. "Scegli l'opacità dell'età del tuo personaggio" },
+            element2 = { label = "Opacità", desc = "Ci sono ", desc2 = "Scegli l'opacità dell'età del tuo personaggio" },
             label3 = "Non visibile",
             label4 = "Visibile",
         },
@@ -346,7 +345,7 @@ Translation.Langs = {
             title = "Eredità",
             subtitle = "Sotto-menu",
             element = { label = "Colore della pelle", desc = "Ci sono ", desc2 = "tipi di colore della pelle" },
-            element2 = { label = "Tipi", desc = "Scegli il tipo di viso del tuo personaggio" },
+            element2 = { label = "Tipi di testa", desc = "Scegli il tipo di viso del tuo personaggio" },
             element3 = { label = "Eredità #", desc = "Ci sono #", desc2 = "tipi di eredità" },
         },
         MenuHair = {
@@ -363,7 +362,7 @@ Translation.Langs = {
             title = "Capelli",
             subtitle = "Sotto-menu",
             element = { label = "Componente", desc = "Ci sono ", desc2 = "tipi di componenti " },
-            element2 = { label = "Colore", desc = "Ci sono ", desc2 = "tipi di colori " },
+            element2 = { label = "Colori dei componenti", desc = "Ci sono ", desc2 = "tipi di colori " },
         },
         MenuBeardEyeBrows = {
             title = "Aspetto",
@@ -468,8 +467,8 @@ Translation.Langs = {
             subtitle = "Escolha o seu Personagem",
             subtitle1 = "Menu do Personagem",
             label = "Nome Escolhido",
-            element = { label = "Aparência", desc = "Escolha a Aparência do seu Personagem" },
-            element2 = { label = "Roupas", desc = "Escolha a Roupa do seu Personagem" },
+            element = { label = "Aparência do personagem", desc = "Escolha a Aparência do seu Personagem" },
+            element2 = { label = "Cardápio de roupas", desc = "Escolha a Roupa do seu Personagem" },
             element3 = {
                 label = "Escolha um Nome",
                 desc =
@@ -477,9 +476,10 @@ Translation.Langs = {
             },
             element4 = { label = "Começe a sua Jornada", desc = "Carregue no Enter para começar a sua Jornada" },
         },
+        -- esta lista será exibida em ordem alfabética
         MenuClothes = {
-            title       = "Lista de Roupas",
-            subtitle    = "Escolha aqui as suas Roupas",
+            title       = "Criador de personagem",
+            subtitle    = "Cardápio de roupas",
             CoatClosed  = "Casacos Fechados",
             Coat        = "Casacos Aberto",
             Hat         = "Chapéus",
@@ -496,7 +496,7 @@ Translation.Langs = {
             Belt        = "Cintos",
             Pant        = "Calças",
             Boots       = "Botas",
-            Spurs       = "Acessórios para Botas",
+            Spurs       = "Esporas",
             Bracelet    = "Braceletes",
             Buckle      = "Medalhão do Cinto",
             Skirt       = "Saias",
@@ -517,7 +517,7 @@ Translation.Langs = {
             title = "Componentes",
             subtitle = "Ajuste os Componentes",
             element = { label = "Componente", desc = "Existem " },
-            element2 = { label = " Cor  #", desc = "Escolhe a cor do componente" },
+            element2 = { label = " Cores ", desc = "Há" },
         },
         MenuAppearance = {
             title = "Aparência",
@@ -527,7 +527,7 @@ Translation.Langs = {
             element3 = { label = "Cabelo", desc = "Ajuste o Cabelo" },
             element4 = { label = "Envelhecimento", desc = "Ajuste o Envelhecimento" },
             element5 = { label = "Altura", desc = "Ajuste a Altura<br> Alto 3 Normal 2 Pequeno 1 " },
-            element6 = { label = "Face", desc = "Ajuste a Face" },
+            element6 = { label = "Características do corpo", desc = "Escolha características faciais" },
             element7 = { label = "Marcas", desc = "Ajuste as Marcas Faciais" },
             element8 = { label = "Maquilhagem", desc = "Ajuste a Maquilhagem" },
             short = "Pequeno",
@@ -571,7 +571,7 @@ Translation.Langs = {
             title = "Cabelo",
             subtitle = "Escolha o Cabelo do seu Personagem",
             element = { label = "Component ", desc = "Existem ", desc2 = " Tipos" },
-            element2 = { label = "Cor", desc = "Existem ", desc2 = " Tipos " },
+            element2 = { label = "Cores dos Componentes", desc = "Existem ", desc2 = " Tipos " },
         },
         MenuBeardEyeBrows = {
             title = "Aparência",
@@ -677,8 +677,8 @@ Translation.Langs = {
             title1 = "Seleção de Personagem",
             label = "Nome Escolhido",
             subtitle1 = "Menu de Personagens",
-            element = { label = "Aparência", desc = "Escolha a Aparência do seu personagem" },
-            element2 = { label = "Roupas", desc = "Escolha as Roupas do Personagem" },
+            element = { label = "Aparência do personagem", desc = "Escolha a Aparência do seu personagem" },
+            element2 = { label = "Cardápio de roupas", desc = "Escolha as Roupas do Personagem" },
             element3 = {
                 label = "Escolher um Nome",
                 desc =
@@ -687,8 +687,8 @@ Translation.Langs = {
             element4 = { label = "Iniciar Jornada", desc = "Inicie sua jornada pressionando enter" },
         },
         MenuClothes = {
-            title       = "Roupas",
-            subtitle    = "Sub Menu",
+            title       = "Character Creator",
+            subtitle    = "Cardápio de roupas",
             CoatClosed  = "Casacos Fechados",
             Coat        = "Casacos",
             Hat         = "Chapéus",
@@ -705,7 +705,7 @@ Translation.Langs = {
             Belt        = "Cintos",
             Pant        = "Calças",
             Boots       = "Botas",
-            Spurs       = "Acessórios para Botas",
+            Spurs       = "Esporas",
             Bracelet    = "Pulseiras",
             Buckle      = "Fivelas de Cinto",
             Skirt       = "Saias",
@@ -726,7 +726,7 @@ Translation.Langs = {
             title = "Componentes",
             subtitle = "Sub Menu",
             element = { label = "Componente ", desc = "existem " },
-            element2 = { label = "Cor  #", desc = "Escolha a cor do componente" },
+            element2 = { label = "Cores", desc = "Há" },
         },
         MenuAppearance = {
             title = "Aparência",
@@ -736,7 +736,7 @@ Translation.Langs = {
             element3 = { label = "Cabelo", desc = "Escolha o tipo de cabelo do seu personagem" },
             element4 = { label = "Envelhecimento", desc = "Idade do personagem " },
             element5 = { label = "Altura", desc = "Escolha o tipo do corpo do seu personagem<br> Alto 3 normal 2 baixo 1 " },
-            element6 = { label = "Rosto", desc = "Escolha as características faciais" },
+            element6 = { label = "Características do corpo", desc = "Escolha entre alterações na parte superior do corpo ou na parte inferior do rosto, cabeça, lábios, olhos, etc." },
             element7 = { label = "Estilo de Vida", desc = "escolha o estilo de vida do seu personagem" },
             element8 = { label = "Maquiagem", desc = "Escolha a maquiagem" },
             short = "Baixo",
@@ -763,7 +763,7 @@ Translation.Langs = {
             title = "Herança",
             subtitle = "Sub Menu",
             element = { label = "Cor da pele", desc = "existem ", desc2 = "tipos de cor de pele " },
-            element2 = { label = "Tipos ", desc = "Escolha o tipo do rosto do seu personagem" },
+            element2 = { label = "Tipos de cabeça", desc = "Escolha o tipo do rosto do seu personagem" },
             element3 = { label = "Herança #", desc = " existem #", desc2 = "tipos de herança" },
         },
         MenuHair = {
@@ -780,7 +780,7 @@ Translation.Langs = {
             title = "Cabelo",
             subtitle = "Sub Menu",
             element = { label = "Componente ", desc = "existem ", desc2 = "tipos de " },
-            element2 = { label = "Cor", desc = "existem ", desc2 = "tipos de " },
+            element2 = { label = "Cores dos Componentes", desc = "existem ", desc2 = "tipos de " },
         },
         MenuBeardEyeBrows = {
             title = "Aparência",
@@ -885,18 +885,18 @@ Translation.Langs = {
             subtitle = "Sous-menu",
             subtitle1 = "Menu du personnage",
             label = "Choix du nom",
-            element = { label = "Apparence", desc = "Choisissez l'apparence de votre personnage" },
-            element2 = { label = "Vêtements", desc = "Choisissez les vêtements de votre personnage" },
+            element = { label = "Apparition du personnage", desc = "Choisissez l'apparence de votre personnage" },
+            element2 = { label = "Menu Vêtements", desc = "Choisissez les vêtements de votre personnage" },
             element3 = {
                 label = " Choisir un nom ",
-                desc =
-                " Choisissez un nom pour votre personnage, assurez-vous de lire les règles de désignation des personnages, <br>si vous ne suivez pas les règles, ce personnage sera supprimé sans avertissement "
+                desc =" Choisissez un nom pour votre personnage, assurez-vous de lire les règles de désignation des personnages, <br>si vous ne suivez pas les règles, ce personnage sera supprimé sans avertissement "
             },
             element4 = { label = " Début du voyage ", desc = " Commencez votre voyage en appuyant sur la touche Entrée " },
         },
+        -- cette liste s'affichera par ordre alphabétique
         MenuClothes = {
-            title = "Vêtements",
-            subtitle = "Sous-menu",
+            title = "Créateur de personnage",
+            subtitle = "Menu Vêtements",
             CoatClosed = "Manteaux fermés",
             Coat = "Manteaux",
             Hat = "Chapeaux",
@@ -913,7 +913,7 @@ Translation.Langs = {
             Belt = "Ceinture",
             Pant = "Pantalon",
             Boots = "Bottes",
-            Spurs = "Accessoires pour bottes",
+            Spurs = "Éperons",
             Bracelet = "Bracelets",
             Buckle = "Boucles de ceintures",
             Skirt = "Jupes",
@@ -934,7 +934,7 @@ Translation.Langs = {
             title = " Composants ",
             subtitle = "Sous-menu",
             element = { label = "Composant", desc = "il y a " },
-            element2 = { label = " Color # ", desc = " Choisissez la couleur du composant " },
+            element2 = { label = "Couleurs", desc = "Il y a " },
         },
         MenuAppearance = {
             title = "Apparence",
@@ -944,7 +944,7 @@ Translation.Langs = {
             element3 = { label = "Cheveux", desc = "Choisissez le type de cheveux de votre personnage" },
             element4 = { label = " Age ", desc = " Age du personnage " },
             element5 = { label = "Taille", desc = "Choisissez le type de corps de votre personnage" },
-            element6 = { label = " Visage ", desc = " Choisissez les caractéristiques du visage " },
+            element6 = { label = " Caractéristiques du corps ", desc = " Choisissez entre les changements du haut du corps ou le bas du corps, les lèvres de la tête, les yeux, etc. " },
             element7 = { label = " Immperfection ", desc = " Choisissez le type d'inperfection de votre personnage " },
             element8 = { label = " Maquillage ", desc = " Choisissez le maquillage " },
             short = "Court",
@@ -975,7 +975,7 @@ Translation.Langs = {
             title = "Herritage",
             subtitle = "Sous-menu",
             element = { label = " Couleur de peau ", desc = " il y a ", desc2 = " des types de couleur de peau " },
-            element2 = { label = " Head Types ", desc = "Choisissez le type de visage de votre personnage" },
+            element2 = { label = " Types de têtes ", desc = "Choisissez le type de visage de votre personnage" },
             element3 = { label = "Héritage #", desc = " il y a #", desc2 = "types d'héritage" },
         },
         MenuHair = {
@@ -995,7 +995,7 @@ Translation.Langs = {
             title = "Cheveux",
             subtitle = "Sous-menu",
             element = { label = "Composant ", desc = "il y a ", desc2 = "types de " },
-            element2 = { label = " Couleur ", desc = " il y a ", desc2 = " types de " },
+            element2 = { label = " Couleurs des composants ", desc = " il y a ", desc2 = " types de " },
         },
         MenuBeardEyeBrows = {
             title = "Apparence",
@@ -1106,8 +1106,8 @@ Translation.Langs = {
             subtitle = "Untermenü",
             subtitle1 = "Charaktermenü",
             label = "Name gewählt",
-            element = { label = "Aussehen", desc = "Wähle das Aussehen deines Charakters" },
-            element2 = { label = "Kleidung", desc = "Wähle die Kleidung deines Charakters" },
+            element = { label = "Aussehen des Charakters", desc = "Wähle das Aussehen deines Charakters" },
+            element2 = { label = "Bekleidungsmenü", desc = "Wähle die Kleidung deines Charakters" },
             element3 = {
                 label = "Wähle einen Namen",
                 desc =
@@ -1115,9 +1115,10 @@ Translation.Langs = {
             },
             element4 = { label = "Reise beginnen", desc = "Starte deine Reise mit der Eingabetaste" },
         },
+            -- Diese Liste wird in alphabetischer Reihenfolge angezeigt
         MenuClothes = {
-            title       = "Kleidung",
-            subtitle    = "Untermenü",
+            title       = "Charakterersteller",
+            subtitle    = "Bekleidungsmenü",
             CoatClosed  = "Mäntel geschlossen",
             Coat        = "Mäntel",
             Hat         = "Hüte",
@@ -1134,7 +1135,7 @@ Translation.Langs = {
             Belt        = "Gürtel",
             Pant        = "Hosen",
             Boots       = "Stiefel",
-            Spurs       = "Stiefelzubehör",
+            Spurs       = "Sporen",
             Bracelet    = "Armbänder",
             Buckle      = "Gürtelschnallen",
             Skirt       = "Röcke",
@@ -1168,7 +1169,7 @@ Translation.Langs = {
                 label = "Größe",
                 desc = "Wähle die Art des Körpers deines Charakters<br> Groß 3 normal 2 klein 1 "
             },
-            element6 = { label = "Gesicht", desc = "Wähle Gesichtsmerkmale" },
+            element6 = { label = "Körpermerkmale", desc = "Wählen Sie zwischen Oberkörperveränderungen oder Unterkörpergesicht, Kopf, Lippen, Augen usw" },
             element7 = { label = "Lebensstil", desc = "Wähle den Lebensstil deines Charakters" },
             element8 = { label = "Make-up", desc = "Wähle Make-up" },
             short = "Klein",
@@ -1199,7 +1200,7 @@ Translation.Langs = {
             title = "Abstammung",
             subtitle = "Untermenü",
             element = { label = "Hautfarbe", desc = "es gibt ", desc2 = " Arten von Hautfarben " },
-            element2 = { label = "Typen ", desc = "Wähle den Typ des Gesichts deines Charakters" },
+            element2 = { label = "Kopftypen ", desc = "Wähle den Typ des Gesichts deines Charakters" },
             element3 = { label = "Abstammung #", desc = " es gibt ", desc2 = " Arten von Abstammungen." },
         },
         MenuHair = {
@@ -1216,7 +1217,7 @@ Translation.Langs = {
             title = "Haare",
             subtitle = "Untermenü",
             element = { label = "Komponente ", desc = "es gibt ", desc2 = " Arten von " },
-            element2 = { label = "Farbe", desc = "es gibt ", desc2 = " Arten von " },
+            element2 = { label = "Komponentenfarben", desc = "es gibt ", desc2 = " Arten von " },
         },
         MenuBeardEyeBrows = {
             title = "Erscheinungsbild",
@@ -1321,8 +1322,8 @@ Translation.Langs = {
             subtitle = "Submenú",
             subtitle1 = "Menú de personaje",
             label = "Nombre elegido",
-            element = { label = "Apariencia", desc = "Elige la apariencia de tu personaje" },
-            element2 = { label = "Ropa", desc = "Elige la ropa para tu personaje" },
+            element = { label = "Apariencia del personaje", desc = "Elige la apariencia de tu personaje" },
+            element2 = { label = "Menú de ropa", desc = "Elige la ropa para tu personaje" },
             element3 = {
                 label = "Elige un nombre",
                 desc =
@@ -1331,8 +1332,8 @@ Translation.Langs = {
             element4 = { label = "Empezar", desc = "Pulsa ENTER para empezar con tu supervivencia" },
         },
         MenuClothes = {
-            title       = "Ropa",
-            subtitle    = "Submenú",
+            title       = "Creador de personajes",
+            subtitle    = "Menú de ropa",
             CoatClosed  = "Abrigos cerrados",
             Coat        = "Abrigos",
             Hat         = "Sombreros",
@@ -1349,7 +1350,7 @@ Translation.Langs = {
             Belt        = "Cinturones",
             Pant        = "Pantalones",
             Boots       = "Botas",
-            Spurs       = "Accesorios de botas",
+            Spurs       = "Espuelas",
             Bracelet    = "Pulseras",
             Buckle      = "Hebillas de cinturón",
             Skirt       = "Faldas",
@@ -1410,7 +1411,7 @@ Translation.Langs = {
             title = "Herencia",
             subtitle = "Submenú",
             element = { label = "Color de piel", desc = "", desc2 = "colores de piel" },
-            element2 = { label = "Tipos", desc = "Elige el tipo de rostro de tu personaje" },
+            element2 = { label = "Tipos de cabeza", desc = "Elige el tipo de rostro de tu personaje" },
             element3 = { label = "Herencia", desc = "", desc2 = "Tipos de herencia" },
         },
         MenuHair = {
@@ -1430,7 +1431,7 @@ Translation.Langs = {
             title = "Pelo",
             subtitle = "Submenú",
             element = { label = "Tipo de ", desc = "", desc2 = " tipos de " },
-            element2 = { label = "Color", desc = "", desc2 = " tipos de " },
+            element2 = { label = "Colores de los componentes", desc = "", desc2 = " tipos de " },
         },
         MenuBeardEyeBrows = {
             title = "Apariencia",
