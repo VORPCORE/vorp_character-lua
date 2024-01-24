@@ -137,7 +137,7 @@ ConfigShops.Prices = {
         },
     },
     face = {
-        Theeth = {
+        Teeth = {
             price = 10,
         },
         head = {

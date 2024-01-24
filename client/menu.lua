@@ -1977,6 +1977,7 @@ function OpenFaceMenu(table, value)
             end
 
             if data.current.tag == "teeth" then
+            
                 IsPedReadyToRender()
                 if data.current.value > 0 then
                     StartAnimation("Face_Dentistry_Loop")
