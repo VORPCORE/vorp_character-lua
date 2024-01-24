@@ -375,7 +375,7 @@ function EnableSelectionPrompts(menu)
 	CreateThread(function()
 		WhileSwaping = false
 		while not WhileSwaping do
-			local label = CreateVarString(10, 'LITERAL_STRING', "Character Selector")
+			local label = CreateVarString(10, 'LITERAL_STRING', T.PromptLabels.promptselectChar)
 			PromptSetActiveGroupThisFrame(PromptGroup, label)
 			if not Config.AllowPlayerDeleteCharacter then
 				PromptSetEnabled(DeletePrompt, false)
