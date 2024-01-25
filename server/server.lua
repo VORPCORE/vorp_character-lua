@@ -234,7 +234,9 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 		return callback(false)
 	end
 	local character = User.getUsedCharacter
-	local money = character.money
+	local money = ConfigShops.SecondChanceCurrency == 0 and character.money or
+		ConfigShops.SecondChanceCurrency == 1 and character.gold or
+		ConfigShops.SecondChanceCurrency == 2 and character.rol
 	local amountToPay = ConfigShops.SecondChancePrice
 
 	if money < amountToPay then

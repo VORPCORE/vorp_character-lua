@@ -3,7 +3,7 @@ local PromptGroup = GetRandomIntInRange(0, 0xffffff)
 local SelectPrompt
 ShopType = ""
 CreateThread(function()
-    local str = CreateVarString(10, 'LITERAL_STRING', "press")
+    local str = CreateVarString(10, 'LITERAL_STRING', T.Inputs.press)
     SelectPrompt = PromptRegisterBegin()
     PromptSetControlAction(SelectPrompt, 0xC7B5340A)
     PromptSetText(SelectPrompt, str)
@@ -13,10 +13,12 @@ CreateThread(function()
     PromptSetGroup(SelectPrompt, PromptGroup)
     PromptRegisterEnd(SelectPrompt)
 end)
+
 function CreateBlips()
     for index, value in ipairs(ConfigShops.Locations) do
         if value.Blip.Enable then
-            local blip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300, value.Prompt.Position.x, value.Prompt.Position.y, value.Prompt.Position.z)
+            local blip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300, value.Prompt.Position.x,
+                value.Prompt.Position.y, value.Prompt.Position.z)
             SetBlipSprite(blip, value.Blip.Sprite, true)
             Citizen.InvokeNative(0x9CB1A1623062F402, blip, value.Blip.Name)
             ConfigShops.Locations[index].Blip.Entity = blip
@@ -30,8 +32,12 @@ function CreateModel(model, position, index)
     repeat Wait(0) until DoesEntityExist(npc)
     SetRandomOutfitVariation(npc, true)
     SetBlockingOfNonTemporaryEvents(npc, true)
-    TaskStandStill(npc, -1)
+    SetPedCanBeTargetted(npc, false)
+    SetEntityInvincible(npc, true)
     ConfigShops.Locations[index].Npc.Entity = npc
+    SetTimeout(1000, function()
+        FreezeEntityPosition(npc, true)
+    end)
 end
 
 CreateThread(function()
@@ -103,7 +109,8 @@ function PrepareClothingStore(value)
     local Gender = IsPedMale(PlayerPedId()) and "male" or "female"
     FreezeEntityPosition(PlayerPedId(), true)
     Wait(1000)
-    SetEntityCoords(PlayerPedId(), value.EditCharacter.Position.x, value.EditCharacter.Position.y, value.EditCharacter.Position.z, true, true, true, false)
+    SetEntityCoords(PlayerPedId(), value.EditCharacter.Position.x, value.EditCharacter.Position.y,
+        value.EditCharacter.Position.z, true, true, true, false)
     Citizen.InvokeNative(0x9587913B9E772D29, PlayerPedId())
     SetEntityHeading(PlayerPedId(), value.EditCharacter.Position.w)
     FreezeEntityPosition(PlayerPedId(), false)

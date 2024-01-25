@@ -1,9 +1,9 @@
-ConfigShops                   = {}
+ConfigShops                      = {}
 
-ConfigShops.UseShops          = true  -- if you want to use the shops set to true if not set to false
+ConfigShops.UseShops             = true  -- if you want to use the shops set to true if not set to false
 
-ConfigShops.SecondChancePrice = 15000 -- if store is second chance then this is the price they need to pay to use it
-
+ConfigShops.SecondChancePrice    = 15000 -- if store is second chance then this is the price they need to pay to use it
+ConfigShops.SecondChanceCurrency = 0     -- 0 is cash 1 is gold 2 is tokens currency
 --[[ types of stores]]
 -- clothing
 -- hair
@@ -47,10 +47,10 @@ ConfigShops.Locations = {
         TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
 
     },
-    {                                                  -- Rhodes
+    {                                                     -- Rhodes
         Prompt = {
             Position = vector3(1324.66, -1291.59, 77.08), -- prompt location
-            Label = "Enter Clothing Store",                  -- prompt label
+            Label = "Enter Clothing Store",               -- prompt label
         },
         Npc = {
             Enable = true,
@@ -77,10 +77,10 @@ ConfigShops.Locations = {
         TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
 
     },
-    {                                                  -- Saint Denis
+    {                                                    -- Saint Denis
         Prompt = {
             Position = vector3(2552.4, -1165.22, 53.73), -- prompt location
-            Label = "Enter Clothing Store",                  -- prompt label
+            Label = "Enter Clothing Store",              -- prompt label
         },
         Npc = {
             Enable = true,
@@ -287,7 +287,7 @@ ConfigShops.Prices = {
         },
     },
     face = {
-        Theeth = {
+        Teeth = {
             price = 10,
         },
         head = {
