@@ -107,6 +107,96 @@ ConfigShops.Locations = {
         TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
 
     },
+    {                                                    -- Strawberry
+        Prompt = {
+            Position = vector3(-1791.07, -392.71, 160.29), -- prompt location
+            Label = "Enter Clothing Store",              -- prompt label
+        },
+        Npc = {
+            Enable = true,
+            Model = "CS_FRANCIS_SINCLAIR",
+            Position = vector4(-1791.07, -392.71, 160.29, 326.21),
+        },
+        Blip = {
+            Enable = true,
+            Sprite = 1195729388,
+            Name = "Strawberry Clothing Store",
+        },
+        EditCharacter = { -- where the player will be teleported to edit character
+            Position = vector4(-1794.4, -395.25, 160.34, 326.06),
+        },
+        SpawnBack = { -- where the player will be teleported to after editing character
+            Position = vector4(-1793.69, -390.33, 160.26, 61.55),
+        },
+        CameraPosition = { -- camera position for the character editor
+            Position = vector3(-1792.93, -393.17, 160.67),
+            Heading = 145.25,
+            MaxUp = 161.45,
+            MaxDown = 145.31,
+        },
+        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
+
+    },
+    {                                                    -- Tumblweed
+        Prompt = {
+            Position = vector3(-5483.24, -2933.42, -0.35), -- prompt location
+            Label = "Enter Clothing Store",              -- prompt label
+        },
+        Npc = {
+            Enable = true,
+            Model = "CS_FRANCIS_SINCLAIR",
+            Position = vector4(-5484.07, -2932.47, -0.35, 188.13),
+        },
+        Blip = {
+            Enable = true,
+            Sprite = 1195729388,
+            Name = "Tumbleweed Clothing Store",
+        },
+        EditCharacter = { -- where the player will be teleported to edit character
+            Position = vector4(-5480.05, -2932.88, -0.32, 229.49),
+        },
+        SpawnBack = { -- where the player will be teleported to after editing character
+            Position = vector4(-5483.36, -2934.59, -0.35, 89.65),
+        },
+        CameraPosition = { -- camera position for the character editor
+            Position = vector3(-5479.10, -2934.15, 0.17),
+            Heading = 40.58,
+            MaxUp = 0.78,
+            MaxDown = -1.20,
+        },
+        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
+
+    },
+    {                                                    -- Armadillo
+        Prompt = {
+            Position = vector3(-3686.21, -2626.6, -13.38), -- prompt location
+            Label = "Enter Clothing Store",              -- prompt label
+        },
+        Npc = {
+            Enable = true,
+            Model = "CS_FRANCIS_SINCLAIR",
+            Position = vector4(-3686.39, -2628.62, -13.38, 319.32),
+        },
+        Blip = {
+            Enable = true,
+            Sprite = 1195729388,
+            Name = "Armadillo Clothing Store",
+        },
+        EditCharacter = { -- where the player will be teleported to edit character
+            Position = vector4(-3688.98, -2630.14, -13.35, 6.45),
+        },
+        SpawnBack = { -- where the player will be teleported to after editing character
+            Position = vector4(-3685.82, -2627.58, -13.38, 316.62),
+        },
+        CameraPosition = { -- camera position for the character editor
+            Position = vector3(-3689.07, -2627.43, -12.97),
+            Heading = 179.85,
+            MaxUp = -12.48,
+            MaxDown = -13.89,
+        },
+        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
+
+    },
     -- add more here
 }
 
