@@ -1678,7 +1678,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
 
     if not IsInCharCreation then
         hairIndex, hairColorIndex = GetHairIndex(category, tablehair)
-        if category == "Bow" then
+        if category == "bow" then
             InnitComp = PlayerClothing[category].comp
         else
             InnitComp = CachedSkin[category]
