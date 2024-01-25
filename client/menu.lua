@@ -220,27 +220,33 @@ function OpenCharCreationMenu(clothingtable, value)
 
     if IsInCharCreation then
         elements[#elements + 1] = {
-            label = __Age or T.MenuCreation.element5.label.. "<br><span style='opacity:0.6;'>"..T.MenuCreation.none.."</span>",
+            label = __Age or
+                T.MenuCreation.element5.label .. "<br><span style='opacity:0.6;'>" .. T.MenuCreation.none .. "</span>",
             value = "age",
             desc = imgPath:format("emote_greet_hey_you") ..
                 "<br> " .. T.MenuCreation.element5.desc .. "<br><br>" .. Divider .. "<br><br>",
 
         }
         elements[#elements + 1] = {
-            label = __CharDescription or T.MenuCreation.element6.label.."<br><span style='opacity:0.6;'>"..T.MenuCreation.none.."</span>",
+            label = __CharDescription or
+                T.MenuCreation.element6.label .. "<br><span style='opacity:0.6;'>" .. T.MenuCreation.none .. "</span>",
             value = "desc",
             desc = imgPath:format("emote_greet_hey_you") ..
                 "<br>" .. T.MenuCreation.element6.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
         elements[#elements + 1] = {
-            label = __NickName or T.MenuCreation.element7.label.. "<br><span style='opacity:0.6;'>"..T.MenuCreation.none.."</span>",
+            label = __NickName or
+                T.MenuCreation.element7.label .. "<br><span style='opacity:0.6;'>" .. T.MenuCreation.none .. "</span>",
             value = "nickname",
             desc = imgPath:format("emote_greet_hey_you") ..
-                "<br> " ..T.MenuCreation.element7.desc.. "<br>" ..T.MenuCreation.element7.desc2.. "<br><br>" .. Divider .. "<br><br>",
+                "<br> " ..
+                T.MenuCreation.element7.desc ..
+                "<br>" .. T.MenuCreation.element7.desc2 .. "<br><br>" .. Divider .. "<br><br>",
         }
         elements[#elements + 1] = {
             label = __CHARNAME or
-                T.MenuCreation.element3.label .. "<br><span style='opacity:0.6;'>" .. ""..T.MenuCreation.none.."" .. "</span>",
+                T.MenuCreation.element3.label ..
+                "<br><span style='opacity:0.6;'>" .. "" .. T.MenuCreation.none .. "" .. "</span>",
             value = __VALUE1 or "name",
             desc = __DESC or
                 imgPath:format("emote_greet_hey_you") ..
@@ -249,7 +255,7 @@ function OpenCharCreationMenu(clothingtable, value)
         }
         elements[#elements + 1] = {
             label = __LABEL or
-                ("<span style='color: Grey;'>" .. T.MenuCreation.element4.label .. "<br>" ..T.MenuCreation.finish.."" .. "</span>"),
+                ("<span style='color: Grey;'>" .. T.MenuCreation.element4.label .. "<br>" .. T.MenuCreation.finish .. "" .. "</span>"),
             value = __VALUE or "not",
             desc = imgPath:format("generic_walk_style") ..
                 "<br> " .. "<br><br>" .. Divider .. "<br><br>" .. T.MenuCreation.element4.desc,
@@ -423,7 +429,8 @@ function OpenCharCreationMenu(clothingtable, value)
                         menu.addNewElement({
                             label = T.MenuCreation.element4.label,
                             value = __VALUE,
-                            desc = imgPath:format("generic_walk_style") ..   "<br> " .. T.MenuCreation.element4.desc .. "<br><br>" .. Divider .. "<br><br>",
+                            desc = imgPath:format("generic_walk_style") ..
+                                "<br> " .. T.MenuCreation.element4.desc .. "<br><br>" .. Divider .. "<br><br>",
                         })
                         menu.refresh()
                     end
@@ -800,8 +807,8 @@ function OpenComponentMenu(table, category, value)
                 IsPedReadyToRender()
                 local comp = data.current.comp
                 local tint0, tint1, tint2 = data.current.tint0, data.current.value, data.current.tint2
-                SetMetaPedTag(PlayerPedId(), TagData?.drawable, TagData?.albedo, TagData?.normal, TagData?.material,
-                    TagData?.palette, tint0, tint1, tint2)
+                SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
+                    TagData.palette, tint0, tint1, tint2)
                 UpdatePedVariation()
                 menu.setElement(4, "tint1", tint1)
                 menu.setElement(6, "tint1", tint1)
@@ -818,8 +825,8 @@ function OpenComponentMenu(table, category, value)
                 IsPedReadyToRender()
                 local comp = data.current.comp
                 local tint0, tint1, tint2 = data.current.tint0, data.current.tint1, data.current.value
-                SetMetaPedTag(PlayerPedId(), TagData?.drawable, TagData?.albedo, TagData?.normal, TagData?.material,
-                    TagData?.palette, tint0, tint1, tint2)
+                SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
+                    TagData.palette, tint0, tint1, tint2)
                 UpdatePedVariation()
                 menu.setElement(4, "tint2", tint2)
                 menu.setElement(5, "tint2", tint2)
@@ -843,6 +850,10 @@ function OpenComponentMenu(table, category, value)
                 menu.setElement(6, "value", 0)
                 menu.refresh()
                 PlayerTrackingData[category] = {}
+                if IsInClothingStore then
+                    TotalAmountToPay[category] = 0
+                    CachedComponents[category].comp = -1
+                end
                 return
             end
 
@@ -1760,7 +1771,10 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
                 menu.setElement(1, "value", 1)
                 menu.setElement(2, "value", 1)
                 menu.refresh()
-                TotalAmountToPay[category] = 0
+                if IsInClothingStore then
+                    TotalAmountToPay[category] = 0
+                    CachedComponents[category].comp = -1
+                end
                 return
             end
 
@@ -1909,7 +1923,10 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
                 menu.refresh()
                 toggleOverlayChange(data.current.category, 0, PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
-                TotalAmountToPay[category] = 0
+                if IsInClothingStore then
+                    TotalAmountToPay[category] = 0
+                    CachedComponents[category].comp = -1
+                end
             end
 
             if data.current.tag == "type" then
