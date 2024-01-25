@@ -302,7 +302,7 @@ function OpenCharCreationMenu(clothingtable, value)
                     attributes = {
                         inputHeader = T.Inputs.inputHeadertype,
                         type = "text",
-                        pattern = "[A-Za-z ]{5,2000000}", -- can change here for your language
+                        pattern = T.Inputs.imputlangdesc,
                         title = T.Inputs.title,
                         style = "border-radius: 10px; background-color: ; border:none;"
                     }
@@ -333,7 +333,7 @@ function OpenCharCreationMenu(clothingtable, value)
                     attributes = {
                         inputHeader = T.Inputs.inputHeadertype,
                         type = "text",
-                        pattern = "[A-Za-z ]{5,20}", -- can change here for your language
+                        pattern = T.Inputs.imputlang, -- can change here for your language
                         title = T.Inputs.title,
                         style = "border-radius: 10px; background-color: ; border:none;"
                     }
@@ -362,7 +362,7 @@ function OpenCharCreationMenu(clothingtable, value)
                     attributes = {
                         inputHeader = T.Inputs.inputHeadertype,
                         type = "number",
-                        pattern = "[A-Za-z ]{5,20}", -- can change here for your language
+                        pattern = T.Inputs.imputlang, -- can change here for your language
                         title = T.Inputs.title,
                         style = "border-radius: 10px; background-color: ; border:none;"
                     }
@@ -390,7 +390,7 @@ function OpenCharCreationMenu(clothingtable, value)
                     attributes = {
                         inputHeader = T.Inputs.inputHeadertype,
                         type = "text",
-                        pattern = "[A-Za-z ]{5,20}", -- can change here for your language
+                        pattern = T.Inputs.imputlang, -- can change here for your language
                         title = T.Inputs.title,
                         style = "border-radius: 10px; background-color: ; border:none;"
                     }
@@ -560,7 +560,7 @@ function OpenClothingMenu(Table, value)
         elements[#elements + 1] = {
             label = "Close",
             value = "close",
-            desc = imgPath:format("menu_icon_back") .. "<br><br>" .. "Close Menu",
+            desc = imgPath:format("cross") .. "<br><br>" .. "Close Menu",
         }
     end
 

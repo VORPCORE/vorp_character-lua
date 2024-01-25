@@ -46,7 +46,11 @@ Translation.Langs = {
             notify = "Press ~INPUT_CREATOR_DELETE~ to erase this character or press ~INPUT_FRONTEND_CANCEL~ to cancel",
             missingname = "You have provided incorrect first or last name",
             inputHeadertype = "Type in here...",
-            fristlast = "Insert first and last name!"
+            fristlast = "Insert first and last name!",
+            press = "press",
+            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            imputlang = "[A-Za-z ]{5,20}"          -- change for you lang
+
         },
         Other = {
             spinnertext = "Character selection is loading",
@@ -60,7 +64,10 @@ Translation.Langs = {
             Gold = "Gold: ",
             GenderChoice = " to choose gender, press to accept ",
             undress = "Undress",
-            dress = "Dress"
+            dress = "Dress",
+            pocketmoney = "~q~ Pocket ~o~$",
+            total = "Total  ~o~$ ",
+
         },
 
         Placeholder = {
@@ -84,11 +91,13 @@ Translation.Langs = {
             },
             element4 = { label = "Start Journey", desc = "Start your journey by pressing enter" },
             element5 = { label = "Age", desc = "Age of your character" },
-            element6 = { label = "Character Description",
+            element6 = {
+                label = "Character Description",
                 desc = "Describe your character and appearance as precisely as possible, so we can identify you.",
                 desc2 = "Added",
             },
-            element7 = { label = "Choose a Nickname", 
+            element7 = {
+                label = "Choose a Nickname",
                 desc = "How do you want to be called by people? Or under what nickname are you known?",
                 desc2 = "Example: Popcorn Sutton",
                 nickname = "Nickname",
@@ -96,6 +105,7 @@ Translation.Langs = {
             charname = "Character Name",
             none = "Empty!",
             finish = "Fill out everything first!",
+
         },
         -- this list will show in alphabetical order
         MenuClothes = {
@@ -257,6 +267,8 @@ Translation.Langs = {
             NameDesc = "Seleziona il personaggio premendo Invio",
             CreateNewCharT = "Crea un nuovo personaggio",
             CreateNewCharDesc = "Cambia personaggio premendo Invio",
+            CreateNewSlot = "Spazio disponibile",
+            CreateNewChar = "Crea un nuovo personaggio, riscrivi la tua storia, divertiti!",
             Choose = "Conferma",
             ChooseDesc = "Seleziona questo personaggio per iniziare",
             Delete = "Elimina",
@@ -274,6 +286,7 @@ Translation.Langs = {
             promptdeleteCurrent = "Elimina corrente",
             promptswapChar = "Scambia personaggio",
             promptselectChar = "Seleziona personaggio",
+            promptback = "Indietro",
             promptsexMale = "Maschio",
             promptsexFemale = "Femmina",
             promptselectConfirm = "~q~Seleziona",
@@ -289,7 +302,36 @@ Translation.Langs = {
             title = "Solo lettere, minimo 5 massimo 20",
             banned = "Non puoi utilizzare quei nomi, sono considerati vietati in questo server",
             notify = "Premi Canc per eliminare questo personaggio, o premi Backspace per annullare",
-            missingname = "Hai fornito un nome o cognome incorretto"
+            missingname = "Hai fornito un nome o cognome incorretto",
+            inputHeadertype = "Scrivi qui...",
+            fristlast = "Inserisci nome e cognome!",
+            press = "premere",
+            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            imputlang = "[A-Za-z ]{5,20}"          -- change for you lang
+
+        },
+        Other = { 
+            spinnertext = "La selezione del personaggio è in caricamento",
+            spinnertext2 = "La creazione del personaggio è in caricamento",
+            spinnertext3 = "Fai uno screenshot se vuoi",
+            Job = "Lavoro: ",
+            Group = "Gruppo: ",
+            Gender = "Genere: ",
+            Age = "Età: ",
+            Money = "Soldi: ",
+            Gold = "Oro: ",
+            GenderChoice = " per scegliere il genere, premere per accettare ",
+            undress = "Spogliarsi",
+            dress = "Vestito",
+            pocketmoney = "~q~ Tasca ~o~$",
+            total = "Totale ~o~$ ",
+
+        },
+        Placeholder = {
+            CharDesc = "descrizione del personaggio",
+            NickName = "Soprannome",
+            SetAge = "impostare l'età",
+            FirstLastName = "Nome e cognome",
         },
         MenuCreation = {
             title = "Menu personaggio",
@@ -305,6 +347,22 @@ Translation.Langs = {
                 "Scegli un nome per il tuo personaggio assicurati di leggere le regole per la scelta del nome del personaggio,<br> se non segui le regole questo personaggio verrà eliminato senza preavviso"
             },
             element4 = { label = "Inizia l'Avventura", desc = "Inizia la tua avventura premendo Invio" },
+            element5 = { label = "Età", desc = "Età del tuo personaggio" }, 
+            element6 = {
+                label = "Descrizione del personaggio",
+                desc = "Descrivi il tuo carattere e il tuo aspetto nel modo più preciso possibile, così possiamo identificarti.",
+                desc2 = "Aggiunto",
+            },
+            element7 = {
+                label = "Scegli un Soprannome",
+                desc = "Come vuoi essere chiamato dalle persone? O con quale soprannome sei conosciuto?",
+                desc2 = "Esempio: Popcorn Sutton",
+                nickname = "Soprannome",
+            },
+            charname = "Nome del personaggio",
+            none = "Vuoto!",
+            finish = "Compila tutto prima!", 
+
         },
         MenuClothes = {
             title       = "Abbigliamento",
@@ -466,7 +524,9 @@ Translation.Langs = {
             NameDesc = "Selecionar personagem ao pressionar Enter",
             CreateNewCharT = "Criar um novo personagem",
             CreateNewCharDesc = "Trocar de personagem ao pressionar Enter",
-            Choose = "Spawn",
+            CreateNewSlot = "Espaço disponível",
+            CreateNewChar = "Crie um novo personagem, reescreva sua história, divirta-se!",
+            Choose = "Produrre",
             ChooseDesc = "Selecionar este personagem para aparecer no mundo",
             Delete = "Apagar",
             DeleteDesc = "Apagar este personagem",
@@ -483,6 +543,7 @@ Translation.Langs = {
             promptdeleteCurrent = "Eliminar atual",
             promptswapChar = "trocar personagem",
             promptselectChar = "selecionar personagem",
+            promptback = "voltar",                                                        
             promptsexMale = "Masculino",
             promptsexFemale = "Feminino",
             promptselectConfirm = "Selecionar",
@@ -498,8 +559,39 @@ Translation.Langs = {
             title = "Apenas Letras min 5 max 20",
             banned = "Não pode utilizar os nomes escolhidos uma vez que estão banidos deste servidor.",
             notify = "Pressione Delete para apagar este personagem, ou pressione Backspace para cancelar",
-            missingname = "Você forneceu um primeiro nome ou sobrenome incorreto"
+            missingname = "Você forneceu um primeiro nome ou sobrenome incorreto",
+            inputHeadertype = "Digite aqui...",
+            fristlast = "Insira nome e sobrenome!",
+            press = "imprensa",
+            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            imputlang = "[A-Za-z ]{5,20}"          -- change for you lang
+
         },
+        Other = { 
+            spinnertext = "A seleção de personagens está carregando",
+            spinnertext2 = "A criação do personagem está carregando",
+            spinnertext3 = "Faça uma captura de tela se quiser",
+            Job = "Trabalho: ",
+            Group = "Grupo: ",
+            Gender = "Gênero: ",
+            Age = "Idade: ",
+            Money = "Dinheiro: ",
+            Gold = "Ouro: ",
+            GenderChoice = " para escolher o gênero, pressione para aceitar ",
+            undress = "Despir",
+            dress = "Vestir",
+            pocketmoney = "~q~ Bolso ~o~$",
+            total = "Total ~o~$ ",
+
+
+        },
+        Placeholder = {
+            CharDesc = "descrição do personagem",
+            NickName = "Apelido",
+            SetAge = "definir idade",
+            FirstLastName = "Primeiro nome, ultimo nome",
+        },
+
         MenuCreation = {
             title = "Criação do Personagem",
             title1 = "Seleção do Personagem",
@@ -514,6 +606,21 @@ Translation.Langs = {
                 "Escolha um Nome para o seu Personagem<br> Se utilizar um nome proibido o personagem será eliminado."
             },
             element4 = { label = "Começe a sua Jornada", desc = "Carregue no Enter para começar a sua Jornada" },
+            element5 = { label = "Idade", desc = "Idade do seu personagem" }, 
+            element6 = {
+                label = "Descrição do personagem",
+                desc = "Descreva seu caráter e aparência com a maior precisão possível, para que possamos identificá-lo.",
+                desc2 = "Adicionado",
+            },
+            element7 = {
+                label = "Escolha um apelido",
+                desc = "Como você quer ser chamado pelas pessoas? Ou por qual apelido você é conhecido?",
+                desc2 = "Exemplo: Pipoca Sutton",
+                nickname = "Apelido",
+            },
+            charname = "Nome do personagem",
+            none = "Vazio!",
+            finish = "Preencha tudo primeiro!", 
         },
         MenuClothes = {
             title       = "Lista de Roupas",
@@ -603,7 +710,7 @@ Translation.Langs = {
             element3 = { label = "Barba Curta", desc = "<br>Ajuste a Barba Curta" },
             element4 = { label = "Acessórios de Cabelo", desc = "<br>Ajuste os Acessórios para Cabelo" },
             element5 = { label = "Sobrancelhas", desc = "<br>Ajuste as Sobrancelhas" },
-            element6 = { label = "Overlay", desc = "Choose characters hair overlay" },
+            element6 = { label = "Sobreposição", desc = "Escolha a sobreposição de cabelo dos personagens" },
         },
         MenuHairSelection = {
             title = "Cabelo",
@@ -655,8 +762,8 @@ Translation.Langs = {
             title = "Maquilhagem",
             subtitle = "Escolha a sua Maquilhagem",
             element = { label = "Batom", desc = "Ajuste o Batom" },
-            element2 = { label = "Blush", desc = "Ajuste o Blush" },
-            element3 = { label = "Eyeliner", desc = "Ajuste o Eyeliner" },
+            element2 = { label = "Corar", desc = "Ajuste o Blush" },
+            element3 = { label = "Delineador", desc = "Ajuste o Delineador" },
             element4 = { label = "Sombras", desc = "Ajuste as Sombras" },
             element5 = { label = "Texturas", desc = "Ajuste as Texturas" },
             element6 = { label = "Cor", desc = "Ajuste a Cor" },
@@ -674,7 +781,9 @@ Translation.Langs = {
             NameDesc = "Selecione o personagem pressionando enter",
             CreateNewCharT = "Criar um novo personagem",
             CreateNewCharDesc = "Troque de personagens pressionando enter",
-            Choose = "Spawn",
+            CreateNewSlot = "Slot disponível",
+            CreateNewChar = "Crie um novo personagem, reescreva sua história e divirta-se!",
+            Choose = "Geração",
             ChooseDesc = "Selecione este personagem para aparecer no mundo",
             Delete = "Deletar",
             DeleteDesc = "Deletar este personagem",
@@ -691,12 +800,13 @@ Translation.Langs = {
             promptdeleteCurrent = "Deletar atual",
             promptswapChar = "trocar personagem",
             promptselectChar = "selecionar personagem",
+            promptback = "voltar",
             promptsexMale = "Masculino",
             promptsexFemale = "Feminino",
             promptselectConfirm = "Selecionar",
             promptUpDownCam = "cima/baixo",
             promptrotateCam = "girar",
-            promptzoomCam = "zoom",
+            promptzoomCam = "ampliar",
             CamAdjustments = "Ajustes de câmera",
         },
         Inputs = {
@@ -707,8 +817,39 @@ Translation.Langs = {
             banned = "Você não pode usar este nome pois são considerados banidos neste servidor",
             notify =
             "Pressione ~INPUT_CREATOR_DELETE~ para apagar este personagem ou pressione ~INPUT_FRONTEND_CANCEL~ para cancelar",
-            missingname = "Você forneceu um nome ou sobrenome incorreto"
+            missingname = "Você forneceu um nome ou sobrenome incorreto",
+            inputHeadertype = "Digite aqui...",
+            fristlast = "Insira o nome e o sobrenome!",
+            press = "imprensa",
+            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            imputlang = "[A-Za-z ]{5,20}"          -- change for you lang
+
         },
+        Other = { 
+            spinnertext = "A seleção de caracteres está sendo carregada",
+            spinnertext2 = "A criação de personagens está sendo carregada",
+            spinnertext3 = "Faça uma captura de tela se quiser",
+            Job = "Emprego: ",
+            Group = "Grupo: ",
+            Gender = "Gênero:",
+            Age = "Idade: ",
+            Money = "Dinheiro: ",
+            Gold = "Ouro: ",
+            GenderChoice = " para escolher o gênero, pressione para aceitar ",
+            undress = "Despir-se",
+            dress = "Vestido",
+            pocketmoney = "~q~ Bolso ~o~$",
+            total = "Total ~o~$",
+
+        },
+
+        Placeholder = {
+            CharDesc = "descrição dos caracteres",
+            NickName = "Nome Nick",
+            SetAge = "idade definida",
+            FirstLastName = "Nome próprio Nome último",
+        },
+
         MenuCreation = {
             title = "Criação de Personagem",
             subtitle = "Sub Menu",
@@ -723,6 +864,23 @@ Translation.Langs = {
                 "Escolha um nome para o seu personagem, certifique-se de ler as regras para nomeação de personagens,<br> se falhar em seguir as regras este personagem será deletado sem aviso prévio"
             },
             element4 = { label = "Iniciar Jornada", desc = "Inicie sua jornada pressionando enter" },
+            element5 = { label = "Idade", desc = "Idade de seu personagem" }, 
+
+            element6 = {
+                label = "Descrição do personagem",
+                desc = "Descreva seu caráter e aparência da forma mais precisa possível, para que possamos identificá-lo.",
+                desc2 = "Adicionado",
+            },
+            element7 = {
+                label = "Escolha um apelido",
+                desc = "Como você quer ser chamado pelas pessoas? Ou sob qual apelido você é conhecido?",
+                desc2 = "Exemplo: Pipoca Sutton",
+                nickname = "Apelido",
+            },
+            charname = "Nome do personagem",
+            none = "Vazio!",
+            finish = "Preencha tudo primeiro!", 
+
         },
         MenuClothes = {
             title       = "Roupas",
@@ -812,7 +970,7 @@ Translation.Langs = {
             element3 = { label = "Barba por fazer", desc = "Escolha a barba por fazer do personagem" },
             element4 = { label = "Acessórios para Cabelo", desc = "Escolha os acessórios de cabelo do personagem" },
             element5 = { label = "Sobrancelhas", desc = "Escolha as sobrancelhas do personagem" },
-            element6 = { label = "Overlay", desc = "Escolha o overlay de cabelo do personagem" },
+            element6 = { label = "Sobreposição", desc = "Escolha o Sobreposição de cabelo do personagem" },
         },
         MenuHairSelection = {
             title = "Cabelo",
@@ -883,6 +1041,8 @@ Translation.Langs = {
             NameDesc = "Sélectionner un personnage en appuyant sur Entrée",
             CreateNewCharT = "Créer un nouveau personnage",
             CreateNewCharDesc = "Changer de personnage en appuyant sur Entrée",
+            CreateNewSlot = "Emplacement disponible",
+            CreateNewChar = "Créez un nouveau personnage, réécrivez votre histoire, amusez-vous !",
             Choose = "Apparaître",
             ChooseDesc = "Sélectionner ce personnage pour apparaître dans le monde",
             Delete = "Supprimer",
@@ -900,6 +1060,7 @@ Translation.Langs = {
             promptdeleteCurrent = "Supprimer actuel",
             promptswapChar = "Changer personnage",
             promptselectChar = "Sélectionner personnage",
+            promptback = "retour",                                                                
             promptsexMale = "Homme",
             promptsexFemale = "Femme",
             promptselectConfirm = "Sélectionner",
@@ -915,7 +1076,37 @@ Translation.Langs = {
             title = "Lettres seulement min 5 max 20",
             banned = "vous ne pouvez pas utiliser ces noms car ils sont considérés comme interdits sur ce serveur",
             notify = "Appuyez sur Supprimer pour supprimer ce personnage ou appuyez sur Retour arrière pour annuler",
-            missingname = "Vous avez fourni un prénom ou un nom de famille incorrect"
+            missingname = "Vous avez fourni un prénom ou un nom de famille incorrect",
+            inputHeadertype = "Tapez ici...",
+            fristlast = "Insérer le nom et le prénom !",
+            press = "presse",
+            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            imputlang = "[A-Za-z ]{5,20}"          -- change for you lang
+
+        },
+        Other = { 
+            spinnertext = "La sélection des caractères est en cours de chargement",
+            spinnertext2 = "La création de personnage est en cours de chargement",
+            spinnertext3 = "Faites une capture d'écran si vous le souhaitez",
+            Job = "Emploi : ",
+            Group = "Le groupe : ",
+            Gender = "Genre : ",
+            Age = "L'âge : ",
+            Money = "L'argent : ",
+            Gold = "L'or : ",
+            GenderChoice = " pour choisir le sexe, appuyez sur pour accepter",
+            undress = "Déshabiller",
+            dress = "pour s'habiller",
+            pocketmoney = "~q~ Pochette ~o~$",
+            total = "Total  ~o~$ ",
+
+
+        },
+        Placeholder = {
+            CharDesc = "description des caractères",
+            NickName = "Nom de Nick",
+            SetAge = "fixer l'âge",
+            FirstLastName = "Prénom Nom",
         },
         MenuCreation = {
             title = "Création de personnage",
@@ -931,6 +1122,23 @@ Translation.Langs = {
                 " Choisissez un nom pour votre personnage, assurez-vous de lire les règles de désignation des personnages, <br>si vous ne suivez pas les règles, ce personnage sera supprimé sans avertissement "
             },
             element4 = { label = " Début du voyage ", desc = " Commencez votre voyage en appuyant sur la touche Entrée " },
+            element5 = { label = "L'âge", desc = "Âge de votre personnage" }, 
+
+            element6 = {
+                label = "Description du personnage",
+                desc = "Décrivez votre caractère et votre apparence le plus précisément possible, afin que nous puissions vous identifier.",
+                desc2 = "Ajouté",
+            },
+            element7 = {
+                label = "Choisir un surnom",
+                desc = "Comment voulez-vous être appelé par les gens ? Ou sous quel surnom êtes-vous connu ?",
+                desc2 = "Exemple : Popcorn Sutton",
+                nickname = "Surnom",
+            },
+            charname = "Nom du personnage",
+            none = "Vide !",
+            finish = "Remplissez tout d'abord !", 
+
         },
         MenuClothes = {
             title = "Vêtements",
@@ -992,7 +1200,7 @@ Translation.Langs = {
         MenuAge = {
             title = "Âge",
             subtitle = "Sous-menu",
-            element = { label = "Age", desc = "Choisissez l'âge de votre personnage" },
+            element = { label = "L'âge", desc = "Choisissez l'âge de votre personnage" },
             element2 = {
                 label = "Opacité",
                 desc = "il y a ",
@@ -1013,7 +1221,7 @@ Translation.Langs = {
             title = "Herritage",
             subtitle = "Sous-menu",
             element = { label = " Couleur de peau ", desc = " il y a ", desc2 = " des types de couleur de peau " },
-            element2 = { label = " Head Types ", desc = "Choisissez le type de visage de votre personnage" },
+            element2 = { label = " Types de têtes ", desc = "Choisissez le type de visage de votre personnage" },
             element3 = { label = "Héritage #", desc = " il y a #", desc2 = "types d'héritage" },
         },
         MenuHair = {
@@ -1027,7 +1235,7 @@ Translation.Langs = {
                 desc = " Choisissez les accessoires de cheveux du personnage "
             },
             element5 = { label = "Sourcils", desc = "Choisissez les sourcils des personnages" },
-            element6 = { label = "Overlay", desc = "Choose characters hair overlay" },
+            element6 = { label = "Superposition", desc = "Choisissez des personnages" },
         },
         MenuHairSelection = {
             title = "Cheveux",
@@ -1137,10 +1345,16 @@ Translation.Langs = {
             inputHeader = "CHARAKTERNAMEN WÄHLEN",
             title = "Nur Buchstaben min 5 max 20",
             banned = "Diese Namen dürfen nicht verwendet werden, da sie auf diesem Server verboten sind",
-            notify = "Drücken die Entf-Taste, um dieses Charakter zu löschen, oder die Rücktaste, um den Vorgang abzubrechen",
+            notify =
+            "Drücken die Entf-Taste, um dieses Charakter zu löschen, oder die Rücktaste, um den Vorgang abzubrechen",
             missingname = "Sie haben einen falschen Vornamen oder Nachnamen angegeben",
             inputHeadertype = "Hier eintippen...",
-            fristlast = "Vor- und Nachname einfügen!"
+            fristlast = "Vor- und Nachname einfügen!",
+            press = "Presse",
+            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            imputlang = "[A-Za-z ]{5,20}"          -- change for you lang
+
+
         },
         Other = {
             spinnertext = "Charakterauswahl wird geladen",
@@ -1155,6 +1369,9 @@ Translation.Langs = {
             GenderChoice = " um das Geschlecht auszuwählen, zum Akzeptieren drücken Sie ",
             undress = "Kleidung ausziehen",
             dress = "Kleidung anziehen",
+            pocketmoney = "~q~ Pocket ~o~$",
+            total = "Total  ~o~$ ",
+
         },
         Placeholder = {
             CharDesc = "characer description",
@@ -1172,15 +1389,19 @@ Translation.Langs = {
             element2 = { label = "Kleidung", desc = "Wähle die Kleidung deines Charakters" },
             element3 = {
                 label = "Wähle einen Namen",
-                desc = "Wähle einen Namen für deinen Charakter und achte darauf, dass du die Regeln für die Namensgebung beachtest.<br> Wenn du die Regeln nicht befolgst, wird dieser Charakter ohne Vorwarnung gelöscht"
+                desc =
+                "Wähle einen Namen für deinen Charakter und achte darauf, dass du die Regeln für die Namensgebung beachtest.<br> Wenn du die Regeln nicht befolgst, wird dieser Charakter ohne Vorwarnung gelöscht"
             },
             element4 = { label = "Reise beginnen", desc = "Starte deine Reise mit der Enter Taste" },
             element5 = { label = "Alter", desc = "Alter deines Charakters" },
-            element6 = { label = "Beschreibung des Charakters",
-                desc = "Beschreibe deinen Charakter und das Aussehen möglichst genau, damit wir dich identifizieren können.",
+            element6 = {
+                label = "Beschreibung des Charakters",
+                desc =
+                "Beschreibe deinen Charakter und das Aussehen möglichst genau, damit wir dich identifizieren können.",
                 desc2 = "Hinzugefügt",
             },
-            element7 = { label = "Wählen einen Spitznamen", 
+            element7 = {
+                label = "Wählen einen Spitznamen",
                 desc = "Wie willst du von den Leuten genannt werden? oder unter welchem Spitznamen bist du bekannt?",
                 desc2 = "Beispiel: Popcorn Sutton",
                 nickname = "Spitzname",
@@ -1349,6 +1570,8 @@ Translation.Langs = {
             NameDesc = "Seleccionar personaje presionando Enter",
             CreateNewCharT = "Crear un nuevo personaje",
             CreateNewCharDesc = "Cambiar de personaje presionando Enter",
+            CreateNewSlot = "Ranura disponible",
+            CreateNewChar = "Crea un nuevo personaje, reescribe tu historia, ¡diviértete!",
             Choose = "Spawn",
             ChooseDesc = "Seleccionar este personaje para aparecer en el mundo",
             Delete = "Eliminar",
@@ -1366,6 +1589,7 @@ Translation.Langs = {
             promptdeleteCurrent = "Eliminar actual",
             promptswapChar = "Cambiar personaje",
             promptselectChar = "Seleccionar personaje",
+            promptback = "volver",                                                                    
             promptsexMale = "Masculino",
             promptsexFemale = "Femenino",
             promptselectConfirm = "Seleccionar",
@@ -1381,7 +1605,39 @@ Translation.Langs = {
             title = "Solo letras min 5 max 20",
             banned = "No puedes usar ese nombre, ya que está prohibido en este servidor",
             notify = "Presiona Supr para eliminar este personaje o presiona Retroceso para cancelar",
-            missingname = "Ha proporcionado un nombre o apellido incorrecto"
+            missingname = "Ha proporcionado un nombre o apellido incorrecto",
+            inputHeadertype = "Escriba aquí...",
+            fristlast = "Insertar nombre y apellidos",
+            press = "pulse",
+            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            imputlang = "[A-Za-z ]{5,20}"          -- change for you lang
+
+
+        },
+        Other = { 
+            spinnertext = "La selección de caracteres se está cargando",
+            spinnertext2 = "La creación de personajes se está cargando",
+            spinnertext3 = "Haz una captura de pantalla si quieres",
+            Job = "Trabajo: ",
+            Group = "Grupo: ",
+            Gender = "Género: ",
+            Age = "La edad: ",
+            Money = "Dinero: ",
+            Gold = "Gold: ",
+            GenderChoice = " para elegir género, pulse para aceptar ",
+            undress = "Desvístete",
+            dress = "Vestido",
+            pocketmoney = "~q~ Bolsillo ~o~$",
+            total = "Total  ~o~$ ",
+
+
+
+        },
+        Placeholder = {
+            CharDesc = "descripción del personaje",
+            NickName = "apodo",
+            SetAge = "fijar edad",
+            FirstLastName = "nombre apellido",
         },
         MenuCreation = {
             title = "Creación de personaje",
@@ -1492,7 +1748,7 @@ Translation.Langs = {
                 desc = "Elige los accesorios para el cabello de tu personaje"
             },
             element5 = { label = "Cejas", desc = "Elige las cejas de tu personaje" },
-            element6 = { label = "Overlay", desc = "Choose characters hair overlay" },
+            element6 = { label = "Superposición", desc = "Elige la superposición de pelo de los personajes" },
         },
         MenuHairSelection = {
             title = "Pelo",
