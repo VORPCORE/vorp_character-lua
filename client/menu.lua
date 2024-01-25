@@ -2095,7 +2095,7 @@ function OpenFaceMenu(table, value)
 
     }
 
-    if IsInCharCreation or ShopType == "secondcance" then
+    if IsInCharCreation or ShopType == "secondchance" then
         elements[#elements + 1] = {
             label = T.MenuFacial.element.label ..
                 T.MenuFacial.amount  ..
