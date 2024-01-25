@@ -3,7 +3,7 @@ local PromptGroup = GetRandomIntInRange(0, 0xffffff)
 local SelectPrompt
 ShopType = ""
 CreateThread(function()
-    local str = CreateVarString(10, 'LITERAL_STRING', "press")
+    local str = CreateVarString(10, 'LITERAL_STRING', T.Inputs.press)
     SelectPrompt = PromptRegisterBegin()
     PromptSetControlAction(SelectPrompt, 0xC7B5340A)
     PromptSetText(SelectPrompt, str)
@@ -13,6 +13,7 @@ CreateThread(function()
     PromptSetGroup(SelectPrompt, PromptGroup)
     PromptRegisterEnd(SelectPrompt)
 end)
+
 function CreateBlips()
     for index, value in ipairs(ConfigShops.Locations) do
         if value.Blip.Enable then

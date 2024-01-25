@@ -200,7 +200,7 @@ function StartPrompts(value)
 		Wait(0)
 
 		if IsInClothingStore and ShopType ~= "secondchance" then
-			TotalToPay = "Total  ~o~$" .. GetCurrentAmmountToPay() .. "~q~ Pocket ~o~$" .. pocketMoney .. "~q~ "
+			TotalToPay = T.Other.total .. GetCurrentAmmountToPay() .. T.Other.pocketmoney .. pocketMoney .. "~q~ "
 		end
 		local label = CreateVarString(10, "LITERAL_STRING", TotalToPay .. T.PromptLabels.CamAdjustments)
 		PromptSetActiveGroupThisFrame(PromptGroup2, label)
