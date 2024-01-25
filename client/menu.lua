@@ -173,7 +173,7 @@ end
 local TotalAmountToPay = {}
 function GetDescriptionLayout(value, price)
     local desc = imgPath:format(value.img) ..
-        "<br><br>" .. value.desc .. "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>" .. Divider ..
+        "<br><br>" .. value.desc .. "<br><br><br><br>" .. Divider ..
         "<br><span style='font-family:crock; float:left; font-size: 22px;'>Total </span><span style='font-family:crock;float:right; font-size: 22px;'>$" ..
         (price or GetCurrentAmmountToPay()) .. "</span><br>" .. Divider
     return desc
