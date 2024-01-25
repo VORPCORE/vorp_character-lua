@@ -1714,7 +1714,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
             min = 0,
             max = #tablehair[HairIndexTracker[category]],
             desc = T.MenuHairSelection.element2.desc ..
-                #tablehair[HairIndexTracker[category]] .. ' ' .. T.MenuHairSelection.element2.desc2,
+            #tablehair[HairIndexTracker[category]] .. ' ' .. T.MenuHairSelection.element2.desc2,
             tag = "color",
             itemHeight = "4vh",
         },
@@ -1794,9 +1794,9 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
                     T.MenuHairSelection.element2.label ..
                     "<br><span style='opacity:0.6;'>" .. "Ammount " .. #total .. "</span>")
                 menu.setElement(2, "max", #total)
-                if #tablehair == data.current.value then -- workaround
+                --[[     if #tablehair == data.current.value then -- workaround
                     menu.setElement(2, "value", 1)
-                end
+                end ]]
                 menu.refresh()
 
                 if InnitComp then
