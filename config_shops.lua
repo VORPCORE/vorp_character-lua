@@ -17,10 +17,10 @@ ConfigShops.SecondChanceCurrency = 0     -- 0 is cash 1 is gold 2 is tokens curr
 -- },
 
 ConfigShops.Locations = {
-    {                                                  -- valentine
+    {                                                     -- blackwater
         Prompt = {
-            Position = vec3(-761.61, -1291.98, 43.85), -- prompt location
-            Label = "Clothing Store",                  -- prompt label
+            Position = vector3(-761.61, -1291.98, 43.85), -- prompt location
+            Label = "Clothing Store",                     -- prompt label
         },
         Npc = {
             Enable = true,
@@ -40,7 +40,7 @@ ConfigShops.Locations = {
             Position = vector4(-766.53, -1293.13, 43.84, 357.64),
         },
         CameraPosition = { -- camera position for the character editor
-            Position = vec3(-765.86, -1295.02, 44.14),
+            Position = vector3(-765.86, -1295.02, 44.14),
             Heading = 92.42,
             MaxUp = 44.85,
             MaxDown = 42.95,
@@ -113,10 +113,10 @@ ConfigShops.Locations = {
         TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
 
     },
-    {                                                    -- Strawberry
+    {                                                      -- Strawberry
         Prompt = {
             Position = vector3(-1791.07, -392.71, 160.29), -- prompt location
-            Label = "Enter Clothing Store",              -- prompt label
+            Label = "Enter Clothing Store",                -- prompt label
         },
         Npc = {
             Enable = true,
@@ -144,10 +144,10 @@ ConfigShops.Locations = {
         DrawLight = true,
         TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
     },
-    {                                                    -- Tumblweed
+    {                                                      -- Tumblweed
         Prompt = {
             Position = vector3(-5483.24, -2933.42, -0.35), -- prompt location
-            Label = "Enter Clothing Store",              -- prompt label
+            Label = "Enter Clothing Store",                -- prompt label
         },
         Npc = {
             Enable = true,
@@ -175,10 +175,10 @@ ConfigShops.Locations = {
         DrawLight = true,
         TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
     },
-    {                                                    -- Armadillo
+    {                                                      -- Armadillo
         Prompt = {
             Position = vector3(-3686.21, -2626.6, -13.38), -- prompt location
-            Label = "Enter Clothing Store",              -- prompt label
+            Label = "Enter Clothing Store",                -- prompt label
         },
         Npc = {
             Enable = true,
