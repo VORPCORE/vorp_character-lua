@@ -3,6 +3,7 @@
 local random = math.random(1, #Config.SpawnPosition)
 local Core = exports.vorp_core:GetCore()
 local MaxCharacters = Core.maxCharacters
+
 function ConvertTable(comps, compTints)
 	local NewComps = {}
 
@@ -230,13 +231,13 @@ end)
 Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(source, callback, data)
 	local _source = source
 	local User = Core.getUser(_source)
+
 	if not User then
 		return callback(false)
 	end
+
 	local character = User.getUsedCharacter
-	local money = ConfigShops.SecondChanceCurrency == 0 and character.money or
-		ConfigShops.SecondChanceCurrency == 1 and character.gold or
-		ConfigShops.SecondChanceCurrency == 2 and character.rol
+	local money = ConfigShops.SecondChanceCurrency == 0 and character.money or ConfigShops.SecondChanceCurrency == 1 and character.gold or ConfigShops.SecondChanceCurrency == 2 and character.rol
 	local amountToPay = ConfigShops.SecondChancePrice
 
 	if money < amountToPay then

@@ -236,7 +236,8 @@ function SetupAnimscene()
     SetPedConfigFlag(Deputy, 130, true)
     SetPedConfigFlag(Deputy, 301, true)
     SetPedConfigFlag(Deputy, 315, true)
-    GiveWeaponToPed_2(Deputy, `WEAPON_REPEATER_CARBINE`, 100, true, false, 0, false, 0.5, 1.0, 752097756, false, 0.0, false)
+    GiveWeaponToPed_2(Deputy, `WEAPON_REPEATER_CARBINE`, 100, true, false, 0, false, 0.5, 1.0, 752097756, false, 0.0,
+        false)
     FreezeEntityPosition(Deputy, true)
 
     local animscene = CreateAnimScene("script@mp@character_creator@transitions", 0.25, "pl_intro", false, true)
@@ -338,11 +339,13 @@ function ApplyDefaultClothing()
     for componentIndex = 0, numComponents - 1, 1 do
         local componentHash = GetComponentAtIndex(ped, componentIndex, true)
         if componentHash ~= 0 then
-            local numWearableStates = Citizen.InvokeNative(0xFFCC2DB2D9953401, componentHash, not isPedMale, true, Citizen.ResultAsInteger())
+            local numWearableStates = Citizen.InvokeNative(0xFFCC2DB2D9953401, componentHash, not isPedMale, true,
+                Citizen.ResultAsInteger())
             if numWearableStates > 0 then
                 local wearableStates = { `base` }
                 for wearableStateIndex = 0, numWearableStates - 1, 1 do
-                    local wearableState = Citizen.InvokeNative(0x6243635AF2F1B826, componentHash, wearableStateIndex, not isPedMale, true, Citizen.ResultAsInteger())
+                    local wearableState = Citizen.InvokeNative(0x6243635AF2F1B826, componentHash, wearableStateIndex,
+                        not isPedMale, true, Citizen.ResultAsInteger())
                     if wearableState ~= 0 then
                         table.insert(wearableStates, wearableState)
                     end
@@ -377,15 +380,25 @@ function ApplyDefaultClothing()
     for category, _ in pairs(PlayerClothing) do
         for _, component in ipairs(componentsWithWearableState) do
             if Helper[category] and Helper[category] == component.componentCategory then
+
                 PlayerClothing[category].comp = component.componentHash
-                CachedComponents[category] = { comp = component.componentHash }
+
+                if CachedComponents[category] then
+                    CachedComponents[category] = { comp = component.componentHash }
+                else
+                    CachedComponents[category] = {}
+                    CachedComponents[category] = { comp = component.componentHash }
+                end
+
                 if not PlayerTrackingData[category] then
                     PlayerTrackingData[category] = {}
                     PlayerTrackingData[category][component.componentHash] = { tint0 = 0, tint1 = 0, tint2 = 0 }
                 end
+
             end
         end
     end
+    
     CachedComponents.Gunbelt = { comp = isPedMale and 795591403 or 1511461630, tint0 = 0, tint1 = 0, tint2 = 0 }
 end
 
@@ -438,7 +451,8 @@ function OrganiseClothingData(Gender)
         for _, v in ipairs(value) do
             local typeTable = {}
             for _, va in ipairs(v) do
-                table.insert(typeTable, { hex = va.hash, remove = va.remove, showSkin = va.showSkin or false, needsFix = va.needsFix or false })
+                table.insert(typeTable,
+                    { hex = va.hash, remove = va.remove, showSkin = va.showSkin or false, needsFix = va.needsFix or false })
             end
             table.insert(categoryTable, typeTable)
         end
@@ -480,7 +494,15 @@ function AssertCachedComponents()
             if not CachedComponents[category] then
                 CachedComponents[category] = {}
             end
-            CachedComponents[category] = { comp = component, tint0 = v.tint0, tint1 = v.tint1, tint2 = v.tint2, index = v.index, color = v.color }
+            CachedComponents[category] = {
+                comp = component,
+                tint0 = v.tint0,
+                tint1 = v.tint1,
+                tint2 = v.tint2,
+                index = v
+                    .index,
+                color = v.color
+            }
         end
     end
 end
