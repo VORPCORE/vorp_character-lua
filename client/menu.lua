@@ -174,7 +174,8 @@ local TotalAmountToPay = {}
 function GetDescriptionLayout(value, price)
     local desc = imgPath:format(value.img) ..
         "<br><br>" .. value.desc .. "<br><br><br><br>" .. Divider ..
-        "<br><span style='font-family:crock; float:left; font-size: 22px;'>"..T.Other.total .. " </span><span style='font-family:crock;float:right; font-size: 22px;'>$" ..
+        "<br><span style='font-family:crock; float:left; font-size: 22px;'>" ..
+        T.Other.total .. " </span><span style='font-family:crock;float:right; font-size: 22px;'>$" ..
         (price or GetCurrentAmmountToPay()) .. "</span><br>" .. Divider
     return desc
 end
@@ -192,7 +193,7 @@ function OpenCharCreationMenu(clothingtable, value)
     if IsInCharCreation or ShopType == "secondchance" then
         elements[#elements + 1] = {
             label = T.MenuCreation.element.label ..
-                "<br><span style='opacity:0.6;'>"..T.Secondchance.DescAppearance.."</span>",
+                "<br><span style='opacity:0.6;'>" .. T.Secondchance.DescAppearance .. "</span>",
             value = "appearance",
             desc = imgPath:format("character_creator_head") ..
                 "<br>" .. T.MenuCreation.element.desc .. "<br><br>" .. Divider .. "<br><br>"
@@ -539,11 +540,11 @@ function OpenClothingMenu(Table, value)
         if ToLabel[category] then
             elements[#elements + 1] = {
                 label = ToLabel[category] ..
-                    "<br><span style='opacity:0.6;'>" .. #Table[category] ..' '.. T.MenuComponents.title .. "</span>",
+                    "<br><span style='opacity:0.6;'>" .. #Table[category] .. ' ' .. T.MenuComponents.title .. "</span>",
                 value = category,
                 desc = gender == "female" and
-                    path:format(category) .. menuSpace .. Divider .. "<br><br> "..T.MenuClothes.option or
-                    imgPath:format(category) .. menuSpace .. Divider .. "<br> "..T.MenuClothes.option,
+                    path:format(category) .. menuSpace .. Divider .. "<br><br> " .. T.MenuClothes.option or
+                    imgPath:format(category) .. menuSpace .. Divider .. "<br> " .. T.MenuClothes.option,
             }
         end
     end
@@ -559,7 +560,7 @@ function OpenClothingMenu(Table, value)
         elements[#elements + 1] = {
             label = T.MainMenu.close,
             value = "close",
-            desc = imgPath:format("cross") .. "<br><br>" .. T.MainMenu.closemenu,
+            desc = imgPath:format("cross") .. "<br><br>" .. T.MainMenu.closemenu .. "<br><br>" .. Divider .. "<br><br>",
         }
     end
 
@@ -685,8 +686,8 @@ function OpenComponentMenu(table, category, value)
     end
 
     elements[#elements + 1] = {
-        label = label .. "<br>" .. #table[category] ..' '.. T.MenuComponents.element.label
-,
+        label = label .. "<br>" .. #table[category] .. ' ' .. T.MenuComponents.element.label
+        ,
         type = "slider",
         value = indexComp or 0,
         info = true,
@@ -697,7 +698,8 @@ function OpenComponentMenu(table, category, value)
             "<br><br><br>" ..
             T.MenuComponents.element3.desc ..
             #table[category] ..
-            T.MenuComponents.element3.label .. category .. T.MenuComponents.element3.desc2 .. menuSpace .. Divider .. T.MenuComponents.scroll,
+            T.MenuComponents.element3.label ..
+            category .. T.MenuComponents.element3.desc2 .. menuSpace .. Divider .. T.MenuComponents.scroll,
         itemHeight = "4vh",
     }
 
@@ -720,11 +722,12 @@ function OpenComponentMenu(table, category, value)
         type = T.MenuComponents.element4.desc,
         desc = "<br><br>" ..
             imgPath:format(category) ..
-            "<br><br><br>" .. T.MenuComponents.element4.desc2 .. menuSpace .. Divider .. "<br>"..T.MenuComponents.element4.desc3 ,
+            "<br><br><br>" ..
+            T.MenuComponents.element4.desc2 .. menuSpace .. Divider .. "<br>" .. T.MenuComponents.element4.desc3,
     }
 
     elements[#elements + 1] = {
-        label =  T.MenuComponents.tint.lable,
+        label = T.MenuComponents.tint.lable,
         type = "slider",
         action = "tint0",
         tint1 = tint1 or 0,
@@ -736,7 +739,7 @@ function OpenComponentMenu(table, category, value)
         desc = "<br><br>" ..
             imgPath:format(category) ..
             "<br><br><br>" ..
-            T.MenuComponents.tint.desc..
+            T.MenuComponents.tint.desc ..
             menuSpace .. Divider .. T.MenuComponents.scroll
     }
 
@@ -995,7 +998,8 @@ function OpenAppearanceMenu(clothingtable, value)
         },
 
         {
-            label = T.MenuAppearance.element2.label .. "<br><span style='opacity:0.6;'>"..T.MenuAppearance.element2.desc2.. "</span>",
+            label = T.MenuAppearance.element2.label ..
+                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element2.desc2 .. "</span>",
             value = "heritage",
             desc = imgPath:format("character_creator_heritage") ..
                 "<br>" .. T.MenuAppearance.element2.desc .. "<br><br>" .. Divider .. "<br><br>"
@@ -1003,13 +1007,14 @@ function OpenAppearanceMenu(clothingtable, value)
 
         {
             label = T.MenuAppearance.element3.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuAppearance.element3.desc2.."</span>",
+                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element3.desc2 .. "</span>",
             value = "hair",
             desc = imgPath:format("character_creator_hair") ..
                 "<br>" .. T.MenuAppearance.element3.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
         {
-            label = T.MenuAppearance.element4.label .. "<br><span style='opacity:0.6;'>"..T.MenuAppearance.element4.desc2.."</span>",
+            label = T.MenuAppearance.element4.label ..
+                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element4.desc2 .. "</span>",
             value = "age",
             desc = imgPath:format("character_creator_appearance") ..
                 "<br>" .. T.MenuAppearance.element4.desc .. "<br><br>" .. Divider .. "<br><br>"
@@ -1031,14 +1036,16 @@ function OpenAppearanceMenu(clothingtable, value)
         },
 
         {
-            label = T.MenuAppearance.element6.label .. "<br><span style='opacity:0.6;'>"..T.MenuAppearance.element6.desc2.." </span>",
+            label = T.MenuAppearance.element6.label ..
+                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element6.desc2 .. " </span>",
             value = "face",
             desc = imgPath:format("character_creator_head") ..
                 "<br>" .. T.MenuAppearance.element6.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
 
         {
-            label = T.MenuAppearance.element7.label .. "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element7.desc .. "</span>",
+            label = T.MenuAppearance.element7.label ..
+                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element7.desc .. "</span>",
             value = "lifestyle",
             desc = imgPath:format("character_creator_lifestyle") ..
                 "<br>" .. T.MenuAppearance.element7.desc .. "<br><br>" .. Divider .. "<br><br>"
@@ -1155,7 +1162,8 @@ function OpenAgeMenu(table, value)
             desc = MenuSpace .. Divider .. "<br><br>" .. T.MenuAge.element.desc
         },
         {
-            label = T.MenuAge.element2.label .. "<br><span style='opacity:0.6;'>" .. T.MenuAge.element2.desc3.."</span>",
+            label = T.MenuAge.element2.label .. "<br><span style='opacity:0.6;'>" .. T.MenuAge.element2.desc3 ..
+                "</span>",
             type = "slider",
             value = AgingOpacityTracker,
             info = nil,
@@ -1225,21 +1233,23 @@ function OpenBodyMenu(table, value)
 
         {
             label = T.MenuBody.element.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuBody.Ammount .. ' ' .. #Config.BodyType.Body .. "</span>",
+                "<br><span style='opacity:0.6;'>" .. T.MenuBody.Ammount .. ' ' .. #Config.BodyType.Body .. "</span>",
             type = "slider",
             value = BodyTracker,
             tag = "body",
             min = -1,
             max = #Config.BodyType.Body,
             desc = imgPath:format("character_creator_build") ..
-                "<br>" .. T.MenuBody.element.desc .. #Config.BodyType.Body..' ' ..T.MenuBody.element.label.. "<br><br>" .. Divider .. "<br><br>",
+                "<br>" ..
+                T.MenuBody.element.desc ..
+                #Config.BodyType.Body .. ' ' .. T.MenuBody.element.label .. "<br><br>" .. Divider .. "<br><br>",
             itemHeight = "4vh",
         },
 
         {
 
             label = T.MenuBody.element2.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuBody.Ammount .. ' ' .. #Config.BodyType.Waist .. "</span>",
+                "<br><span style='opacity:0.6;'>" .. T.MenuBody.Ammount .. ' ' .. #Config.BodyType.Waist .. "</span>",
             type = "slider",
             value = WaistTracker,
             tag = "waist",
@@ -1256,7 +1266,7 @@ function OpenBodyMenu(table, value)
         {
 
             label = T.MenuBody.element3.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuBody.Ammount   .. ' '..
+                "<br><span style='opacity:0.6;'>" .. T.MenuBody.Ammount .. ' ' ..
                 #Config.DefaultChar[gender][SkinColorTracker].Body .. "</span>",
             type = "slider",
             value = BodyTypeTracker,
@@ -1266,7 +1276,8 @@ function OpenBodyMenu(table, value)
             desc = imgPath:format("character_creator_build") ..
                 "<br>" ..
                 T.MenuBody.element3.desc ..
-                #Config.DefaultChar[gender][SkinColorTracker].Body .. ' ' .. T.MenuBody.element.label.. "<br><br>" .. Divider .. "<br><br>",
+                #Config.DefaultChar[gender][SkinColorTracker].Body ..
+                ' ' .. T.MenuBody.element.label .. "<br><br>" .. Divider .. "<br><br>",
             tag = "Body",
             option = "type",
             itemHeight = "4vh",
@@ -1275,7 +1286,7 @@ function OpenBodyMenu(table, value)
         {
 
             label = T.MenuBody.element4.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuBody.Ammount   .. ' '..
+                "<br><span style='opacity:0.6;'>" .. T.MenuBody.Ammount .. ' ' ..
                 #Config.DefaultChar[gender][SkinColorTracker].Legs .. "</span>",
             type = "slider",
             value = LegsTypeTracker,
@@ -1285,7 +1296,8 @@ function OpenBodyMenu(table, value)
             desc = imgPath:format("character_creator_build") ..
                 "<br>" ..
                 T.MenuBody.element4.desc ..
-                #Config.DefaultChar[gender][SkinColorTracker].Legs ..  ' ' .. T.MenuBody.element.label.."<br><br>" .. Divider .. "<br><br>",
+                #Config.DefaultChar[gender][SkinColorTracker].Legs ..
+                ' ' .. T.MenuBody.element.label .. "<br><br>" .. Divider .. "<br><br>",
             tag = "Legs",
             option = "type",
             itemHeight = "4vh",
@@ -1304,7 +1316,7 @@ function OpenBodyMenu(table, value)
             value = "dress",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_build") ..
-                "<br><br><br>" .. T.Other.dress.desc ..  "<br><br>" .. Divider .. "<br><br>",
+                "<br><br><br>" .. T.Other.dress.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
     }
 
@@ -1533,7 +1545,8 @@ function OpenHairMenu(table, value)
 
     local elements = {
         {
-            label = T.MenuHair.element.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element.desc2.."</span>",
+            label = T.MenuHair.element.label .. "<br><span style='opacity:0.6;'>" .. T.MenuHair.element.desc2 ..
+                "</span>",
             value = "hair",
             desc = imgPath:format("character_creator_hair") ..
                 "<br>" .. T.MenuHair.element.desc .. "<br><br>" .. Divider .. "<br><br>",
@@ -1542,32 +1555,35 @@ function OpenHairMenu(table, value)
 
     if GetGender() == "Male" then
         elements[#elements + 1] = {
-            label = T.MenuHair.element2.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element2.desc2.."</span>",
+            label = T.MenuHair.element2.label .. "<br><span style='opacity:0.6;'>" ..
+                T.MenuHair.element2.desc2 .. "</span>",
             value = "beard",
             desc = imgPath:format("character_creator_facial_hair") ..
                 "<br>" .. T.MenuHair.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
         elements[#elements + 1] = {
-            label = T.MenuHair.element3.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element3.desc2.."</span>",
+            label = T.MenuHair.element3.label .. "<br><span style='opacity:0.6;'>" ..
+                T.MenuHair.element3.desc2 .. "</span>",
             value = "beardstabble",
             desc = imgPath:format("character_creator_facial_hair") ..
                 "<br>" .. T.MenuHair.element3.desc .. "<br><br>" .. Divider .. "<br><br>"
         }
     else
         elements[#elements + 1] = {
-            label = T.MenuHair.element4.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element4.desc2.."</span>",
+            label = T.MenuHair.element4.label .. "<br><span style='opacity:0.6;'>" ..
+                T.MenuHair.element4.desc2 .. "</span>",
             value = "bow",
             desc = T.MenuHair.element4.desc .. "<br><br>" .. Divider .. "<br><br>"
         }
     end
     elements[#elements + 1] = {
-        label = T.MenuHair.element5.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element5.desc2.."</span>",
+        label = T.MenuHair.element5.label .. "<br><span style='opacity:0.6;'>" .. T.MenuHair.element5.desc2 .. "</span>",
         value = "eyebrows",
         desc = imgPath:format("character_creator_eyebrows") ..
             "<br>" .. T.MenuHair.element5.desc .. "<br><br>" .. Divider .. "<br><br>"
     }
     elements[#elements + 1] = {
-        label = T.MenuHair.element6.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element6.desc2.."</span>",
+        label = T.MenuHair.element6.label .. "<br><span style='opacity:0.6;'>" .. T.MenuHair.element6.desc2 .. "</span>",
         value = "overlay",
         desc = imgPath:format("character_creator_hair") ..
             "<br>" .. T.MenuHair.element6.desc .. "<br><br>" .. Divider .. "<br><br>"
@@ -1575,7 +1591,7 @@ function OpenHairMenu(table, value)
     -- got add element to confimr pay
     if ShopType == "hair" then
         elements[#elements + 1] = {
-            label = "Confirm" .. "<br><span style='opacity:0.6;'>".. T.Inputs.confirmpurchase.. "</span>",
+            label = "Confirm" .. "<br><span style='opacity:0.6;'>" .. T.Inputs.confirmpurchase .. "</span>",
             value = "confirm",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_hair") ..
@@ -1583,7 +1599,7 @@ function OpenHairMenu(table, value)
         }
         -- close
         elements[#elements + 1] = {
-            label = T.MainMenu.close .. "<br><span style='opacity:0.6;'>"..T.MainMenu.closemenu.."</span>",
+            label = T.MainMenu.close .. "<br><span style='opacity:0.6;'>" .. T.MainMenu.closemenu .. "</span>",
             value = "close",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_hair") ..
@@ -1708,13 +1724,14 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
         },
         {
             label = T.MenuHairSelection.element2.label ..
-                "<br><span style='opacity:0.6;'>" .. ""..T.MenuBody.Ammount.. ' '  .. #tablehair[HairIndexTracker[category]] .. "</span>",
+                "<br><span style='opacity:0.6;'>" ..
+                "" .. T.MenuBody.Ammount .. ' ' .. #tablehair[HairIndexTracker[category]] .. "</span>",
             type = "slider",
             value = HairColorIndexTracker[category],
             min = 0,
             max = #tablehair[HairIndexTracker[category]],
             desc = T.MenuHairSelection.element2.desc ..
-            #tablehair[HairIndexTracker[category]] .. ' ' .. T.MenuHairSelection.element2.desc2,
+                #tablehair[HairIndexTracker[category]] .. ' ' .. T.MenuHairSelection.element2.desc2,
             tag = "color",
             itemHeight = "4vh",
         },
@@ -1792,7 +1809,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
                 UpdatePedVariation()
                 menu.setElement(2, "label",
                     T.MenuHairSelection.element2.label ..
-                    "<br><span style='opacity:0.6;'>" .. ""..T.MenuBody.Ammount   .. ' '.. #total .. "</span>")
+                    "<br><span style='opacity:0.6;'>" .. "" .. T.MenuBody.Ammount .. ' ' .. #total .. "</span>")
                 menu.setElement(2, "max", #total)
                 --[[     if #tablehair == data.current.value then -- workaround
                     menu.setElement(2, "value", 1)
@@ -1853,7 +1870,8 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
 
         {
             label = T.MenuBeardEyeBrows.element2.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuBody.Ammount  ..' ' .. #Config.color_palettes[category] .. "</span>",
+                "<br><span style='opacity:0.6;'>" ..
+                T.MenuBody.Ammount .. ' ' .. #Config.color_palettes[category] .. "</span>",
             type = "slider",
             tag = "color",
             value = MakeupColorIndexTracker[category],
@@ -1867,7 +1885,8 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
             category = category
         },
         {
-            label = T.MenuBeardEyeBrows.element3.label .. "<br><span style='opacity:0.6;'>"..T.MenuBeardEyeBrows.element3.desc2.."</span>",
+            label = T.MenuBeardEyeBrows.element3.label ..
+                "<br><span style='opacity:0.6;'>" .. T.MenuBeardEyeBrows.element3.desc2 .. "</span>",
             type = "slider",
             tag = "opacity",
             value = MakeupOpacityTracker[category],
@@ -1983,7 +2002,7 @@ function OpenFaceMenu(table, value)
     local elements = {
         {
             label = T.MenuFacial.element2.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuFacial.amount .. #Config.Teeth[gender] .. "</span>",
+                "<br><span style='opacity:0.6;'>" .. T.MenuFacial.amount .. #Config.Teeth[gender] .. "</span>",
             value = TheethIndexTracker,
             type = "slider",
             min = -1,
@@ -2014,7 +2033,8 @@ function OpenFaceMenu(table, value)
             img = "character_creator_jaw"
         },
         {
-            label = T.MenuFacial.element5.label .. "<br><span style='opacity:0.6;'> " .. T.MenuFacial.element5.desc2 .. "</span>",
+            label = T.MenuFacial.element5.label ..
+                "<br><span style='opacity:0.6;'> " .. T.MenuFacial.element5.desc2 .. "</span>",
             value = "life",
             tag = "head",
             desc = imgPath:format("character_creator_cranial_proportions") ..
@@ -2098,7 +2118,7 @@ function OpenFaceMenu(table, value)
     if IsInCharCreation or ShopType == "secondchance" then
         elements[#elements + 1] = {
             label = T.MenuFacial.element.label ..
-                T.MenuFacial.amount  ..
+                T.MenuFacial.amount ..
                 #Config.Eyes[gender] ..
                 "<br><span style='opacity:0.6;'> " .. Config.EyeImgColor[EyeColorIndexTracker] .. "</span>",
             value = EyeColorIndexTracker,
@@ -2117,7 +2137,7 @@ function OpenFaceMenu(table, value)
             value = "confirm",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_hair") ..
-                "<br><br><br>"  .. T.Inputs.confirmpurchase .. "<br><br>" .. Divider .. "<br><br>"
+                "<br><br><br>" .. T.Inputs.confirmpurchase .. "<br><br>" .. Divider .. "<br><br>"
         }
         -- close
         elements[#elements + 1] = {
@@ -2334,7 +2354,7 @@ function OpenLifeStyleMenu(table, value)
             }
             elements[#elements + 1] = {
                 label = labelLookup[key].label ..
-                    T.MenuLifeStyle.label .. "<br><span style='opacity:0.6;'>"..T.MenuLifeStyle.label .. "</span>",
+                    T.MenuLifeStyle.label .. "<br><span style='opacity:0.6;'>" .. T.MenuLifeStyle.label .. "</span>",
                 value = PlayerSkin[labelLookup[key].opacity],
                 min = 0,
                 max = 10,
@@ -2470,7 +2490,8 @@ function OpenMakeupMenu(table, value)
         if overlayLookup[key] then
             elements[#elements + 1] = {
                 label = overlayLookup[key].label ..
-                    "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element5.label .. T.MenuMakeup.element5.desc2 .. #value .. "</span>",
+                    "<br><span style='opacity:0.6;'>" ..
+                    T.MenuMakeup.element5.label .. T.MenuMakeup.element5.desc2 .. #value .. "</span>",
                 value = PlayerSkin[overlayLookup[key].txt_id],
                 min = 0,
                 max = #value,
@@ -2495,7 +2516,8 @@ function OpenMakeupMenu(table, value)
 
             elements[#elements + 1] = {
                 label = overlayLookup[key].label ..
-                    "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element6.label .. T.MenuMakeup.element7.desc2 .. "</span>",
+                    "<br><span style='opacity:0.6;'>" ..
+                    T.MenuMakeup.element6.label .. T.MenuMakeup.element7.desc2 .. "</span>",
                 value = ColorValue,
                 min = 0,
                 max = 10,
@@ -2523,7 +2545,8 @@ function OpenMakeupMenu(table, value)
 
                 elements[#elements + 1] = {
                     label = overlayLookup[key].label ..
-                        "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element7.label .. T.MenuMakeup.element7.desc2 .. "</span>",
+                        "<br><span style='opacity:0.6;'>" ..
+                        T.MenuMakeup.element7.label .. T.MenuMakeup.element7.desc2 .. "</span>",
                     value = Color2Value,
                     min = 0,
                     max = 10,
@@ -2569,7 +2592,8 @@ function OpenMakeupMenu(table, value)
 
             elements[#elements + 1] = {
                 label = overlayLookup[key].label ..
-                    "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element9.label .. T.MenuMakeup.element9.desc2 .. "</span>",
+                    "<br><span style='opacity:0.6;'>" ..
+                    T.MenuMakeup.element9.label .. T.MenuMakeup.element9.desc2 .. "</span>",
                 value = PlayerSkin[overlayLookup[key].opacity],
                 min = 0,
                 max = 0.9,
@@ -2590,15 +2614,16 @@ function OpenMakeupMenu(table, value)
 
     if ShopType == "makeup" then
         elements[#elements + 1] = {
-            label = T.Inputs.confirm .. "<br><span style='opacity:0.6;'>"..T.Inputs.confirmpurchase.."</span><br><br>",
+            label = T.Inputs.confirm .. "<br><span style='opacity:0.6;'>" .. T.Inputs.confirmpurchase ..
+                "</span><br><br>",
             value = "confirm",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_hair") ..
-                "<br><br><br>"..T.Inputs.confirmpurchase .."<br><br>" .. Divider .. "<br><br>"
+                "<br><br><br>" .. T.Inputs.confirmpurchase .. "<br><br>" .. Divider .. "<br><br>"
         }
         -- close
         elements[#elements + 1] = {
-            label = T.MainMenu.close .. "<br><span style='opacity:0.6;'>"..T.MainMenu.closemenu.."</span>",
+            label = T.MainMenu.close .. "<br><span style='opacity:0.6;'>" .. T.MainMenu.closemenu .. "</span>",
             value = "close",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_hair") ..
