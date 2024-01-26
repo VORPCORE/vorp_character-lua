@@ -723,7 +723,7 @@ function OpenComponentMenu(table, category, value)
     }
 
     elements[#elements + 1] = {
-        label =  T.MenuComponents.tint.lable,
+        label =  T.MenuComponents.tint.label,
         type = "slider",
         action = "tint0",
         tint1 = tint1 or 0,
@@ -740,7 +740,7 @@ function OpenComponentMenu(table, category, value)
     }
 
     elements[#elements + 1] = {
-        label = T.MenuComponents.tint2.lable,
+        label = T.MenuComponents.tint2.label,
         type = "slider",
         action = "tint1",
         tint0 = tint0 or 0,
@@ -757,7 +757,7 @@ function OpenComponentMenu(table, category, value)
     }
 
     elements[#elements + 1] = {
-        label = T.MenuComponents.tint3.lable,
+        label = T.MenuComponents.tint3.label,
         type = "slider",
         action = "tint2",
         tint0 = tint0 or 0,
@@ -883,9 +883,9 @@ function OpenComponentMenu(table, category, value)
                     TagData = GetMetaPedData(category == "Boots" and "boots" or category)
 
                     -- need to reset tings of elements
-                    menu.setElement(4, "value", TagData.tint0)
-                    menu.setElement(5, "value", TagData.tint1)
-                    menu.setElement(6, "value", TagData.tint2)
+                    menu.setElement(4, "value", TagData and TagData.tint0 or 0)
+                    menu.setElement(5, "value", TagData and TagData.tint1 or 0)
+                    menu.setElement(6, "value", TagData and TagData.tint2 or 0)
                     menu.setElement(4, "comp", data.current.comp[data.current.value].hex)
                     menu.setElement(5, "comp", data.current.comp[data.current.value].hex)
                     menu.setElement(6, "comp", data.current.comp[data.current.value].hex)
@@ -1297,7 +1297,7 @@ function OpenBodyMenu(table, value)
         },
 
         {
-            label = T.Other.undress.lable,
+            label = T.Other.undress.label,
             value = "undress",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_build") ..
@@ -1305,7 +1305,7 @@ function OpenBodyMenu(table, value)
         },
 
         {
-            label = T.Other.dress.lable,
+            label = T.Other.dress.label,
             value = "dress",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_build") ..
@@ -1434,7 +1434,7 @@ function OpenHerritageMenu(table, value)
 
     -- add elements to remove or put clothes in
     elements[#elements + 1] = {
-        label = T.Other.undress.lable,
+        label = T.Other.undress.label,
         value = "undress",
         desc = "<br><br>" ..
             imgPath:format("character_creator_build") ..
@@ -1442,7 +1442,7 @@ function OpenHerritageMenu(table, value)
     }
 
     elements[#elements + 1] = {
-        label = T.Other.dress.lable,
+        label = T.Other.dress.label,
         value = "dress",
         desc = "<br><br>" ..
             imgPath:format("character_creator_build") ..
