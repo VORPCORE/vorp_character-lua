@@ -175,20 +175,12 @@ local function SetUpCameraCharacterMovement(x, y, z, heading, zoom)
 	return cam
 end
 
-
-local z_position = 238.98
-local heading = 93.20
-local zoom = 55.00
-local function AdjustCharcaterHeading(amount)
-	heading = heading + amount
-	SetPedDesiredHeading(PlayerPedId(), heading)
-end
-
 function StartPrompts(value)
+	local zoom = 55.00
 	local locationx = value and value.Position.x or -560.1333
-	local locationy = value and value.Position?.y or -3780.923
+	local locationy = value and value.Position.y or -3780.923
 	local heading = value and value.Heading or -90.96693
-	local position = value and value.Position.z or z_position
+	local position = value and value.Position.z or 238.98
 	local zoommin = 15.00
 	local zoommax = 65.00
 	local maxUp = value and value.MaxUp or 239.60
@@ -202,25 +194,28 @@ function StartPrompts(value)
 		if IsInClothingStore and ShopType ~= "secondchance" then
 			TotalToPay = T.Other.total .. GetCurrentAmmountToPay() .. T.Other.pocketmoney .. pocketMoney .. "~q~ "
 		end
+		
 		local label = CreateVarString(10, "LITERAL_STRING", TotalToPay .. T.PromptLabels.CamAdjustments)
 		PromptSetActiveGroupThisFrame(PromptGroup2, label)
 
 		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key) then --right
-			AdjustCharcaterHeading(-5.0)
+			heading = heading + -1.5
+			SetPedDesiredHeading(PlayerPedId(), heading)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key2) then -- left
-			AdjustCharcaterHeading(5.0)
+			heading = heading + 1.5
+			SetPedDesiredHeading(PlayerPedId(), heading)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_camera_ws.key) then -- up
-			z_position = math.min(z_position + 0.01, maxUp)
-			SetCamCoord(cam, locationx, locationy, z_position)
+			position = math.min(position + 0.01, maxUp)
+			SetCamCoord(cam, locationx, locationy, position)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_camera_ws.key2) then -- down
-			z_position = math.max(z_position - 0.01, maxDown)
-			SetCamCoord(cam, locationx, locationy, z_position)
+			position = math.max(position - 0.01, maxDown)
+			SetCamCoord(cam, locationx, locationy, position)
 		end
 
 		if IsControlPressed(2, `INPUT_CURSOR_ACCEPT_HOLD`) then -- zoom out

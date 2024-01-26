@@ -70,7 +70,7 @@ Translation.Langs = {
             undress =  {lable ="Undress",desc ="Remove all clothes"},
             dress = {lable = "Dress",desc = "Put on all clothes"},
             pocketmoney = "~q~ Pocket ~o~$",
-            total = "Total  ~o~$ ",
+            total = "Total ~o~$ ",
             buy = "buy"
 
         },
@@ -932,7 +932,7 @@ Translation.Langs = {
             undress = { lable = "Despir", desc = "Remover todas as roupas" },
             dress = { lable = "Vestir", desc = "Colocar todas as roupas" },
             pocketmoney = "~q~ Bolso ~o~$",
-            total = "Total  ~o~$ ",
+            total = "Total ~o~$ ",
             buy = "Comprar"
         },
         Secondchance = {
@@ -1197,7 +1197,7 @@ Translation.Langs = {
             undress =  {lable ="Undress",desc ="Remove all clothes"},
             dress = {lable = "Dress",desc = "Put on all clothes"},
             pocketmoney = "~q~ Pochette ~o~$",
-            total = "Total  ~o~$ ",
+            total = "Total ~o~$ ",
             buy = "buy"
 
 
@@ -1493,7 +1493,7 @@ Translation.Langs = {
             undress =  {lable ="Undress",desc ="Remove all clothes"},
             dress = {lable = "Dress",desc = "Put on all clothes"},
             pocketmoney = "~q~ Pocket ~o~$",
-            total = "Total  ~o~$ ",
+            total = "Total ~o~$ ",
             buy = "buy"
 
         },
@@ -1780,7 +1780,7 @@ Translation.Langs = {
                 undress = { etiqueta = "Desvestir", desc = "Quitar toda la ropa" },
                 dress = { etiqueta = "Vestir", desc = "Ponerse toda la ropa" },
                 pocketmoney = "~q~ Bolsillo ~o~$",
-                total = "Total  ~o~$ ",
+                total = "Total ~o~$ ",
                 buy = "Comprar"
             },
             Secondchance = {

@@ -35,6 +35,9 @@ function CreateModel(model, position, index)
     SetPedCanBeTargetted(npc, false)
     SetEntityInvincible(npc, true)
     ConfigShops.Locations[index].Npc.Entity = npc
+    if ConfigShops.Locations[index].Npc.Scenario then
+        TaskStartScenarioInPlace(npc, GetHashKey(ConfigShops.Locations[index].Npc.Scenario), 0, true, false, false, false)
+    end
     SetTimeout(1000, function()
         FreezeEntityPosition(npc, true)
     end)
@@ -126,7 +129,7 @@ function PrepareClothingStore(value)
     RenderScriptCams(true, true, 1000, true, true, 0)
     CreateThread(function()
         if value.DrawLight then
-            DrawLight(value.DrawLight)
+            DrawLight(value.CameraPosition.Position)
         end
     end)
     SetCachedClothingIndex()

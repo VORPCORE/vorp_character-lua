@@ -685,8 +685,7 @@ function OpenComponentMenu(table, category, value)
     end
 
     elements[#elements + 1] = {
-        label = label .. "<br>" .. #table[category] ..' '.. T.MenuComponents.element.label
-,
+        label = label .. "<br>" .. #table[category] ..' '.. T.MenuComponents.element.label,
         type = "slider",
         value = indexComp or 0,
         info = true,
@@ -880,10 +879,13 @@ function OpenComponentMenu(table, category, value)
                             index = index
                         }
                     end
+
+                    TagData = GetMetaPedData(category == "Boots" and "boots" or category)
+
                     -- need to reset tings of elements
-                    menu.setElement(4, "value", 0)
-                    menu.setElement(5, "value", 0)
-                    menu.setElement(6, "value", 0)
+                    menu.setElement(4, "value", TagData.tint0)
+                    menu.setElement(5, "value", TagData.tint1)
+                    menu.setElement(6, "value", TagData.tint2)
                     menu.setElement(4, "comp", data.current.comp[data.current.value].hex)
                     menu.setElement(5, "comp", data.current.comp[data.current.value].hex)
                     menu.setElement(6, "comp", data.current.comp[data.current.value].hex)
@@ -900,7 +902,6 @@ function OpenComponentMenu(table, category, value)
                             TotalAmountToPay[category] = 0
                         end
                     end
-                    TagData = GetMetaPedData(category == "Boots" and "boots" or category)
                 end
                 return
             end
@@ -923,6 +924,11 @@ function OpenComponentMenu(table, category, value)
                             color = 0
                         }
                     end
+
+                    Applycomponents(component, category)
+
+                    TagData = GetMetaPedData(category == "Boots" and "boots" or category)
+
                     menu.setElement(1, "value", data.current.value)
                     menu.setElement(2, "comp", total)
                     menu.setElement(2, "desc",
@@ -934,23 +940,22 @@ function OpenComponentMenu(table, category, value)
                         #total ..
                         " Colors for this component" .. menuSpace .. Divider .. T.MenuComponents.scroll)
                     menu.setElement(2, "max", #total)
-                    menu.setElement(2, "value", 0)
+                    menu.setElement(2, "value", 1)
                     menu.setElement(2, "label", label .. "<br>" .. #total .. T.MenuComponents.element2.label)
                     menu.setElement(4, "comp", component.hex)
                     menu.setElement(5, "comp", component.hex)
                     menu.setElement(6, "comp", component.hex)
-                    menu.setElement(4, "value", 0)
-                    menu.setElement(5, "value", 0)
-                    menu.setElement(6, "value", 0)
+                    menu.setElement(4, "value", TagData and TagData.tint0 or 0)
+                    menu.setElement(5, "value", TagData and TagData.tint1 or 0)
+                    menu.setElement(6, "value", TagData and TagData.tint2 or 0)
 
-                    Applycomponents(component, category)
                     -- allow scroll back and forth
                     if data.current.value == #table[category] then
-                        menu.setElement(1, "value", 0)
+                        menu.setElement(1, "value", 1)
                     end
+
                     menu.refresh()
 
-                    TagData = GetMetaPedData(category == "Boots" and "boots" or category)
                     if not IsInClothingStore then
                         CachedComponents[category].comp = component.hex
                     else
