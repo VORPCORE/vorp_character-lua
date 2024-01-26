@@ -17,9 +17,9 @@ ConfigShops.SecondChanceCurrency = 0     -- 0 is cash 1 is gold 2 is tokens curr
 -- },
 
 ConfigShops.Locations = {
-    {                                                  -- valentine
+    {                                                  -- blackwater
         Prompt = {
-            Position = vec3(-761.61, -1291.98, 43.85), -- prompt location
+            Position = vector3(-761.61, -1291.98, 43.85), -- prompt location
             Label = "Clothing Store",                  -- prompt label
         },
         Npc = {
@@ -39,7 +39,7 @@ ConfigShops.Locations = {
             Position = vector4(-766.53, -1293.13, 43.84, 357.64),
         },
         CameraPosition = { -- camera position for the character editor
-            Position = vec3(-765.86, -1295.02, 44.14),
+            Position = vector3(-765.86, -1295.02, 44.14),
             Heading = 92.42,
             MaxUp = 44.85,
             MaxDown = 42.95,
