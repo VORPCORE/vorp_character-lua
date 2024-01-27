@@ -137,14 +137,16 @@ function PrepareClothingStore(value)
     DoScreenFadeIn(1000)
     LocalPlayer.state:set('PlayerIsInCharacterShops', true, true) -- this can be used in other resources to disable Huds or metabolism scripts apply effects etc
     repeat Wait(0) until IsScreenFadedIn()
-    CreateThread(function()
-        Wait(1000)
+    SetTimeout(1000, function() 
         FreezeEntityPosition(PlayerPedId(), false)
     end)
     if value.TypeOfShop == "secondchance" then
         OpenCharCreationMenu(Clothing, value)
     elseif value.TypeOfShop == "clothing" then
-        TriggerServerEvent('vorp_character:GetOutfits', Clothing, value)
+        local result = Core.Callback.TriggerAwait("vorp_character:callback:GetOutfits")
+        if result then
+            OpenClothingMenu(Clothing, value, result)
+        end
     elseif value.TypeOfShop == "hair" then
         OpenHairMenu(Clothing, value)
     elseif value.TypeOfShop == "makeup" then
@@ -153,9 +155,3 @@ function PrepareClothingStore(value)
         OpenFaceMenu(Clothing, value)
     end
 end
-
-RegisterNetEvent('vorp_character:PrepareClothingStore')
-AddEventHandler('vorp_character:PrepareClothingStore', function(Clothing, value, Outfits)
-	OpenClothingMenu(Clothing, value, Outfits)
-end)
-

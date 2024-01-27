@@ -163,7 +163,7 @@ function LoadComps(ped, components, set)
 					local TagData = GetMetaPedData(category == "Boots" and "boots" or category, ped)
 					if TagData then
 						SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, TagData.palette, value.tint0, value.tint1, value.tint2)
-						if IsPedAPlayer(ped) then
+						if IsPedAPlayer(ped) and CachedComponents[category] then
 							CachedComponents[category].drawable = TagData.drawable
 							CachedComponents[category].albedo = TagData.albedo
 							CachedComponents[category].normal = TagData.normal

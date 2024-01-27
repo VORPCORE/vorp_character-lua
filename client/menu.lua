@@ -129,7 +129,7 @@ function Applycomponents(comp, category)
 
         if not comp.remove then
             IsPedReadyToRender()
-            ReloadAllComponents()
+            -- ReloadAllComponents()    -- check menu wait
             RemoveCompsCantWearTogether(category)
             UpdatePedVariation()
         end
@@ -978,10 +978,10 @@ function OpenComponentMenu(table, category, value, Outfits)
                     menu.setElement(5, "value", TagData and TagData.tint1 or 0)
                     menu.setElement(6, "value", TagData and TagData.tint2 or 0)
 
-                    -- -- allow scroll back and forth
-                    -- if data.current.value == #table[category] then
-                    --     menu.setElement(1, "value", 1)
-                    -- end
+                    -- allow scroll back and forth
+                    if data.current.value == #table[category] then
+                        menu.setElement(1, "value", 1)
+                    end
 
                     menu.refresh()
 
@@ -2835,7 +2835,7 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
             UpdatePedVariation()
         end
     end
-    LoadComps(PlayerPedId(), ConvertTableComps(comps, compTints), false)
+    LoadComps(PlayerPedId(), ConvertTableComps(comps, IndexTintCompsToNumber(compTints)))
 
     local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
 
@@ -2877,12 +2877,16 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
                         Outfit = Outfit,
                     })
                 if result then
-                    local comps = Outfit.comps and json.decode(Outfit.comps) or {}
-                    local compTints = Outfit.compsTints and json.decode(Outfit.compTints) or {}
-                
-                    CachedComponents = ConvertTable(comps, compTints)
+                    local comps = {}
 
-                    TriggerServerEvent('vorp_character:SetOutfit', Outfit)
+                    for k, v in pairs(Outfit.comps and json.decode(Outfit.comps) or {}) do
+                        comps[k] = { comp = v }
+                    end
+                
+                    local compTints = Outfit.compTints and json.decode(Outfit.compTints) or {}
+                
+                    CachedComponents = ConvertTableComps(comps, IndexTintCompsToNumber(compTints))
+
                     menu.close()
                     return BackFromMenu(value)
                 end
@@ -2906,16 +2910,21 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
                 TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" and Result == Outfit.title then
-                        TriggerServerEvent('vorp_character:DeleteOutfit', Outfit)
+                        local result = Core.Callback.TriggerAwait("vorp_character:callback:DeleteOutfit",
+                        {
+                            Outfit = Outfit,
+                        })
 
-                        for i, v in pairs(Outfits) do
-                            if v.id == Outfit.id then
-                                table.remove(Outfits, i)
-                                break
+                        if result then
+                            for i, v in pairs(Outfits) do
+                                if v.id == Outfit.id then
+                                    table.remove(Outfits, i)
+                                    break
+                                end
                             end
-                        end
 
-                        OpenOutfitsMenu(Table, value, Outfits)
+                            OpenOutfitsMenu(Table, value, Outfits)
+                        end
                     end
                 end)
             end

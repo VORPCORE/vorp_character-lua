@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global
 
-T = Translation.Langs[Lang]
+local T = Translation.Langs[Lang]
 local random = math.random(1, #Config.SpawnPosition)
 local Core = exports.vorp_core:GetCore()
 local MaxCharacters = Core.maxCharacters
@@ -213,7 +213,7 @@ Core.Callback.Register("vorp_character:callback:PayToShop", function(source, cal
 
 	if arguments.Result and arguments.Result ~= '' then
 		local Parameters = { character.identifier, character.charIdentifier, arguments.Result, json.encode(arguments.comps), json.encode(arguments.compTints) }
-		exports.ghmattimysql:execute("INSERT INTO outfits (identifier, charidentifier, title, comps, compTints) VALUES (?, ?, ? ,?, ?)", Parameters)
+		exports.oxmysql:execute("INSERT INTO outfits (identifier, charidentifier, title, comps, compTints) VALUES (?, ?, ? ,?, ?)", Parameters)
 	end
 
 	return callback(true)
@@ -267,32 +267,30 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 	return callback(true)
 end)
 
-RegisterServerEvent("vorp_character:GetOutfits")
-AddEventHandler("vorp_character:GetOutfits", function(Clothing, value)
+Core.Callback.Register("vorp_character:callback:GetOutfits", function(source, callback, arguments)
 	local _source = source
 	local Character = Core.getUser(_source).getUsedCharacter
 
 	exports.oxmysql:execute("SELECT * FROM outfits WHERE `identifier` = ? AND `charidentifier` = ?", { Character.identifier, Character.charIdentifier }, function(Outfits)
-		TriggerClientEvent('vorp_character:PrepareClothingStore', _source, Clothing, value, Outfits)
+		return callback(Outfits)
 	end)
 end)
 
--- RegisterNetEvent('vorp_character:SetOutfit')
--- AddEventHandler('vorp_character:SetOutfit', function(Outfit)
 Core.Callback.Register("vorp_character:callback:SetOutfit", function(source, callback, arguments)
 	local _source = source
 	local Character = Core.getUser(_source).getUsedCharacter
-
+	
 	Character.updateComps(arguments.Outfit.comps or '{}')
 	Character.updateCompTints(arguments.Outfit.compTints or '{}')
 
 	return callback(true)
 end)
 
-RegisterNetEvent('vorp_character:DeleteOutfit')
-AddEventHandler('vorp_character:DeleteOutfit', function(Outfit)
+Core.Callback.Register("vorp_character:callback:DeleteOutfit", function(source, callback, arguments)
 	local _source = source
 	local Character = Core.getUser(_source).getUsedCharacter
 
-	exports.oxmysql:execute("DELETE FROM outfits WHERE identifier = ? AND id = ?", { Character.identifier, Outfit.id })
+	exports.oxmysql:execute("DELETE FROM outfits WHERE identifier = ? AND id = ?", { Character.identifier, arguments.Outfit.id })
+
+	return callback(true)
 end)
