@@ -821,8 +821,6 @@ function OpenComponentMenu(table, category, value, Outfits)
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
                     TagData.palette, tint0, tint1, tint2)
                 UpdatePedVariation()
-                menu.setElement(5, "tint0", tint0)
-                menu.setElement(6, "tint0", tint0)
                 menu.refresh()
                 if not PlayerTrackingData[category][comp] then
                     PlayerTrackingData[category][comp] = { tint1 = tint1, tint2 = tint2 }
@@ -838,10 +836,7 @@ function OpenComponentMenu(table, category, value, Outfits)
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
                     TagData.palette, tint0, tint1, tint2)
                 UpdatePedVariation()
-                menu.setElement(4, "tint1", tint1)
-                menu.setElement(6, "tint1", tint1)
                 menu.refresh()
-
                 if not PlayerTrackingData[category][comp] then
                     PlayerTrackingData[category][comp] = { tint0 = tint0, tint2 = tint2 }
                 end
@@ -856,8 +851,6 @@ function OpenComponentMenu(table, category, value, Outfits)
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
                     TagData.palette, tint0, tint1, tint2)
                 UpdatePedVariation()
-                menu.setElement(4, "tint2", tint2)
-                menu.setElement(5, "tint2", tint2)
                 menu.refresh()
                 if not PlayerTrackingData[category][comp] then
                     PlayerTrackingData[category][comp] = { tint0 = tint0, tint1 = tint1 }
