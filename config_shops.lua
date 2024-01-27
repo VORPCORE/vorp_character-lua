@@ -45,8 +45,8 @@ ConfigShops.Locations = {
             MaxUp = 44.85,
             MaxDown = 42.95,
         },
-        DrawLight = true,
-        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
+        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                -- if you need a light in the store put true
 
     },
     {                                                     -- Rhodes
