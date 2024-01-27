@@ -3,18 +3,17 @@ ConfigShops                      = {}
 ConfigShops.UseShops             = true  -- if you want to use the shops set to true if not set to false
 
 ConfigShops.SecondChancePrice    = 15000 -- if store is second chance then this is the price they need to pay to use it
+    
 ConfigShops.SecondChanceCurrency = 0     -- 0 is cash 1 is gold 2 is tokens currency
 --[[ types of stores]]
+                                         --
 -- clothing
 -- hair
 -- makeup
 -- face
 -- secondchance -- this enables all
 
--- DrawLight = { -- if need light add this to config
---   pos = vector3(-766.35, -1294.86, 43.85),
---
--- },
+
 
 ConfigShops.Locations = {
     {                                                     -- blackwater
@@ -44,8 +43,8 @@ ConfigShops.Locations = {
             MaxUp = 44.85,
             MaxDown = 42.95,
         },
-        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
-
+        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                -- if you need a light in the store put true
     },
     {                                                     -- Rhodes
         Prompt = {
