@@ -126,7 +126,7 @@ function PrepareClothingStore(value)
     RenderScriptCams(true, true, 1000, true, true, 0)
     CreateThread(function()
         if value.DrawLight then
-            DrawLight(value.DrawLight)
+            DrawLight(value.CameraPosition.Position)
         end
     end)
     SetCachedClothingIndex()
