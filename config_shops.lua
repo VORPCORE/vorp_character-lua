@@ -16,6 +16,35 @@ ConfigShops.SecondChanceCurrency = 0     -- 0 is cash 1 is gold 2 is tokens curr
 
 
 ConfigShops.Locations = {
+    {                                                   -- valentine
+        Prompt = {
+            Position = vector3(-326.1, 774.48, 117.46), -- prompt location
+            Label = "Clothing Store",                   -- prompt label
+        },
+        Npc = {
+            Enable = true,
+            Model = "CS_FRANCIS_SINCLAIR",
+            Position = vector4(-325.55, 773.02, 116.44, 15.63),
+        },
+        Blip = {
+            Enable = true,
+            Sprite = 1195729388,
+            Name = "Clothing Store",
+        },
+        EditCharacter = { -- where the player will be teleported to edit character
+            Position = vector4(-329.43, 775.29, 121.63, 278.17),
+        },
+        SpawnBack = { -- where the player will be teleported to after editing character
+            Position = vector4(-323.12, 774.47, 121.63, 186.42),
+        },
+        CameraPosition = { -- camera position for the character editor
+            Position = vector3(-327.38, 775.48, 122.00),
+            Heading = 97.6,
+            MaxUp = 122.75,
+            MaxDown = 120.91,
+        },
+        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
+    },
     {                                                     -- blackwater
         Prompt = {
             Position = vector3(-761.61, -1291.98, 43.85), -- prompt location
