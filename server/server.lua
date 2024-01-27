@@ -217,11 +217,17 @@ Core.Callback.Register("vorp_character:callback:CanPayForSecondChance", function
 	local _source = source
 	local User = Core.getUser(_source)
 	local character = User.getUsedCharacter
-	local money = character.money
+	local money = ConfigShops.SecondChanceCurrency == 0 and character.money or ConfigShops.SecondChanceCurrency == 1 and character.gold or ConfigShops.SecondChanceCurrency == 2 and character.rol
 	local amountToPay = ConfigShops.SecondChancePrice
 
 	if money < amountToPay then
-		Core.NotifyRightTip(_source, "You don't have enough money price is: $" .. ConfigShops.SecondChancePrice, 6000)
+		if ConfigShops.SecondChanceCurrency == 0 then
+			Core.NotifyRightTip(_source, "You don't have enough money, you need: $" .. ConfigShops.SecondChancePrice, 6000)
+		elseif ConfigShops.SecondChanceCurrency == 1 then
+			Core.NotifyRightTip(_source, "You don't have enough gold, you need: " .. ConfigShops.SecondChancePrice, 6000)
+		elseif ConfigShops.SecondChanceCurrency == 2 then
+			Core.NotifyRightTip(_source, "You don't have enough token(s), you need: " .. ConfigShops.SecondChancePrice, 6000)
+		end
 		return callback(false)
 	end
 
@@ -241,7 +247,13 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 	local amountToPay = ConfigShops.SecondChancePrice
 
 	if money < amountToPay then
-		Core.NotifyRightTip(_source, "You don't have enough money price is: $" .. ConfigShops.SecondChancePrice, 6000)
+		if ConfigShops.SecondChanceCurrency == 0 then
+			Core.NotifyRightTip(_source, "You don't have enough money, you need: $" .. ConfigShops.SecondChancePrice, 6000)
+		elseif ConfigShops.SecondChanceCurrency == 1 then
+			Core.NotifyRightTip(_source, "You don't have enough gold, you need: " .. ConfigShops.SecondChancePrice, 6000)
+		elseif ConfigShops.SecondChanceCurrency == 2 then
+			Core.NotifyRightTip(_source, "You don't have enough token(s), you need: " .. ConfigShops.SecondChancePrice, 6000)
+		end
 		return callback(false)
 	end
 
@@ -257,6 +269,6 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 		character.updateCompTints(json.encode(data.compTints))
 	end
 
-	character.removeCurrency(0, amountToPay)
+	character.removeCurrency(money, amountToPay)
 	return callback(true)
 end)
