@@ -313,14 +313,6 @@ function GetMetaPedData(category, ped)
     return { drawable = drawable, albedo = albedo, normal = normal, material = material, palette = palette, tint0 = tint0, tint1 = tint1, tint2 = tint2 }
 end
 
-function GetComponentToApplyByIndex(total)
-    for key, value in ipairs(total) do
-        if #total == key then
-            return value
-        end
-    end
-end
-
 function ConvertTableComps(comps, compTints)
     local NewComps = {}
     for k, v in pairs(comps) do

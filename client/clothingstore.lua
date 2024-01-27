@@ -140,7 +140,7 @@ function PrepareClothingStore(value)
     if value.TypeOfShop == "secondchance" then
         OpenCharCreationMenu(Clothing, value)
     elseif value.TypeOfShop == "clothing" then
-        OpenClothingMenu(Clothing, value)
+        TriggerServerEvent('vorp_character:GetOutfits', Clothing, value)
     elseif value.TypeOfShop == "hair" then
         OpenHairMenu(Clothing, value)
     elseif value.TypeOfShop == "makeup" then
@@ -149,3 +149,9 @@ function PrepareClothingStore(value)
         OpenFaceMenu(Clothing, value)
     end
 end
+
+RegisterNetEvent('vorp_character:PrepareClothingStore')
+AddEventHandler('vorp_character:PrepareClothingStore', function(Clothing, value, Outfits)
+	OpenClothingMenu(Clothing, value, Outfits)
+end)
+

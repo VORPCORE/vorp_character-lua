@@ -175,6 +175,12 @@ local function SetUpCameraCharacterMovement(x, y, z, heading, zoom)
 	return cam
 end
 
+local function AdjustCharcaterHeading(heading, amount)
+	heading = heading + amount
+	SetPedDesiredHeading(PlayerPedId(), heading)
+	return heading
+end
+
 function StartPrompts(value)
 	local zoom = 55.00
 	local locationx = value and value.Position.x or -560.1333
@@ -199,13 +205,11 @@ function StartPrompts(value)
 		PromptSetActiveGroupThisFrame(PromptGroup2, label)
 
 		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key) then --right
-			heading = heading + -1.5
-			SetPedDesiredHeading(PlayerPedId(), heading)
+			heading = AdjustCharcaterHeading(heading, -1.5)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key2) then -- left
-			heading = heading + 1.5
-			SetPedDesiredHeading(PlayerPedId(), heading)
+			heading = AdjustCharcaterHeading(heading, 1.5) 
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_camera_ws.key) then -- up
@@ -218,7 +222,7 @@ function StartPrompts(value)
 			SetCamCoord(cam, locationx, locationy, position)
 		end
 
-		if IsControlPressed(2, `INPUT_CURSOR_ACCEPT_HOLD`) then -- zoom out
+		if IsControlPressed(2, `INPUT_CONTEXT_ACTION`) then -- zoom out
 			zoom = math.min(zoom + 0.5, zoommax)
 			SetCamFov(cam, zoom)
 		end

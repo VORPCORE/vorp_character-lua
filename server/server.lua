@@ -4,23 +4,6 @@ local random = math.random(1, #Config.SpawnPosition)
 local Core = exports.vorp_core:GetCore()
 local MaxCharacters = Core.maxCharacters
 
-function ConvertTable(comps, compTints)
-	local NewComps = {}
-
-	for k, comp in pairs(comps) do
-		NewComps[k] = { comp = comp, tint0 = 0, tint1 = 0, tint2 = 0 }
-
-		if compTints and compTints[k] and compTints[k][tostring(comp)] then
-			local compTint = compTints[k][tostring(comp)]
-			NewComps[k].tint0 = compTint.tint0 or 0
-			NewComps[k].tint1 = compTint.tint1 or 0
-			NewComps[k].tint2 = compTint.tint2 or 0
-		end
-	end
-
-	return NewComps
-end
-
 function Checkmissingkeys(data, key)
 	local switch = false
 	if key == "skin" then
@@ -189,13 +172,13 @@ Core.Callback.Register("vorp_character:callback:PayToShop", function(source, cal
 
 	if money < amountToPay then
 		SetTimeout(5000, function()
-			Core.NotifyRightTip(_source, "You don't have enough money", 6000)
+			Core.NotifyRightTip(_source, string.format(T.PayToShop.DontMoney, amountToPay), 6000)
 		end)
 		return callback(false)
 	end
 
 	SetTimeout(5000, function()
-		Core.NotifyRightTip(_source, "You paid $" .. amountToPay, 6000)
+		Core.NotifyRightTip(_source, string.format(T.PayToShop.Youpaid, amountToPay), 6000)
 	end)
 
 	character.removeCurrency(0, amountToPay)
@@ -221,7 +204,7 @@ Core.Callback.Register("vorp_character:callback:CanPayForSecondChance", function
 	local amountToPay = ConfigShops.SecondChancePrice
 
 	if money < amountToPay then
-		Core.NotifyRightTip(_source, "You don't have enough money price is: $" .. ConfigShops.SecondChancePrice, 6000)
+		Core.NotifyRightTip(_source, string.format(T.PayToShop.DontMoney, ConfigShops.SecondChancePrice), 6000)
 		return callback(false)
 	end
 
@@ -241,7 +224,7 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 	local amountToPay = ConfigShops.SecondChancePrice
 
 	if money < amountToPay then
-		Core.NotifyRightTip(_source, "You don't have enough money price is: $" .. ConfigShops.SecondChancePrice, 6000)
+		Core.NotifyRightTip(_source,string.format(T.PayToShop.DontMoney, ConfigShops.SecondChancePrice), 6000)
 		return callback(false)
 	end
 
@@ -259,4 +242,34 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 
 	character.removeCurrency(0, amountToPay)
 	return callback(true)
+end)
+
+RegisterServerEvent("vorp_character:GetOutfits")
+AddEventHandler("vorp_character:GetOutfits", function(Clothing, value)
+	local _source = source
+	local Character = Core.getUser(_source).getUsedCharacter
+
+	exports.oxmysql:execute("SELECT * FROM outfits WHERE `identifier` = ? AND `charidentifier` = ?", { Character.identifier, Character.charIdentifier }, function(Outfits)
+		TriggerClientEvent('vorp_character:PrepareClothingStore', _source, Clothing, value, Outfits)
+	end)
+end)
+
+-- RegisterNetEvent('vorp_character:SetOutfit')
+-- AddEventHandler('vorp_character:SetOutfit', function(Outfit)
+Core.Callback.Register("vorp_character:callback:SetOutfit", function(source, callback, arguments)
+	local _source = source
+	local Character = Core.getUser(_source).getUsedCharacter
+
+	Character.updateComps(arguments.Outfit.comps or '{}')
+	Character.updateCompTints(arguments.Outfit.compTints or '{}')
+
+	return callback(true)
+end)
+
+RegisterNetEvent('vorp_character:DeleteOutfit')
+AddEventHandler('vorp_character:DeleteOutfit', function(Outfit)
+	local _source = source
+	local Character = Core.getUser(_source).getUsedCharacter
+
+	exports.oxmysql:execute("DELETE FROM outfits WHERE identifier = ? AND id = ?", { Character.identifier, Outfit.id })
 end)
