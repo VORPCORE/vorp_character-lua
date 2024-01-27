@@ -613,7 +613,7 @@ function OpenClothingMenu(Table, value, Outfits)
                         attributes = {
                             inputHeader = T.MenuOutfits.inputHeader2,
                             type = "textarea",
-                            pattern = ".*{2,10}",
+                            pattern = ".*",
                             title = T.Inputs.title,
                             style = "border-radius: 10px; background-color: ; border:none;"
                         }
@@ -2775,7 +2775,7 @@ function OpenOutfitsMenu(Table, value, Outfits)
             UpdatePedVariation()
         end
     end
-    LoadComps(PlayerPedId(), CachedComponents, false, true)
+    LoadComps(PlayerPedId(), CachedComponents, false)
     SetCachedClothingIndex()
 
     local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
@@ -2822,7 +2822,7 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
     MenuData.CloseAll()
     
     local comps = Outfit.comps and json.decode(Outfit.comps) or {}
-    local compTints = Outfit.compsTints and json.decode(Outfit.compTints) or {}
+    local compTints = Outfit.compTints and json.decode(Outfit.compTints) or {}
 
     for i, tag in pairs(Config.HashList) do
         if i ~= 'Hair' and i ~= 'Beard' then
@@ -2830,7 +2830,7 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
             UpdatePedVariation()
         end
     end
-    LoadComps(PlayerPedId(), ConvertTable(comps, compTints), false, true)
+    LoadComps(PlayerPedId(), ConvertTable(comps, compTints), false)
 
     local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
 
@@ -2893,7 +2893,7 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
                     attributes = {
                         inputHeader = T.MenuOutfits.inputHeader,
                         type = "textarea",
-                        pattern = ".*{2,10}",
+                        pattern = ".*",
                         title = T.Inputs.title,
                         style = "border-radius: 10px; background-color: ; border:none;"
                     }

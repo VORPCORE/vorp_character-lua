@@ -273,6 +273,8 @@ ConfigShops.Prices = {
         Suspender = { price = 10 },
         armor = { price = 10 },
         Gunbelt = { price = 10 },
+        RingLh = { price = 10 },
+        RingRh = { price = 10 },
     },
     hair = {
         eyebrows = {
@@ -293,8 +295,6 @@ ConfigShops.Prices = {
         hair = { -- shaved head
             price = 10,
         },
-
-
     },
     makeup = {
         lipsticks = {

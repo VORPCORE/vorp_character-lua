@@ -145,7 +145,7 @@ local function LoadFaceFeatures(ped, skin)
 	end
 end
 
-function LoadComps(ped, components, set, preview)
+function LoadComps(ped, components, set)
 	for category, value in pairs(components) do
 		if value.comp ~= -1 then
 			local status = not set and "false" or GetResourceKvpString(tostring(value.comp))
@@ -163,7 +163,7 @@ function LoadComps(ped, components, set, preview)
 					local TagData = GetMetaPedData(category == "Boots" and "boots" or category, ped)
 					if TagData then
 						SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, TagData.palette, value.tint0, value.tint1, value.tint2)
-						if IsPedAPlayer(ped) and not preview then
+						if IsPedAPlayer(ped) then
 							CachedComponents[category].drawable = TagData.drawable
 							CachedComponents[category].albedo = TagData.albedo
 							CachedComponents[category].normal = TagData.normal
