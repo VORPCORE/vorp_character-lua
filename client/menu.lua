@@ -2821,7 +2821,12 @@ end
 function OpenOutfitMenu(Table, value, Outfits, Outfit)
     MenuData.CloseAll()
     
-    local comps = Outfit.comps and json.decode(Outfit.comps) or {}
+    local comps = {}
+
+    for k, v in pairs(Outfit.comps and json.decode(Outfit.comps) or {}) do
+        comps[k] = { comp = v }
+    end
+
     local compTints = Outfit.compTints and json.decode(Outfit.compTints) or {}
 
     for i, tag in pairs(Config.HashList) do
@@ -2830,7 +2835,7 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
             UpdatePedVariation()
         end
     end
-    LoadComps(PlayerPedId(), ConvertTable(comps, compTints), false)
+    LoadComps(PlayerPedId(), ConvertTableComps(comps, compTints), false)
 
     local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
 

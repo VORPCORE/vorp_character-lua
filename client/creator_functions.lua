@@ -318,8 +318,8 @@ function ConvertTableComps(comps, compTints)
     for k, v in pairs(comps) do
         NewComps[k] = { comp = v.comp, tint0 = 0, tint1 = 0, tint2 = 0 }
         if compTints and compTints[k] then
-            if v.comp ~= -1 and compTints[k][v.comp] then
-                local compTint = compTints[k][v.comp]
+            if v.comp ~= -1 and compTints[k][tostring(v.comp)] then
+                local compTint = compTints[k][tostring(v.comp)]
                 NewComps[k].tint0 = compTint.tint0 or 0
                 NewComps[k].tint1 = compTint.tint1 or 0
                 NewComps[k].tint2 = compTint.tint2 or 0

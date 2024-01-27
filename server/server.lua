@@ -5,6 +5,23 @@ local random = math.random(1, #Config.SpawnPosition)
 local Core = exports.vorp_core:GetCore()
 local MaxCharacters = Core.maxCharacters
 
+function ConvertTable(comps, compTints)
+	local NewComps = {}
+
+	for k, comp in pairs(comps) do
+		NewComps[k] = { comp = comp, tint0 = 0, tint1 = 0, tint2 = 0 }
+
+		if compTints and compTints[k] and compTints[k][tostring(comp)] then
+			local compTint = compTints[k][tostring(comp)]
+			NewComps[k].tint0 = compTint.tint0 or 0
+			NewComps[k].tint1 = compTint.tint1 or 0
+			NewComps[k].tint2 = compTint.tint2 or 0
+		end
+	end
+
+	return NewComps
+end
+
 function Checkmissingkeys(data, key)
 	local switch = false
 	if key == "skin" then
