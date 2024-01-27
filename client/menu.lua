@@ -979,9 +979,9 @@ function OpenComponentMenu(table, category, value, Outfits)
                     menu.setElement(6, "value", TagData and TagData.tint2 or 0)
 
                     -- allow scroll back and forth
-                    if data.current.value == #table[category] then
-                        menu.setElement(1, "value", 1)
-                    end
+                    -- if data.current.value == #table[category] then
+                    --     menu.setElement(1, "value", 1)
+                    -- end
 
                     menu.refresh()
 
