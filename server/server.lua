@@ -1,5 +1,6 @@
 ---@diagnostic disable: undefined-global
 
+T = Translation.Langs[Lang]
 local random = math.random(1, #Config.SpawnPosition)
 local Core = exports.vorp_core:GetCore()
 local MaxCharacters = Core.maxCharacters
@@ -191,6 +192,11 @@ Core.Callback.Register("vorp_character:callback:PayToShop", function(source, cal
 	end
 	if arguments.compTints then
 		character.updateCompTints(json.encode(arguments.compTints))
+	end
+
+	if arguments.Result and arguments.Result ~= '' then
+		local Parameters = { character.identifier, character.charIdentifier, arguments.Result, json.encode(arguments.comps), json.encode(arguments.compTints) }
+		exports.ghmattimysql:execute("INSERT INTO outfits (identifier, charidentifier, title, comps, compTints) VALUES (?, ?, ? ,?, ?)", Parameters)
 	end
 
 	return callback(true)

@@ -330,6 +330,10 @@ function ConvertTableComps(comps, compTints)
 end
 
 function SetCachedClothingIndex()
+    for i, v in pairs(PlayerClothing) do
+        PlayerClothing[i] = {}
+    end
+
     local gender = GetGender() == "Male" and "male" or "female"
     for key, value in pairs(CachedComponents) do
         local Data = Data.clothing[gender][key]

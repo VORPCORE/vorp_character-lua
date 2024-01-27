@@ -175,7 +175,7 @@ function GetDescriptionLayout(value, price)
     local desc = imgPath:format(value.img) ..
         "<br><br>" .. value.desc .. "<br><br><br><br>" .. Divider ..
         "<br><span style='font-family:crock; float:left; font-size: 22px;'>" ..
-        T.Other.total .. " </span><span style='font-family:crock;float:right; font-size: 22px;'>$" ..
+        T.PayToShop.Total .. " </span><span style='font-family:crock;float:right; font-size: 22px;'>$" ..
         (price or GetCurrentAmmountToPay()) .. "</span><br>" .. Divider
     return desc
 end
@@ -535,7 +535,7 @@ function OpenClothingMenu(Table, value, Outfits)
     local ClothingData = SortData(Table)
     local elements     = {}
 
-    if Outfits then
+    if Outfits and ShopType == "clothing" and not IsInCharCreation then
         elements[#elements + 1] = {
             label = T.MenuOutfits.title ..
                 "<br><span style='opacity:0.6;'>" .. #Outfits .. ' ' .. T.MenuOutfits.title .. "</span>",
@@ -604,21 +604,39 @@ function OpenClothingMenu(Table, value, Outfits)
 
             if data.current.value == "buy" then
                 if GetCurrentAmmountToPay() > 0 then
-                    local NewTable = GetNewCompOldStructure(PlayerClothing)
-                    local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop",
-                        {
-                            comps = NewTable,
-                            skin = CachedSkin,
-                            compTints = PlayerTrackingData,
-                            amount =
-                                GetCurrentAmmountToPay()
-                        })
-                    if result then
-                        AssertCachedComponents()
-                    end
+                    local MyInput = {
+                        type = "enableinput",
+                        inputType = "input",
+                        button = T.Inputs.confirm,
+                        placeholder = T.MenuOutfits.outfitName,
+                        style = "block",
+                        attributes = {
+                            inputHeader = T.MenuOutfits.inputHeader2,
+                            type = "textarea",
+                            pattern = ".*{2,10}",
+                            title = T.Inputs.title,
+                            style = "border-radius: 10px; background-color: ; border:none;"
+                        }
+                    }
+                    TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
+                        local Result = tostring(result)
+                        
+                        local NewTable = GetNewCompOldStructure(PlayerClothing)
+                        local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop",
+                            {
+                                comps = NewTable,
+                                skin = CachedSkin,
+                                compTints = PlayerTrackingData,
+                                amount = GetCurrentAmmountToPay(),
+                                Result = Result,
+                            })
+                        if result then
+                            AssertCachedComponents()
+                            menu.close()
+                            BackFromMenu(value)
+                        end
+                    end)
                 end
-                menu.close()
-                return BackFromMenu(value)
             end
 
             if (data.current.value and data.current.value ~= "buy") then
@@ -949,7 +967,7 @@ function OpenComponentMenu(table, category, value, Outfits)
                         T.MenuComponents.element2.desc ..
                         " " ..
                         #total ..
-                        " Colors for this component" .. menuSpace .. Divider .. T.MenuComponents.scroll)
+                        " " .. T.MenuComponents.element2.desc2 .. menuSpace .. Divider .. T.MenuComponents.scroll)
                     menu.setElement(2, "max", #total)
                     menu.setElement(2, "value", 1)
                     menu.setElement(2, "label", label .. "<br><span style='opacity:0.6;'>" .. #total .. T.MenuComponents.element2.label .. "</span>")
@@ -2749,7 +2767,6 @@ end
 function OpenOutfitsMenu(Table, value, Outfits)
     MenuData.CloseAll()
 
-    PlayerTrackingData = {}
     TotalAmountToPay = {}
 
     for i, tag in pairs(Config.HashList) do
@@ -2758,7 +2775,8 @@ function OpenOutfitsMenu(Table, value, Outfits)
             UpdatePedVariation()
         end
     end
-    LoadComps(PlayerPedId(), CachedComponents)
+    LoadComps(PlayerPedId(), CachedComponents, false, true)
+    SetCachedClothingIndex()
 
     local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
 
@@ -2812,7 +2830,7 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
             UpdatePedVariation()
         end
     end
-    LoadComps(PlayerPedId(), ConvertTable(comps, compTints))
+    LoadComps(PlayerPedId(), ConvertTable(comps, compTints), false, true)
 
     local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
 
@@ -2849,7 +2867,6 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
             end
 
             if data.current.value == "Select" then
-                local NewTable = GetNewCompOldStructure(PlayerClothing)
                 local result = Core.Callback.TriggerAwait("vorp_character:callback:SetOutfit",
                     {
                         Outfit = Outfit,
@@ -2876,7 +2893,7 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
                     attributes = {
                         inputHeader = T.MenuOutfits.inputHeader,
                         type = "textarea",
-                        pattern = ".*",
+                        pattern = ".*{2,10}",
                         title = T.Inputs.title,
                         style = "border-radius: 10px; background-color: ; border:none;"
                     }

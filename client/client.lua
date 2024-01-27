@@ -145,11 +145,7 @@ local function LoadFaceFeatures(ped, skin)
 	end
 end
 
-local SortComps = {
-	
-}
-
-function LoadComps(ped, components, set)
+function LoadComps(ped, components, set, preview)
 	for category, value in pairs(components) do
 		if value.comp ~= -1 then
 			local status = not set and "false" or GetResourceKvpString(tostring(value.comp))
@@ -157,7 +153,9 @@ function LoadComps(ped, components, set)
 				RemoveTagFromMetaPed(Config.HashList[key])
 			else
 				ApplyShopItemToPed(value.comp, ped)
-				UpdateShopItemWearableState(ped, `base`)
+				if category ~= "Boots" then
+					UpdateShopItemWearableState(ped, `base`)
+				end
 				Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
 				UpdatePedVariation(ped)
 				IsPedReadyToRender(ped)
@@ -165,7 +163,7 @@ function LoadComps(ped, components, set)
 					local TagData = GetMetaPedData(category == "Boots" and "boots" or category, ped)
 					if TagData then
 						SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, TagData.palette, value.tint0, value.tint1, value.tint2)
-						if IsPedAPlayer(ped) then
+						if IsPedAPlayer(ped) and not preview then
 							CachedComponents[category].drawable = TagData.drawable
 							CachedComponents[category].albedo = TagData.albedo
 							CachedComponents[category].normal = TagData.normal
@@ -174,22 +172,6 @@ function LoadComps(ped, components, set)
 						end
 					end
 				end
-			end
-		end
-	end
-
-	if CachedComponents["Boots"] then
-		local value = CachedComponents["Boots"]
-		RemoveSpecifiedCompByCategory(value.comp)
-		ApplyShopItemToPed(value.comp, ped)
-		UpdateShopItemWearableState(ped, `base`)
-		Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
-		UpdatePedVariation(ped)
-		IsPedReadyToRender(ped)
-		if value.tint0 ~= 0 or value.tint1 ~= 0 or value.tint2 ~= 0 then
-			local TagData = GetMetaPedData("boots", ped)
-			if TagData then
-				SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, TagData.palette, value.tint0, value.tint1, value.tint2)
 			end
 		end
 	end
