@@ -123,18 +123,15 @@ function Applycomponents(comp, category)
         end
 
         RemoveSpecifiedCompByCategory(comp)
-        IsPedReadyToRender()
         ApplyShopItemToPed(comp.hex)
         UpdatePedVariation()
 
         if not comp.remove then
-            IsPedReadyToRender()
-            -- ReloadAllComponents()    -- check menu wait
+            ReloadAllComponents()
             RemoveCompsCantWearTogether(category)
             UpdatePedVariation()
         end
     else
-        IsPedReadyToRender()
         ReloadAllComponents()
         UpdatePedVariation()
     end
@@ -722,8 +719,8 @@ function OpenComponentMenu(table, category, value, Outfits)
         type = "slider",
         value = indexComp or 0,
         info = true,
-        min = 0,
-        max = #table[category],
+        min = -1,
+        max = #table[category] + 1,
         desc = "<br><br>" ..
             imgPath:format(category) ..
             "<br><br><br>" ..
@@ -739,8 +736,8 @@ function OpenComponentMenu(table, category, value, Outfits)
         type = "slider",
         value = indexColor or 0,
         comp = table[category][(indexColor or 1)],
-        min = 0,
-        max = colorValue,
+        min = indexColor and -1 or 0,
+        max = indexColor and (colorValue + 1) or 0,
         desc = "<br><br>" ..
             imgPath:format(category) ..
             "<br><br><br>" ..
@@ -859,14 +856,15 @@ function OpenComponentMenu(table, category, value, Outfits)
                 return
             end
 
-            if data.current.type == "remove" or (data.current.type == "slider" and data.current.itemHeight and data.current.value == 0) then
+            if data.current.type == "remove" or (data.current.type == "slider" and data.current.info and not data.current.action and (data.current.value == 0 or data.current.value == #table[category] + 1)) then
                 RemoveTagFromMetaPed(Config.HashList[category])
                 UpdatePedVariation()
                 PlayerClothing[category].comp = -1
                 Applycomponents(false, category)
+                menu.setElement(1, "value", 0)
                 menu.setElement(2, "label", label .. "<br><span style='opacity:0.6;'>" .. '0' .. T.MenuComponents.element2.label .. "</span>")
                 menu.setElement(2, "max", 0)
-                menu.setElement(1, "value", 0)
+                menu.setElement(2, "min", 0)
                 menu.setElement(2, "value", 0)
                 menu.setElement(4, "value", 0)
                 menu.setElement(5, "value", 0)
@@ -880,16 +878,20 @@ function OpenComponentMenu(table, category, value, Outfits)
                 return
             end
 
-            -- if data.current.type == "slider" and data.current.value == 0 and data.current.info and not data.current.action then
-            --     -- allow scroll back and forth
-            --     menu.setElement(1, "value", #table[category])
-            --     menu.refresh()
-            --     return
-            -- end
-
             -- * component varitaion
-            if data.current.type == "slider" and data.current.value > 0 and not data.current.info and not data.current.action and data.current.comp then
-                if data.current.comp[data.current.value] then
+            if data.current.type == "slider" and not data.current.info and not data.current.action and data.current.comp then
+                if data.current.value == 0 then
+                    menu.setElement(2, "value", #data.current.comp)
+                    data.current.value = #data.current.comp
+                    menu.refresh()
+
+                elseif data.current.value == #data.current.comp + 1 then
+                    menu.setElement(2, "value", 1)
+                    data.current.value = 1
+                    menu.refresh()
+                end
+
+                if data.current.value > 0 and data.current.comp[data.current.value] then
                     Applycomponents(data.current.comp[data.current.value], category)
                     local index = GetTrackedData(category)
 
@@ -925,12 +927,19 @@ function OpenComponentMenu(table, category, value, Outfits)
                             TotalAmountToPay[category] = 0
                         end
                     end
+
                 end
                 return
             end
 
             -- * component type
-            if data.current.type == "slider" and data.current.value > 0 and data.current.info and not data.current.action then
+            if data.current.type == "slider" and data.current.info and not data.current.action then
+                if data.current.value == -1 then
+                    menu.setElement(1, "value", #table[category])
+                    data.current.value = #table[category]
+                    menu.refresh()
+                end
+
                 local total = table[category][data.current.value]
                 local component = table[category][data.current.value][1]
 
@@ -951,7 +960,6 @@ function OpenComponentMenu(table, category, value, Outfits)
                         }
                     end
 
-                    menu.setElement(1, "value", data.current.value)
                     menu.setElement(2, "comp", total)
                     menu.setElement(2, "desc",
                         "<br><br>" ..
@@ -961,7 +969,7 @@ function OpenComponentMenu(table, category, value, Outfits)
                         " " ..
                         #total ..
                         " " .. T.MenuComponents.element2.desc2 .. menuSpace .. Divider .. T.MenuComponents.scroll)
-                    menu.setElement(2, "max", #total)
+                    menu.setElement(2, "max", #total + 1)
                     menu.setElement(2, "value", 1)
                     menu.setElement(2, "label", label .. "<br><span style='opacity:0.6;'>" .. #total .. T.MenuComponents.element2.label .. "</span>")
                     menu.setElement(4, "comp", component.hex)
@@ -970,12 +978,6 @@ function OpenComponentMenu(table, category, value, Outfits)
                     menu.setElement(4, "value", TagData and TagData.tint0 or 0)
                     menu.setElement(5, "value", TagData and TagData.tint1 or 0)
                     menu.setElement(6, "value", TagData and TagData.tint2 or 0)
-
-                    -- allow scroll back and forth
-                    -- if data.current.value == #table[category] then
-                    --     menu.setElement(1, "value", 1)
-                    -- end
-
                     menu.refresh()
 
                     if not IsInClothingStore then
@@ -2768,7 +2770,7 @@ function OpenOutfitsMenu(Table, value, Outfits)
             UpdatePedVariation()
         end
     end
-    LoadComps(PlayerPedId(), CachedComponents, false)
+    LoadComps(PlayerPedId(), CachedComponents)
     SetCachedClothingIndex()
 
     local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
