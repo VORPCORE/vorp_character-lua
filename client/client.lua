@@ -145,7 +145,7 @@ local function LoadFaceFeatures(ped, skin)
 	end
 end
 
-local function LoadComps(ped, components, set)
+function LoadComps(ped, components, set)
 	for category, value in pairs(components) do
 		if value.comp ~= -1 then
 			local status = not set and "false" or GetResourceKvpString(tostring(value.comp))
@@ -153,7 +153,9 @@ local function LoadComps(ped, components, set)
 				RemoveTagFromMetaPed(Config.HashList[key])
 			else
 				ApplyShopItemToPed(value.comp, ped)
-				UpdateShopItemWearableState(ped, `base`)
+				if category ~= "Boots" then
+					UpdateShopItemWearableState(ped, `base`)
+				end
 				Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
 				UpdatePedVariation(ped)
 				IsPedReadyToRender(ped)
@@ -161,7 +163,7 @@ local function LoadComps(ped, components, set)
 					local TagData = GetMetaPedData(category == "Boots" and "boots" or category, ped)
 					if TagData then
 						SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, TagData.palette, value.tint0, value.tint1, value.tint2)
-						if IsPedAPlayer(ped) then
+						if IsPedAPlayer(ped) and CachedComponents[category] then
 							CachedComponents[category].drawable = TagData.drawable
 							CachedComponents[category].albedo = TagData.albedo
 							CachedComponents[category].normal = TagData.normal
@@ -281,14 +283,14 @@ end
 
 -- get resolution to allow setting values for different resolutions since these are build dynamically to allow more freedom
 Resolution = Core.Graphics.ScreenResolution()
-local imgPath = "<img style='max-height:450px;max-width:280px;float: center;'src='nui://vorp_character/images/%s.png'>"
-local img = "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://vorp_character/images/%s.png'>"
+local imgPath = "<img style='max-height:450px;max-width:280px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+local img = "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
 local Divider = "<br><br><br><br><br>" .. img:format("divider_line") .. "<br>"
 local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuCreation.subtitle1 .. "<br><br></span>"
 local fontSize = "18px"
 
 if Resolution.width <= 1920 and Resolution.height <= 1080 then
-	imgPath = "<img style='max-height:200px;max-width:200px;float: center;'src='nui://vorp_character/images/%s.png'>"
+	imgPath = "<img style='max-height:200px;max-width:200px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
 	Divider = "<br>" .. img:format("divider_line")
 	SubTitle = T.MenuCreation.subtitle1
 	fontSize = "13px"

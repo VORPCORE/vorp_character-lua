@@ -313,12 +313,17 @@ function GetMetaPedData(category, ped)
     return { drawable = drawable, albedo = albedo, normal = normal, material = material, palette = palette, tint0 = tint0, tint1 = tint1, tint2 = tint2 }
 end
 
-function GetComponentToApplyByIndex(total)
-    for key, value in ipairs(total) do
-        if #total == key then
-            return value
+function IndexTintCompsToNumber(table)
+    local NewComps = {}
+    
+    for i, v in pairs(table) do
+        NewComps[i] = {}
+        for k, x in pairs(v) do
+            NewComps[i][tonumber(k)] = x
         end
     end
+
+    return NewComps
 end
 
 function ConvertTableComps(comps, compTints)
@@ -338,6 +343,10 @@ function ConvertTableComps(comps, compTints)
 end
 
 function SetCachedClothingIndex()
+    for i, v in pairs(PlayerClothing) do
+        PlayerClothing[i] = { comp = -1 }
+    end
+
     local gender = GetGender() == "Male" and "male" or "female"
     for key, value in pairs(CachedComponents) do
         local Data = Data.clothing[gender][key]

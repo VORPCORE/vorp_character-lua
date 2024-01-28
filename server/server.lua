@@ -1,5 +1,6 @@
 ---@diagnostic disable: undefined-global
 
+local T = Translation.Langs[Lang]
 local random = math.random(1, #Config.SpawnPosition)
 local Core = exports.vorp_core:GetCore()
 local MaxCharacters = Core.maxCharacters
@@ -189,13 +190,13 @@ Core.Callback.Register("vorp_character:callback:PayToShop", function(source, cal
 
 	if money < amountToPay then
 		SetTimeout(5000, function()
-			Core.NotifyRightTip(_source, "You don't have enough money", 6000)
+			Core.NotifyRightTip(_source, string.format(T.PayToShop.DontMoney, amountToPay), 6000)
 		end)
 		return callback(false)
 	end
 
 	SetTimeout(5000, function()
-		Core.NotifyRightTip(_source, "You paid $" .. amountToPay, 6000)
+		Core.NotifyRightTip(_source, string.format(T.PayToShop.Youpaid, amountToPay), 6000)
 	end)
 
 	character.removeCurrency(0, amountToPay)
@@ -210,6 +211,11 @@ Core.Callback.Register("vorp_character:callback:PayToShop", function(source, cal
 		character.updateCompTints(json.encode(arguments.compTints))
 	end
 
+	if arguments.Result and arguments.Result ~= '' then
+		local Parameters = { character.identifier, character.charIdentifier, arguments.Result, json.encode(arguments.comps), json.encode(arguments.compTints) }
+		exports.oxmysql:execute("INSERT INTO outfits (identifier, charidentifier, title, comps, compTints) VALUES (?, ?, ? ,?, ?)", Parameters)
+	end
+
 	return callback(true)
 end)
 
@@ -220,7 +226,7 @@ local function CanProcceed(User)
 	local moneyType = ConfigShops.SecondChanceCurrency == 0 and "money" or ConfigShops.SecondChanceCurrency == 1 and "gold" or ConfigShops.SecondChanceCurrency == 2 and "rol"
 
 	if money < amountToPay then
-		Core.NotifyRightTip(_source, "You don't have enough " ..moneyType .. " Ammount is: " .. ConfigShops.SecondChancePrice, 6000)
+		Core.NotifyRightTip(_source, string.format(T.PayToShop.DontMoney, ConfigShops.SecondChancePrice), 6000)
 		return false
 	end
 	return true
@@ -268,5 +274,33 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 
 	character.removeCurrency(ConfigShops.SecondChanceCurrency, amountToPay)
 	
+	return callback(true)
+end)
+
+Core.Callback.Register("vorp_character:callback:GetOutfits", function(source, callback, arguments)
+	local _source = source
+	local Character = Core.getUser(_source).getUsedCharacter
+
+	exports.oxmysql:execute("SELECT * FROM outfits WHERE `identifier` = ? AND `charidentifier` = ?", { Character.identifier, Character.charIdentifier }, function(Outfits)
+		return callback(Outfits)
+	end)
+end)
+
+Core.Callback.Register("vorp_character:callback:SetOutfit", function(source, callback, arguments)
+	local _source = source
+	local Character = Core.getUser(_source).getUsedCharacter
+	
+	Character.updateComps(arguments.Outfit.comps or '{}')
+	Character.updateCompTints(arguments.Outfit.compTints or '{}')
+
+	return callback(true)
+end)
+
+Core.Callback.Register("vorp_character:callback:DeleteOutfit", function(source, callback, arguments)
+	local _source = source
+	local Character = Core.getUser(_source).getUsedCharacter
+
+	exports.oxmysql:execute("DELETE FROM outfits WHERE identifier = ? AND id = ?", { Character.identifier, arguments.Outfit.id })
+
 	return callback(true)
 end)
