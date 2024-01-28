@@ -3,7 +3,7 @@
 local T = Translation.Langs[Lang]
 local random = math.random(1, #Config.SpawnPosition)
 local Core = exports.vorp_core:GetCore()
-local MaxCharacters = Core.maxCharacters
+
 
 function ConvertTable(comps, compTints)
 	local NewComps = {}
@@ -172,12 +172,23 @@ AddEventHandler("vorp_character:server:GoToSelectionMenu", function(source)
 	if not UserCharacters then
 		return
 	end
+	local MaxCharacters = Core.maxCharacters(source)
+
+	if not MaxCharacters then
+		return print("Update vorp_core")
+	end
 
 	TriggerClientEvent("vorpcharacter:selectCharacter", _source, UserCharacters, MaxCharacters, random)
 end)
 
 
 Core.Callback.Register("vorp_characters:getMaxCharacters", function(source, cb)
+	local MaxCharacters = Core.maxCharacters(source)
+
+	if not MaxCharacters then
+		return print("Update vorp_core")
+	end
+
 	cb(#MaxCharacters)
 end)
 
@@ -212,8 +223,10 @@ Core.Callback.Register("vorp_character:callback:PayToShop", function(source, cal
 	end
 
 	if arguments.Result and arguments.Result ~= '' then
-		local Parameters = { character.identifier, character.charIdentifier, arguments.Result, json.encode(arguments.comps), json.encode(arguments.compTints) }
-		exports.oxmysql:execute("INSERT INTO outfits (identifier, charidentifier, title, comps, compTints) VALUES (?, ?, ? ,?, ?)", Parameters)
+		local Parameters = { character.identifier, character.charIdentifier, arguments.Result, json.encode(arguments
+			.comps), json.encode(arguments.compTints) }
+		MySQL.insert("INSERT INTO outfits (identifier, charidentifier, title, comps, compTints) VALUES (?, ?, ? ,?, ?)",
+			Parameters)
 	end
 
 	return callback(true)
@@ -221,12 +234,15 @@ end)
 
 local function CanProcceed(User)
 	local character = User.getUsedCharacter
-	local money = ConfigShops.SecondChanceCurrency == 0 and character.money or ConfigShops.SecondChanceCurrency == 1 and character.gold or ConfigShops.SecondChanceCurrency == 2 and character.rol
+	local money = ConfigShops.SecondChanceCurrency == 0 and character.money or
+		ConfigShops.SecondChanceCurrency == 1 and character.gold or
+		ConfigShops.SecondChanceCurrency == 2 and character.rol
 	local amountToPay = ConfigShops.SecondChancePrice
-	local moneyType = ConfigShops.SecondChanceCurrency == 0 and "money" or ConfigShops.SecondChanceCurrency == 1 and "gold" or ConfigShops.SecondChanceCurrency == 2 and "rol"
+	local moneyType = ConfigShops.SecondChanceCurrency == 0 and "money" or
+		ConfigShops.SecondChanceCurrency == 1 and "gold" or ConfigShops.SecondChanceCurrency == 2 and "rol"
 
 	if money < amountToPay then
-		Core.NotifyRightTip(_source, string.format(T.PayToShop.DontMoney, ConfigShops.SecondChancePrice), 6000)
+		Core.NotifyRightTip(_source, string.format(T.PayToShop.DontMoney, moneyType, ConfigShops.SecondChancePrice), 6000)
 		return false
 	end
 	return true
@@ -256,7 +272,7 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 	end
 	local character = User.getUsedCharacter
 
-    if not CanProcceed(User) then
+	if not CanProcceed(User) then
 		return callback(false)
 	end
 
@@ -273,7 +289,7 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 	end
 
 	character.removeCurrency(ConfigShops.SecondChanceCurrency, amountToPay)
-	
+
 	return callback(true)
 end)
 
@@ -281,15 +297,16 @@ Core.Callback.Register("vorp_character:callback:GetOutfits", function(source, ca
 	local _source = source
 	local Character = Core.getUser(_source).getUsedCharacter
 
-	exports.oxmysql:execute("SELECT * FROM outfits WHERE `identifier` = ? AND `charidentifier` = ?", { Character.identifier, Character.charIdentifier }, function(Outfits)
-		return callback(Outfits)
-	end)
+	MySQL.query("SELECT * FROM outfits WHERE `identifier` = ? AND `charidentifier` = ?",
+		{ Character.identifier, Character.charIdentifier }, function(Outfits)
+			return callback(Outfits)
+		end)
 end)
 
 Core.Callback.Register("vorp_character:callback:SetOutfit", function(source, callback, arguments)
 	local _source = source
 	local Character = Core.getUser(_source).getUsedCharacter
-	
+
 	Character.updateComps(arguments.Outfit.comps or '{}')
 	Character.updateCompTints(arguments.Outfit.compTints or '{}')
 
@@ -300,7 +317,7 @@ Core.Callback.Register("vorp_character:callback:DeleteOutfit", function(source, 
 	local _source = source
 	local Character = Core.getUser(_source).getUsedCharacter
 
-	exports.oxmysql:execute("DELETE FROM outfits WHERE identifier = ? AND id = ?", { Character.identifier, arguments.Outfit.id })
+	MySQL.query("DELETE FROM outfits WHERE identifier = ? AND id = ?", { Character.identifier, arguments.Outfit.id })
 
 	return callback(true)
 end)
