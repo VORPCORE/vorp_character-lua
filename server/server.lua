@@ -288,7 +288,7 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 		character.updateCompTints(json.encode(data.compTints))
 	end
 
-	character.removeCurrency(ConfigShops.SecondChanceCurrency, amountToPay)
+	character.removeCurrency(ConfigShops.SecondChanceCurrency,ConfigShops.SecondChancePrice )
 
 	return callback(true)
 end)
