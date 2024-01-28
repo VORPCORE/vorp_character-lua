@@ -354,7 +354,7 @@ function OpenCharCreationMenu(clothingtable, value)
                     type = "enableinput",
                     inputType = "input",
                     button = T.Inputs.confirm,
-                    placeholder = T.Placeholder.NickName,
+                    placeholder = T.Placeholder.SetAge,
                     style = "block",
                     attributes = {
                         inputHeader = T.Inputs.inputHeadertype,
