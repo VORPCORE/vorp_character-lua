@@ -232,7 +232,7 @@ Core.Callback.Register("vorp_character:callback:PayToShop", function(source, cal
 	return callback(true)
 end)
 
-local function CanProcceed(User)
+local function CanProcceed(User, source)
 	local character = User.getUsedCharacter
 	local money = ConfigShops.SecondChanceCurrency == 0 and character.money or
 		ConfigShops.SecondChanceCurrency == 1 and character.gold or
@@ -242,7 +242,7 @@ local function CanProcceed(User)
 		ConfigShops.SecondChanceCurrency == 1 and "gold" or ConfigShops.SecondChanceCurrency == 2 and "rol"
 
 	if money < amountToPay then
-		Core.NotifyRightTip(_source, string.format(T.PayToShop.DontMoney, moneyType, ConfigShops.SecondChancePrice), 6000)
+		Core.NotifyRightTip(source, string.format(T.PayToShop.DontMoney, moneyType, ConfigShops.SecondChancePrice), 6000)
 		return false
 	end
 	return true
@@ -256,7 +256,7 @@ Core.Callback.Register("vorp_character:callback:CanPayForSecondChance", function
 		return callback(false)
 	end
 
-	if not CanProcceed(User) then
+	if not CanProcceed(User, source) then
 		return callback(false)
 	end
 
@@ -272,7 +272,7 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 	end
 	local character = User.getUsedCharacter
 
-	if not CanProcceed(User) then
+	if not CanProcceed(User, _source) then
 		return callback(false)
 	end
 
@@ -288,7 +288,7 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 		character.updateCompTints(json.encode(data.compTints))
 	end
 
-	character.removeCurrency(ConfigShops.SecondChanceCurrency,ConfigShops.SecondChancePrice )
+	character.removeCurrency(ConfigShops.SecondChanceCurrency, ConfigShops.SecondChancePrice)
 
 	return callback(true)
 end)
