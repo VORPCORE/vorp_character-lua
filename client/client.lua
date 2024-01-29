@@ -162,7 +162,8 @@ function LoadComps(ped, components, set)
 				if value.tint0 ~= 0 or value.tint1 ~= 0 or value.tint2 ~= 0 then
 					local TagData = GetMetaPedData(category == "Boots" and "boots" or category, ped)
 					if TagData then
-						SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, TagData.palette, value.tint0, value.tint1, value.tint2)
+						SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
+							TagData.palette, value.tint0, value.tint1, value.tint2)
 						if IsPedAPlayer(ped) and CachedComponents[category] then
 							CachedComponents[category].drawable = TagData.drawable
 							CachedComponents[category].albedo = TagData.albedo
@@ -176,7 +177,6 @@ function LoadComps(ped, components, set)
 		end
 	end
 end
-
 
 function LoadAll(gender, ped, pedskin, components, set)
 	RemoveMetaTags(ped)
@@ -219,7 +219,8 @@ function StartSwapCharacters()
 	exports.weathersync:setMyTime(options.time.hour, 0, 0, options.time.transition, true)
 	SetTimecycleModifier(options.timecycle.name)
 	Citizen.InvokeNative(0xFDB74C9CC54C3F37, options.timecycle.strenght)
-	StartPlayerTeleport(PlayerId(), options.playerpos.x, options.playerpos.y, options.playerpos.z, 0.0, true, true, true, true)
+	StartPlayerTeleport(PlayerId(), options.playerpos.x, options.playerpos.y, options.playerpos.z, 0.0, true, true, true,
+		true)
 
 	repeat Wait(0) until not IsPlayerTeleportActive()
 
@@ -245,14 +246,17 @@ function StartSwapCharacters()
 		data.PedHandler = CreatePed(joaat(value.skin.sex), data.spawn, false, true, true, true)
 		repeat Wait(0) until DoesEntityExist(data.PedHandler)
 		LoadCharacterSelect(data.PedHandler, value.skin, value.components)
-		data.Cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", data.camera.x, data.camera.y, data.camera.z, data.camera.rotx, data.camera.roty, data.camera.rotz, data.camera.fov, false, 2)
+		data.Cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", data.camera.x, data.camera.y, data.camera.z,
+			data.camera.rotx, data.camera.roty, data.camera.rotz, data.camera.fov, false, 2)
 		SetEntityInvincible(data.PedHandler, true)
 		local randomScenario = math.random(1, #data.scenario[value.skin.sex])
-		Citizen.InvokeNative(0x524B54361229154F, data.PedHandler, joaat(data.scenario[value.skin.sex][randomScenario]), -1, false, joaat(data.scenario[value.skin.sex][randomScenario]), -1.0, 0)
+		Citizen.InvokeNative(0x524B54361229154F, data.PedHandler, joaat(data.scenario[value.skin.sex][randomScenario]),
+			-1, false, joaat(data.scenario[value.skin.sex][randomScenario]), -1.0, 0)
 		Peds[#Peds + 1] = data.PedHandler
 	end
 
-	mainCam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", options.mainCam.x, options.mainCam.y, options.mainCam.z, options.mainCam.rotx, options.mainCam.roty, options.mainCam.rotz, options.mainCam.fov, false, 0)
+	mainCam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", options.mainCam.x, options.mainCam.y, options.mainCam.z,
+		options.mainCam.rotx, options.mainCam.roty, options.mainCam.rotz, options.mainCam.fov, false, 0)
 	SetCamActive(mainCam, true)
 	RenderScriptCams(true, false, 0, true, true, 0)
 	repeat Wait(0) until IsCamActive(mainCam)
@@ -283,14 +287,17 @@ end
 
 -- get resolution to allow setting values for different resolutions since these are build dynamically to allow more freedom
 Resolution = Core.Graphics.ScreenResolution()
-local imgPath = "<img style='max-height:450px;max-width:280px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
-local img = "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+local imgPath = "<img style='max-height:450px;max-width:280px;float: center;'src='nui://" ..
+	GetCurrentResourceName() .. "/images/%s.png'>"
+local img = "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" ..
+	GetCurrentResourceName() .. "/images/%s.png'>"
 local Divider = "<br><br><br><br><br>" .. img:format("divider_line") .. "<br>"
 local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuCreation.subtitle1 .. "<br><br></span>"
 local fontSize = "18px"
 
 if Resolution.width <= 1920 and Resolution.height <= 1080 then
-	imgPath = "<img style='max-height:200px;max-width:200px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+	imgPath = "<img style='max-height:200px;max-width:200px;float: center;'src='nui://" ..
+		GetCurrentResourceName() .. "/images/%s.png'>"
 	Divider = "<br>" .. img:format("divider_line")
 	SubTitle = T.MenuCreation.subtitle1
 	fontSize = "13px"
@@ -299,15 +306,18 @@ end
 
 local function addNewelements(menu)
 	menu.addNewElement({
-		label = T.MainMenu.CreateNewSlot .. "<br>" .. "<span style ='opacity:0.6;'>" .. T.MainMenu.CreateNewCharT .. "</span>",
+		label = T.MainMenu.CreateNewSlot ..
+			"<br>" .. "<span style ='opacity:0.6;'>" .. T.MainMenu.CreateNewCharT .. "</span>",
 		value = "create",
-		desc = imgPath:format("character_creator_appearance") .. "<br>" ..T.MainMenu.CreateNewChar.. "<br><br><br>" .. Divider .. T.MainMenu.CreateNewCharDesc
+		desc = imgPath:format("character_creator_appearance") ..
+			"<br>" .. T.MainMenu.CreateNewChar .. "<br><br><br>" .. Divider .. T.MainMenu.CreateNewCharDesc
 	})
 end
 
 local function createMainCam()
 	local data = Config.SpawnPosition[random].options
-	mainCam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", data.mainCam.x, data.mainCam.y, data.mainCam.z, data.mainCam.rotx, data.mainCam.roty, data.mainCam.rotz, data.mainCam.fov, false, 2)
+	mainCam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", data.mainCam.x, data.mainCam.y, data.mainCam.z,
+		data.mainCam.rotx, data.mainCam.roty, data.mainCam.rotz, data.mainCam.fov, false, 2)
 	SetCamActive(mainCam, true)
 	RenderScriptCams(true, false, 0, true, true, 0)
 end
@@ -339,31 +349,32 @@ local function DeleleteSelectedChaacter(menu)
 end
 
 local function GetCharacterDescDetails(value)
-	local desc = "<table style='width: 100%; color: white; font-size: " .. fontSize .. "; margin-left: 50px; margin-right: auto;'>" ..
+	local desc = "<table style='width: 100%; color: white; font-size: " ..
+		fontSize .. "; margin-left: 50px; margin-right: auto;'>" ..
 		"<span style='font-family:crock;'> </span>" .. ""
 	desc       = desc .. "<tr>"
-	desc       = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Job.."</th>"
+	desc       = desc .. "<th style='text-align: left; font-family:crock;'>" .. T.Other.Job .. "</th>"
 	desc       = desc .. "<td style='text-align: center;'>" .. value.job .. " " .. value.grade .. "</td>"
 	desc       = desc .. "</tr>"
 	desc       = desc .. "<tr>"
-	desc       = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Group.."</th>"
+	desc       = desc .. "<th style='text-align: left; font-family:crock;'>" .. T.Other.Group .. "</th>"
 	desc       = desc .. "<td style='text-align: center;'>" .. value.group .. "</td>"
 	desc       = desc .. "</tr>"
 	desc       = desc .. "<tr>"
-	desc       = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Gender.."</th>"
+	desc       = desc .. "<th style='text-align: left; font-family:crock;'>" .. T.Other.Gender .. "</th>"
 	desc       = desc .. "<td style='text-align: center;'>" .. value.gender .. "</td>"
 	desc       = desc .. "</tr>"
 	desc       = desc .. "<tr>"
-	desc       = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Age.."</th>"
+	desc       = desc .. "<th style='text-align: left; font-family:crock;'>" .. T.Other.Age .. "</th>"
 	desc       = desc .. "<td style='text-align: center;'>" .. value.age .. "</td>"
 	desc       = desc .. "</tr>"
 	desc       = desc .. "<tr>"
-	desc       = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Money.."</th>"
+	desc       = desc .. "<th style='text-align: left; font-family:crock;'>" .. T.Other.Money .. "</th>"
 	desc       = desc .. "<td style='text-align: center;'>$ " .. value.money .. "</td>"
 	desc       = desc .. "</tr>"
 	if Config.ShowGold then
 		desc = desc .. "<tr>"
-		desc = desc .. "<th style='text-align: left; font-family:crock;'>"..T.Other.Gold.."</th>"
+		desc = desc .. "<th style='text-align: left; font-family:crock;'>" .. T.Other.Gold .. "</th>"
 		desc = desc .. "<td style='text-align: center;'>* " .. value.gold .. "</td>"
 	end
 	desc = desc .. "</tr>"
@@ -402,6 +413,7 @@ function EnableSelectionPrompts(menu)
 			end
 
 			if PromptHasStandardModeCompleted(SelectPrompt) then
+				WhileSwaping = true
 				UiFeedClearChannel()
 				AnimpostfxPlay("RespawnPulse01")
 				PlaySoundFrontend("Ready_Up_Flash", "RDRO_In_Game_Menu_Sounds", true, 0)
@@ -414,6 +426,7 @@ function EnableSelectionPrompts(menu)
 				ClearTimecycleModifier()
 				exports.weathersync:setSyncEnabled(true)
 				CharSelect()
+				WhileSwaping = false
 				return
 			end
 
@@ -439,9 +452,11 @@ function OpenMenuSelect()
 	for key, value in ipairs(myChars) do
 		local desc = GetCharacterDescDetails(value)
 		elements[#elements + 1] = {
-			label = value.firstname .. " " .. value.lastname .. "<br>" .. "<span style ='opacity:0.6;'>" .. value.nickname .. "</span>",
+			label = value.firstname ..
+				" " .. value.lastname .. "<br>" .. "<span style ='opacity:0.6;'>" .. value.nickname .. "</span>",
 			value = "choose",
-			desc = imgPath:format("character_creator_appearance") .. "<br>" .. desc .. "<br>" .. value.charDesc .. Divider .. T.MainMenu.NameDesc,
+			desc = imgPath:format("character_creator_appearance") ..
+				"<br>" .. desc .. "<br>" .. value.charDesc .. Divider .. T.MainMenu.NameDesc,
 			char = value,
 			index = key,
 		}
@@ -449,9 +464,11 @@ function OpenMenuSelect()
 
 	for i = 1, MaxCharacters - #myChars, 1 do
 		elements[#elements + 1] = {
-			label = T.MainMenu.CreateNewSlot .. "<br>" .. "<span style ='opacity:0.6;'>" .. T.MainMenu.CreateNewCharT .. "</span>",
+			label = T.MainMenu.CreateNewSlot ..
+				"<br>" .. "<span style ='opacity:0.6;'>" .. T.MainMenu.CreateNewCharT .. "</span>",
 			value = "create",
-			desc = imgPath:format("character_creator_appearance") .. "<br><br>" .. T.MainMenu.CreateNewChar .. "<br><br>" .. Divider .. T.MainMenu.CreateNewCharDesc,
+			desc = imgPath:format("character_creator_appearance") ..
+				"<br><br>" .. T.MainMenu.CreateNewChar .. "<br><br>" .. Divider .. T.MainMenu.CreateNewCharDesc,
 		}
 	end
 
@@ -622,7 +639,8 @@ function LoadPlayerComponents(ped, skin, components, reload)
 	RemoveTagFromMetaPed(0x3F1F01E5) -- bullets
 end
 
-function FaceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id, palette_color_primary, palette_color_secondary, palette_color_tertiary, var, opacity)
+function FaceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id,
+					 palette_color_primary, palette_color_secondary, palette_color_tertiary, var, opacity)
 	visibility = visibility or 0
 	tx_id = tx_id or 0
 	palette_color_primary = palette_color_primary or 0
@@ -680,16 +698,19 @@ function StartOverlay()
 		Citizen.InvokeNative(0x6BEFAA907B076859, textureId) -- remove texture
 	end
 
-	textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, CachedSkin.albedo, current_texture_settings.normal, current_texture_settings.material)
+	textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, CachedSkin.albedo, current_texture_settings.normal,
+		current_texture_settings.material)
 	for k, v in ipairs(Config.overlay_all_layers) do
 		if v.visibility ~= 0 then
-			local overlay_id = Citizen.InvokeNative(0x86BB5FF45F193A02, textureId, v.tx_id, v.tx_normal, v.tx_material, v.tx_color_type, v.tx_opacity, v.tx_unk)
+			local overlay_id = Citizen.InvokeNative(0x86BB5FF45F193A02, textureId, v.tx_id, v.tx_normal, v.tx_material,
+				v.tx_color_type, v.tx_opacity, v.tx_unk)
 			if v.tx_color_type == 0 then
-				Citizen.InvokeNative(0x1ED8588524AC9BE1, textureId, overlay_id, v.palette);                                                       -- apply palette
-				Citizen.InvokeNative(0x2DF59FFE6FFD6044, textureId, overlay_id, v.palette_color_primary, v.palette_color_secondary, v.palette_color_tertiary) -- apply palette colours
+				Citizen.InvokeNative(0x1ED8588524AC9BE1, textureId, overlay_id, v.palette); -- apply palette
+				Citizen.InvokeNative(0x2DF59FFE6FFD6044, textureId, overlay_id, v.palette_color_primary,
+					v.palette_color_secondary, v.palette_color_tertiary)        -- apply palette colours
 			end
-			Citizen.InvokeNative(0x3329AAE2882FC8E4, textureId, overlay_id, v.var)                                                                -- apply overlay variant
-			Citizen.InvokeNative(0x6C76BC24F8BB709A, textureId, overlay_id, v.opacity)                                                            -- apply overlay opacity
+			Citizen.InvokeNative(0x3329AAE2882FC8E4, textureId, overlay_id, v.var) -- apply overlay variant
+			Citizen.InvokeNative(0x6C76BC24F8BB709A, textureId, overlay_id, v.opacity) -- apply overlay opacity
 		end
 	end
 

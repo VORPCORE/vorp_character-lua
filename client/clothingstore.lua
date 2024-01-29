@@ -116,7 +116,6 @@ function PrepareClothingStore(value)
         value.EditCharacter.Position.z, true, true, true, false)
     Citizen.InvokeNative(0x9587913B9E772D29, PlayerPedId())
     SetEntityHeading(PlayerPedId(), value.EditCharacter.Position.w)
-
     RegisterGenderPrompt() -- camera prompts register
     CreateThread(function()
         StartPrompts(value.CameraPosition)
@@ -137,7 +136,7 @@ function PrepareClothingStore(value)
     DoScreenFadeIn(1000)
     LocalPlayer.state:set('PlayerIsInCharacterShops', true, true) -- this can be used in other resources to disable Huds or metabolism scripts apply effects etc
     repeat Wait(0) until IsScreenFadedIn()
-    SetTimeout(1000, function() 
+    SetTimeout(1000, function()
         FreezeEntityPosition(PlayerPedId(), false)
     end)
     if value.TypeOfShop == "secondchance" then

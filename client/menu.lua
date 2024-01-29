@@ -1,11 +1,15 @@
 ---@diagnostic disable: undefined-global
 local Divider =
-"<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" .. GetCurrentResourceName() .. "/images/divider_line.png'>"
-local imgPath = "<img style='max-height:500px;max-width:300px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+    "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" ..
+    GetCurrentResourceName() .. "/images/divider_line.png'>"
+local imgPath = "<img style='max-height:500px;max-width:300px;float: center;'src='nui://" ..
+GetCurrentResourceName() .. "/images/%s.png'>"
 local imgPath1 =
-"<img style='max-height:20px;max-width:20px;margin-left: 10px;' src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+    "<img style='max-height:20px;max-width:20px;margin-left: 10px;' src='nui://" ..
+    GetCurrentResourceName() .. "/images/%s.png'>"
 local path =
-"<img style='max-height:532px;max-width:344px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/clothingfemale/%s.png'>"
+    "<img style='max-height:532px;max-width:344px;float: center;'src='nui://" ..
+    GetCurrentResourceName() .. "/clothingfemale/%s.png'>"
 local __CHARNAME = nil
 local __DESC = nil
 local __VALUE = nil
@@ -617,7 +621,7 @@ function OpenClothingMenu(Table, value, Outfits)
                     }
                     TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
                         local Result = tostring(result)
-                        
+
                         local NewTable = GetNewCompOldStructure(PlayerClothing)
                         local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop",
                             {
@@ -682,7 +686,8 @@ function OpenComponentMenu(table, category, value, Outfits)
     local ToLabel = T.MenuClothes
     local label = ToLabel[category]
     local imgPath =
-    "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+        "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://" ..
+        GetCurrentResourceName() .. "/images/%s.png'>"
     local elements = {}
 
     TagData = GetMetaPedData(category == "Boots" and "boots" or category)
@@ -705,7 +710,8 @@ function OpenComponentMenu(table, category, value, Outfits)
     local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuComponents.subtitle .. "</span><br><br>"
     if Resolution.width <= 1920 then
         imgPath =
-        "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+            "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://" ..
+            GetCurrentResourceName() .. "/images/%s.png'>"
         menuSpace = "<br><br>"
         SubTitle = T.MenuComponents.subtitle
     end
@@ -715,7 +721,8 @@ function OpenComponentMenu(table, category, value, Outfits)
     end
 
     elements[#elements + 1] = {
-        label = label .. "<br><span style='opacity:0.6;'>" .. #table[category] ..' '.. T.MenuComponents.element.label .. "</span>",
+        label = label ..
+        "<br><span style='opacity:0.6;'>" .. #table[category] .. ' ' .. T.MenuComponents.element.label .. "</span>",
         type = "slider",
         value = indexComp or 0,
         info = true,
@@ -755,7 +762,7 @@ function OpenComponentMenu(table, category, value, Outfits)
     }
 
     elements[#elements + 1] = {
-        label =  T.MenuComponents.tint.label,
+        label = T.MenuComponents.tint.label,
         type = "slider",
         action = "tint0",
         value = tint0 or 0,
@@ -814,7 +821,8 @@ function OpenComponentMenu(table, category, value, Outfits)
             if data.current.action == "tint0" and data.current.comp ~= -1 then
                 IsPedReadyToRender()
                 local comp = data.current.comp
-                local tint0, tint1, tint2 = data.current.value, PlayerTrackingData[category][comp].tint1, PlayerTrackingData[category][comp].tint2
+                local tint0, tint1, tint2 = data.current.value, PlayerTrackingData[category][comp].tint1,
+                    PlayerTrackingData[category][comp].tint2
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
                     TagData.palette, tint0, tint1, tint2)
                 UpdatePedVariation()
@@ -829,7 +837,8 @@ function OpenComponentMenu(table, category, value, Outfits)
             if data.current.action == "tint1" and data.current.comp ~= -1 then
                 IsPedReadyToRender()
                 local comp = data.current.comp
-                local tint0, tint1, tint2 = PlayerTrackingData[category][comp].tint0, data.current.value, PlayerTrackingData[category][comp].tint2
+                local tint0, tint1, tint2 = PlayerTrackingData[category][comp].tint0, data.current.value,
+                    PlayerTrackingData[category][comp].tint2
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
                     TagData.palette, tint0, tint1, tint2)
                 UpdatePedVariation()
@@ -844,7 +853,8 @@ function OpenComponentMenu(table, category, value, Outfits)
             if data.current.action == "tint2" and data.current.comp ~= -1 then
                 IsPedReadyToRender()
                 local comp = data.current.comp
-                local tint0, tint1, tint2 = PlayerTrackingData[category][comp].tint0, PlayerTrackingData[category][comp].tint1, data.current.value
+                local tint0, tint1, tint2 = PlayerTrackingData[category][comp].tint0,
+                    PlayerTrackingData[category][comp].tint1, data.current.value
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
                     TagData.palette, tint0, tint1, tint2)
                 UpdatePedVariation()
@@ -862,7 +872,8 @@ function OpenComponentMenu(table, category, value, Outfits)
                 PlayerClothing[category].comp = -1
                 Applycomponents(false, category)
                 menu.setElement(1, "value", 0)
-                menu.setElement(2, "label", label .. "<br><span style='opacity:0.6;'>" .. '0' .. T.MenuComponents.element2.label .. "</span>")
+                menu.setElement(2, "label",
+                    label .. "<br><span style='opacity:0.6;'>" .. '0' .. T.MenuComponents.element2.label .. "</span>")
                 menu.setElement(2, "max", 0)
                 menu.setElement(2, "min", 0)
                 menu.setElement(2, "value", 0)
@@ -884,7 +895,6 @@ function OpenComponentMenu(table, category, value, Outfits)
                     menu.setElement(2, "value", #data.current.comp)
                     data.current.value = #data.current.comp
                     menu.refresh()
-
                 elseif data.current.value == #data.current.comp + 1 then
                     menu.setElement(2, "value", 1)
                     data.current.value = 1
@@ -922,12 +932,12 @@ function OpenComponentMenu(table, category, value, Outfits)
                     else
                         if data.current.comp[data.current.value].hex ~= InnitComp then
                             TotalAmountToPay[category] = GetExtraPrice(category,
-                            data.current.comp[data.current.value].hex) or ConfigShops.Prices.clothing[category].price
+                                data.current.comp[data.current.value].hex) or ConfigShops.Prices.clothing[category]
+                            .price
                         else
                             TotalAmountToPay[category] = 0
                         end
                     end
-
                 end
                 return
             end
@@ -971,7 +981,9 @@ function OpenComponentMenu(table, category, value, Outfits)
                         " " .. T.MenuComponents.element2.desc2 .. menuSpace .. Divider .. T.MenuComponents.scroll)
                     menu.setElement(2, "max", #total + 1)
                     menu.setElement(2, "value", 1)
-                    menu.setElement(2, "label", label .. "<br><span style='opacity:0.6;'>" .. #total .. T.MenuComponents.element2.label .. "</span>")
+                    menu.setElement(2, "label",
+                        label ..
+                        "<br><span style='opacity:0.6;'>" .. #total .. T.MenuComponents.element2.label .. "</span>")
                     menu.setElement(4, "comp", component.hex)
                     menu.setElement(5, "comp", component.hex)
                     menu.setElement(6, "comp", component.hex)
@@ -1006,11 +1018,13 @@ function OpenAppearanceMenu(clothingtable, value)
     Title = IsInClothingStore and "Main Menu" or T.MenuAppearance.title
     local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuAppearance.subtitle .. "</span><br><br>"
     local imgPath =
-    "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+        "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://" ..
+        GetCurrentResourceName() .. "/images/%s.png'>"
     if Resolution.width <= 1920 then
         SubTitle = T.MenuAppearance.subtitle
         imgPath =
-        "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+            "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://" ..
+            GetCurrentResourceName() .. "/images/%s.png'>"
     end
     MenuData.CloseAll()
     local elements = {
@@ -2806,7 +2820,6 @@ function OpenOutfitsMenu(Table, value, Outfits)
             if data.current.value then
                 OpenOutfitMenu(Table, value, Outfits, data.current.value)
             end
-
         end,
         function(data, menu)
 
@@ -2815,7 +2828,7 @@ end
 
 function OpenOutfitMenu(Table, value, Outfits, Outfit)
     MenuData.CloseAll()
-    
+
     local comps = {}
 
     for k, v in pairs(Outfit.comps and json.decode(Outfit.comps) or {}) do
@@ -2877,9 +2890,9 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
                     for k, v in pairs(Outfit.comps and json.decode(Outfit.comps) or {}) do
                         comps[k] = { comp = v }
                     end
-                
+
                     local compTints = Outfit.compTints and json.decode(Outfit.compTints) or {}
-                
+
                     CachedComponents = ConvertTableComps(comps, IndexTintCompsToNumber(compTints))
 
                     menu.close()
@@ -2906,9 +2919,9 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" and Result == Outfit.title then
                         local result = Core.Callback.TriggerAwait("vorp_character:callback:DeleteOutfit",
-                        {
-                            Outfit = Outfit,
-                        })
+                            {
+                                Outfit = Outfit,
+                            })
 
                         if result then
                             for i, v in pairs(Outfits) do
@@ -2923,7 +2936,6 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
                     end
                 end)
             end
-
         end,
         function(data, menu)
 
