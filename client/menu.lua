@@ -703,7 +703,7 @@ function OpenComponentMenu(table, category, value, Outfits)
     local indexComp, indexColor, tint0, tint1, tint2 = GetTrackedData(category)
 
     local colorValue = 0
-    if table[category][indexColor] then
+    if table[category] and table[category][indexColor] then
         colorValue = #table[category][indexColor]
     end
 
