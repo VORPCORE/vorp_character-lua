@@ -193,21 +193,20 @@ Core.Callback.Register("vorp_characters:getMaxCharacters", function(source, cb)
 end)
 
 Core.Callback.Register("vorp_character:callback:PayToShop", function(source, callback, arguments)
-	local _source = source
-	local User = Core.getUser(_source)
+	local User = Core.getUser(source)
 	local character = User.getUsedCharacter
 	local money = character.money
 	local amountToPay = arguments.amount
 
 	if money < amountToPay then
 		SetTimeout(5000, function()
-			Core.NotifyRightTip(_source, string.format(T.PayToShop.DontMoney, amountToPay), 6000)
+			Core.NotifyRightTip(source, string.format(T.PayToShop.DontMoney, amountToPay), 6000)
 		end)
 		return callback(false)
 	end
 
 	SetTimeout(5000, function()
-		Core.NotifyRightTip(_source, string.format(T.PayToShop.Youpaid, amountToPay), 6000)
+		Core.NotifyRightTip(source, string.format(T.PayToShop.Youpaid, amountToPay), 6000)
 	end)
 
 	character.removeCurrency(0, amountToPay)
@@ -249,8 +248,7 @@ local function CanProcceed(User, source)
 end
 
 Core.Callback.Register("vorp_character:callback:CanPayForSecondChance", function(source, callback)
-	local _source = source
-	local User = Core.getUser(_source)
+	local User = Core.getUser(source)
 
 	if not User then
 		return callback(false)
@@ -264,15 +262,14 @@ Core.Callback.Register("vorp_character:callback:CanPayForSecondChance", function
 end)
 
 Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(source, callback, data)
-	local _source = source
-	local User = Core.getUser(_source)
+	local User = Core.getUser(source)
 
 	if not User then
 		return callback(false)
 	end
 	local character = User.getUsedCharacter
 
-	if not CanProcceed(User, _source) then
+	if not CanProcceed(User, source) then
 		return callback(false)
 	end
 
@@ -294,8 +291,7 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 end)
 
 Core.Callback.Register("vorp_character:callback:GetOutfits", function(source, callback, arguments)
-	local _source = source
-	local Character = Core.getUser(_source).getUsedCharacter
+	local Character = Core.getUser(source).getUsedCharacter
 
 	MySQL.query("SELECT * FROM outfits WHERE `identifier` = ? AND `charidentifier` = ?",
 		{ Character.identifier, Character.charIdentifier }, function(Outfits)
@@ -304,8 +300,7 @@ Core.Callback.Register("vorp_character:callback:GetOutfits", function(source, ca
 end)
 
 Core.Callback.Register("vorp_character:callback:SetOutfit", function(source, callback, arguments)
-	local _source = source
-	local Character = Core.getUser(_source).getUsedCharacter
+	local Character = Core.getUser(source).getUsedCharacter
 
 	Character.updateComps(arguments.Outfit.comps or '{}')
 	Character.updateCompTints(arguments.Outfit.compTints or '{}')
@@ -314,8 +309,7 @@ Core.Callback.Register("vorp_character:callback:SetOutfit", function(source, cal
 end)
 
 Core.Callback.Register("vorp_character:callback:DeleteOutfit", function(source, callback, arguments)
-	local _source = source
-	local Character = Core.getUser(_source).getUsedCharacter
+	local Character = Core.getUser(source).getUsedCharacter
 
 	MySQL.query("DELETE FROM outfits WHERE identifier = ? AND id = ?", { Character.identifier, arguments.Outfit.id })
 
