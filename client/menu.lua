@@ -3,7 +3,7 @@ local Divider =
     "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" ..
     GetCurrentResourceName() .. "/images/divider_line.png'>"
 local imgPath = "<img style='max-height:500px;max-width:300px;float: center;'src='nui://" ..
-GetCurrentResourceName() .. "/images/%s.png'>"
+    GetCurrentResourceName() .. "/images/%s.png'>"
 local imgPath1 =
     "<img style='max-height:20px;max-width:20px;margin-left: 10px;' src='nui://" ..
     GetCurrentResourceName() .. "/images/%s.png'>"
@@ -510,6 +510,7 @@ function BackFromMenu(value)
     ExecuteCommand("rc")
     Wait(3000)
     SetGameplayCamRelativeHeading(0.0, 1.0)
+    ClearPedTasksImmediately(PlayerPedId(), true)
     DoScreenFadeIn(1500)
     repeat Wait(0) until IsScreenFadedIn()
     PlayerTrackingData = {}
@@ -722,7 +723,7 @@ function OpenComponentMenu(table, category, value, Outfits)
 
     elements[#elements + 1] = {
         label = label ..
-        "<br><span style='opacity:0.6;'>" .. #table[category] .. ' ' .. T.MenuComponents.element.label .. "</span>",
+            "<br><span style='opacity:0.6;'>" .. #table[category] .. ' ' .. T.MenuComponents.element.label .. "</span>",
         type = "slider",
         value = indexComp or 0,
         info = true,
@@ -932,8 +933,8 @@ function OpenComponentMenu(table, category, value, Outfits)
                     else
                         if data.current.comp[data.current.value].hex ~= InnitComp then
                             TotalAmountToPay[category] = GetExtraPrice(category,
-                                data.current.comp[data.current.value].hex) or ConfigShops.Prices.clothing[category]
-                            .price
+                                    data.current.comp[data.current.value].hex) or ConfigShops.Prices.clothing[category]
+                                .price
                         else
                             TotalAmountToPay[category] = 0
                         end
