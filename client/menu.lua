@@ -96,7 +96,7 @@ function ReloadAllComponents()
                         local TagData = GetMetaPedData(key == "Boots" and "boots" or key)
                         if TagData then
                             SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal,
-                                TagData.material, TagData.palette, data.tint0, data.tint1, data.tint2)
+                                TagData.material, data.palette or TagData.palette, data.tint0, data.tint1, data.tint2)
                         end
                     end
                 end

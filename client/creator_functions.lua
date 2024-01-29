@@ -336,6 +336,7 @@ function ConvertTableComps(comps, compTints)
                 NewComps[k].tint0 = compTint.tint0 or 0
                 NewComps[k].tint1 = compTint.tint1 or 0
                 NewComps[k].tint2 = compTint.tint2 or 0
+                if compTint.palette then NewComps[k].palette = compTint.palette end
             end
         end
     end
