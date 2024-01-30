@@ -392,14 +392,14 @@ function ApplyDefaultClothing()
 
                 if not PlayerTrackingData[category] then
                     PlayerTrackingData[category] = {}
-                    PlayerTrackingData[category][component.componentHash] = { tint0 = 0, tint1 = 0, tint2 = 0 }
+                    PlayerTrackingData[category][component.componentHash] = { tint0 = 0, tint1 = 0, tint2 = 0, palette = 0 }
                 end
 
             end
         end
     end
     
-    CachedComponents.Gunbelt = { comp = isPedMale and 795591403 or 1511461630, tint0 = 0, tint1 = 0, tint2 = 0 }
+    CachedComponents.Gunbelt = { comp = isPedMale and 795591403 or 1511461630, tint0 = 0, tint1 = 0, tint2 = 0, palette = 0 }
 end
 
 function SortData(data)
@@ -470,6 +470,7 @@ function UpdateCache(newcomponents)
                 tint0 = 0,
                 tint1 = 0,
                 tint2 = 0,
+                palette = 0
             }
         else
             CachedComponents[key].comp = value
@@ -499,6 +500,7 @@ function AssertCachedComponents()
                 tint0 = v.tint0,
                 tint1 = v.tint1,
                 tint2 = v.tint2,
+                palette = 0,
                 index = v
                     .index,
                 color = v.color

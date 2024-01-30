@@ -159,6 +159,7 @@ Translation.Langs = {
             element2 = { label = " Colors ", desc = "There is ", desc2 = "Colors for this component" },
             element3 = { label = " of ", desc = "There's are about ", desc2 = "for this category " },
             element4 = { label = " Remove Component ", desc = "Remove ", desc2 = "Remove this component ", desc3 = " press to remove" },
+            palette = { label = "Color palette", desc = "Swap the color palette" },
             tint = { label = "Custom Tint 1", desc = "Customisation  Tint 0 some clothing wont have any" },
             tint2 = { label = "Custom Tint 2", desc = "Customisation  Tint 1 some clothing wont have any" },
             tint3 = { label = "Custom Tint 3", desc = "Customisation  Tint 2 some clothing wont have any" },

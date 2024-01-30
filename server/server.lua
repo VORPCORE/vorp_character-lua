@@ -9,13 +9,14 @@ function ConvertTable(comps, compTints)
 	local NewComps = {}
 
 	for k, comp in pairs(comps) do
-		NewComps[k] = { comp = comp, tint0 = 0, tint1 = 0, tint2 = 0 }
+		NewComps[k] = { comp = comp, tint0 = 0, tint1 = 0, tint2 = 0, palette = 0 }
 
 		if compTints and compTints[k] and compTints[k][tostring(comp)] then
 			local compTint = compTints[k][tostring(comp)]
 			NewComps[k].tint0 = compTint.tint0 or 0
 			NewComps[k].tint1 = compTint.tint1 or 0
 			NewComps[k].tint2 = compTint.tint2 or 0
+			NewComps[k].palette = compTint.palette or 0
 		end
 	end
 
@@ -151,7 +152,7 @@ RegisterNetEvent("vorpcharacter:setPlayerCompChange", function(skinValues, comps
 end)
 
 
-
+RegisterNetEvent("vorp_character:server:SpawnUniqueCharacter")
 AddEventHandler("vorp_character:server:SpawnUniqueCharacter", function(source)
 	local userCharacters = GetPlayerData(source)
 	if not userCharacters then
