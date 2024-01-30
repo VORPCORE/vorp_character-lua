@@ -176,9 +176,19 @@ function GetDescriptionLayout(value, price)
     local desc = imgPath:format(value.img) ..
         "<br><br>" .. value.desc .. "<br><br><br><br>" .. Divider ..
         "<br><span style='font-family:crock; float:left; font-size: 22px;'>" ..
-        T.PayToShop.Total .. " </span><span style='font-family:crock;float:right; font-size: 22px;'>$" ..
-        (price or GetCurrentAmmountToPay()) .. "</span><br>" .. Divider
-    return desc
+        T.PayToShop.Total .. " </span><span style='font-family:crock;float:right; font-size: 22px;'>"
+
+    if  ShopType == "secondchance" then
+        if ConfigShops.SecondChanceCurrency == 0 then
+            desc = desc .. T.PayToShop.Currency
+        elseif ConfigShops.SecondChanceCurrency == 1 then
+            desc = desc .. T.Other.Gold
+        elseif ConfigShops.SecondChanceCurrency == 2 then
+            desc = desc .. T.PayToShop.Tokens
+        end
+        desc = desc .. (price or GetCurrentAmmountToPay()) .. "</span><br>" .. Divider
+        return desc
+    end
 end
 
 function OpenCharCreationMenu(clothingtable, value)

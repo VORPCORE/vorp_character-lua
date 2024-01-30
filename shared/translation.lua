@@ -178,6 +178,9 @@ Translation.Langs = {
             DontMoney = "You don't have enough of %s Ammount is: $%s",
             Youpaid = "You paid $%s",
             Total = 'Total:',
+            Tokens = 'Tokens: ',
+            Currency = '$',
+            
         },
         MenuAppearance = {
             title = "Appearance",
@@ -480,6 +483,9 @@ Translation.Langs = {
             DontMoney = "Non hai  %s L'ammontare è: $%s",
             Youpaid = "Hai pagato $%s",
             Total = 'Totale:',
+            Tokens = 'Tokens: ',
+            Currency = '$',
+            
         },
         MenuAppearance = {
             title = "Aspetto",
@@ -788,6 +794,9 @@ Translation.Langs = {
             DontMoney = "Você não tem %s suficiente montante é: $%s",
             Youpaid = "Você pagou $%s",
             Total = 'Total:',
+            Tokens = 'Tokens: ',
+            Currency = '$',
+            
         },
         MenuAppearance = {
             title = "Aparência",
@@ -1071,6 +1080,9 @@ Translation.Langs = {
             DontMoney = "Você não tem  %s suficiente montante é: $%s",
             Youpaid = "Você pagou $%s",
             Total = 'Total:',
+            Tokens = 'Tokens: ',
+            Currency = '$',
+            
         },
         MenuAppearance = {
             title = "Aparência",
@@ -1372,6 +1384,9 @@ Translation.Langs = {
             DontMoney = "Vous n'avez pas assez d'argent %s le montant est : $%s",
             Youpaid = "Vous avez payé $%s",
             Total = 'Total :',
+            Tokens = 'Tokens: ',
+            Currency = '$',
+            
         },
         MenuAppearance = {
             title = "Apparence",
@@ -1687,6 +1702,9 @@ Translation.Langs = {
             DontMoney = "Du hast nicht genug Geld %s der Betrag ist : $%s",
             Youpaid = "Du hast $%s bezahlt",
             Total = 'Gesamt:',
+            Tokens = 'Tokens: ',
+            Currency = '$',
+            
         },
         MenuAppearance = {
             title = "Aussehen",
@@ -1984,6 +2002,8 @@ Translation.Langs = {
             DontMoney = "No tienes suficiente  %s el monto es : $%s",
             Youpaid = "Pagaste $%s",
             Total = 'Total:',
+            Tokens = 'Tokens: ',
+            Currency = '$',
         },
         MenuAppearance = {
             title = "Apariencia",
