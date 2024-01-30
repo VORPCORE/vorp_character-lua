@@ -92,11 +92,12 @@ function ReloadAllComponents()
             if PlayerTrackingData[key] then
                 local data = PlayerTrackingData[key][value.comp]
                 if data then
-                    if data.tint0 ~= 0 or data.tint1 ~= 0 or data.tint2 ~= 0 then
+                    if data.tint0 ~= 0 or data.tint1 ~= 0 or data.tint2 ~= 0 or data.palette ~= 0 then
                         local TagData = GetMetaPedData(key == "Boots" and "boots" or key)
+                        local palette = (data.palette ~= 0) and data.palette or TagData.palette
                         if TagData then
                             SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal,
-                                TagData.material, data.palette or TagData.palette, data.tint0, data.tint1, data.tint2)
+                                TagData.material, palette, data.tint0, data.tint1, data.tint2)
                         end
                     end
                 end
@@ -700,7 +701,7 @@ function OpenComponentMenu(table, category, value, Outfits)
         CachedComponents[category] = { comp = -1 }
     end
 
-    local indexComp, indexColor, tint0, tint1, tint2 = GetTrackedData(category)
+    local indexComp, indexColor, tint0, tint1, tint2, palette = GetTrackedData(category)
 
     local colorValue = 0
     if table[category] and table[category][indexColor] then
@@ -805,6 +806,32 @@ function OpenComponentMenu(table, category, value, Outfits)
             menuSpace .. Divider .. T.MenuComponents.scroll
     }
 
+
+    local paletteId = 0
+    if palette then
+        for id,paletteHash in pairs (ConfigShops.palettes) do
+            if paletteHash == palette then
+                paletteId = id
+                break
+            end
+        end
+        if paletteId == 0 then
+            ConfigShops.palettes[#ConfigShops.palettes+1] = palette
+            paletteId = #ConfigShops.palettes
+        end
+    end
+    
+    elements[#elements+1] = {
+        label = T.MenuComponents.palette.label,
+        type = "slider",
+        action = "swapPalette",
+        value = paletteId,
+        comp = InnitComp,
+        min = 1,
+        max = #ConfigShops.palettes,
+        desc = T.MenuComponents.palette.desc
+    }
+
     MenuData.Open('default', GetCurrentResourceName(), 'OpenComponentMenu',
         {
             title = Title,
@@ -819,17 +846,33 @@ function OpenComponentMenu(table, category, value, Outfits)
                 _G[data.trigger](table, value, Outfits)
             end
 
+            if data.current.action == "swapPalette" and data.current.comp ~= -1 then
+                IsPedReadyToRender()
+                local comp = data.current.comp
+                local palette = ConfigShops.palettes[data.current.value]
+                SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
+                    palette, 0, 0, 0)
+                UpdatePedVariation()
+                menu.setElement(4, "value", 0)
+                menu.setElement(5, "value", 0)
+                menu.setElement(6, "value", 0)
+                menu.refresh()
+                PlayerTrackingData[category][comp] = { tint0 = 0, tint1 = 0, tint2 = 0, palette = palette }
+                return
+            end
+
             if data.current.action == "tint0" and data.current.comp ~= -1 then
                 IsPedReadyToRender()
                 local comp = data.current.comp
                 local tint0, tint1, tint2 = data.current.value, PlayerTrackingData[category][comp].tint1,
                     PlayerTrackingData[category][comp].tint2
+                local palette = PlayerTrackingData[category][comp].palette
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
-                    TagData.palette, tint0, tint1, tint2)
+                    palette, tint0, tint1, tint2)
                 UpdatePedVariation()
                 menu.refresh()
                 if not PlayerTrackingData[category][comp] then
-                    PlayerTrackingData[category][comp] = { tint1 = tint1, tint2 = tint2 }
+                    PlayerTrackingData[category][comp] = { tint1 = tint1, tint2 = tint2, palette = palette }
                 end
                 PlayerTrackingData[category][comp].tint0 = tint0
                 return
@@ -840,12 +883,13 @@ function OpenComponentMenu(table, category, value, Outfits)
                 local comp = data.current.comp
                 local tint0, tint1, tint2 = PlayerTrackingData[category][comp].tint0, data.current.value,
                     PlayerTrackingData[category][comp].tint2
+                local palette = PlayerTrackingData[category][comp].palette
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
-                    TagData.palette, tint0, tint1, tint2)
+                    palette, tint0, tint1, tint2)
                 UpdatePedVariation()
                 menu.refresh()
                 if not PlayerTrackingData[category][comp] then
-                    PlayerTrackingData[category][comp] = { tint0 = tint0, tint2 = tint2 }
+                    PlayerTrackingData[category][comp] = { tint0 = tint0, tint2 = tint2, palette = palette }
                 end
                 PlayerTrackingData[category][comp].tint1 = tint1
                 return
@@ -856,12 +900,13 @@ function OpenComponentMenu(table, category, value, Outfits)
                 local comp = data.current.comp
                 local tint0, tint1, tint2 = PlayerTrackingData[category][comp].tint0,
                     PlayerTrackingData[category][comp].tint1, data.current.value
+                local palette = PlayerTrackingData[category][comp].palette
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
-                    TagData.palette, tint0, tint1, tint2)
+                    palette, tint0, tint1, tint2)
                 UpdatePedVariation()
                 menu.refresh()
                 if not PlayerTrackingData[category][comp] then
-                    PlayerTrackingData[category][comp] = { tint0 = tint0, tint1 = tint1 }
+                    PlayerTrackingData[category][comp] = { tint0 = tint0, tint1 = tint1, palette = palette }
                 end
                 PlayerTrackingData[category][comp].tint2 = tint2
                 return
@@ -881,6 +926,7 @@ function OpenComponentMenu(table, category, value, Outfits)
                 menu.setElement(4, "value", 0)
                 menu.setElement(5, "value", 0)
                 menu.setElement(6, "value", 0)
+                menu.setElement(7, "value", 0)
                 menu.refresh()
                 PlayerTrackingData[category] = {}
                 if IsInClothingStore then
@@ -914,6 +960,7 @@ function OpenComponentMenu(table, category, value, Outfits)
                             tint0 = TagData and TagData.tint0 or 0,
                             tint1 = TagData and TagData.tint1 or 0,
                             tint2 = TagData and TagData.tint2 or 0,
+                            palette = TagData and TagData.palette or 0,
                             color = data.current.value,
                             index = index,
                         }
@@ -923,9 +970,27 @@ function OpenComponentMenu(table, category, value, Outfits)
                     menu.setElement(4, "value", TagData and TagData.tint0 or 0)
                     menu.setElement(5, "value", TagData and TagData.tint1 or 0)
                     menu.setElement(6, "value", TagData and TagData.tint2 or 0)
+                    if TagData and TagData.palette then
+                        local paletteId = 0
+                        for id,palette in pairs (ConfigShops.palettes) do
+                            if TagData.palette == palette then
+                                paletteId = id
+                                break
+                            end
+                        end
+                        if paletteId == 0 then
+                            ConfigShops.palettes[#ConfigShops.palettes+1] = TagData.palette
+                            paletteId = #ConfigShops.palettes
+                            menu.setElement(7,"max",#ConfigShops.palettes)
+                        end
+                        menu.setElement(7, "value", paletteId)
+                    else
+                        menu.setElement(7, "value", 0)
+                    end
                     menu.setElement(4, "comp", data.current.comp[data.current.value].hex)
                     menu.setElement(5, "comp", data.current.comp[data.current.value].hex)
                     menu.setElement(6, "comp", data.current.comp[data.current.value].hex)
+                    menu.setElement(7, "comp", data.current.comp[data.current.value].hex)
                     menu.refresh()
 
                     if not IsInClothingStore then
@@ -966,6 +1031,7 @@ function OpenComponentMenu(table, category, value, Outfits)
                             tint0 = TagData and TagData.tint0 or 0,
                             tint1 = TagData and TagData.tint1 or 0,
                             tint2 = TagData and TagData.tint2 or 0,
+                            palette = TagData and TagData.palette or 0,
                             index = data.current.value,
                             color = 0,
                         }
@@ -988,9 +1054,27 @@ function OpenComponentMenu(table, category, value, Outfits)
                     menu.setElement(4, "comp", component.hex)
                     menu.setElement(5, "comp", component.hex)
                     menu.setElement(6, "comp", component.hex)
+                    menu.setElement(7, "comp", component.hex)
                     menu.setElement(4, "value", TagData and TagData.tint0 or 0)
                     menu.setElement(5, "value", TagData and TagData.tint1 or 0)
                     menu.setElement(6, "value", TagData and TagData.tint2 or 0)
+                    if TagData and TagData.palette then
+                        local paletteId = 0
+                        for id,palette in pairs (ConfigShops.palettes) do
+                            if TagData.palette == palette then
+                                paletteId = id
+                                break
+                            end
+                        end
+                        if paletteId == 0 then
+                            ConfigShops.palettes[#ConfigShops.palettes+1] = TagData.palette
+                            paletteId = #ConfigShops.palettes
+                            menu.setElement(7,"max",#ConfigShops.palettes)
+                        end
+                        menu.setElement(7, "value", paletteId)
+                    else
+                        menu.setElement(7, "value", 0)
+                    end
                     menu.refresh()
 
                     if not IsInClothingStore then

@@ -159,17 +159,18 @@ function LoadComps(ped, components, set)
 				Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
 				UpdatePedVariation(ped)
 				IsPedReadyToRender(ped)
-				if value.tint0 ~= 0 or value.tint1 ~= 0 or value.tint2 ~= 0 then
+				if value.tint0 ~= 0 or value.tint1 ~= 0 or value.tint2 ~= 0 or value.palette ~= 0 then
 					local TagData = GetMetaPedData(category == "Boots" and "boots" or category, ped)
 					if TagData then
+						local palette = (value.palette ~= 0) and value.palette or TagData.palette
 						SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
-							value.palette or TagData.palette, value.tint0, value.tint1, value.tint2)
+							palette, value.tint0, value.tint1, value.tint2)
 						if IsPedAPlayer(ped) and CachedComponents[category] then
 							CachedComponents[category].drawable = TagData.drawable
 							CachedComponents[category].albedo = TagData.albedo
 							CachedComponents[category].normal = TagData.normal
 							CachedComponents[category].material = TagData.material
-							CachedComponents[category].palette = value.palette or TagData.palette
+							CachedComponents[category].palette = palette
 						end
 					end
 				end
