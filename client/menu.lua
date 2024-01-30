@@ -829,7 +829,7 @@ function OpenComponentMenu(table, category, value, Outfits)
                 _G[data.trigger](table, value, Outfits)
             end
 
-            if data.current.action == "tint0" and data.current.comp ~= -1 then
+            if data.current.action == "tint0" and data.current.comp ~= -1 and TagData and next(TagData) then
                 IsPedReadyToRender()
                 local comp = data.current.comp
                 local tint0, tint1, tint2 = data.current.value, PlayerTrackingData[category][comp].tint1,
@@ -845,7 +845,7 @@ function OpenComponentMenu(table, category, value, Outfits)
                 return
             end
 
-            if data.current.action == "tint1" and data.current.comp ~= -1 then
+            if data.current.action == "tint1" and data.current.comp ~= -1 and TagData and next(TagData) then
                 IsPedReadyToRender()
                 local comp = data.current.comp
                 local tint0, tint1, tint2 = PlayerTrackingData[category][comp].tint0, data.current.value,
@@ -861,7 +861,7 @@ function OpenComponentMenu(table, category, value, Outfits)
                 return
             end
 
-            if data.current.action == "tint2" and data.current.comp ~= -1 then
+            if data.current.action == "tint2" and data.current.comp ~= -1 and TagData and next(TagData) then
                 IsPedReadyToRender()
                 local comp = data.current.comp
                 local tint0, tint1, tint2 = PlayerTrackingData[category][comp].tint0,
