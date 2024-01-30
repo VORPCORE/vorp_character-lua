@@ -211,6 +211,39 @@ local function LoadCharacterSelect(ped, skin, components)
 	Citizen.InvokeNative(0xC6258F41D86676E0, ped, 0, 100)
 end
 
+function CharSelect()
+	DoScreenFadeOut(0)
+	repeat Wait(0) until IsScreenFadedOut()
+	Wait(1000)
+	local charIdentifier = myChars[selectedChar].charIdentifier
+	local nModel = tostring(myChars[selectedChar].skin.sex)
+	CachedSkin = myChars[selectedChar].skin
+	CachedComponents = myChars[selectedChar].components
+	SetCachedSkin()
+	TriggerServerEvent("vorp_CharSelectedCharacter", charIdentifier)
+	RequestModel(nModel, false)
+	repeat Wait(0) until HasModelLoaded(nModel)
+	Wait(1000)
+	SetPlayerModel(PlayerId(), joaat(nModel), false)
+	SetModelAsNoLongerNeeded(nModel)
+	Wait(1000)
+	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
+	NetworkClearClockTimeOverride()
+	FreezeEntityPosition(PlayerPedId(), false)
+	SetEntityVisible(PlayerPedId(), true)
+	SetPlayerInvincible(PlayerId(), false)
+	SetEntityCanBeDamaged(PlayerPedId(), true)
+	local coords = myChars[selectedChar].coords
+	if not coords.x or not coords.y or not coords.z or not coords.heading then
+		print("No coords found send back to original")
+		coords = Config.SpawnCoords.position
+	end
+
+	local playerCoords = vector3(tonumber(coords.x), tonumber(coords.y), tonumber(coords.z))
+	local heading = coords.heading
+	local isDead = myChars[selectedChar].isDead
+	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead) -- in here players will be removed from instance
+end
 
 function StartSwapCharacters()
 	ShowBusyspinnerWithText(T.Other.spinnertext)
@@ -521,40 +554,6 @@ function OpenMenuSelect()
 		end, function(menu, data)
 
 		end)
-end
-
-function CharSelect()
-	DoScreenFadeOut(0)
-	repeat Wait(0) until IsScreenFadedOut()
-	Wait(1000)
-	local charIdentifier = myChars[selectedChar].charIdentifier
-	local nModel = tostring(myChars[selectedChar].skin.sex)
-	CachedSkin = myChars[selectedChar].skin
-	CachedComponents = myChars[selectedChar].components
-	SetCachedSkin()
-	TriggerServerEvent("vorp_CharSelectedCharacter", charIdentifier)
-	RequestModel(nModel, false)
-	repeat Wait(0) until HasModelLoaded(nModel)
-	Wait(1000)
-	SetPlayerModel(PlayerId(), joaat(nModel), false)
-	SetModelAsNoLongerNeeded(nModel)
-	Wait(1000)
-	LoadPlayerComponents(PlayerPedId(), CachedSkin, CachedComponents)
-	NetworkClearClockTimeOverride()
-	FreezeEntityPosition(PlayerPedId(), false)
-	SetEntityVisible(PlayerPedId(), true)
-	SetPlayerInvincible(PlayerId(), false)
-	SetEntityCanBeDamaged(PlayerPedId(), true)
-	local coords = myChars[selectedChar].coords
-	if not coords.x or not coords.y or not coords.z or not coords.heading then
-		print("No coords found send back to original")
-		coords = Config.SpawnCoords.position
-	end
-
-	local playerCoords = vector3(tonumber(coords.x), tonumber(coords.y), tonumber(coords.z))
-	local heading = coords.heading
-	local isDead = myChars[selectedChar].isDead
-	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead) -- in here players will be removed from instance
 end
 
 AddEventHandler("vorpcharacter:reloadafterdeath", function()
