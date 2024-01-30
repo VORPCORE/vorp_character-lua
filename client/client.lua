@@ -319,8 +319,6 @@ local function finishSelection(boolean)
 	Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
 end
 
--- get resolution to allow setting values for different resolutions since these are build dynamically to allow more freedom
-Resolution = Core.Graphics.ScreenResolution()
 local imgPath = "<img style='max-height:450px;max-width:280px;float: center;'src='nui://" ..
 	GetCurrentResourceName() .. "/images/%s.png'>"
 local img = "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" ..
@@ -328,15 +326,17 @@ local img = "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10p
 local Divider = "<br><br><br><br><br>" .. img:format("divider_line") .. "<br>"
 local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuCreation.subtitle1 .. "<br><br></span>"
 local fontSize = "18px"
-
-if Resolution.width <= 1920 and Resolution.height <= 1080 then
-	imgPath = "<img style='max-height:200px;max-width:200px;float: center;'src='nui://" ..
-		GetCurrentResourceName() .. "/images/%s.png'>"
-	Divider = "<br>" .. img:format("divider_line")
-	SubTitle = T.MenuCreation.subtitle1
-	fontSize = "13px"
-end
-
+-- get resolution to allow setting values for different resolutions since these are build dynamically to allow more freedom
+CreateThread(function()
+	Resolution = Core.Graphics.ScreenResolution()
+	if Resolution.width <= 1920 and Resolution.height <= 1080 then
+		imgPath = "<img style='max-height:200px;max-width:200px;float: center;'src='nui://" ..
+			GetCurrentResourceName() .. "/images/%s.png'>"
+		Divider = "<br>" .. img:format("divider_line")
+		SubTitle = T.MenuCreation.subtitle1
+		fontSize = "13px"
+	end
+end)
 
 local function addNewelements(menu)
 	menu.addNewElement({
