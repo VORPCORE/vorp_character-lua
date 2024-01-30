@@ -819,15 +819,15 @@ function OpenComponentMenu(table, category, value, Outfits)
 
     local paletteId = 0
     if palette then
-        for id,paletteHash in pairs (ConfigShops.palettes) do
+        for id,paletteHash in pairs (Config.clothesPalettes) do
             if paletteHash == palette then
                 paletteId = id
                 break
             end
         end
         if paletteId == 0 then
-            ConfigShops.palettes[#ConfigShops.palettes+1] = palette
-            paletteId = #ConfigShops.palettes
+            Config.clothesPalettes[#Config.clothesPalettes+1] = palette
+            paletteId = #Config.clothesPalettes
         end
     end
     
@@ -838,7 +838,7 @@ function OpenComponentMenu(table, category, value, Outfits)
         value = paletteId,
         comp = InnitComp,
         min = 1,
-        max = #ConfigShops.palettes,
+        max = #Config.clothesPalettes,
         desc = T.MenuComponents.palette.desc
     }
 
@@ -859,7 +859,7 @@ function OpenComponentMenu(table, category, value, Outfits)
             if data.current.action == "swapPalette" and data.current.comp ~= -1 and TagData and next(TagData) then
                 IsPedReadyToRender()
                 local comp = data.current.comp
-                local palette = ConfigShops.palettes[data.current.value]
+                local palette = Config.clothesPalettes[data.current.value]
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
                     palette, 0, 0, 0)
                 UpdatePedVariation()
@@ -982,16 +982,16 @@ function OpenComponentMenu(table, category, value, Outfits)
                     menu.setElement(6, "value", TagData and TagData.tint2 or 0)
                     if TagData and TagData.palette then
                         local paletteId = 0
-                        for id,palette in pairs (ConfigShops.palettes) do
+                        for id,palette in pairs (Config.clothesPalettes) do
                             if TagData.palette == palette then
                                 paletteId = id
                                 break
                             end
                         end
                         if paletteId == 0 then
-                            ConfigShops.palettes[#ConfigShops.palettes+1] = TagData.palette
-                            paletteId = #ConfigShops.palettes
-                            menu.setElement(7,"max",#ConfigShops.palettes)
+                            Config.clothesPalettes[#Config.clothesPalettes+1] = TagData.palette
+                            paletteId = #Config.clothesPalettes
+                            menu.setElement(7,"max",#Config.clothesPalettes)
                         end
                         menu.setElement(7, "value", paletteId)
                     else
@@ -1070,16 +1070,16 @@ function OpenComponentMenu(table, category, value, Outfits)
                     menu.setElement(6, "value", TagData and TagData.tint2 or 0)
                     if TagData and TagData.palette then
                         local paletteId = 0
-                        for id,palette in pairs (ConfigShops.palettes) do
+                        for id,palette in pairs (Config.clothesPalettes) do
                             if TagData.palette == palette then
                                 paletteId = id
                                 break
                             end
                         end
                         if paletteId == 0 then
-                            ConfigShops.palettes[#ConfigShops.palettes+1] = TagData.palette
-                            paletteId = #ConfigShops.palettes
-                            menu.setElement(7,"max",#ConfigShops.palettes)
+                            Config.clothesPalettes[#Config.clothesPalettes+1] = TagData.palette
+                            paletteId = #Config.clothesPalettes
+                            menu.setElement(7,"max",#Config.clothesPalettes)
                         end
                         menu.setElement(7, "value", paletteId)
                     else
