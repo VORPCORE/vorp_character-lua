@@ -500,7 +500,7 @@ function AssertCachedComponents()
                 tint0 = v.tint0,
                 tint1 = v.tint1,
                 tint2 = v.tint2,
-                palette = 0,
+                palette = v.palette,
                 index = v
                     .index,
                 color = v.color
