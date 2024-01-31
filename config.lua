@@ -1518,3 +1518,5 @@ Config.HashList = {
     Beard       = 0xF8016BCA,
     bow         = 0x8E84A2AA,
 }
+
+Config.clothesPalettes = {1090645383,1064202495,-783849117,864404955,1669565057,-1952348042}

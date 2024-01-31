@@ -59,7 +59,8 @@ local function Setup()
 	SetCamParams(cam, vec3(-562.15, -3776.22, 239.11), vec3(-4.71, 0.0, -93.14), 45.0, 0, 1, 1, 2, 1, 1)
 
 	Wait(1000)
-	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1, '~INPUT_CREATOR_MENU_TOGGLE~'..T.Other.GenderChoice..'~INPUT_CREATOR_ACCEPT~')
+	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1,
+		'~INPUT_CREATOR_MENU_TOGGLE~' .. T.Other.GenderChoice .. '~INPUT_CREATOR_ACCEPT~')
 	SetCamFocusDistance(cam, 4.0)
 
 	local char = 1
@@ -175,20 +176,18 @@ local function SetUpCameraCharacterMovement(x, y, z, heading, zoom)
 	return cam
 end
 
-
-local z_position = 238.98
-local heading = 93.20
-local zoom = 55.00
-local function AdjustCharcaterHeading(amount)
+local function AdjustCharcaterHeading(heading, amount)
 	heading = heading + amount
 	SetPedDesiredHeading(PlayerPedId(), heading)
+	return heading
 end
 
 function StartPrompts(value)
+	local zoom = 55.00
 	local locationx = value and value.Position.x or -560.1333
-	local locationy = value and value.Position?.y or -3780.923
+	local locationy = value and value.Position.y or -3780.923
 	local heading = value and value.Heading or -90.96693
-	local position = value and value.Position.z or z_position
+	local position = value and value.Position.z or 238.98
 	local zoommin = 15.00
 	local zoommax = 65.00
 	local maxUp = value and value.MaxUp or 239.60
@@ -196,34 +195,36 @@ function StartPrompts(value)
 	local cam = SetUpCameraCharacterMovement(locationx, locationy, position, heading, zoom)
 	local TotalToPay = ""
 	local pocketMoney = value and LocalPlayer.state.Character.Money or 0
+
 	while IsInCharCreation or IsInClothingStore do
 		Wait(0)
 
 		if IsInClothingStore and ShopType ~= "secondchance" then
 			TotalToPay = T.Other.total .. GetCurrentAmmountToPay() .. T.Other.pocketmoney .. pocketMoney .. "~q~ "
 		end
+
 		local label = CreateVarString(10, "LITERAL_STRING", TotalToPay .. T.PromptLabels.CamAdjustments)
 		PromptSetActiveGroupThisFrame(PromptGroup2, label)
 
 		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key) then --right
-			AdjustCharcaterHeading(-5.0)
+			heading = AdjustCharcaterHeading(heading, -1.5)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key2) then -- left
-			AdjustCharcaterHeading(5.0)
+			heading = AdjustCharcaterHeading(heading, 1.5)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_camera_ws.key) then -- up
-			z_position = math.min(z_position + 0.01, maxUp)
-			SetCamCoord(cam, locationx, locationy, z_position)
+			position = math.min(position + 0.01, maxUp)
+			SetCamCoord(cam, locationx, locationy, position)
 		end
 
 		if IsControlPressed(2, Config.keys.prompt_camera_ws.key2) then -- down
-			z_position = math.max(z_position - 0.01, maxDown)
-			SetCamCoord(cam, locationx, locationy, z_position)
+			position = math.max(position - 0.01, maxDown)
+			SetCamCoord(cam, locationx, locationy, position)
 		end
 
-		if IsControlPressed(2, `INPUT_CURSOR_ACCEPT_HOLD`) then -- zoom out
+		if IsControlPressed(2, `INPUT_CONTEXT_ACTION`) then -- zoom out
 			zoom = math.min(zoom + 0.5, zoommax)
 			SetCamFov(cam, zoom)
 		end
@@ -241,11 +242,11 @@ end
 function DefaultPedSetup(ped, male)
 	local compEyes   = male and 612262189 or 928002221
 	local compBody   = male and tonumber("0x" .. Config.DefaultChar.Male[3].Body[1]) or
-	tonumber("0x" .. Config.DefaultChar.Female[3].Body[1])
+		tonumber("0x" .. Config.DefaultChar.Female[3].Body[1])
 	local compHead   = male and tonumber("0x" .. Config.DefaultChar.Male[3].Heads[9]) or
-	tonumber("0x" .. Config.DefaultChar.Female[3].Heads[4])
+		tonumber("0x" .. Config.DefaultChar.Female[3].Heads[4])
 	local compLegs   = male and tonumber("0x" .. Config.DefaultChar.Male[3].Legs[1]) or
-	tonumber("0x" .. Config.DefaultChar.Female[3].Legs[1])
+		tonumber("0x" .. Config.DefaultChar.Female[3].Legs[1])
 	local albedo     = male and joaat("mp_head_mr1_sc03_c0_000_ab") or joaat("mp_head_fr1_sc08_c0_000_ab")
 	local body       = male and 2362013313 or 0x3F1F01E5
 	local model      = male and "mp_male" or "mp_female"

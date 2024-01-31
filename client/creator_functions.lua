@@ -313,24 +313,30 @@ function GetMetaPedData(category, ped)
     return { drawable = drawable, albedo = albedo, normal = normal, material = material, palette = palette, tint0 = tint0, tint1 = tint1, tint2 = tint2 }
 end
 
-function GetComponentToApplyByIndex(total)
-    for key, value in ipairs(total) do
-        if #total == key then
-            return value
+function IndexTintCompsToNumber(table)
+    local NewComps = {}
+    
+    for i, v in pairs(table) do
+        NewComps[i] = {}
+        for k, x in pairs(v) do
+            NewComps[i][tonumber(k)] = x
         end
     end
+
+    return NewComps
 end
 
 function ConvertTableComps(comps, compTints)
     local NewComps = {}
     for k, v in pairs(comps) do
-        NewComps[k] = { comp = v.comp, tint0 = 0, tint1 = 0, tint2 = 0 }
+        NewComps[k] = { comp = v.comp, tint0 = 0, tint1 = 0, tint2 = 0, palette = 0 }
         if compTints and compTints[k] then
             if v.comp ~= -1 and compTints[k][v.comp] then
                 local compTint = compTints[k][v.comp]
                 NewComps[k].tint0 = compTint.tint0 or 0
                 NewComps[k].tint1 = compTint.tint1 or 0
                 NewComps[k].tint2 = compTint.tint2 or 0
+                NewComps[k].palette = compTint.palette or 0
             end
         end
     end
@@ -338,6 +344,10 @@ function ConvertTableComps(comps, compTints)
 end
 
 function SetCachedClothingIndex()
+    for i, v in pairs(PlayerClothing) do
+        PlayerClothing[i] = { comp = -1 }
+    end
+
     local gender = GetGender() == "Male" and "male" or "female"
     for key, value in pairs(CachedComponents) do
         local Data = Data.clothing[gender][key]
@@ -347,7 +357,7 @@ function SetCachedClothingIndex()
                     if value.comp ~= -1 and va.hash then
                         if value.comp == va.hash then
                             PlayerTrackingData[key] = {}
-                            PlayerTrackingData[key][value.comp] = { index = indexCategory, color = indexComp, tint0 = value.tint0 or 0, tint1 = value.tint1 or 0, tint2 = value.tint2 or 0 }
+                            PlayerTrackingData[key][value.comp] = { index = indexCategory, color = indexComp, tint0 = value.tint0 or 0, tint1 = value.tint1 or 0, tint2 = value.tint2 or 0, palette = value.palette or 0 }
                             PlayerClothing[key].comp = value.comp
                         end
                     end
@@ -361,7 +371,7 @@ function GetTrackedData(category)
     if PlayerTrackingData[category] and #PlayerTrackingData[category] then
         for component, value in pairs(PlayerTrackingData[category]) do
             if value.index then
-                return value.index, value.color, value.tint0, value.tint1, value.tint2
+                return value.index, value.color, value.tint0, value.tint1, value.tint2, value.palette
             end
         end
     end

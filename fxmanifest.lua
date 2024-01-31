@@ -10,19 +10,20 @@ lua54 'yes'
 shared_scripts {
 	'config.lua',
 	'config_shops.lua',
-	'shared/utils.lua'
+	'shared/utils.lua',
+	'shared/translation.lua',
 }
 
 client_scripts {
 	'@vorp_core/client/dataview.lua',
-	'shared/translation.lua',
 	'shared/clothing.lua',
 	'shared/hairs.lua',
 	'client/*.lua',
-	'client/notify.js'
+	'client/notify.js',
 }
 
 server_scripts {
+	'@oxmysql/lib/MySQL.lua',
 	'server/*.lua',
 }
 

@@ -3,29 +3,57 @@ ConfigShops                      = {}
 ConfigShops.UseShops             = true  -- if you want to use the shops set to true if not set to false
 
 ConfigShops.SecondChancePrice    = 15000 -- if store is second chance then this is the price they need to pay to use it
+    
 ConfigShops.SecondChanceCurrency = 0     -- 0 is cash 1 is gold 2 is tokens currency
 --[[ types of stores]]
+--
 -- clothing
 -- hair
 -- makeup
 -- face
 -- secondchance -- this enables all
 
--- DrawLight = { -- if need light add this to config
---   pos = vector3(-766.35, -1294.86, 43.85),
---
--- },
-
 ConfigShops.Locations = {
-    {                                                  -- valentine
+    {                                                   -- valentine
         Prompt = {
-            Position = vec3(-761.61, -1291.98, 43.85), -- prompt location
-            Label = "Clothing Store",                  -- prompt label
+            Position = vector3(-326.1, 774.48, 117.46), -- prompt location
+            Label = "Clothing Store",                   -- prompt label
+        },
+        Npc = {
+            Enable = true,
+            Model = "CS_FRANCIS_SINCLAIR",
+            Position = vector4(-325.55, 773.02, 116.44, 15.63),
+        },
+        Blip = {
+            Enable = true,
+            Sprite = 1195729388,
+            Name = "Clothing Store",
+        },
+        EditCharacter = { -- where the player will be teleported to edit character
+            Position = vector4(-329.43, 775.29, 121.63, 278.17),
+        },
+        SpawnBack = { -- where the player will be teleported to after editing character
+            Position = vector4(-323.12, 774.47, 121.63, 186.42),
+        },
+        CameraPosition = { -- camera position for the character editor
+            Position = vector3(-327.38, 775.48, 122.00),
+            Heading = 97.6,
+            MaxUp = 122.75,
+            MaxDown = 120.91,
+        },
+        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                -- if you need a light in the store put true
+    },
+    {                                                     -- blackwater
+        Prompt = {
+            Position = vector3(-761.61, -1291.98, 43.85), -- prompt location
+            Label = "Clothing Store",                     -- prompt label
         },
         Npc = {
             Enable = true,
             Model = "CS_FRANCIS_SINCLAIR",
             Position = vector4(-761.31, -1293.64, 43.84, 6.33),
+            Scenario = 'WORLD_HUMAN_STAND_WAITING',
         },
         Blip = {
             Enable = true,
@@ -39,13 +67,13 @@ ConfigShops.Locations = {
             Position = vector4(-766.53, -1293.13, 43.84, 357.64),
         },
         CameraPosition = { -- camera position for the character editor
-            Position = vec3(-765.86, -1295.02, 44.14),
+            Position = vector3(-765.86, -1295.02, 44.14),
             Heading = 92.42,
             MaxUp = 44.85,
             MaxDown = 42.95,
         },
-        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
-
+        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                -- if you need a light in the store put true
     },
     {                                                     -- Rhodes
         Prompt = {
@@ -56,6 +84,7 @@ ConfigShops.Locations = {
             Enable = true,
             Model = "CS_FRANCIS_SINCLAIR",
             Position = vector4(1323.02, -1292.14, 77.08, 239.01),
+            Scenario = 'WORLD_HUMAN_STAND_WAITING',
         },
         Blip = {
             Enable = true,
@@ -74,8 +103,8 @@ ConfigShops.Locations = {
             MaxUp = 78.13,
             MaxDown = 76.95,
         },
-        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
-
+        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                -- if you need a light in the store put true
     },
     {                                                    -- Saint Denis
         Prompt = {
@@ -86,6 +115,7 @@ ConfigShops.Locations = {
             Enable = true,
             Model = "CS_FRANCIS_SINCLAIR",
             Position = vector4(2552.89, -1163.73, 53.73, 144.93),
+            Scenario = 'WORLD_HUMAN_STAND_WAITING',
         },
         Blip = {
             Enable = true,
@@ -104,8 +134,101 @@ ConfigShops.Locations = {
             MaxUp = 54.82,
             MaxDown = 53.00,
         },
-        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
-
+        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                -- if you need a light in the store put true
+    },
+    {                                                      -- Strawberry
+        Prompt = {
+            Position = vector3(-1791.07, -392.71, 160.29), -- prompt location
+            Label = "Enter Clothing Store",                -- prompt label
+        },
+        Npc = {
+            Enable = true,
+            Model = "CS_FRANCIS_SINCLAIR",
+            Position = vector4(-1791.07, -392.71, 160.29, 326.21),
+            Scenario = 'WORLD_HUMAN_STAND_WAITING',
+        },
+        Blip = {
+            Enable = true,
+            Sprite = 1195729388,
+            Name = "Strawberry Clothing Store",
+        },
+        EditCharacter = { -- where the player will be teleported to edit character
+            Position = vector4(-1794.4, -395.25, 160.34, 326.06),
+        },
+        SpawnBack = { -- where the player will be teleported to after editing character
+            Position = vector4(-1793.69, -390.33, 160.26, 61.55),
+        },
+        CameraPosition = { -- camera position for the character editor
+            Position = vector3(-1792.93, -393.17, 160.67),
+            Heading = 145.25,
+            MaxUp = 161.45,
+            MaxDown = 145.31,
+        },
+        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                -- if you need a light in the store put true
+    },
+    {                                                      -- Tumblweed
+        Prompt = {
+            Position = vector3(-5483.24, -2933.42, -0.35), -- prompt location
+            Label = "Enter Clothing Store",                -- prompt label
+        },
+        Npc = {
+            Enable = true,
+            Model = "CS_FRANCIS_SINCLAIR",
+            Position = vector4(-5484.07, -2932.47, -0.35, 188.13),
+            Scenario = 'WORLD_HUMAN_STAND_WAITING',
+        },
+        Blip = {
+            Enable = true,
+            Sprite = 1195729388,
+            Name = "Tumbleweed Clothing Store",
+        },
+        EditCharacter = { -- where the player will be teleported to edit character
+            Position = vector4(-5480.05, -2932.88, -0.32, 229.49),
+        },
+        SpawnBack = { -- where the player will be teleported to after editing character
+            Position = vector4(-5483.36, -2934.59, -0.35, 89.65),
+        },
+        CameraPosition = { -- camera position for the character editor
+            Position = vector3(-5479.10, -2934.15, 0.17),
+            Heading = 40.58,
+            MaxUp = 0.78,
+            MaxDown = -1.20,
+        },
+        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                -- if you need a light in the store put true
+    },
+    {                                                      -- Armadillo
+        Prompt = {
+            Position = vector3(-3686.21, -2626.6, -13.38), -- prompt location
+            Label = "Enter Clothing Store",                -- prompt label
+        },
+        Npc = {
+            Enable = true,
+            Model = "CS_FRANCIS_SINCLAIR",
+            Position = vector4(-3686.39, -2628.62, -13.38, 319.32),
+            Scenario = 'WORLD_HUMAN_STAND_WAITING',
+        },
+        Blip = {
+            Enable = true,
+            Sprite = 1195729388,
+            Name = "Armadillo Clothing Store",
+        },
+        EditCharacter = { -- where the player will be teleported to edit character
+            Position = vector4(-3688.98, -2630.14, -13.35, 6.45),
+        },
+        SpawnBack = { -- where the player will be teleported to after editing character
+            Position = vector4(-3685.82, -2627.58, -13.38, 316.62),
+        },
+        CameraPosition = { -- camera position for the character editor
+            Position = vector3(-3689.07, -2627.43, -12.97),
+            Heading = 179.85,
+            MaxUp = -12.48,
+            MaxDown = -13.89,
+        },
+        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                -- if you need a light in the store put true
     },
     -- add more here
 }
@@ -150,6 +273,8 @@ ConfigShops.Prices = {
         Suspender = { price = 10 },
         armor = { price = 10 },
         Gunbelt = { price = 10 },
+        RingLh = { price = 10 },
+        RingRh = { price = 10 },
     },
     hair = {
         eyebrows = {
@@ -170,8 +295,6 @@ ConfigShops.Prices = {
         hair = { -- shaved head
             price = 10,
         },
-
-
     },
     makeup = {
         lipsticks = {

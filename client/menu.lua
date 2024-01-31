@@ -1,11 +1,15 @@
 ---@diagnostic disable: undefined-global
 local Divider =
-"<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://vorp_character/images/divider_line.png'>"
-local imgPath = "<img style='max-height:500px;max-width:300px;float: center;'src='nui://vorp_character/images/%s.png'>"
+    "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" ..
+    GetCurrentResourceName() .. "/images/divider_line.png'>"
+local imgPath = "<img style='max-height:500px;max-width:300px;float: center;'src='nui://" ..
+    GetCurrentResourceName() .. "/images/%s.png'>"
 local imgPath1 =
-"<img style='max-height:20px;max-width:20px;margin-left: 10px;' src='nui://vorp_character/images/%s.png'>"
+    "<img style='max-height:20px;max-width:20px;margin-left: 10px;' src='nui://" ..
+    GetCurrentResourceName() .. "/images/%s.png'>"
 local path =
-"<img style='max-height:532px;max-width:344px;float: center;'src='nui://vorp_character/clothingfemale/%s.png'>"
+    "<img style='max-height:532px;max-width:344px;float: center;'src='nui://" ..
+    GetCurrentResourceName() .. "/clothingfemale/%s.png'>"
 local __CHARNAME = nil
 local __DESC = nil
 local __VALUE = nil
@@ -88,11 +92,12 @@ function ReloadAllComponents()
             if PlayerTrackingData[key] then
                 local data = PlayerTrackingData[key][value.comp]
                 if data then
-                    if data.tint0 ~= 0 or data.tint1 ~= 0 or data.tint2 ~= 0 then
+                    if data.tint0 ~= 0 or data.tint1 ~= 0 or data.tint2 ~= 0 or data.palette ~= 0 then
                         local TagData = GetMetaPedData(key == "Boots" and "boots" or key)
+                        local palette = (data.palette ~= 0) and data.palette or TagData.palette
                         if TagData then
                             SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal,
-                                TagData.material, TagData.palette, data.tint0, data.tint1, data.tint2)
+                                TagData.material, palette, data.tint0, data.tint1, data.tint2)
                         end
                     end
                 end
@@ -123,18 +128,15 @@ function Applycomponents(comp, category)
         end
 
         RemoveSpecifiedCompByCategory(comp)
-        IsPedReadyToRender()
         ApplyShopItemToPed(comp.hex)
         UpdatePedVariation()
 
         if not comp.remove then
-            IsPedReadyToRender()
             ReloadAllComponents()
             RemoveCompsCantWearTogether(category)
             UpdatePedVariation()
         end
     else
-        IsPedReadyToRender()
         ReloadAllComponents()
         UpdatePedVariation()
     end
@@ -174,9 +176,20 @@ local TotalAmountToPay = {}
 function GetDescriptionLayout(value, price)
     local desc = imgPath:format(value.img) ..
         "<br><br>" .. value.desc .. "<br><br><br><br>" .. Divider ..
-        "<br><span style='font-family:crock; float:left; font-size: 22px;'>"..T.Other.total .. " </span><span style='font-family:crock;float:right; font-size: 22px;'>$" ..
-        (price or GetCurrentAmmountToPay()) .. "</span><br>" .. Divider
-    return desc
+        "<br><span style='font-family:crock; float:left; font-size: 22px;'>" ..
+        T.PayToShop.Total .. " </span><span style='font-family:crock;float:right; font-size: 22px;'>"
+
+    if  ShopType == "secondchance" then
+        if ConfigShops.SecondChanceCurrency == 0 then
+            desc = desc .. T.PayToShop.Currency
+        elseif ConfigShops.SecondChanceCurrency == 1 then
+            desc = desc .. T.Other.Gold
+        elseif ConfigShops.SecondChanceCurrency == 2 then
+            desc = desc .. T.PayToShop.Tokens
+        end
+        desc = desc .. (price or GetCurrentAmmountToPay()) .. "</span><br>" .. Divider
+        return desc
+    end
 end
 
 function OpenCharCreationMenu(clothingtable, value)
@@ -192,7 +205,7 @@ function OpenCharCreationMenu(clothingtable, value)
     if IsInCharCreation or ShopType == "secondchance" then
         elements[#elements + 1] = {
             label = T.MenuCreation.element.label ..
-                "<br><span style='opacity:0.6;'>"..T.Secondchance.DescAppearance.."</span>",
+                "<br><span style='opacity:0.6;'>" .. T.Secondchance.DescAppearance .. "</span>",
             value = "appearance",
             desc = imgPath:format("character_creator_head") ..
                 "<br>" .. T.MenuCreation.element.desc .. "<br><br>" .. Divider .. "<br><br>"
@@ -356,7 +369,7 @@ function OpenCharCreationMenu(clothingtable, value)
                     type = "enableinput",
                     inputType = "input",
                     button = T.Inputs.confirm,
-                    placeholder = T.Placeholder.NickName,
+                    placeholder = T.Placeholder.SetAge,
                     style = "block",
                     attributes = {
                         inputHeader = T.Inputs.inputHeadertype,
@@ -508,6 +521,7 @@ function BackFromMenu(value)
     ExecuteCommand("rc")
     Wait(3000)
     SetGameplayCamRelativeHeading(0.0, 1.0)
+    ClearPedTasksImmediately(PlayerPedId(), true)
     DoScreenFadeIn(1500)
     repeat Wait(0) until IsScreenFadedIn()
     PlayerTrackingData = {}
@@ -518,7 +532,7 @@ function BackFromMenu(value)
 end
 
 --* CLOTHING MENU
-function OpenClothingMenu(Table, value)
+function OpenClothingMenu(Table, value, Outfits)
     Title = IsInClothingStore and "Clothing Store" or T.MenuClothes.title
     MenuData.CloseAll()
 
@@ -534,16 +548,25 @@ function OpenClothingMenu(Table, value)
     local ClothingData = SortData(Table)
     local elements     = {}
 
+    if Outfits and ShopType == "clothing" and not IsInCharCreation then
+        elements[#elements + 1] = {
+            label = T.MenuOutfits.title ..
+                "<br><span style='opacity:0.6;'>" .. #Outfits .. ' ' .. T.MenuOutfits.title .. "</span>",
+            value = 'Outfits',
+            desc = imgPath:format('clothing_generic_outfit') .. menuSpace .. Divider .. "<br> " .. T.MenuOutfits.option,
+        }
+    end
+
     for index, category in ipairs(ClothingData) do
         local ToLabel = T.MenuClothes
         if ToLabel[category] then
             elements[#elements + 1] = {
                 label = ToLabel[category] ..
-                    "<br><span style='opacity:0.6;'>" .. #Table[category] ..' '.. T.MenuComponents.title .. "</span>",
+                    "<br><span style='opacity:0.6;'>" .. #Table[category] .. ' ' .. T.MenuComponents.title .. "</span>",
                 value = category,
                 desc = gender == "female" and
-                    path:format(category) .. menuSpace .. Divider .. "<br><br> "..T.MenuClothes.option or
-                    imgPath:format(category) .. menuSpace .. Divider .. "<br> "..T.MenuClothes.option,
+                    path:format(category) .. menuSpace .. Divider .. "<br><br> " .. T.MenuClothes.option or
+                    imgPath:format(category) .. menuSpace .. Divider .. "<br> " .. T.MenuClothes.option,
             }
         end
     end
@@ -559,7 +582,7 @@ function OpenClothingMenu(Table, value)
         elements[#elements + 1] = {
             label = T.MainMenu.close,
             value = "close",
-            desc = imgPath:format("cross") .. "<br><br>" .. T.MainMenu.closemenu,
+            desc = imgPath:format("cross") .. "<br><br>" .. T.MainMenu.closemenu .. "<br><br>" .. Divider .. "<br><br>",
         }
     end
 
@@ -582,6 +605,11 @@ function OpenClothingMenu(Table, value)
                 end
             end
 
+            if data.current.value == "Outfits" and #Outfits > 0 then
+                OpenOutfitsMenu(Table, value, Outfits)
+                return
+            end
+
             if data.current.value == "close" then
                 menu.close()
                 return BackFromMenu(value)
@@ -589,21 +617,39 @@ function OpenClothingMenu(Table, value)
 
             if data.current.value == "buy" then
                 if GetCurrentAmmountToPay() > 0 then
-                    local NewTable = GetNewCompOldStructure(PlayerClothing)
-                    local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop",
-                        {
-                            comps = NewTable,
-                            skin = CachedSkin,
-                            compTints = PlayerTrackingData,
-                            amount =
-                                GetCurrentAmmountToPay()
-                        })
-                    if result then
-                        AssertCachedComponents()
-                    end
+                    local MyInput = {
+                        type = "enableinput",
+                        inputType = "input",
+                        button = T.Inputs.confirm,
+                        placeholder = T.MenuOutfits.outfitName,
+                        style = "block",
+                        attributes = {
+                            inputHeader = T.MenuOutfits.inputHeader2,
+                            type = "textarea",
+                            pattern = ".*",
+                            title = T.Inputs.title,
+                            style = "border-radius: 10px; background-color: ; border:none;"
+                        }
+                    }
+                    TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
+                        local Result = tostring(result)
+
+                        local NewTable = GetNewCompOldStructure(PlayerClothing)
+                        local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop",
+                            {
+                                comps = NewTable,
+                                skin = CachedSkin,
+                                compTints = PlayerTrackingData,
+                                amount = GetCurrentAmmountToPay(),
+                                Result = Result,
+                            })
+                        if result then
+                            AssertCachedComponents()
+                            menu.close()
+                            BackFromMenu(value)
+                        end
+                    end)
                 end
-                menu.close()
-                return BackFromMenu(value)
             end
 
             if (data.current.value and data.current.value ~= "buy") then
@@ -614,7 +660,7 @@ function OpenClothingMenu(Table, value)
                     end
                 end
 
-                OpenComponentMenu(Table, data.current.value, value)
+                OpenComponentMenu(Table, data.current.value, value, Outfits)
             end
         end,
         function(data, menu)
@@ -647,12 +693,13 @@ end
 
 local TagData = {}
 
-function OpenComponentMenu(table, category, value)
+function OpenComponentMenu(table, category, value, Outfits)
     MenuData.CloseAll()
     local ToLabel = T.MenuClothes
     local label = ToLabel[category]
     local imgPath =
-    "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://vorp_character/images/%s.png'>"
+        "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://" ..
+        GetCurrentResourceName() .. "/images/%s.png'>"
     local elements = {}
 
     TagData = GetMetaPedData(category == "Boots" and "boots" or category)
@@ -664,10 +711,10 @@ function OpenComponentMenu(table, category, value)
         CachedComponents[category] = { comp = -1 }
     end
 
-    local indexComp, indexColor, tint0, tint1, tint2 = GetTrackedData(category)
+    local indexComp, indexColor, tint0, tint1, tint2, palette = GetTrackedData(category)
 
     local colorValue = 0
-    if table[category][indexColor] then
+    if table[category] and table[category][indexColor] then
         colorValue = #table[category][indexColor]
     end
 
@@ -675,7 +722,8 @@ function OpenComponentMenu(table, category, value)
     local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuComponents.subtitle .. "</span><br><br>"
     if Resolution.width <= 1920 then
         imgPath =
-        "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://vorp_character/images/%s.png'>"
+            "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://" ..
+            GetCurrentResourceName() .. "/images/%s.png'>"
         menuSpace = "<br><br>"
         SubTitle = T.MenuComponents.subtitle
     end
@@ -685,29 +733,30 @@ function OpenComponentMenu(table, category, value)
     end
 
     elements[#elements + 1] = {
-        label = label .. "<br>" .. #table[category] ..' '.. T.MenuComponents.element.label
-,
+        label = label ..
+            "<br><span style='opacity:0.6;'>" .. #table[category] .. ' ' .. T.MenuComponents.element.label .. "</span>",
         type = "slider",
         value = indexComp or 0,
         info = true,
-        min = 0,
-        max = #table[category],
+        min = -1,
+        max = #table[category] + 1,
         desc = "<br><br>" ..
             imgPath:format(category) ..
             "<br><br><br>" ..
             T.MenuComponents.element3.desc ..
             #table[category] ..
-            T.MenuComponents.element3.label .. category .. T.MenuComponents.element3.desc2 .. menuSpace .. Divider .. T.MenuComponents.scroll,
+            T.MenuComponents.element3.label ..
+            category .. T.MenuComponents.element3.desc2 .. menuSpace .. Divider .. T.MenuComponents.scroll,
         itemHeight = "4vh",
     }
 
     elements[#elements + 1] = {
-        label = label .. "<br>" .. colorValue .. T.MenuComponents.element2.label,
+        label = label .. "<br><span style='opacity:0.6;'>" .. colorValue .. T.MenuComponents.element2.label .. "</span>",
         type = "slider",
         value = indexColor or 0,
         comp = table[category][(indexColor or 1)],
-        min = 0,
-        max = colorValue,
+        min = indexColor and -1 or 0,
+        max = indexColor and (colorValue + 1) or 0,
         desc = "<br><br>" ..
             imgPath:format(category) ..
             "<br><br><br>" ..
@@ -717,18 +766,17 @@ function OpenComponentMenu(table, category, value)
 
     elements[#elements + 1] = {
         label = T.MenuComponents.element4.label,
-        type = T.MenuComponents.element4.desc,
+        type = "remove",
         desc = "<br><br>" ..
             imgPath:format(category) ..
-            "<br><br><br>" .. T.MenuComponents.element4.desc2 .. menuSpace .. Divider .. "<br>"..T.MenuComponents.element4.desc3 ,
+            "<br><br><br>" ..
+            T.MenuComponents.element4.desc2 .. menuSpace .. Divider .. "<br>" .. T.MenuComponents.element4.desc3,
     }
 
     elements[#elements + 1] = {
-        label =  T.MenuComponents.tint.lable,
+        label = T.MenuComponents.tint.label,
         type = "slider",
         action = "tint0",
-        tint1 = tint1 or 0,
-        tint2 = tint2 or 0,
         value = tint0 or 0,
         min = 0,
         comp = InnitComp,
@@ -736,16 +784,14 @@ function OpenComponentMenu(table, category, value)
         desc = "<br><br>" ..
             imgPath:format(category) ..
             "<br><br><br>" ..
-            T.MenuComponents.tint.desc..
+            T.MenuComponents.tint.desc ..
             menuSpace .. Divider .. T.MenuComponents.scroll
     }
 
     elements[#elements + 1] = {
-        label = T.MenuComponents.tint2.lable,
+        label = T.MenuComponents.tint2.label,
         type = "slider",
         action = "tint1",
-        tint0 = tint0 or 0,
-        tint2 = tint2 or 0,
         value = tint1 or 0,
         comp = InnitComp,
         min = 0,
@@ -758,11 +804,9 @@ function OpenComponentMenu(table, category, value)
     }
 
     elements[#elements + 1] = {
-        label = T.MenuComponents.tint3.lable,
+        label = T.MenuComponents.tint3.label,
         type = "slider",
         action = "tint2",
-        tint0 = tint0 or 0,
-        tint1 = tint1 or 0,
         value = tint2 or 0,
         comp = InnitComp,
         min = 0,
@@ -770,6 +814,32 @@ function OpenComponentMenu(table, category, value)
         desc = "<br><br>" ..
             imgPath:format(category) .. "<br><br><br>" .. T.MenuComponents.tint3.desc ..
             menuSpace .. Divider .. T.MenuComponents.scroll
+    }
+
+
+    local paletteId = 0
+    if palette then
+        for id,paletteHash in pairs (Config.clothesPalettes) do
+            if paletteHash == palette then
+                paletteId = id
+                break
+            end
+        end
+        if paletteId == 0 then
+            Config.clothesPalettes[#Config.clothesPalettes+1] = palette
+            paletteId = #Config.clothesPalettes
+        end
+    end
+    
+    elements[#elements+1] = {
+        label = T.MenuComponents.palette.label,
+        type = "slider",
+        action = "swapPalette",
+        value = paletteId,
+        comp = InnitComp,
+        min = 1,
+        max = #Config.clothesPalettes,
+        desc = T.MenuComponents.palette.desc
     }
 
     MenuData.Open('default', GetCurrentResourceName(), 'OpenComponentMenu',
@@ -783,71 +853,90 @@ function OpenComponentMenu(table, category, value)
 
         function(data, menu)
             if (data.current == "backup") then
-                _G[data.trigger](table, value)
+                _G[data.trigger](table, value, Outfits)
             end
 
-            if data.current.action == "tint0" and data.current.comp ~= -1 then
+            if data.current.action == "swapPalette" and data.current.comp ~= -1 and TagData and next(TagData) then
                 IsPedReadyToRender()
                 local comp = data.current.comp
-                local tint0, tint1, tint2 = data.current.value, data.current.tint1, data.current.tint2
-                SetMetaPedTag(PlayerPedId(), TagData?.drawable, TagData?.albedo, TagData?.normal, TagData?.material,
-                    TagData?.palette, tint0, tint1, tint2)
+                local palette = Config.clothesPalettes[data.current.value]
+                SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
+                    palette, 0, 0, 0)
                 UpdatePedVariation()
-                menu.setElement(5, "tint0", tint0)
-                menu.setElement(6, "tint0", tint0)
+                menu.setElement(4, "value", 0)
+                menu.setElement(5, "value", 0)
+                menu.setElement(6, "value", 0)
+                menu.refresh()
+                PlayerTrackingData[category][comp] = { tint0 = 0, tint1 = 0, tint2 = 0, palette = palette }
+                return
+            end
+      
+            if data.current.action == "tint0" and data.current.comp ~= -1 and TagData and next(TagData) then
+                IsPedReadyToRender()
+                local comp = data.current.comp
+                local tint0, tint1, tint2 = data.current.value, PlayerTrackingData[category][comp].tint1,
+                    PlayerTrackingData[category][comp].tint2
+                local palette = PlayerTrackingData[category][comp].palette
+                SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
+                    palette, tint0, tint1, tint2)
+                UpdatePedVariation()
                 menu.refresh()
                 if not PlayerTrackingData[category][comp] then
-                    PlayerTrackingData[category][comp] = { tint1 = tint1, tint2 = tint2 }
+                    PlayerTrackingData[category][comp] = { tint1 = tint1, tint2 = tint2, palette = palette }
                 end
                 PlayerTrackingData[category][comp].tint0 = tint0
                 return
             end
 
-            if data.current.action == "tint1" and data.current.comp ~= -1 then
+            if data.current.action == "tint1" and data.current.comp ~= -1 and TagData and next(TagData) then
                 IsPedReadyToRender()
                 local comp = data.current.comp
-                local tint0, tint1, tint2 = data.current.tint0, data.current.value, data.current.tint2
+                local tint0, tint1, tint2 = PlayerTrackingData[category][comp].tint0, data.current.value,
+                    PlayerTrackingData[category][comp].tint2
+                local palette = PlayerTrackingData[category][comp].palette
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
-                    TagData.palette, tint0, tint1, tint2)
+                    palette, tint0, tint1, tint2)
                 UpdatePedVariation()
-                menu.setElement(4, "tint1", tint1)
-                menu.setElement(6, "tint1", tint1)
                 menu.refresh()
-
                 if not PlayerTrackingData[category][comp] then
-                    PlayerTrackingData[category][comp] = { tint0 = tint0, tint2 = tint2 }
+                    PlayerTrackingData[category][comp] = { tint0 = tint0, tint2 = tint2, palette = palette }
                 end
                 PlayerTrackingData[category][comp].tint1 = tint1
                 return
             end
 
-            if data.current.action == "tint2" and data.current.comp ~= -1 then
+            if data.current.action == "tint2" and data.current.comp ~= -1 and TagData and next(TagData) then
                 IsPedReadyToRender()
                 local comp = data.current.comp
-                local tint0, tint1, tint2 = data.current.tint0, data.current.tint1, data.current.value
+                local tint0, tint1, tint2 = PlayerTrackingData[category][comp].tint0,
+                    PlayerTrackingData[category][comp].tint1, data.current.value
+                local palette = PlayerTrackingData[category][comp].palette
                 SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal, TagData.material,
-                    TagData.palette, tint0, tint1, tint2)
+                    palette, tint0, tint1, tint2)
                 UpdatePedVariation()
-                menu.setElement(4, "tint2", tint2)
-                menu.setElement(5, "tint2", tint2)
                 menu.refresh()
                 if not PlayerTrackingData[category][comp] then
-                    PlayerTrackingData[category][comp] = { tint0 = tint0, tint1 = tint1 }
+                    PlayerTrackingData[category][comp] = { tint0 = tint0, tint1 = tint1, palette = palette }
                 end
                 PlayerTrackingData[category][comp].tint2 = tint2
                 return
             end
 
-            if data.current.type == "remove" and PlayerClothing[category].comp ~= -1 then
+            if data.current.type == "remove" or (data.current.type == "slider" and data.current.info and not data.current.action and (data.current.value == 0 or data.current.value == #table[category] + 1)) then
                 RemoveTagFromMetaPed(Config.HashList[category])
                 UpdatePedVariation()
                 PlayerClothing[category].comp = -1
                 Applycomponents(false, category)
                 menu.setElement(1, "value", 0)
+                menu.setElement(2, "label",
+                    label .. "<br><span style='opacity:0.6;'>" .. '0' .. T.MenuComponents.element2.label .. "</span>")
+                menu.setElement(2, "max", 0)
+                menu.setElement(2, "min", 0)
                 menu.setElement(2, "value", 0)
                 menu.setElement(4, "value", 0)
                 menu.setElement(5, "value", 0)
                 menu.setElement(6, "value", 0)
+                menu.setElement(7, "value", 0)
                 menu.refresh()
                 PlayerTrackingData[category] = {}
                 if IsInClothingStore then
@@ -857,36 +946,61 @@ function OpenComponentMenu(table, category, value)
                 return
             end
 
-            if data.current.type == "slider" and data.current.value == 0 and data.current.info and not data.current.action then
-                -- allow scroll back and forth
-                menu.setElement(1, "value", #table[category])
-                menu.refresh()
-                return
-            end
-
             -- * component varitaion
-            if data.current.type == "slider" and data.current.value > 0 and not data.current.info and not data.current.action and data.current.comp then
-                if data.current.comp[data.current.value] then
+            if data.current.type == "slider" and not data.current.info and not data.current.action and data.current.comp then
+                if data.current.value == 0 then
+                    menu.setElement(2, "value", #data.current.comp)
+                    data.current.value = #data.current.comp
+                    menu.refresh()
+                elseif data.current.value == #data.current.comp + 1 then
+                    menu.setElement(2, "value", 1)
+                    data.current.value = 1
+                    menu.refresh()
+                end
+
+                if data.current.value > 0 and data.current.comp[data.current.value] then
                     Applycomponents(data.current.comp[data.current.value], category)
                     local index = GetTrackedData(category)
+
+                    TagData = GetMetaPedData(category == "Boots" and "boots" or category)
+
                     if not PlayerTrackingData[category][data.current.comp[data.current.value].hex] then
                         PlayerTrackingData[category] = {}
                         PlayerTrackingData[category][data.current.comp[data.current.value].hex] = {
-                            tint0 = 0,
-                            tint1 = 0,
-                            tint2 = 0,
-                            color =
-                                data.current.value,
-                            index = index
+                            tint0 = TagData and TagData.tint0 or 0,
+                            tint1 = TagData and TagData.tint1 or 0,
+                            tint2 = TagData and TagData.tint2 or 0,
+                            palette = TagData and TagData.palette or 0,
+                            color = data.current.value,
+                            index = index,
                         }
                     end
+
                     -- need to reset tings of elements
-                    menu.setElement(4, "value", 0)
-                    menu.setElement(5, "value", 0)
-                    menu.setElement(6, "value", 0)
+                    menu.setElement(4, "value", TagData and TagData.tint0 or 0)
+                    menu.setElement(5, "value", TagData and TagData.tint1 or 0)
+                    menu.setElement(6, "value", TagData and TagData.tint2 or 0)
+                    if TagData and TagData.palette then
+                        local paletteId = 0
+                        for id,palette in pairs (Config.clothesPalettes) do
+                            if TagData.palette == palette then
+                                paletteId = id
+                                break
+                            end
+                        end
+                        if paletteId == 0 then
+                            Config.clothesPalettes[#Config.clothesPalettes+1] = TagData.palette
+                            paletteId = #Config.clothesPalettes
+                            menu.setElement(7,"max",#Config.clothesPalettes)
+                        end
+                        menu.setElement(7, "value", paletteId)
+                    else
+                        menu.setElement(7, "value", 0)
+                    end
                     menu.setElement(4, "comp", data.current.comp[data.current.value].hex)
                     menu.setElement(5, "comp", data.current.comp[data.current.value].hex)
                     menu.setElement(6, "comp", data.current.comp[data.current.value].hex)
+                    menu.setElement(7, "comp", data.current.comp[data.current.value].hex)
                     menu.refresh()
 
                     if not IsInClothingStore then
@@ -900,30 +1014,39 @@ function OpenComponentMenu(table, category, value)
                             TotalAmountToPay[category] = 0
                         end
                     end
-                    TagData = GetMetaPedData(category == "Boots" and "boots" or category)
                 end
                 return
             end
 
             -- * component type
-            if data.current.type == "slider" and data.current.value > 0 and data.current.info and not data.current.action then
+            if data.current.type == "slider" and data.current.info and not data.current.action then
+                if data.current.value == -1 then
+                    menu.setElement(1, "value", #table[category])
+                    data.current.value = #table[category]
+                    menu.refresh()
+                end
+
                 local total = table[category][data.current.value]
-                local component = GetComponentToApplyByIndex(total)
+                local component = table[category][data.current.value][1]
 
                 if component then
+                    Applycomponents(component, category)
+
+                    TagData = GetMetaPedData(category == "Boots" and "boots" or category)
+
                     -- we need to keep track of the index where comp is so when we come back we start there
                     if not PlayerTrackingData[category][component.hex] then
                         PlayerTrackingData[category] = {}
                         PlayerTrackingData[category][component.hex] = {
-                            tint0 = 0,
-                            tint1 = 0,
-                            tint2 = 0,
-                            index = data
-                                .current.value,
-                            color = 0
+                            tint0 = TagData and TagData.tint0 or 0,
+                            tint1 = TagData and TagData.tint1 or 0,
+                            tint2 = TagData and TagData.tint2 or 0,
+                            palette = TagData and TagData.palette or 0,
+                            index = data.current.value,
+                            color = 0,
                         }
                     end
-                    menu.setElement(1, "value", data.current.value)
+
                     menu.setElement(2, "comp", total)
                     menu.setElement(2, "desc",
                         "<br><br>" ..
@@ -932,25 +1055,38 @@ function OpenComponentMenu(table, category, value)
                         T.MenuComponents.element2.desc ..
                         " " ..
                         #total ..
-                        " Colors for this component" .. menuSpace .. Divider .. T.MenuComponents.scroll)
-                    menu.setElement(2, "max", #total)
-                    menu.setElement(2, "value", 0)
-                    menu.setElement(2, "label", label .. "<br>" .. #total .. T.MenuComponents.element2.label)
+                        " " .. T.MenuComponents.element2.desc2 .. menuSpace .. Divider .. T.MenuComponents.scroll)
+                    menu.setElement(2, "max", #total + 1)
+                    menu.setElement(2, "value", 1)
+                    menu.setElement(2, "label",
+                        label ..
+                        "<br><span style='opacity:0.6;'>" .. #total .. T.MenuComponents.element2.label .. "</span>")
                     menu.setElement(4, "comp", component.hex)
                     menu.setElement(5, "comp", component.hex)
                     menu.setElement(6, "comp", component.hex)
-                    menu.setElement(4, "value", 0)
-                    menu.setElement(5, "value", 0)
-                    menu.setElement(6, "value", 0)
-
-                    Applycomponents(component, category)
-                    -- allow scroll back and forth
-                    if data.current.value == #table[category] then
-                        menu.setElement(1, "value", 0)
+                    menu.setElement(7, "comp", component.hex)
+                    menu.setElement(4, "value", TagData and TagData.tint0 or 0)
+                    menu.setElement(5, "value", TagData and TagData.tint1 or 0)
+                    menu.setElement(6, "value", TagData and TagData.tint2 or 0)
+                    if TagData and TagData.palette then
+                        local paletteId = 0
+                        for id,palette in pairs (Config.clothesPalettes) do
+                            if TagData.palette == palette then
+                                paletteId = id
+                                break
+                            end
+                        end
+                        if paletteId == 0 then
+                            Config.clothesPalettes[#Config.clothesPalettes+1] = TagData.palette
+                            paletteId = #Config.clothesPalettes
+                            menu.setElement(7,"max",#Config.clothesPalettes)
+                        end
+                        menu.setElement(7, "value", paletteId)
+                    else
+                        menu.setElement(7, "value", 0)
                     end
                     menu.refresh()
 
-                    TagData = GetMetaPedData(category == "Boots" and "boots" or category)
                     if not IsInClothingStore then
                         CachedComponents[category].comp = component.hex
                     else
@@ -977,11 +1113,13 @@ function OpenAppearanceMenu(clothingtable, value)
     Title = IsInClothingStore and "Main Menu" or T.MenuAppearance.title
     local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuAppearance.subtitle .. "</span><br><br>"
     local imgPath =
-    "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://vorp_character/images/%s.png'>"
+        "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://" ..
+        GetCurrentResourceName() .. "/images/%s.png'>"
     if Resolution.width <= 1920 then
         SubTitle = T.MenuAppearance.subtitle
         imgPath =
-        "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://vorp_character/images/%s.png'>"
+            "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://" ..
+            GetCurrentResourceName() .. "/images/%s.png'>"
     end
     MenuData.CloseAll()
     local elements = {
@@ -995,7 +1133,8 @@ function OpenAppearanceMenu(clothingtable, value)
         },
 
         {
-            label = T.MenuAppearance.element2.label .. "<br><span style='opacity:0.6;'>"..T.MenuAppearance.element2.desc2.. "</span>",
+            label = T.MenuAppearance.element2.label ..
+                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element2.desc2 .. "</span>",
             value = "heritage",
             desc = imgPath:format("character_creator_heritage") ..
                 "<br>" .. T.MenuAppearance.element2.desc .. "<br><br>" .. Divider .. "<br><br>"
@@ -1003,13 +1142,14 @@ function OpenAppearanceMenu(clothingtable, value)
 
         {
             label = T.MenuAppearance.element3.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuAppearance.element3.desc2.."</span>",
+                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element3.desc2 .. "</span>",
             value = "hair",
             desc = imgPath:format("character_creator_hair") ..
                 "<br>" .. T.MenuAppearance.element3.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
         {
-            label = T.MenuAppearance.element4.label .. "<br><span style='opacity:0.6;'>"..T.MenuAppearance.element4.desc2.."</span>",
+            label = T.MenuAppearance.element4.label ..
+                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element4.desc2 .. "</span>",
             value = "age",
             desc = imgPath:format("character_creator_appearance") ..
                 "<br>" .. T.MenuAppearance.element4.desc .. "<br><br>" .. Divider .. "<br><br>"
@@ -1031,14 +1171,16 @@ function OpenAppearanceMenu(clothingtable, value)
         },
 
         {
-            label = T.MenuAppearance.element6.label .. "<br><span style='opacity:0.6;'>"..T.MenuAppearance.element6.desc2.." </span>",
+            label = T.MenuAppearance.element6.label ..
+                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element6.desc2 .. " </span>",
             value = "face",
             desc = imgPath:format("character_creator_head") ..
                 "<br>" .. T.MenuAppearance.element6.desc .. "<br><br>" .. Divider .. "<br><br>"
         },
 
         {
-            label = T.MenuAppearance.element7.label .. "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element7.desc .. "</span>",
+            label = T.MenuAppearance.element7.label ..
+                "<br><span style='opacity:0.6;'>" .. T.MenuAppearance.element7.desc .. "</span>",
             value = "lifestyle",
             desc = imgPath:format("character_creator_lifestyle") ..
                 "<br>" .. T.MenuAppearance.element7.desc .. "<br><br>" .. Divider .. "<br><br>"
@@ -1155,7 +1297,8 @@ function OpenAgeMenu(table, value)
             desc = MenuSpace .. Divider .. "<br><br>" .. T.MenuAge.element.desc
         },
         {
-            label = T.MenuAge.element2.label .. "<br><span style='opacity:0.6;'>" .. T.MenuAge.element2.desc3.."</span>",
+            label = T.MenuAge.element2.label .. "<br><span style='opacity:0.6;'>" .. T.MenuAge.element2.desc3 ..
+                "</span>",
             type = "slider",
             value = AgingOpacityTracker,
             info = nil,
@@ -1225,21 +1368,23 @@ function OpenBodyMenu(table, value)
 
         {
             label = T.MenuBody.element.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuBody.Ammount .. ' ' .. #Config.BodyType.Body .. "</span>",
+                "<br><span style='opacity:0.6;'>" .. T.MenuBody.Ammount .. ' ' .. #Config.BodyType.Body .. "</span>",
             type = "slider",
             value = BodyTracker,
             tag = "body",
             min = -1,
             max = #Config.BodyType.Body,
             desc = imgPath:format("character_creator_build") ..
-                "<br>" .. T.MenuBody.element.desc .. #Config.BodyType.Body..' ' ..T.MenuBody.element.label.. "<br><br>" .. Divider .. "<br><br>",
+                "<br>" ..
+                T.MenuBody.element.desc ..
+                #Config.BodyType.Body .. ' ' .. T.MenuBody.element.label .. "<br><br>" .. Divider .. "<br><br>",
             itemHeight = "4vh",
         },
 
         {
 
             label = T.MenuBody.element2.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuBody.Ammount .. ' ' .. #Config.BodyType.Waist .. "</span>",
+                "<br><span style='opacity:0.6;'>" .. T.MenuBody.Ammount .. ' ' .. #Config.BodyType.Waist .. "</span>",
             type = "slider",
             value = WaistTracker,
             tag = "waist",
@@ -1256,7 +1401,7 @@ function OpenBodyMenu(table, value)
         {
 
             label = T.MenuBody.element3.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuBody.Ammount   .. ' '..
+                "<br><span style='opacity:0.6;'>" .. T.MenuBody.Ammount .. ' ' ..
                 #Config.DefaultChar[gender][SkinColorTracker].Body .. "</span>",
             type = "slider",
             value = BodyTypeTracker,
@@ -1266,7 +1411,8 @@ function OpenBodyMenu(table, value)
             desc = imgPath:format("character_creator_build") ..
                 "<br>" ..
                 T.MenuBody.element3.desc ..
-                #Config.DefaultChar[gender][SkinColorTracker].Body .. ' ' .. T.MenuBody.element.label.. "<br><br>" .. Divider .. "<br><br>",
+                #Config.DefaultChar[gender][SkinColorTracker].Body ..
+                ' ' .. T.MenuBody.element.label .. "<br><br>" .. Divider .. "<br><br>",
             tag = "Body",
             option = "type",
             itemHeight = "4vh",
@@ -1275,7 +1421,7 @@ function OpenBodyMenu(table, value)
         {
 
             label = T.MenuBody.element4.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuBody.Ammount   .. ' '..
+                "<br><span style='opacity:0.6;'>" .. T.MenuBody.Ammount .. ' ' ..
                 #Config.DefaultChar[gender][SkinColorTracker].Legs .. "</span>",
             type = "slider",
             value = LegsTypeTracker,
@@ -1285,14 +1431,15 @@ function OpenBodyMenu(table, value)
             desc = imgPath:format("character_creator_build") ..
                 "<br>" ..
                 T.MenuBody.element4.desc ..
-                #Config.DefaultChar[gender][SkinColorTracker].Legs ..  ' ' .. T.MenuBody.element.label.."<br><br>" .. Divider .. "<br><br>",
+                #Config.DefaultChar[gender][SkinColorTracker].Legs ..
+                ' ' .. T.MenuBody.element.label .. "<br><br>" .. Divider .. "<br><br>",
             tag = "Legs",
             option = "type",
             itemHeight = "4vh",
         },
 
         {
-            label = T.Other.undress.lable,
+            label = T.Other.undress.label,
             value = "undress",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_build") ..
@@ -1300,11 +1447,11 @@ function OpenBodyMenu(table, value)
         },
 
         {
-            label = T.Other.dress.lable,
+            label = T.Other.dress.label,
             value = "dress",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_build") ..
-                "<br><br><br>" .. T.Other.dress.desc ..  "<br><br>" .. Divider .. "<br><br>",
+                "<br><br><br>" .. T.Other.dress.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
     }
 
@@ -1429,7 +1576,7 @@ function OpenHerritageMenu(table, value)
 
     -- add elements to remove or put clothes in
     elements[#elements + 1] = {
-        label = T.Other.undress.lable,
+        label = T.Other.undress.label,
         value = "undress",
         desc = "<br><br>" ..
             imgPath:format("character_creator_build") ..
@@ -1437,7 +1584,7 @@ function OpenHerritageMenu(table, value)
     }
 
     elements[#elements + 1] = {
-        label = T.Other.dress.lable,
+        label = T.Other.dress.label,
         value = "dress",
         desc = "<br><br>" ..
             imgPath:format("character_creator_build") ..
@@ -1533,7 +1680,8 @@ function OpenHairMenu(table, value)
 
     local elements = {
         {
-            label = T.MenuHair.element.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element.desc2.."</span>",
+            label = T.MenuHair.element.label .. "<br><span style='opacity:0.6;'>" .. T.MenuHair.element.desc2 ..
+                "</span>",
             value = "hair",
             desc = imgPath:format("character_creator_hair") ..
                 "<br>" .. T.MenuHair.element.desc .. "<br><br>" .. Divider .. "<br><br>",
@@ -1542,32 +1690,35 @@ function OpenHairMenu(table, value)
 
     if GetGender() == "Male" then
         elements[#elements + 1] = {
-            label = T.MenuHair.element2.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element2.desc2.."</span>",
+            label = T.MenuHair.element2.label .. "<br><span style='opacity:0.6;'>" ..
+                T.MenuHair.element2.desc2 .. "</span>",
             value = "beard",
             desc = imgPath:format("character_creator_facial_hair") ..
                 "<br>" .. T.MenuHair.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
         }
         elements[#elements + 1] = {
-            label = T.MenuHair.element3.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element3.desc2.."</span>",
+            label = T.MenuHair.element3.label .. "<br><span style='opacity:0.6;'>" ..
+                T.MenuHair.element3.desc2 .. "</span>",
             value = "beardstabble",
             desc = imgPath:format("character_creator_facial_hair") ..
                 "<br>" .. T.MenuHair.element3.desc .. "<br><br>" .. Divider .. "<br><br>"
         }
     else
         elements[#elements + 1] = {
-            label = T.MenuHair.element4.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element4.desc2.."</span>",
+            label = T.MenuHair.element4.label .. "<br><span style='opacity:0.6;'>" ..
+                T.MenuHair.element4.desc2 .. "</span>",
             value = "bow",
             desc = T.MenuHair.element4.desc .. "<br><br>" .. Divider .. "<br><br>"
         }
     end
     elements[#elements + 1] = {
-        label = T.MenuHair.element5.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element5.desc2.."</span>",
+        label = T.MenuHair.element5.label .. "<br><span style='opacity:0.6;'>" .. T.MenuHair.element5.desc2 .. "</span>",
         value = "eyebrows",
         desc = imgPath:format("character_creator_eyebrows") ..
             "<br>" .. T.MenuHair.element5.desc .. "<br><br>" .. Divider .. "<br><br>"
     }
     elements[#elements + 1] = {
-        label = T.MenuHair.element6.label .. "<br><span style='opacity:0.6;'>"..T.MenuHair.element6.desc2.."</span>",
+        label = T.MenuHair.element6.label .. "<br><span style='opacity:0.6;'>" .. T.MenuHair.element6.desc2 .. "</span>",
         value = "overlay",
         desc = imgPath:format("character_creator_hair") ..
             "<br>" .. T.MenuHair.element6.desc .. "<br><br>" .. Divider .. "<br><br>"
@@ -1575,7 +1726,7 @@ function OpenHairMenu(table, value)
     -- got add element to confimr pay
     if ShopType == "hair" then
         elements[#elements + 1] = {
-            label = "Confirm" .. "<br><span style='opacity:0.6;'>".. T.Inputs.confirmpurchase.. "</span>",
+            label = "Confirm" .. "<br><span style='opacity:0.6;'>" .. T.Inputs.confirmpurchase .. "</span>",
             value = "confirm",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_hair") ..
@@ -1583,7 +1734,7 @@ function OpenHairMenu(table, value)
         }
         -- close
         elements[#elements + 1] = {
-            label = T.MainMenu.close .. "<br><span style='opacity:0.6;'>"..T.MainMenu.closemenu.."</span>",
+            label = T.MainMenu.close .. "<br><span style='opacity:0.6;'>" .. T.MainMenu.closemenu .. "</span>",
             value = "close",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_hair") ..
@@ -1708,13 +1859,14 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
         },
         {
             label = T.MenuHairSelection.element2.label ..
-                "<br><span style='opacity:0.6;'>" .. ""..T.MenuBody.Ammount.. ' '  .. #tablehair[HairIndexTracker[category]] .. "</span>",
+                "<br><span style='opacity:0.6;'>" ..
+                "" .. T.MenuBody.Ammount .. ' ' .. #tablehair[HairIndexTracker[category]] .. "</span>",
             type = "slider",
             value = HairColorIndexTracker[category],
             min = 0,
             max = #tablehair[HairIndexTracker[category]],
             desc = T.MenuHairSelection.element2.desc ..
-            #tablehair[HairIndexTracker[category]] .. ' ' .. T.MenuHairSelection.element2.desc2,
+                #tablehair[HairIndexTracker[category]] .. ' ' .. T.MenuHairSelection.element2.desc2,
             tag = "color",
             itemHeight = "4vh",
         },
@@ -1792,7 +1944,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
                 UpdatePedVariation()
                 menu.setElement(2, "label",
                     T.MenuHairSelection.element2.label ..
-                    "<br><span style='opacity:0.6;'>" .. ""..T.MenuBody.Ammount   .. ' '.. #total .. "</span>")
+                    "<br><span style='opacity:0.6;'>" .. "" .. T.MenuBody.Ammount .. ' ' .. #total .. "</span>")
                 menu.setElement(2, "max", #total)
                 --[[     if #tablehair == data.current.value then -- workaround
                     menu.setElement(2, "value", 1)
@@ -1853,7 +2005,8 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
 
         {
             label = T.MenuBeardEyeBrows.element2.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuBody.Ammount  ..' ' .. #Config.color_palettes[category] .. "</span>",
+                "<br><span style='opacity:0.6;'>" ..
+                T.MenuBody.Ammount .. ' ' .. #Config.color_palettes[category] .. "</span>",
             type = "slider",
             tag = "color",
             value = MakeupColorIndexTracker[category],
@@ -1867,7 +2020,8 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
             category = category
         },
         {
-            label = T.MenuBeardEyeBrows.element3.label .. "<br><span style='opacity:0.6;'>"..T.MenuBeardEyeBrows.element3.desc2.."</span>",
+            label = T.MenuBeardEyeBrows.element3.label ..
+                "<br><span style='opacity:0.6;'>" .. T.MenuBeardEyeBrows.element3.desc2 .. "</span>",
             type = "slider",
             tag = "opacity",
             value = MakeupOpacityTracker[category],
@@ -1983,7 +2137,7 @@ function OpenFaceMenu(table, value)
     local elements = {
         {
             label = T.MenuFacial.element2.label ..
-                "<br><span style='opacity:0.6;'>"..T.MenuFacial.amount .. #Config.Teeth[gender] .. "</span>",
+                "<br><span style='opacity:0.6;'>" .. T.MenuFacial.amount .. #Config.Teeth[gender] .. "</span>",
             value = TheethIndexTracker,
             type = "slider",
             min = -1,
@@ -2014,7 +2168,8 @@ function OpenFaceMenu(table, value)
             img = "character_creator_jaw"
         },
         {
-            label = T.MenuFacial.element5.label .. "<br><span style='opacity:0.6;'> " .. T.MenuFacial.element5.desc2 .. "</span>",
+            label = T.MenuFacial.element5.label ..
+                "<br><span style='opacity:0.6;'> " .. T.MenuFacial.element5.desc2 .. "</span>",
             value = "life",
             tag = "head",
             desc = imgPath:format("character_creator_cranial_proportions") ..
@@ -2098,7 +2253,7 @@ function OpenFaceMenu(table, value)
     if IsInCharCreation or ShopType == "secondchance" then
         elements[#elements + 1] = {
             label = T.MenuFacial.element.label ..
-                T.MenuFacial.amount  ..
+                T.MenuFacial.amount ..
                 #Config.Eyes[gender] ..
                 "<br><span style='opacity:0.6;'> " .. Config.EyeImgColor[EyeColorIndexTracker] .. "</span>",
             value = EyeColorIndexTracker,
@@ -2117,7 +2272,7 @@ function OpenFaceMenu(table, value)
             value = "confirm",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_hair") ..
-                "<br><br><br>"  .. T.Inputs.confirmpurchase .. "<br><br>" .. Divider .. "<br><br>"
+                "<br><br><br>" .. T.Inputs.confirmpurchase .. "<br><br>" .. Divider .. "<br><br>"
         }
         -- close
         elements[#elements + 1] = {
@@ -2334,7 +2489,7 @@ function OpenLifeStyleMenu(table, value)
             }
             elements[#elements + 1] = {
                 label = labelLookup[key].label ..
-                    T.MenuLifeStyle.label .. "<br><span style='opacity:0.6;'>"..T.MenuLifeStyle.label .. "</span>",
+                    T.MenuLifeStyle.label .. "<br><span style='opacity:0.6;'>" .. T.MenuLifeStyle.label .. "</span>",
                 value = PlayerSkin[labelLookup[key].opacity],
                 min = 0,
                 max = 10,
@@ -2470,7 +2625,8 @@ function OpenMakeupMenu(table, value)
         if overlayLookup[key] then
             elements[#elements + 1] = {
                 label = overlayLookup[key].label ..
-                    "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element5.label .. T.MenuMakeup.element5.desc2 .. #value .. "</span>",
+                    "<br><span style='opacity:0.6;'>" ..
+                    T.MenuMakeup.element5.label .. T.MenuMakeup.element5.desc2 .. #value .. "</span>",
                 value = PlayerSkin[overlayLookup[key].txt_id],
                 min = 0,
                 max = #value,
@@ -2495,7 +2651,8 @@ function OpenMakeupMenu(table, value)
 
             elements[#elements + 1] = {
                 label = overlayLookup[key].label ..
-                    "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element6.label .. T.MenuMakeup.element7.desc2 .. "</span>",
+                    "<br><span style='opacity:0.6;'>" ..
+                    T.MenuMakeup.element6.label .. T.MenuMakeup.element7.desc2 .. "</span>",
                 value = ColorValue,
                 min = 0,
                 max = 10,
@@ -2523,7 +2680,8 @@ function OpenMakeupMenu(table, value)
 
                 elements[#elements + 1] = {
                     label = overlayLookup[key].label ..
-                        "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element7.label .. T.MenuMakeup.element7.desc2 .. "</span>",
+                        "<br><span style='opacity:0.6;'>" ..
+                        T.MenuMakeup.element7.label .. T.MenuMakeup.element7.desc2 .. "</span>",
                     value = Color2Value,
                     min = 0,
                     max = 10,
@@ -2569,7 +2727,8 @@ function OpenMakeupMenu(table, value)
 
             elements[#elements + 1] = {
                 label = overlayLookup[key].label ..
-                    "<br><span style='opacity:0.6;'>" .. T.MenuMakeup.element9.label .. T.MenuMakeup.element9.desc2 .. "</span>",
+                    "<br><span style='opacity:0.6;'>" ..
+                    T.MenuMakeup.element9.label .. T.MenuMakeup.element9.desc2 .. "</span>",
                 value = PlayerSkin[overlayLookup[key].opacity],
                 min = 0,
                 max = 0.9,
@@ -2590,15 +2749,16 @@ function OpenMakeupMenu(table, value)
 
     if ShopType == "makeup" then
         elements[#elements + 1] = {
-            label = T.Inputs.confirm .. "<br><span style='opacity:0.6;'>"..T.Inputs.confirmpurchase.."</span><br><br>",
+            label = T.Inputs.confirm .. "<br><span style='opacity:0.6;'>" .. T.Inputs.confirmpurchase ..
+                "</span><br><br>",
             value = "confirm",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_hair") ..
-                "<br><br><br>"..T.Inputs.confirmpurchase .."<br><br>" .. Divider .. "<br><br>"
+                "<br><br><br>" .. T.Inputs.confirmpurchase .. "<br><br>" .. Divider .. "<br><br>"
         }
         -- close
         elements[#elements + 1] = {
-            label = T.MainMenu.close .. "<br><span style='opacity:0.6;'>"..T.MainMenu.closemenu.."</span>",
+            label = T.MainMenu.close .. "<br><span style='opacity:0.6;'>" .. T.MainMenu.closemenu .. "</span>",
             value = "close",
             desc = "<br><br>" ..
                 imgPath:format("character_creator_hair") ..
@@ -2704,5 +2864,175 @@ function OpenMakeupMenu(table, value)
                 menu.close()
                 BackFromMenu(value)
             end
+        end)
+end
+
+--* OUTFITS MENU
+function OpenOutfitsMenu(Table, value, Outfits)
+    MenuData.CloseAll()
+
+    TotalAmountToPay = {}
+
+    for i, tag in pairs(Config.HashList) do
+        if i ~= 'Hair' and i ~= 'Beard' then
+            RemoveTagFromMetaPed(tag)
+            UpdatePedVariation()
+        end
+    end
+    LoadComps(PlayerPedId(), CachedComponents)
+    SetCachedClothingIndex()
+
+    local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
+
+    if Resolution.width <= 1920 then
+        menuSpace = "<br><br>"
+    end
+
+    local elements = {}
+
+    for i, v in ipairs(Outfits) do
+        elements[#elements + 1] = {
+            label = v.title,
+            value = v,
+            desc = imgPath:format('clothing_generic_outfit') .. menuSpace .. Divider .. "<br> " .. T.MenuOutfits.option,
+        }
+    end
+
+    MenuData.Open('default', GetCurrentResourceName(), 'OpenOutfitsMenu',
+        {
+            title = T.MenuOutfits.title,
+            subtext = T.MenuOutfits.subtitle,
+            align = Config.Align,
+            elements = elements,
+            lastmenu = "OpenClothingMenu",
+        },
+
+        function(data, menu)
+            if (data.current == "backup") then -- go back
+                return _G[data.trigger](Table, value, Outfits)
+            end
+
+            if data.current.value then
+                OpenOutfitMenu(Table, value, Outfits, data.current.value)
+            end
+        end,
+        function(data, menu)
+
+        end)
+end
+
+function OpenOutfitMenu(Table, value, Outfits, Outfit)
+    MenuData.CloseAll()
+
+    local comps = {}
+
+    for k, v in pairs(Outfit.comps and json.decode(Outfit.comps) or {}) do
+        comps[k] = { comp = v }
+    end
+
+    local compTints = Outfit.compTints and json.decode(Outfit.compTints) or {}
+
+    for i, tag in pairs(Config.HashList) do
+        if i ~= 'Hair' and i ~= 'Beard' then
+            RemoveTagFromMetaPed(tag)
+            UpdatePedVariation()
+        end
+    end
+    LoadComps(PlayerPedId(), ConvertTableComps(comps, IndexTintCompsToNumber(compTints)))
+
+    local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
+
+    if Resolution.width <= 1920 then
+        menuSpace = "<br><br>"
+    end
+
+    local elements = {}
+
+    elements[#elements + 1] = {
+        label = T.MenuOutfits.Select,
+        value = "Select",
+        desc = imgPath:format('clothing_generic_outfit') .. menuSpace .. Divider .. "<br> " .. T.MenuOutfits.option,
+    }
+
+    elements[#elements + 1] = {
+        label = T.MenuOutfits.Delete,
+        value = "Delete",
+        desc = imgPath:format('clothing_generic_outfit') .. menuSpace .. Divider .. "<br> " .. T.MenuOutfits.option,
+    }
+
+    MenuData.Open('default', GetCurrentResourceName(), 'OpenOutfitMenu',
+        {
+            title = T.MenuOutfits.title,
+            subtext = Outfit.title,
+            align = Config.Align,
+            elements = elements,
+            lastmenu = "OpenOutfitsMenu",
+        },
+
+        function(data, menu)
+            if (data.current == "backup") then -- go back
+                return _G[data.trigger](Table, value, Outfits)
+            end
+
+            if data.current.value == "Select" then
+                local result = Core.Callback.TriggerAwait("vorp_character:callback:SetOutfit",
+                    {
+                        Outfit = Outfit,
+                    })
+                if result then
+                    local comps = {}
+
+                    for k, v in pairs(Outfit.comps and json.decode(Outfit.comps) or {}) do
+                        comps[k] = { comp = v }
+                    end
+
+                    local compTints = Outfit.compTints and json.decode(Outfit.compTints) or {}
+
+                    CachedComponents = ConvertTableComps(comps, IndexTintCompsToNumber(compTints))
+
+                    menu.close()
+                    return BackFromMenu(value)
+                end
+            end
+
+            if data.current.value == "Delete" then
+                local MyInput = {
+                    type = "enableinput",
+                    inputType = "input",
+                    button = T.Inputs.confirm,
+                    placeholder = Outfit.title,
+                    style = "block",
+                    attributes = {
+                        inputHeader = T.MenuOutfits.inputHeader,
+                        type = "textarea",
+                        pattern = ".*",
+                        title = T.Inputs.title,
+                        style = "border-radius: 10px; background-color: ; border:none;"
+                    }
+                }
+                TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
+                    local Result = tostring(result)
+                    if Result ~= nil and Result ~= "" and Result == Outfit.title then
+                        local result = Core.Callback.TriggerAwait("vorp_character:callback:DeleteOutfit",
+                            {
+                                Outfit = Outfit,
+                            })
+
+                        if result then
+                            for i, v in pairs(Outfits) do
+                                if v.id == Outfit.id then
+                                    table.remove(Outfits, i)
+                                    break
+                                end
+                            end
+
+                            OpenOutfitsMenu(Table, value, Outfits)
+                        end
+                    end
+                end)
+            end
+        end,
+        function(data, menu)
+
         end)
 end
