@@ -1892,8 +1892,8 @@ Translation.Langs = {
             Money = "Dinero: ",
             Gold = "Oro: ",
             GenderChoice = " para elegir género, pulsa para aceptar ",
-            undress = { lable = "Desvestir", desc = "Quitar toda la ropa" },
-            dress = { lable = "Vestir", desc = "Ponerse toda la ropa" },
+            undress = { label = "Desvestir", desc = "Quitar toda la ropa" },
+            dress = { label = "Vestir", desc = "Ponerse toda la ropa" },
             pocketmoney = "$~q~ Bolsillo ~o~$",
             total = "Total ~o~ ",
             buy = "Comprar"
@@ -1984,9 +1984,9 @@ Translation.Langs = {
             element2 = { label = " Color  #", desc = "Elige el color de la prenda", desc2 = "Colores para este componente", },
             element3 = { label = " de ", desc = "Hay alrededor de ", desc2 = " para esta categoría " },
             element4 = { label = " Quitar Componente ", desc = "Quitar ", desc2 = "Quitar este componente ", desc3 = " presiona para quitar" },
-            tint = { lable = "Tinte personalizado 1", desc = "Personalización  Tinte 0 algunas prendas no tendrán ninguno" },
-            tint2 = { lable = "Tinte personalizado 2", desc = "Personalización  Tinte 1 algunas prendas no tendrán ninguno" },
-            tint3 = { lable = "Tinte personalizado 3", desc = "Personalización  Tinte 2 algunas prendas no tendrán ninguno" },
+            tint = { label = "Tinte personalizado 1", desc = "Personalización  Tinte 0 algunas prendas no tendrán ninguno" },
+            tint2 = { label = "Tinte personalizado 2", desc = "Personalización  Tinte 1 algunas prendas no tendrán ninguno" },
+            tint3 = { label = "Tinte personalizado 3", desc = "Personalización  Tinte 2 algunas prendas no tendrán ninguno" },
             scroll = "elige desplazándote hacia los lados",
         },
         MenuOutfits = {
