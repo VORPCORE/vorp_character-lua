@@ -1934,7 +1934,8 @@ Translation.Langs = {
                 label = "Elegir un apodo",
                 desc = "¿Cómo quieres que te llamen las personas? ¿O bajo qué apodo eres conocido?",
                 desc2 = "Ejemplo: Popcorn Sutton",
-                apodo = "Apodo",
+                Nickname = "Apodo",
+
             },
             charname = "Nombre del personaje",
             none = "Vacío",
