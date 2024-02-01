@@ -94,8 +94,8 @@ function ReloadAllComponents()
                 if data then
                     if data.tint0 ~= 0 or data.tint1 ~= 0 or data.tint2 ~= 0 or data.palette ~= 0 then
                         local TagData = GetMetaPedData(key == "Boots" and "boots" or key)
-                        local palette = (data.palette ~= 0) and data.palette or TagData.palette
                         if TagData then
+                            local palette = (data.palette ~= 0) and data.palette or TagData.palette
                             SetMetaPedTag(PlayerPedId(), TagData.drawable, TagData.albedo, TagData.normal,
                                 TagData.material, palette, data.tint0, data.tint1, data.tint2)
                         end
@@ -179,7 +179,7 @@ function GetDescriptionLayout(value, price)
         "<br><span style='font-family:crock; float:left; font-size: 22px;'>" ..
         T.PayToShop.Total .. " </span><span style='font-family:crock;float:right; font-size: 22px;'>"
 
-    if  ShopType == "secondchance" then
+    if ShopType == "secondchance" then
         if ConfigShops.SecondChanceCurrency == 0 then
             desc = desc .. T.PayToShop.Currency
         elseif ConfigShops.SecondChanceCurrency == 1 then
@@ -819,19 +819,19 @@ function OpenComponentMenu(table, category, value, Outfits)
 
     local paletteId = 0
     if palette then
-        for id,paletteHash in pairs (Config.clothesPalettes) do
+        for id, paletteHash in pairs(Config.clothesPalettes) do
             if paletteHash == palette then
                 paletteId = id
                 break
             end
         end
         if paletteId == 0 then
-            Config.clothesPalettes[#Config.clothesPalettes+1] = palette
+            Config.clothesPalettes[#Config.clothesPalettes + 1] = palette
             paletteId = #Config.clothesPalettes
         end
     end
-    
-    elements[#elements+1] = {
+
+    elements[#elements + 1] = {
         label = T.MenuComponents.palette.label,
         type = "slider",
         action = "swapPalette",
@@ -870,7 +870,7 @@ function OpenComponentMenu(table, category, value, Outfits)
                 PlayerTrackingData[category][comp] = { tint0 = 0, tint1 = 0, tint2 = 0, palette = palette }
                 return
             end
-      
+
             if data.current.action == "tint0" and data.current.comp ~= -1 and TagData and next(TagData) then
                 IsPedReadyToRender()
                 local comp = data.current.comp
@@ -982,16 +982,16 @@ function OpenComponentMenu(table, category, value, Outfits)
                     menu.setElement(6, "value", TagData and TagData.tint2 or 0)
                     if TagData and TagData.palette then
                         local paletteId = 0
-                        for id,palette in pairs (Config.clothesPalettes) do
+                        for id, palette in pairs(Config.clothesPalettes) do
                             if TagData.palette == palette then
                                 paletteId = id
                                 break
                             end
                         end
                         if paletteId == 0 then
-                            Config.clothesPalettes[#Config.clothesPalettes+1] = TagData.palette
+                            Config.clothesPalettes[#Config.clothesPalettes + 1] = TagData.palette
                             paletteId = #Config.clothesPalettes
-                            menu.setElement(7,"max",#Config.clothesPalettes)
+                            menu.setElement(7, "max", #Config.clothesPalettes)
                         end
                         menu.setElement(7, "value", paletteId)
                     else
@@ -1070,16 +1070,16 @@ function OpenComponentMenu(table, category, value, Outfits)
                     menu.setElement(6, "value", TagData and TagData.tint2 or 0)
                     if TagData and TagData.palette then
                         local paletteId = 0
-                        for id,palette in pairs (Config.clothesPalettes) do
+                        for id, palette in pairs(Config.clothesPalettes) do
                             if TagData.palette == palette then
                                 paletteId = id
                                 break
                             end
                         end
                         if paletteId == 0 then
-                            Config.clothesPalettes[#Config.clothesPalettes+1] = TagData.palette
+                            Config.clothesPalettes[#Config.clothesPalettes + 1] = TagData.palette
                             paletteId = #Config.clothesPalettes
-                            menu.setElement(7,"max",#Config.clothesPalettes)
+                            menu.setElement(7, "max", #Config.clothesPalettes)
                         end
                         menu.setElement(7, "value", paletteId)
                     else

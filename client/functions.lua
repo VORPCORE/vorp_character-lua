@@ -380,7 +380,6 @@ function ApplyDefaultClothing()
     for category, _ in pairs(PlayerClothing) do
         for _, component in ipairs(componentsWithWearableState) do
             if Helper[category] and Helper[category] == component.componentCategory then
-
                 PlayerClothing[category].comp = component.componentHash
 
                 if CachedComponents[category] then
@@ -394,11 +393,10 @@ function ApplyDefaultClothing()
                     PlayerTrackingData[category] = {}
                     PlayerTrackingData[category][component.componentHash] = { tint0 = 0, tint1 = 0, tint2 = 0, palette = 0 }
                 end
-
             end
         end
     end
-    
+
     CachedComponents.Gunbelt = { comp = isPedMale and 795591403 or 1511461630, tint0 = 0, tint1 = 0, tint2 = 0, palette = 0 }
 end
 
