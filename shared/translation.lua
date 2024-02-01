@@ -1538,8 +1538,8 @@ Translation.Langs = {
             DeleteDesc        = "Diesen Charakter löschen",
             ReturnMenu        = "Zurück",
             ReturnMenuDesc    = "Zurück zur Charakterauswahl",
-            closemenu         = "Close Menu",
-            close             = "Close"
+            closemenu         = "Menü schließen",
+            close             = "Schließen"
         },
         PromptLabels = {
             promptselect = "Gewählter Charakter:  ~o~",
@@ -1565,15 +1565,14 @@ Translation.Langs = {
             inputHeader = "CHARAKTERNAMEN WÄHLEN",
             title = "Nur Buchstaben min 5 max 20",
             banned = "Diese Namen dürfen nicht verwendet werden, da sie auf diesem Server verboten sind",
-            notify =
-            "Drücken die Entf-Taste, um dieses Charakter zu löschen, oder die Rücktaste, um den Vorgang abzubrechen",
+            notify = "Drücken die Entf-Taste, um dieses Charakter zu löschen, oder die Rücktaste, um den Vorgang abzubrechen",
             missingname = "Sie haben einen falschen Vornamen oder Nachnamen angegeben",
             inputHeadertype = "Hier eintippen...",
             fristlast = "Vor- und Nachname einfügen!",
-            press = "Presse",
+            press = "Drücken",
             imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
             imputlang = "[A-Za-z ]{5,20}",          -- change for you lang
-            confirmpurchase = "Confirm purchase",
+            confirmpurchase = "Kauf bestätigen",
 
         },
         Other = {
@@ -1587,24 +1586,21 @@ Translation.Langs = {
             Money = "Geld: ",
             Gold = "Gold: ",
             GenderChoice = " um das Geschlecht auszuwählen, zum Akzeptieren drücken Sie ",
-            undress = { label = "Undress", desc = "Remove all clothes" },
-            dress = { label = "Dress", desc = "Put on all clothes" },
+            undress = { label = "Ausziehen", desc = "Entfernen Sie alle Kleidungsstücke" },
+            dress = { label = "Anziehen", desc = "Ziehen Sie alle Kleidungsstücke an" },
             pocketmoney = "~q~ Pocket ~o~$",
-            total = "Total ~o~$ ",
-            buy = "buy"
-
+            total = "Insgesammt ~o~$ ",
+            buy = "Kaufen"
         },
         Secondchance = {
             title = "Secondchance",
-            DescAppearance = "facial body makeup height hair",
-            DescClothing = "boots vests coats shirts belts hats"
-
-
+            DescAppearance = "Gesicht, Körper, Make-up, Höhe, Haare",
+            DescClothing = "Stiefel, Westen, Mäntel, Hemden, Gürtel, Hüte"
         },
         Placeholder = {
-            CharDesc = "characer description",
+            CharDesc = "Charakter Beschreibung",
             NickName = "Nick Name",
-            SetAge = "set age",
+            SetAge = "Eingabe Alter",
             FirstLastName = "VORname NACHname",
         },
         MenuCreation = {
@@ -1624,8 +1620,7 @@ Translation.Langs = {
             element5 = { label = "Alter", desc = "Alter deines Charakters" },
             element6 = {
                 label = "Beschreibung des Charakters",
-                desc =
-                "Beschreibe deinen Charakter und das Aussehen möglichst genau, damit wir dich identifizieren können.",
+                desc = "Beschreibe deinen Charakter und das Aussehen möglichst genau, damit wir dich identifizieren können.",
                 desc2 = "Hinzugefügt",
             },
             element7 = {
@@ -1637,6 +1632,7 @@ Translation.Langs = {
             charname = "Charaktername",
             none = "Leer!",
             finish = "Fülle zuerst alles aus!",
+
         },
         -- this list will show in alphabetical order
         MenuClothes = {
@@ -1674,20 +1670,20 @@ Translation.Langs = {
             Gunbelt     = "Waffengürtel",
             RingRh      = "Ringe rechts",
             RingLh      = "Ringe links",
-            option      = "clothing options for this category"
-
+            option      = "Kleidungsoptionen für diese Kategorie"
         },
         MenuComponents = {
             title = "Komponenten",
             subtitle = "Untermenü",
             element = { label = "Komponente ", desc = "es gibt " },
             element2 = { label = " Farbe  ", desc = "Wähle Komponentenfarbe", desc2 = "Farben für dieses Bauteil" },
-            element3 = { label = " of ", desc = "There's are about ", desc2 = "for this category " },
-            element4 = { label = " Remove Component ", desc = "Remove ", desc2 = "Remove this component ", desc3 = " pess to remove" },
-            tint = { label = "Custom Tint 1", desc = "Customisation  Tint 0 some clothing wont have any" },
-            tint2 = { label = "Custom Tint 2", desc = "Customisation  Tint 1 some clothing wont have any" },
-            tint3 = { label = "Custom Tint 3", desc = "Customisation  Tint 2 some clothing wont have any" },
-            scroll = "choose by scrolling to the sides",
+            element3 = { label = " von ", desc = "Es gibt ungefähr ", desc2 = "für diese Kategorie " },
+            element4 = { label = " Komponente entfernen ", desc = "Entferne ", desc2 = "Entfernen Sie diese Komponente ", desc3 = " drücken zum Entfernen" },
+            palette = { label = "Farbpalette", desc = "Wähle die Farbpalette aus" },
+            tint = { label = "Benutzerdefinierte Farbe 1", desc = "Customisation  Tint 0 some clothing wont have any" },
+            tint2 = { label = "Benutzerdefinierte Farbe 2", desc = "Customisation  Tint 1 some clothing wont have any" },
+            tint3 = { label = "Benutzerdefinierte Farbe 3", desc = "Customisation  Tint 2 some clothing wont have any" },
+            scroll = "Wählen Sie, indem Sie zur Seite scrollen",
         },
         MenuOutfits = {
             title = "Outfits",
@@ -1711,13 +1707,13 @@ Translation.Langs = {
             title = "Aussehen",
             subtitle = "Untermenü",
             element = { label = "Körper", desc = "Wähle die Art des Körpers deines Charakters" },
-            element2 = { label = "Heritage", desc = "Choose your characters Herritage", desc2 = "skin & head options" },
-            element3 = { label = "Hair", desc = "Choose you character type of hair", desc2 = "hair facial eyebrows Options" },
-            element4 = { label = "Ageing", desc = "Character age ", desc2 = "face wrinkles ageing" },
-            element5 = { label = "Height", desc = "Choose the type of your characters body<br> Tall 3 normal 2 short 1 " },
-            element6 = { label = "Body Features", desc = "Choose between upper body changes or lower body face,head lips,eyes etc", desc2 = "cheeks ears eyes nose " },
-            element7 = { label = "Life style", desc = "choose life style of your character", desc2 = "sunburn spots freckles " },
-            element8 = { label = "Make up", desc = "Choose make up", desc2 = "foundation lipstick blush eyeliner " },
+            element2 = { label = "Erbmerkmale", desc = "Wählen sie die Erbmerkmale ihres Charakters", desc2 = "Haut- und Kopfoptionen" },
+            element3 = { label = "Haare", desc = "Wählen Sie Ihren Haare aus", desc2 = "Haare, Gesicht, Augenbrauen Optionen" },
+            element4 = { label = "Alterung", desc = "Alterung des Charakters", desc2 = "Gesichtsfalten, Alterung" },
+            element5 = { label = "Größe", desc = "Wählen Sie den Körpertyp Ihres Charakters<br> Groß 3 normal 2 kurz 1" },
+            element6 = { label = "Körpermerkmale", desc = "Wählen Sie zwischen Oberkörperveränderungen oder Unterkörpergesicht, Kopf, Lippen, Augen usw", desc2 = "Wangen, Ohren, Augen, Nase" },
+            element7 = { label = "Lebensstil", desc = "Wähle den Lebensstil deines Charakters", desc2 = "Sonnenbrand, Flecken, Sommersprossen" },
+            element8 = { label = "Make up", desc = "Wählen Sie Make-up", desc2 = "Foundation, Lippenstift, Rouge, Eyeliner" },
             short = "Klein",
             normal = "Normal",
             tall = "Groß",
@@ -1737,8 +1733,7 @@ Translation.Langs = {
             element2 = { label = "Taille", desc = "es gibt ", desc2 = " Taillentypen" },
             element3 = { label = "Torso", desc = "es gibt " },
             element4 = { label = "Legs", desc = "es gibt " },
-            Ammount = " Ammount "
-
+            Ammount = " Betrag "
         },
         MenuHeritage = {
             title = "Abstammung",
@@ -1755,14 +1750,15 @@ Translation.Langs = {
             element3 = { label = "Bartstoppeln", desc = "Wähle die Bartstoppeln deines Charakters", desc2 = "shaved beard styles" },
             element4 = { label = "Haar-Accessoires", desc = "Wähle Haar-Accessoires für deinen Charakter", desc2 = "hair accessories" },
             element5 = { label = "Augenbrauen", desc = "Wähle die Augenbrauen deines Charakters", desc2 = "eyebrow styles" },
-            element6 = { label = "Overlay", desc = "Choose characters hair overlay", desc2 = "shaved hair styles" },
+            element6 = { label = "Overlay", desc = "Wählen Sie die Haarüberlagerung der Charaktere", desc2 = "shaved hair styles" },
         },
         MenuHairSelection = {
             title = "Haare",
             subtitle = "Untermenü",
             element = { label = "Komponente ", desc = "es gibt ", desc2 = " Arten von " },
             element2 = { label = "Farbe", desc = "es gibt ", desc2 = " Farben " },
-            element3 = { label = "Remove", desc = "Remove this component to be bald" },
+            element3 = { label = "Entfernen", desc = "Entfernen Sie diese Komponente, um eine Glatze zu erhalten" },
+
         },
         MenuBeardEyeBrows = {
             title = "Erscheinungsbild",
@@ -1770,7 +1766,7 @@ Translation.Langs = {
             element = { label = "", desc = "wähle eine Art" },
             element2 = { label = "Farbe", desc = "Wähle Farbe" },
             element3 = { label = "Deckkraft", desc = "Wähle Deckkraft", desc2 = "Opacity  10 max" },
-            element4 = { label = "Remove", desc = "Remove this component to be bald" },
+            element4 = { label = "Entfernen", desc = "Entfernen Sie diese Komponente, um eine Glatze zu erhalten" },
 
         },
         MenuFacial = {
@@ -1778,18 +1774,18 @@ Translation.Langs = {
             subtitle = "Untermenü",
             element = { label = "Augenfarbe", desc = "Augenfarbe" },
             element2 = { label = "Zähne", desc = "Art der Zähne " },
-            element3 = { label = "Kiefer", desc = "Kieferknochen anpassen", desc2 = "width height depth" },
+            element3 = { label = "Kiefer", desc = "Kieferknochen anpassen", desc2 = "Breite Höhe Tiefe" },
             element4 = { label = "Kinn", desc = "Kinnknochen anpassen" },
-            element5 = { label = "Kopfgröße", desc = "Kopfgröße anpassen ", desc2 = "height" },
-            element6 = { label = "Nase", desc = "Nase anpassen", desc2 = "width height depth angle curvature" },
-            element7 = { label = "Ohren", desc = "Ohrengröße anpassen", desc2 = " width height size angle" },
-            element8 = { label = "Mund und Lippen", desc = "Mund und Lippen anpassen ", desc2 = " upper lip lower lip" },
-            element9 = { label = "Wangenknochen", desc = "Wähle die Deckkraft der Gesichtsbehaarung deines Charakters", desc2 = " width height depth" },
-            element10 = { label = "Augen und Brauen", desc = "Wangenknochen anpassen", desc2 = " eyelid eyes brows" },
-            element11 = { label = "Upper body", desc = "adjust Upper body", desc2 = "hip waist chest arms" },
-            element12 = { label = "Lower body", desc = "adjust Lower body", desc2 = "legs calves" },
+            element5 = { label = "Kopfgröße", desc = "Kopfgröße anpassen ", desc2 = "Höhe" },
+            element6 = { label = "Nase", desc = "Nase anpassen", desc2 = "Breite Höhe Tiefe Winkel Krümmung" },
+            element7 = { label = "Ohren", desc = "Ohrengröße anpassen", desc2 = " Breite Höhe Größe Winkel" },
+            element8 = { label = "Mund und Lippen", desc = "Mund und Lippen anpassen ", desc2 = " Oberlippe Unterlippe" },
+            element9 = { label = "Wangenknochen", desc = "Wähle die Deckkraft der Gesichtsbehaarung deines Charakters", desc2 = " Breite Höhe Tiefe" },
+            element10 = { label = "Augen und Brauen", desc = "Wangenknochen anpassen", desc2 = " Augenlid, Augen, Brauen" },
+            element11 = { label = "Oberkörper", desc = "Oberkörper anpassen", desc2 = "Hüfte, Taille, Brust, Arme" },
+            element12 = { label = "Unterkörper", desc = "Unterkörper anpassen", desc2 = "Beine Waden" },
             minmax = "Min -1.0 Max 1.0",
-            amount = "Amount"
+            amount = "Menge"
         },
         MenuFaceModify = {
             title = "Gesichtsmerkmale",
@@ -1810,7 +1806,6 @@ Translation.Langs = {
             element7 = { label = "Narben", desc = "Wähle die Deckkraft des Lebensstils deines Charakters" },
             element8 = { label = "Schmutz", desc = "Wähle die Deckkraft des Lebensstils deines Charakters" },
             scroll = "scroll to the sides to apply"
-
         },
         MenuMakeup = {
             title = "Schminke",
