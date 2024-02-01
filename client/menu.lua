@@ -652,7 +652,7 @@ function OpenClothingMenu(Table, value, Outfits)
                 end
             end
 
-            if (data.current.value and data.current.value ~= "buy") then
+            if (data.current.value and data.current.value ~= "buy" and data.current.value ~= "Outfits") then
                 if PlayerClothing.Dress.comp ~= -1 and gender == "Male" then
                     -- dont allow use these categories if player has dress on
                     if data.current.value == "Coat" or data.current.value == "Shirt" or data.current.value == "Vest" or data.current.value == "CoatClosed" then
