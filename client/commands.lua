@@ -10,8 +10,7 @@ local function toggleComp(hash, item) -- todo when removing coats shirts with ti
 		ApplyShopItemToPed(item.comp)
 		UpdatePedVariation()
 		if item.drawable then
-			SetMetaPedTag(PlayerPedId(), item.drawable, item.albedo, item.normal, item.material, item.palette, item
-			.tint0, item.tint1, item.tint2)
+			SetMetaPedTag(PlayerPedId(), item.drawable, item.albedo, item.normal, item.material, item.palette, item.tint0, item.tint1, item.tint2)
 		end
 		SetResourceKvp(tostring(item.comp), "false")
 	end
@@ -22,6 +21,9 @@ end
 for key, v in pairs(Config.commands) do
 	RegisterCommand(v.command, function()
 		toggleComp(Config.HashList[key], CachedComponents[key])
+		if key == "GunBelt" then
+			toggleComp(Config.HashList[key], CachedComponents[key])
+		end
 	end, false)
 end
 
@@ -86,6 +88,7 @@ RegisterCommand('bandanaon', function(source, args, rawCommand)
 
 		UpdatePedVariation()
 		LocalPlayer.state:set("IsBandanaOn", true, true)
+		SetTextureOutfitTints(PlayerPedId(), 'shirts_full', CachedComponents.Shirt)
 	else
 		Citizen.InvokeNative(0xAE72E7DF013AAA61, player, 0, joaat("BANDANA_OFF_RIGHT_HAND"), 1, 0, -1.0) --START_TASK_ITEM_INTERACTION
 		Wait(750)
@@ -98,6 +101,7 @@ RegisterCommand('bandanaon', function(source, args, rawCommand)
 
 		UpdatePedVariation()
 		LocalPlayer.state:set("IsBandanaOn", false, true)
+		SetTextureOutfitTints(PlayerPedId(), 'shirts_full', CachedComponents.Shirt)
 	end
 end, false)
 
