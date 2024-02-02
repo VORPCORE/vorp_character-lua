@@ -22,7 +22,7 @@ for key, v in pairs(Config.commands) do
 	RegisterCommand(v.command, function()
 		toggleComp(Config.HashList[key], CachedComponents[key])
 		if key == "GunBelt" then
-			toggleComp(Config.HashList[key], CachedComponents[key])
+			toggleComp(Config.HashList.Holster, CachedComponents.Holster)
 		end
 	end, false)
 end
