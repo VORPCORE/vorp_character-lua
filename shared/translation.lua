@@ -181,7 +181,7 @@ Translation.Langs = {
             Total = 'Total:',
             Tokens = 'Tokens: ',
             Currency = '$',
-            
+
         },
         MenuAppearance = {
             title = "Appearance",
@@ -464,6 +464,7 @@ Translation.Langs = {
             element2 = { label = " Colore  #", desc = "Scegli il colore del componente", desc2 = "Colori per questo componente" },
             element3 = { label = " of ", desc = "Ce ne sono circa ", desc2 = "per questa categoria " },
             element4 = { label = " Rimuovi componente ", desc = "Rimuovere ", desc2 = "Rimuovi questo componente ", desc3 = " premere per rimuovere" },
+            palette = { label = "Palette dei colori", desc = "Scambia la palette dei colori" },
             tint = { label = "Costume Tinta 1", desc = "Personalizzazione Tinta 0 alcuni capi di abbigliamento non ne avranno" },
             tint2 = { label = "Costume Tinta 2", desc = "Personalizzazione Tinta 1 alcuni capi di abbigliamento non ne avranno" },
             tint3 = { label = "Costume Tinta 3", desc = "Personalizzazione Tinta 2 alcuni capi di abbigliamento non ne avranno" },
@@ -486,7 +487,7 @@ Translation.Langs = {
             Total = 'Totale:',
             Tokens = 'Tokens: ',
             Currency = '$',
-            
+
         },
         MenuAppearance = {
             title = "Aspetto",
@@ -775,6 +776,7 @@ Translation.Langs = {
             element2 = { label = " Cor  #", desc = "Escolhe a cor do componente", desc2 = "Cores para este componente" },
             element3 = { label = " of ", desc = "There's are about ", desc2 = "for this category " },
             element4 = { label = " Remove Component ", desc = "Remove ", desc2 = "Remove this component ", desc3 = " pess to remove" },
+            palette = { label = "Paleta de Cores", desc = "Muda a paleta de cores" },
             tint = { label = "Custom Tint 1", desc = "Customisation  Tint 0 some clothing wont have any" },
             tint2 = { label = "Custom Tint 2", desc = "Customisation  Tint 1 some clothing wont have any" },
             tint3 = { label = "Custom Tint 3", desc = "Customisation  Tint 2 some clothing wont have any" },
@@ -797,7 +799,7 @@ Translation.Langs = {
             Total = 'Total:',
             Tokens = 'Tokens: ',
             Currency = '$',
-            
+
         },
         MenuAppearance = {
             title = "Aparência",
@@ -1062,6 +1064,7 @@ Translation.Langs = {
             element2 = { label = " Cores ", desc = "Existe ", desc2 = "Cores para este componente", },
             element3 = { label = " de ", desc = "Existem cerca de ", desc2 = "Para esta categoria " },
             element4 = { label = " Remover Componente ", desc = "Remover ", desc2 = "Remover este componente ", desc3 = " Pressione para Remover" },
+            palette = { label = "Paleta de Cores", desc = "Muda a paleta de cores" },
             tint = { label = "Matiz Personalizado 1", desc = "Personalização de Matiz 0 algumas roupas não terão" },
             tint2 = { label = "Matiz Personalizado 2", desc = "Personalização de Matiz 1 algumas roupas não terão" },
             tint3 = { label = "Matiz Personalizado 3", desc = "Personalização de Matiz 2 algumas roupas não terão" },
@@ -1083,7 +1086,7 @@ Translation.Langs = {
             Total = 'Total:',
             Tokens = 'Tokens: ',
             Currency = '$',
-            
+
         },
         MenuAppearance = {
             title = "Aparência",
@@ -1298,16 +1301,14 @@ Translation.Langs = {
             element2 = { label = "Vêtements", desc = "Choisissez les vêtements de votre personnage" },
             element3 = {
                 label = " Choisir un nom ",
-                desc =
-                " Choisissez un nom pour votre personnage, assurez-vous de lire les règles de désignation des personnages, <br>si vous ne suivez pas les règles, ce personnage sera supprimé sans avertissement "
+                desc = " Choisissez un nom pour votre personnage, assurez-vous de lire les règles de désignation des personnages, <br>si vous ne suivez pas les règles, ce personnage sera supprimé sans avertissement "
             },
             element4 = { label = " Début du voyage ", desc = " Commencez votre voyage en appuyant sur la touche Entrée " },
             element5 = { label = "L'âge", desc = "Âge de votre personnage" },
 
             element6 = {
                 label = "Description du personnage",
-                desc =
-                "Décrivez votre caractère et votre apparence le plus précisément possible, afin que nous puissions vous identifier.",
+                desc = "Décrivez votre caractère et votre apparence le plus précisément possible, afin que nous puissions vous identifier.",
                 desc2 = "Ajouté",
             },
             element7 = {
@@ -1364,12 +1365,13 @@ Translation.Langs = {
             subtitle = "Sous-menu",
             element = { label = "Composant", desc = "il y a " },
             element2 = { label = " Color # ", desc = " Choisissez la couleur du composant ", desc2 = "Couleurs pour ce composant", },
-            element3 = { label = " of ", desc = "There's are about ", desc2 = "for this category " },
-            element4 = { label = " Remove Component ", desc = "Remove ", desc2 = "Remove this component ", desc3 = " pess to remove" },
-            tint = { label = "Custom Tint 1", desc = "Customisation  Tint 0 some clothing wont have any" },
-            tint2 = { label = "Custom Tint 2", desc = "Customisation  Tint 1 some clothing wont have any" },
-            tint3 = { label = "Custom Tint 3", desc = "Customisation  Tint 2 some clothing wont have any" },
-            scroll = "choose by scrolling to the sides",
+            element3 = { label = " de ", desc = "il y a ", desc2 = "Pour cette catégorie " },
+            element4 = { label = " Supprimer le composant ", desc = " Supprimer ", desc2 = " Supprimer ce composant ", desc3 = " Appuyez pour supprimer" },
+            palette = { label = "Palette de couleurs", desc = "Change la palette de couleurs" },
+            tint = { label = "Teinte personnalisée 1", desc = "Personnalisation de la teinte 0 certaines tenues n'en auront pas" },
+            tint2 = { label = "Teinte personnalisée 2", desc = "Personnalisation de la teinte 1 certaines tenues n'en auront pas" },
+            tint3 = { label = "Teinte personnalisée 3", desc = "Personnalisation de la teinte 2 certaines tenues n'en auront pas" },
+            scroll = "choix en faisant défiler vers la droite",
         },
         MenuOutfits = {
             title = "Tenues",
@@ -1387,19 +1389,19 @@ Translation.Langs = {
             Total = 'Total :',
             Tokens = 'Tokens: ',
             Currency = '$',
-            
+
         },
         MenuAppearance = {
             title = "Apparence",
             subtitle = "Sous-menu",
             element = { label = " Corps ", desc = " Choisissez le type de corps de vos personnages " },
-            element2 = { label = "Heritage", desc = "Choose your characters Herritage", desc2 = "skin & head options" },
-            element3 = { label = "Hair", desc = "Choose you character type of hair", desc2 = "hair facial eyebrows Options" },
-            element4 = { label = "Ageing", desc = "Character age ", desc2 = "face wrinkles ageing" },
-            element5 = { label = "Height", desc = "Choose the type of your characters body<br> Tall 3 normal 2 short 1 " },
-            element6 = { label = "Body Features", desc = "Choose between upper body changes or lower body face,head lips,eyes etc", desc2 = "cheeks ears eyes nose " },
-            element7 = { label = "Life style", desc = "choose life style of your character", desc2 = "sunburn spots freckles " },
-            element8 = { label = "Make up", desc = "Choose make up", desc2 = "foundation lipstick blush eyeliner " },
+            element2 = { label = " Héritage ", desc = " Choisissez l'héritage de vos personnages ", desc2 = "Options de peau et de tête" },
+            element3 = { label = " Cheveux ", desc = " Choisissez le type de cheveux de vos personnages ", desc2 = "Options de cheveux faciaux et de sourcils" },
+            element4 = { label = " Vieillissement ", desc = " Âge du personnage ", desc2 = "Rides de vieillissement facial" },
+            element5 = { label = " Hauteur ", desc = " Choisissez le type de corps de vos personnages<br> Grand 3 normal 2 petit 1 " },
+            element6 = { label = " Caractéristiques du corps ", desc = " Choisissez entre les changements du corps supérieur ou inférieur, du visage, de la tête, des lèvres, des yeux, etc ", desc2 = "Joues, Oreilles, Yeux, Nez " },
+            element7 = { label = " Style de vie ", desc = " Choisissez le style de vie de vos personnages ", desc2 = "Taches de soleil, Taches de rousseur " },
+            element8 = { label = " Maquillage ", desc = " Choisissez le maquillage ", desc2 = "Base, Rouge à lèvres, Blush, Eye-liner " },
             short = "Court",
             normal = "Normal",
             tall = "Grand",
@@ -1701,7 +1703,7 @@ Translation.Langs = {
             Total = 'Gesamt:',
             Tokens = 'Tokens: ',
             Currency = '$',
-            
+
         },
         MenuAppearance = {
             title = "Aussehen",
@@ -1980,6 +1982,7 @@ Translation.Langs = {
             element2 = { label = " Color  #", desc = "Elige el color de la prenda", desc2 = "Colores para este componente", },
             element3 = { label = " de ", desc = "Hay alrededor de ", desc2 = " para esta categoría " },
             element4 = { label = " Quitar Componente ", desc = "Quitar ", desc2 = "Quitar este componente ", desc3 = " presiona para quitar" },
+            palette = { label = "Paleta de colores", desc = "Elige la paleta de colores" },
             tint = { label = "Tinte personalizado 1", desc = "Personalización  Tinte 0 algunas prendas no tendrán ninguno" },
             tint2 = { label = "Tinte personalizado 2", desc = "Personalización  Tinte 1 algunas prendas no tendrán ninguno" },
             tint3 = { label = "Tinte personalizado 3", desc = "Personalización  Tinte 2 algunas prendas no tendrán ninguno" },
