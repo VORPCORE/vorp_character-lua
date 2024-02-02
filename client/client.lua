@@ -501,6 +501,7 @@ function OpenMenuSelect()
 
 		function(data, menu)
 			if (data.current.value == "choose") and not WhileSwaping then
+				UiFeedClearChannel()
 				WhileSwaping = true
 				SetCamFocusDistance(mainCam, 4.0)
 				selectedChar = data.current.index
@@ -524,6 +525,7 @@ function OpenMenuSelect()
 			end
 
 			if (data.current.value == "create") then
+				UiFeedClearChannel()
 				WhileSwaping = true
 				AnimpostfxPlay('PhotoMode_FilterGame06')
 				finishSelection(true)
