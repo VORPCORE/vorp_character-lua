@@ -20,9 +20,10 @@ end
 
 for key, v in pairs(Config.commands) do
 	RegisterCommand(v.command, function()
-		toggleComp(Config.HashList[key], CachedComponents[key])
-		if key == "GunBelt" then
+		if Config.HashList[key] and CachedComponents[key] then
 			toggleComp(Config.HashList[key], CachedComponents[key])
+		else
+			print("Error: Invalid key or component not cached") -- Error handling
 		end
 	end, false)
 end
