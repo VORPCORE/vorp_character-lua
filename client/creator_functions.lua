@@ -149,8 +149,8 @@ function RefreshMetaPedShopItems()
     Citizen.InvokeNative(0x59BD177A1A48600A, PlayerPedId(), 1)
 end
 
-function RemoveTagFromMetaPed(hash)
-    Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), hash, 0)
+function RemoveTagFromMetaPed(hash, ped)
+    Citizen.InvokeNative(0xD710A5007C2AC539, ped or PlayerPedId(), hash, 0)
 end
 
 function UpdatePedVariation(ped)
