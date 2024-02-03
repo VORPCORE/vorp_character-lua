@@ -2072,7 +2072,7 @@ Config.FaceFeatures = {
         ["Eyes Angle"] = { hash = 0xD266, comp = "EyeAng" },
         ["Eyes Distance"] = { hash = 0xA54E, comp = "EyeDis" },
         ["Eyes Height"] = { hash = 0xDDFB, comp = "EyeH" },
-        ["Eyelid Height"] = { hahs = 0x8B2B, comp = "EyeLidH" },
+        ["Eyelid Height"] = { hash = 0x8B2B, comp = "EyeLidH" },
         ["Eyelid Width"] = { hash = 0x1B6B, comp = "EyeLidW" },
         ["Eyelid Left O/Close"] = { hash = 52902, comp = "EyeLidL" },
         ["Eyelid Right O/Close"] = { hash = 22421, comp = "EyeLidR" },
@@ -2185,4 +2185,4 @@ Config.HashList = {
     bow         = 0x8E84A2AA,
 }
 
-Config.clothesPalettes = {1090645383,1064202495,-783849117,864404955,1669565057,-1952348042}
+Config.clothesPalettes = { 1090645383, 1064202495, -783849117, 864404955, 1669565057, -1952348042 }
