@@ -1785,7 +1785,7 @@ function OpenHairMenu(table, value)
             end
             if (data.current.value == "bow") then
                 local TableBow = GetHair(GetGender(), data.current.value)
-                return OpenHairSelectionMenu(TableBow, table, data.current.label, "Bow", value)
+                return OpenHairSelectionMenu(TableBow, table, data.current.label, "bow", value)
             end
             if (data.current.value == "beard") then
                 local TableBeard = GetHair("Male", data.current.value)
@@ -1829,7 +1829,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
 
     if not IsInCharCreation then
         hairIndex, hairColorIndex = GetHairIndex(category, tablehair)
-        if category == "Bow" then
+        if category == "bow" then
             InnitComp = PlayerClothing[category].comp
         else
             InnitComp = CachedSkin[category]
@@ -1852,30 +1852,24 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
             info = tablehair,
             min = 0,
             max = #tablehair,
-            desc = T.MenuHairSelection.element.desc ..
-                #tablehair .. ' ' .. T.MenuHairSelection.element.desc2 .. label .. "<br><br>" .. Divider .. "<br><br>",
+            desc = T.MenuHairSelection.element.desc .. #tablehair .. ' ' .. T.MenuHairSelection.element.desc2 .. label .. "<br><br>" .. Divider .. "<br><br>",
             tag = "component",
             itemHeight = "4vh",
         },
         {
-            label = T.MenuHairSelection.element2.label ..
-                "<br><span style='opacity:0.6;'>" ..
-                "" .. T.MenuBody.Ammount .. ' ' .. #tablehair[HairIndexTracker[category]] .. "</span>",
+            label = T.MenuHairSelection.element2.label .. "<br><span style='opacity:0.6;'>" .. "" .. T.MenuBody.Ammount .. ' ' .. #tablehair[HairIndexTracker[category]] .. "</span>",
             type = "slider",
             value = HairColorIndexTracker[category],
             min = 0,
             max = #tablehair[HairIndexTracker[category]],
-            desc = T.MenuHairSelection.element2.desc ..
-                #tablehair[HairIndexTracker[category]] .. ' ' .. T.MenuHairSelection.element2.desc2,
+            desc = T.MenuHairSelection.element2.desc .. #tablehair[HairIndexTracker[category]] .. ' ' .. T.MenuHairSelection.element2.desc2,
             tag = "color",
             itemHeight = "4vh",
         },
         {
             label = T.MenuHairSelection.element3.label,
             value = 1,
-            desc = "<br><br>" ..
-                imgPath:format("character_creator_hair") ..
-                "<br><br><br>" .. T.MenuHairSelection.element3.desc .. "<br><br>" .. Divider .. "<br><br>",
+            desc = "<br><br>" .. imgPath:format("character_creator_hair") .. "<br><br><br>" .. T.MenuHairSelection.element3.desc .. "<br><br>" .. Divider .. "<br><br>",
             tag = "remove"
         }
     }
@@ -1913,7 +1907,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
                 IsPedReadyToRender()
                 RemoveTagFromMetaPed(Config.HashList[category])
                 UpdatePedVariation()
-                if category == "Bow" then
+                if category == "bow" then
                     PlayerClothing[category].comp = -1
                 else
                     PlayerSkin[category] = -1
@@ -1936,7 +1930,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
                 local COMP = tablehair[data.current.value][HairColorIndexTracker[category]]
                 local total = tablehair[data.current.value]
                 HairIndexTracker[category] = data.current.value
-                if category == "Bow" then
+                if category == "bow" then
                     PlayerClothing[category].comp = COMP
                 else
                     PlayerSkin[category] = COMP
