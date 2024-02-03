@@ -19,9 +19,6 @@ function CreateBlips()
         if value.Blip.Enable then
             local blip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300, value.Prompt.Position.x,
                 value.Prompt.Position.y, value.Prompt.Position.z)
-            if value.Blip.Color then
-                Citizen.InvokeNative(0x662D364ABF16DE2F, blip, joaat(value.Blip.Color)) -- BlipAddModifier
-            end
             SetBlipSprite(blip, value.Blip.Sprite, true)
             Citizen.InvokeNative(0x9CB1A1623062F402, blip, value.Blip.Name)
             ConfigShops.Locations[index].Blip.Entity = blip
