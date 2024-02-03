@@ -222,6 +222,6 @@ RegisterCommand("rc", function(source, args, rawCommand)
 			Custom = args[1]
 		end
 
-		LoadPlayerComponents(__player, CachedSkin, CachedComponents, true)
+		LoadPlayerComponents(__player, CachedSkin, CachedComponents, false)
 	end
 end, false)
