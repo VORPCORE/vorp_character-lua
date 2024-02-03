@@ -137,9 +137,8 @@ end)
 local function LoadFaceFeatures(ped, skin)
 	for key, value in pairs(Config.FaceFeatures) do
 		for label, v in pairs(value) do
-			if skin[v.comp] and v.hash ~= 0 then
+			if skin[v.comp] and skin[v.comp] > 0 then
 				SetCharExpression(ped, v.hash, skin[v.comp])
-				--Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
 			end
 		end
 	end
