@@ -13,6 +13,8 @@ ConfigShops.SecondChanceCurrency = 0     -- 0 is cash 1 is gold 2 is tokens curr
 -- face
 -- secondchance -- this enables all
 
+-- Blip Colors: https://github.com/femga/rdr3_discoveries/tree/master/useful_info_from_rpfs/blip_modifiers
+
 ConfigShops.Locations = {
     {                                                   -- valentine
         Prompt = {
@@ -28,6 +30,7 @@ ConfigShops.Locations = {
             Enable = true,
             Sprite = 1195729388,
             Name = "Clothing Store",
+            -- Color = 'BLIP_MODIFIER_MP_COLOR_23',
         },
         EditCharacter = { -- where the player will be teleported to edit character
             Position = vector4(-329.43, 775.29, 121.63, 278.17),
@@ -59,6 +62,7 @@ ConfigShops.Locations = {
             Enable = true,
             Sprite = 1195729388,
             Name = "Clothing Store",
+            -- Color = 'BLIP_MODIFIER_MP_COLOR_23',
         },
         EditCharacter = { -- where the player will be teleported to edit character
             Position = vector4(-767.98, -1294.88, 43.83, 263.09),
@@ -90,6 +94,7 @@ ConfigShops.Locations = {
             Enable = true,
             Sprite = 1195729388,
             Name = "Rhodes Clothing Store",
+            -- Color = 'BLIP_MODIFIER_MP_COLOR_23',
         },
         EditCharacter = { -- where the player will be teleported to edit character
             Position = vector4(1324.24, -1287.88, 77.07, 164.22),
@@ -121,6 +126,7 @@ ConfigShops.Locations = {
             Enable = true,
             Sprite = 1195729388,
             Name = "Saint Denis Clothing Store",
+            -- Color = 'BLIP_MODIFIER_MP_COLOR_23',
         },
         EditCharacter = { -- where the player will be teleported to edit character
             Position = vector4(2556.66, -1159.76, 53.75, 191.14),
@@ -152,6 +158,7 @@ ConfigShops.Locations = {
             Enable = true,
             Sprite = 1195729388,
             Name = "Strawberry Clothing Store",
+            -- Color = 'BLIP_MODIFIER_MP_COLOR_23',
         },
         EditCharacter = { -- where the player will be teleported to edit character
             Position = vector4(-1794.4, -395.25, 160.34, 326.06),
@@ -183,6 +190,7 @@ ConfigShops.Locations = {
             Enable = true,
             Sprite = 1195729388,
             Name = "Tumbleweed Clothing Store",
+            -- Color = 'BLIP_MODIFIER_MP_COLOR_23',
         },
         EditCharacter = { -- where the player will be teleported to edit character
             Position = vector4(-5480.05, -2932.88, -0.32, 229.49),
@@ -214,6 +222,7 @@ ConfigShops.Locations = {
             Enable = true,
             Sprite = 1195729388,
             Name = "Armadillo Clothing Store",
+            -- Color = 'BLIP_MODIFIER_MP_COLOR_23',
         },
         EditCharacter = { -- where the player will be teleported to edit character
             Position = vector4(-3688.98, -2630.14, -13.35, 6.45),
