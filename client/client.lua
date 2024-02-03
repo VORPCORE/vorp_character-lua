@@ -571,7 +571,6 @@ function LoadPlayerComponents(ped, skin, components, reload)
 		local skinS = not Custom and skin.sex or Custom
 		LoadPlayer(joaat(skinS))
 		SetPlayerModel(PlayerId(), joaat(skinS), false)
-		IsPedReadyToRender(ped)
 		Citizen.InvokeNative(0xA91E6CF94404E8C9, ped) -- _SET_ENTITY_FADE_IN
 		ped = PlayerPedId()
 		SetModelAsNoLongerNeeded(joaat(skinS))
