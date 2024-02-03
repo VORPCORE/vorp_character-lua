@@ -1913,7 +1913,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
                 IsPedReadyToRender()
                 RemoveTagFromMetaPed(Config.HashList[category])
                 UpdatePedVariation()
-                if category == "bow" then
+                if category == "Bow" then
                     PlayerClothing[category].comp = -1
                 else
                     PlayerSkin[category] = -1
@@ -1925,7 +1925,9 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
                 menu.refresh()
                 if IsInClothingStore then
                     TotalAmountToPay[category] = 0
-                    CachedComponents[category].comp = -1
+                    if CachedComponents[category] then
+                        CachedComponents[category].comp = -1
+                    end
                 end
                 return
             end
@@ -1934,7 +1936,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
                 local COMP = tablehair[data.current.value][HairColorIndexTracker[category]]
                 local total = tablehair[data.current.value]
                 HairIndexTracker[category] = data.current.value
-                if category == "bow" then
+                if category == "Bow" then
                     PlayerClothing[category].comp = COMP
                 else
                     PlayerSkin[category] = COMP
@@ -1942,13 +1944,8 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
                 IsPedReadyToRender()
                 ApplyShopItemToPed(COMP)
                 UpdatePedVariation()
-                menu.setElement(2, "label",
-                    T.MenuHairSelection.element2.label ..
-                    "<br><span style='opacity:0.6;'>" .. "" .. T.MenuBody.Ammount .. ' ' .. #total .. "</span>")
+                menu.setElement(2, "label", T.MenuHairSelection.element2.label .. "<br><span style='opacity:0.6;'>" .. "" .. T.MenuBody.Ammount .. ' ' .. #total .. "</span>")
                 menu.setElement(2, "max", #total)
-                --[[     if #tablehair == data.current.value then -- workaround
-                    menu.setElement(2, "value", 1)
-                end ]]
                 menu.refresh()
 
                 if InnitComp then
