@@ -3,7 +3,7 @@ ConfigShops                      = {}
 ConfigShops.UseShops             = true  -- if you want to use the shops set to true if not set to false
 
 ConfigShops.SecondChancePrice    = 15000 -- if store is second chance then this is the price they need to pay to use it
-    
+
 ConfigShops.SecondChanceCurrency = 0     -- 0 is cash 1 is gold 2 is tokens currency
 --[[ types of stores]]
 --
@@ -108,8 +108,8 @@ ConfigShops.Locations = {
             MaxUp = 78.13,
             MaxDown = 76.95,
         },
-        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
-        DrawLight = false,                                -- if you need a light in the store put true
+        TypeOfShop = "clothing",                         -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                               -- if you need a light in the store put true
     },
     {                                                    -- Saint Denis
         Prompt = {
@@ -140,8 +140,8 @@ ConfigShops.Locations = {
             MaxUp = 54.82,
             MaxDown = 53.00,
         },
-        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
-        DrawLight = false,                                -- if you need a light in the store put true
+        TypeOfShop = "clothing",                           -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                 -- if you need a light in the store put true
     },
     {                                                      -- Strawberry
         Prompt = {
@@ -172,8 +172,8 @@ ConfigShops.Locations = {
             MaxUp = 161.45,
             MaxDown = 145.31,
         },
-        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
-        DrawLight = false,                                -- if you need a light in the store put true
+        TypeOfShop = "clothing",                           -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                 -- if you need a light in the store put true
     },
     {                                                      -- Tumblweed
         Prompt = {
@@ -204,8 +204,8 @@ ConfigShops.Locations = {
             MaxUp = 0.78,
             MaxDown = -1.20,
         },
-        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
-        DrawLight = false,                                -- if you need a light in the store put true
+        TypeOfShop = "clothing",                           -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,                                 -- if you need a light in the store put true
     },
     {                                                      -- Armadillo
         Prompt = {
@@ -236,8 +236,8 @@ ConfigShops.Locations = {
             MaxUp = -12.48,
             MaxDown = -13.89,
         },
-        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
-        DrawLight = false,                                -- if you need a light in the store put true
+        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,       -- if you need a light in the store put true
     },
     -- add more here
 }
@@ -295,7 +295,7 @@ ConfigShops.Prices = {
         Beard = {
             price = 10,
         },
-        Bow = { -- females only
+        bow = { -- females only
             price = 10,
         },
         beardstabble = { -- shaved beard
