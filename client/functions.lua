@@ -2,8 +2,8 @@
 ---@param ped number ped id
 function RemoveMetaTags(ped)
     for _, tag in pairs(Config.HashList) do
-        RemoveTagFromMetaPed(tag, ped)
-        UpdatePedVariation(ped)
+        RemoveTagFromMetaPed(tag)
+        UpdatePedVariation()
     end
 end
 
