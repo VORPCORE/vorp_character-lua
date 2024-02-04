@@ -19,6 +19,16 @@ function SetDefaultSkin(gender, skin)
                 local headtext = joaat(value.HeadTexture[1])
                 if headtext == skin.albedo then
                     __data = value
+                    -- work arround to fix Torso
+                    for k, v in pairs(value.Body) do
+                        if skin.Torso ~= 0 then
+                            -- if Torso is not part of this color set due to old character, then set it to the first value in order to fix it
+                            if tonumber("0x" .. v) ~= skin.Torso then
+                                skin.Torso = tonumber("0x" .. v)
+                                break
+                            end
+                        end
+                    end
                     break
                 end
             end
@@ -37,7 +47,7 @@ function SetDefaultSkin(gender, skin)
         skin.LegsType = tonumber("0x" .. __data.Legs[1])
     end
 
-    if skin.Torso and skin.Torso == 0 or nil then
+    if skin.Torso and skin.Torso == 0 then
         skin.Torso = tonumber("0x" .. __data.Body[1])
     end
 
