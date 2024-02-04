@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global
 
-local function toggleComp(hash, item) -- todo when removing coats shirts with tints will go back to 0 so wee need to add a check here to fixx, for now just do rc it fixs it self
+local function toggleComp(hash, item)
 	IsPedReadyToRender()
 	if IsMetaPedUsingComponent(hash) then
 		RemoveTagFromMetaPed(hash)
@@ -23,6 +23,12 @@ for key, v in pairs(Config.commands) do
 		toggleComp(Config.HashList[key], CachedComponents[key])
 		if key == "GunBelt" then
 			toggleComp(Config.HashList.Holster, CachedComponents.Holster)
+		end
+		if key == "Vest" and IsMetaPedUsingComponent(Config.HashList.Shirt) then
+			local item = CachedComponents.Shirt
+			if item.drawable then
+				SetTextureOutfitTints(PlayerPedId(), 'shirts_full', item)
+			end
 		end
 	end, false)
 end
@@ -143,8 +149,7 @@ RegisterCommand("sleeves2", function(source, args)
 	end
 
 	if collar and Components.drawable then
-		SetMetaPedTag(PlayerPedId(), Components.drawable, Components.albedo, Components.normal, Components.material,
-			Components.palette, Components.tint0, Components.tint1, Components.tint2)
+		SetMetaPedTag(PlayerPedId(), Components.drawable, Components.albedo, Components.normal, Components.material, Components.palette, Components.tint0, Components.tint1, Components.tint2)
 	end
 
 	local value = not collar and "false" or "true"
