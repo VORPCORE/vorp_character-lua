@@ -310,6 +310,8 @@ local function finishSelection(boolean)
 	Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
 end
 
+
+
 local imgPath = "<img style='max-height:450px;max-width:280px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
 local img = "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
 local Divider = "<br><br><br><br><br>" .. img:format("divider_line") .. "<br>"
@@ -398,6 +400,8 @@ local function GetCharacterDescDetails(value)
 	desc = desc .. "</table>"
 	return desc
 end
+
+
 
 
 local WhileSwaping = false

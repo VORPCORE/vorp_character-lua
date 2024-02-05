@@ -215,18 +215,18 @@ Core.Callback.Register("vorp_character:callback:PayToShop", function(source, cal
 	if arguments.skin then
 		character.updateSkin((json.encode(arguments.skin)))
 	end
+	
 	if arguments.comps then
 		character.updateComps(json.encode(arguments.comps))
 	end
+
 	if arguments.compTints then
 		character.updateCompTints(json.encode(arguments.compTints))
 	end
 
 	if arguments.Result and arguments.Result ~= '' then
-		local Parameters = { character.identifier, character.charIdentifier, arguments.Result, json.encode(arguments
-			.comps), json.encode(arguments.compTints) }
-		MySQL.insert("INSERT INTO outfits (identifier, charidentifier, title, comps, compTints) VALUES (?, ?, ? ,?, ?)",
-			Parameters)
+		local Parameters = { character.identifier, character.charIdentifier, arguments.Result, json.encode(arguments.comps), json.encode(arguments.compTints) }
+		MySQL.insert("INSERT INTO outfits (identifier, charidentifier, title, comps, compTints) VALUES (?, ?, ? ,?, ?)", Parameters)
 	end
 
 	return callback(true)
@@ -234,17 +234,15 @@ end)
 
 local function CanProcceed(User, source)
 	local character = User.getUsedCharacter
-	local money = ConfigShops.SecondChanceCurrency == 0 and character.money or
-		ConfigShops.SecondChanceCurrency == 1 and character.gold or
-		ConfigShops.SecondChanceCurrency == 2 and character.rol
+	local money = ConfigShops.SecondChanceCurrency == 0 and character.money or ConfigShops.SecondChanceCurrency == 1 and character.gold or ConfigShops.SecondChanceCurrency == 2 and character.rol
 	local amountToPay = ConfigShops.SecondChancePrice
-	local moneyType = ConfigShops.SecondChanceCurrency == 0 and "money" or
-		ConfigShops.SecondChanceCurrency == 1 and "gold" or ConfigShops.SecondChanceCurrency == 2 and "rol"
+	local moneyType = ConfigShops.SecondChanceCurrency == 0 and "money" or ConfigShops.SecondChanceCurrency == 1 and "gold" or ConfigShops.SecondChanceCurrency == 2 and "rol"
 
 	if money < amountToPay then
 		Core.NotifyRightTip(source, string.format(T.PayToShop.DontMoney, moneyType, ConfigShops.SecondChancePrice), 6000)
 		return false
 	end
+
 	return true
 end
 

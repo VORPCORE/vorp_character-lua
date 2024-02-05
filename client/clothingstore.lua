@@ -51,7 +51,15 @@ CreateThread(function()
     while ConfigShops.UseShops do
         local sleep = 1000
 
-        if LocalPlayer.state.Character.IsInSession or IsInCharCreation or IsInClothingStore then
+        if not LocalPlayer.state.Character then
+            goto skip
+        end
+
+        if not LocalPlayer.state.Character.IsInSession then
+            goto skip
+        end
+
+        if not IsInCharCreation and IsInClothingStore then
             for index, value in ipairs(ConfigShops.Locations) do
                 local coords = GetEntityCoords(PlayerPedId())
                 local dist = #(coords - value.Prompt.Position)
@@ -84,6 +92,8 @@ CreateThread(function()
                 end
             end
         end
+
+        ::skip::
 
         Wait(sleep)
     end
