@@ -24,10 +24,27 @@ for key, v in pairs(Config.commands) do
 		if key == "GunBelt" then
 			toggleComp(Config.HashList.Holster, CachedComponents.Holster)
 		end
+
 		if key == "Vest" and IsMetaPedUsingComponent(Config.HashList.Shirt) then
 			local item = CachedComponents.Shirt
 			if item.drawable then
 				SetTextureOutfitTints(PlayerPedId(), 'shirts_full', item)
+			end
+		end
+
+		if key == "Coat" and IsMetaPedUsingComponent(Config.HashList.Coat) then
+			if IsMetaPedUsingComponent(Config.HashList.Vest) then
+				local item = CachedComponents.Vest
+				if item.drawable then
+					SetTextureOutfitTints(PlayerPedId(), 'vests', item)
+				end
+			end
+
+			if IsMetaPedUsingComponent(Config.HashList.Shirt) then
+				local item = CachedComponents.Shirt
+				if item.drawable then
+					SetTextureOutfitTints(PlayerPedId(), 'shirts_full', item)
+				end
 			end
 		end
 	end, false)

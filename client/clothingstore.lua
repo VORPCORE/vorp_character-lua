@@ -59,7 +59,7 @@ CreateThread(function()
             goto skip
         end
 
-        if not IsInCharCreation and IsInClothingStore then
+        if not IsInCharCreation and not IsInClothingStore then
             for index, value in ipairs(ConfigShops.Locations) do
                 local coords = GetEntityCoords(PlayerPedId())
                 local dist = #(coords - value.Prompt.Position)
