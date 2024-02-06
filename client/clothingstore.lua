@@ -39,7 +39,7 @@ function CreateModel(model, position, index)
     SetEntityInvincible(npc, true)
     ConfigShops.Locations[index].Npc.Entity = npc
     if ConfigShops.Locations[index].Npc.Scenario then
-        TaskStartScenarioInPlace(npc, GetHashKey(ConfigShops.Locations[index].Npc.Scenario), 0, true, false, false, false)
+        TaskStartScenarioInPlace(npc, joaat(ConfigShops.Locations[index].Npc.Scenario), 0, true, false, false, false)
     end
     SetTimeout(1000, function()
         FreezeEntityPosition(npc, true)

@@ -439,7 +439,7 @@ function EnableSelectionPrompts(menu)
 				AnimpostfxPlay("RespawnPulse01")
 				PlaySoundFrontend("Ready_Up_Flash", "RDRO_In_Game_Menu_Sounds", true, 0)
 				local dataConfig = Config.SpawnPosition[random].positions[selectedChar]
-				Citizen.InvokeNative(0x524B54361229154F, dataConfig.PedHandler, "", -1, false, "", -1.0, 0) --TASK_START_SCENARIO_IN_PLACE_HASH
+				Citizen.InvokeNative(0xE1EF3C1216AFF2CD, PlayerPedId(), 0, 0) -- CLEAR  scenario
 				Wait(1000)
 				AnimpostfxPlay('PhotoMode_FilterGame06')
 				finishSelection(true)
