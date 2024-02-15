@@ -279,6 +279,7 @@ function StartSwapCharacters()
 		local randomScenario = math.random(1, #data.scenario[value.skin.sex])
 		Citizen.InvokeNative(0x524B54361229154F, data.PedHandler, joaat(data.scenario[value.skin.sex][randomScenario]), -1, false, joaat(data.scenario[value.skin.sex][randomScenario]), -1.0, 0)
 		Peds[#Peds + 1] = data.PedHandler
+		SetPedCanBeTargetted(data.PedHandler, false)
 	end
 
 	mainCam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", options.mainCam.x, options.mainCam.y, options.mainCam.z, options.mainCam.rotx, options.mainCam.roty, options.mainCam.rotz, options.mainCam.fov, false, 0)
