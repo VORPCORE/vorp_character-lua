@@ -215,7 +215,7 @@ Core.Callback.Register("vorp_character:callback:PayToShop", function(source, cal
 	if arguments.skin then
 		character.updateSkin((json.encode(arguments.skin)))
 	end
-	
+
 	if arguments.comps then
 		character.updateComps(json.encode(arguments.comps))
 	end

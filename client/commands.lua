@@ -235,6 +235,10 @@ RegisterCommand("rc", function(source, args, rawCommand)
 	local cuffed = Citizen.InvokeNative(0x74E559B3BC910685, __player)
 	local dead = IsEntityDead(__player)
 
+	if not Config.CanRunReload() then
+		return
+	end
+
 	if not hogtied and not cuffed and not dead then
 		if not next(CachedSkin) and not next(CachedComponents) then
 			return
