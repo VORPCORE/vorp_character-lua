@@ -181,6 +181,7 @@ Translation.Langs = {
             Total = 'Total:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
 
         },
         MenuAppearance = {
@@ -487,6 +488,8 @@ Translation.Langs = {
             Total = 'Totale:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
+
 
         },
         MenuAppearance = {
@@ -799,6 +802,8 @@ Translation.Langs = {
             Total = 'Total:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
+
 
         },
         MenuAppearance = {
@@ -1086,6 +1091,7 @@ Translation.Langs = {
             Total = 'Total:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
 
         },
         MenuAppearance = {
@@ -1389,6 +1395,7 @@ Translation.Langs = {
             Total = 'Total :',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
 
         },
         MenuAppearance = {
@@ -1703,6 +1710,7 @@ Translation.Langs = {
             Total = 'Gesamt:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
 
         },
         MenuAppearance = {
@@ -2004,6 +2012,8 @@ Translation.Langs = {
             Total = 'Total:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
+
         },
         MenuAppearance = {
             title = "Apariencia",
@@ -2301,6 +2311,8 @@ Translation.Langs = {
             Total = 'Total:',
             Tokens = 'Fise: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
+
         },
         MenuAppearance = {
             title = "Aspect",
