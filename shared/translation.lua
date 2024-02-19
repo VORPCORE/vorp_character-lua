@@ -176,11 +176,12 @@ Translation.Langs = {
             outfitName = "Outfit name",
         },
         PayToShop = {
-            DontMoney = "You don't have enough : %s price is: $%d",
+            DontMoney = "You don't have enough Ammount is: $%d",
             Youpaid = "You paid $%s",
             Total = 'Total:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
 
         },
         MenuAppearance = {
@@ -482,11 +483,13 @@ Translation.Langs = {
             outfitName = "Nome dell'outfit",
         },
         PayToShop = {
-            DontMoney = "Non ne hai abbastanza: il prezzo di %s è: $%d",
+            DontMoney = "Non hai  L'ammontare è: $%d",
             Youpaid = "Hai pagato $%s",
             Total = 'Totale:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
+
 
         },
         MenuAppearance = {
@@ -794,11 +797,13 @@ Translation.Langs = {
             outfitName = "Nome do traje",
         },
         PayToShop = {
-            DontMoney = "Você não tem o suficiente: o preço de %s é: $%d",
+            DontMoney = "Você não tem  suficiente montante é: $%d",
             Youpaid = "Você pagou $%s",
             Total = 'Total:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
+
 
         },
         MenuAppearance = {
@@ -1081,11 +1086,12 @@ Translation.Langs = {
             outfitName = "Nome do traje",
         },
         PayToShop = {
-            DontMoney = "Você não tem o suficiente: o preço de %s é: $%d",
+            DontMoney = "Você não tem  suficiente montante é: $%d",
             Youpaid = "Você pagou $%s",
             Total = 'Total:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
 
         },
         MenuAppearance = {
@@ -1384,11 +1390,12 @@ Translation.Langs = {
             outfitName = "Nom de la tenue",
         },
         PayToShop = {
-            DontMoney = "Vous n'en avez pas assez : le prix %s est : %d $",
+            DontMoney = "Vous n'avez pas assez d'argent le montant est : $%d",
             Youpaid = "Vous avez payé $%s",
             Total = 'Total :',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
 
         },
         MenuAppearance = {
@@ -1698,11 +1705,12 @@ Translation.Langs = {
             outfitName = "Name des Outfits",
         },
         PayToShop = {
-            DontMoney = "Sie haben nicht genug: %s Preis beträgt: $%d",
+            DontMoney = "Du hast nicht genug Geld  der Betrag ist : $%d",
             Youpaid = "Du hast $%s bezahlt",
             Total = 'Gesamt:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
 
         },
         MenuAppearance = {
@@ -1999,11 +2007,13 @@ Translation.Langs = {
             outfitName = "Nombre del outfit:",
         },
         PayToShop = {
-            DontMoney = "No tienes suficiente: el precio de %s es: $%d",
+            DontMoney = "No tienes suficiente el monto es : $%d",
             Youpaid = "Pagaste $%s",
             Total = 'Total:',
             Tokens = 'Tokens: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
+
         },
         MenuAppearance = {
             title = "Apariencia",
@@ -2296,11 +2306,13 @@ Translation.Langs = {
             outfitName = "Nume ținută",
         },
         PayToShop = {
-            DontMoney = "Nu aveți suficient : prețul %s este: $%d",
+            DontMoney = "Nu ai suficient Suma este: $%d",
             Youpaid = "Ai platit $%s",
             Total = 'Total:',
             Tokens = 'Fise: ',
             Currency = '$',
+            notenoughtMoney = "You don't have enough : %s price is: $%d",
+
         },
         MenuAppearance = {
             title = "Aspect",
