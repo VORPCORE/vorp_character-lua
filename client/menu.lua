@@ -1912,8 +1912,6 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
             if data.current.tag == "type" then
                 PlayerSkin[data.current.category .. "_visibility"] = 1
                 PlayerSkin[data.current.opac] = 1
-                menu.setElement(3, "value", 1)
-                menu.refresh()
 
                 MakeupIndexTracker[category] = data.current.value
                 PlayerSkin[data.current.txt_id] = data.current.value
