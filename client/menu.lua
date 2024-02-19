@@ -351,11 +351,11 @@ function OpenCharCreationMenu(clothingtable, value)
                     style = "block",
                     attributes = {
                         inputHeader = T.Inputs.inputHeadertype,
-                        type = "number",
+                        type = "text",
                         -- dont allow negative numbers
-                        pattern = "[0-9]*",
+                        min = "0",
                         title = T.Inputs.title,
-                        style = "border-radius: 10px; background-color: ; border:none;"
+                        style = "border-radius: 10px; background-color: ; border:none;",
                     }
                 }
                 TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
