@@ -352,7 +352,8 @@ function OpenCharCreationMenu(clothingtable, value)
                     attributes = {
                         inputHeader = T.Inputs.inputHeadertype,
                         type = "number",
-                        pattern = T.Inputs.imputlang, -- can change here for your language
+                        -- dont allow negative numbers
+                        pattern = "[0-9]*",
                         title = T.Inputs.title,
                         style = "border-radius: 10px; background-color: ; border:none;"
                     }
