@@ -176,7 +176,7 @@ Translation.Langs = {
             outfitName = "Outfit name",
         },
         PayToShop = {
-            DontMoney = "You don't have enough : %s Second chance price is: $%d",
+            DontMoney = "You don't have enough : %s price is: $%d",
             Youpaid = "You paid $%s",
             Total = 'Total:',
             Tokens = 'Tokens: ',
@@ -482,7 +482,7 @@ Translation.Langs = {
             outfitName = "Nome dell'outfit",
         },
         PayToShop = {
-            DontMoney = "Non hai  L'ammontare è: $%d",
+            DontMoney = "Non ne hai abbastanza: il prezzo di %s è: $%d",
             Youpaid = "Hai pagato $%s",
             Total = 'Totale:',
             Tokens = 'Tokens: ',
@@ -794,7 +794,7 @@ Translation.Langs = {
             outfitName = "Nome do traje",
         },
         PayToShop = {
-            DontMoney = "Você não tem o suficiente: %s O preço da segunda chance é: $%d",
+            DontMoney = "Você não tem o suficiente: o preço de %s é: $%d",
             Youpaid = "Você pagou $%s",
             Total = 'Total:',
             Tokens = 'Tokens: ',
@@ -1081,7 +1081,7 @@ Translation.Langs = {
             outfitName = "Nome do traje",
         },
         PayToShop = {
-            DontMoney = "Você não tem o suficiente: %s O preço da segunda chance é: $%d",
+            DontMoney = "Você não tem o suficiente: o preço de %s é: $%d",
             Youpaid = "Você pagou $%s",
             Total = 'Total:',
             Tokens = 'Tokens: ',
@@ -1384,7 +1384,7 @@ Translation.Langs = {
             outfitName = "Nom de la tenue",
         },
         PayToShop = {
-            DontMoney = "Vous n'en avez pas assez : %s Le prix de la deuxième chance est : $%d",
+            DontMoney = "Vous n'en avez pas assez : le prix %s est : %d $",
             Youpaid = "Vous avez payé $%s",
             Total = 'Total :',
             Tokens = 'Tokens: ',
@@ -1698,7 +1698,7 @@ Translation.Langs = {
             outfitName = "Name des Outfits",
         },
         PayToShop = {
-            DontMoney = "Sie haben nicht genug: %s Der Preis der zweiten Chance beträgt: $%d",
+            DontMoney = "Sie haben nicht genug: %s Preis beträgt: $%d",
             Youpaid = "Du hast $%s bezahlt",
             Total = 'Gesamt:',
             Tokens = 'Tokens: ',
@@ -1999,7 +1999,7 @@ Translation.Langs = {
             outfitName = "Nombre del outfit:",
         },
         PayToShop = {
-            DontMoney = "No tienes suficiente: %s El precio de segunda oportunidad es: $%d",
+            DontMoney = "No tienes suficiente: el precio de %s es: $%d",
             Youpaid = "Pagaste $%s",
             Total = 'Total:',
             Tokens = 'Tokens: ',
@@ -2296,7 +2296,7 @@ Translation.Langs = {
             outfitName = "Nume ținută",
         },
         PayToShop = {
-            DontMoney = "Nu aveți suficient : %s Prețul a doua șansă este: $%d",
+            DontMoney = "Nu aveți suficient : prețul %s este: $%d",
             Youpaid = "Ai platit $%s",
             Total = 'Total:',
             Tokens = 'Fise: ',
