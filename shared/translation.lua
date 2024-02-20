@@ -1708,7 +1708,7 @@ Translation.Langs = {
             Total = 'Gesamt:',
             Tokens = 'Tokens: ',
             Currency = '$',
-            notenoughtMoney = "You don't have enough : %s price is: $%d",
+            notenoughtMoney = "Du hast nicht genügend : %s der Preis ist: $%d",
 
         },
         MenuAppearance = {
