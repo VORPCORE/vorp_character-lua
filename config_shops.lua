@@ -79,6 +79,39 @@ ConfigShops.Locations = {
         TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                -- if you need a light in the store put true
     },
+    {                                                     -- blackwater Makeup
+    Prompt = {
+        Position = vector3(-810.25, -1372.55, 44.02), -- prompt location
+        Label = "Lifesyle Store",                     -- prompt label
+    },
+    Npc = {
+        Enable = true,
+        Model = "CS_FRANCIS_SINCLAIR",
+        Position = vector4(-810.44, -1372.31, 44.02, 180.34),
+        Scenario = 'WORLD_HUMAN_STAND_WAITING',
+    },
+    Blip = {
+        Enable = true,
+        Sprite = 1195729388,
+        Name = "Lifesyle Store",
+        -- Color = 'BLIP_MODIFIER_MP_COLOR_23',
+    },
+    EditCharacter = { -- where the player will be teleported to edit character
+        Position = vector4(-815.03, -1374.82, 44.23, 264.34),
+    },
+    SpawnBack = { -- where the player will be teleported to after editing character
+        Position = vector4(-810.69, -1375.92, 44.02, 323.48),
+    },
+    CameraPosition = { -- camera position for the character editor
+     
+        Position = vector3(-813.40, -1374.79, 44.86),
+        Heading = 91.22,
+        MaxUp = 45.86,
+        MaxDown = 43.22,
+    },
+    TypeOfShop = "lifestyle",                          -- means all will be avaialble with a price to be paid to enter
+    DrawLight = false,                                -- if you need a light in the store put true
+    },
     {                                                     -- Rhodes
         Prompt = {
             Position = vector3(1324.66, -1291.59, 77.08), -- prompt location
