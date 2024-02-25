@@ -2257,9 +2257,7 @@ local labelLookup = {
 function OpenLifeStyleMenu(table, value)
     MenuData.CloseAll()
     local elements = {}
-    CreateThread(function()
-        StartPrompts(value.CameraPosition)
-    end)
+
     for key, value in pairs(Config.overlays_info) do
         if labelLookup[key] then
             elements[#elements + 1] = {
