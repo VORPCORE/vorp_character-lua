@@ -12,7 +12,7 @@ ConfigShops.SecondChanceCurrency = 0     -- 0 is cash 1 is gold 2 is tokens curr
 -- makeup
 -- face
 -- secondchance -- this enables all
-
+-- lifestyle --scars acne complex
 -- Blip Colors: https://github.com/femga/rdr3_discoveries/tree/master/useful_info_from_rpfs/blip_modifiers
 
 ConfigShops.Locations = {
@@ -362,5 +362,30 @@ ConfigShops.Prices = {
         lowerbody = {
             price = 10,
         },
+    },
+    lifestyle ={
+        spots ={
+            price = 10,
+        },
+        moles ={
+            price = 10,
+        },
+        grime ={
+            price = 10,
+        },
+        freckles ={
+            price = 10,
+        },
+        disc ={
+            price = 10,
+        },
+        complex ={
+            price = 10,
+        },
+        acne ={
+            price = 10,
+        },
+
     }
+  
 }
