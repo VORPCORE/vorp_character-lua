@@ -2255,6 +2255,8 @@ local labelLookup = {
 
 
 function OpenLifeStyleMenu(table, value)
+    Title = IsInClothingStore and "Life Style Menu" or T.MenuCreation.title
+
     MenuData.CloseAll()
     local elements = {}
 
@@ -2336,15 +2338,16 @@ function OpenLifeStyleMenu(table, value)
             if data.current.tag == "texture" then
                 local color = data.current.name == "grime" and 1 or 0
                 local colortype = data.current.name == "grime" and 0 or 1
-                if data.current.value == 0 then
+                if data.current.value > 0 then
                     PlayerSkin[data.current.txt_id] = data.current.value
-                    TotalAmountToPay[data.current.name] = 0
-
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
-                else
                     TotalAmountToPay[data.current.name] = ConfigShops.Prices.lifestyle[data.current.name].price
+
+                else
                     PlayerSkin[data.current.txt_id] = 0
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    TotalAmountToPay[data.current.name] = 0
+
                 end
             end
 
@@ -2352,17 +2355,16 @@ function OpenLifeStyleMenu(table, value)
             if data.current.tag == "opacity" then
                 local color = data.current.name == "grime" and 1 or 0
                 local colortype = data.current.name == "grime" and 0 or 1
-                if data.current.value == 0 then
+                if data.current.value > 0 then
                     PlayerSkin[data.current.visibility] = 1
                     PlayerSkin[data.current.opac] = data.current.value / 10
-                    TotalAmountToPay[data.current.name] = 0
-
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
-                else
                     TotalAmountToPay[data.current.name] = ConfigShops.Prices.lifestyle[data.current.name].price
+                else
                     PlayerSkin[data.current.visibility] = 0
                     PlayerSkin[data.current.opac] = 0
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    TotalAmountToPay[data.current.name] = 0
                 end
                 
 
@@ -2375,6 +2377,7 @@ function OpenLifeStyleMenu(table, value)
         end
     end)
 end
+
 
 local overlayLookup = {
     lipsticks = {
