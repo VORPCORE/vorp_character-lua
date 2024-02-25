@@ -2255,6 +2255,8 @@ local labelLookup = {
 
 
 function OpenLifeStyleMenu(table, value)
+    Title = IsInClothingStore and "Life Style Menu" or T.MenuCreation.title
+
     MenuData.CloseAll()
     local elements = {}
 
@@ -2288,14 +2290,26 @@ function OpenLifeStyleMenu(table, value)
             }
         end
     end
-
+    if ShopType == "lifestyle" then
+        elements[#elements + 1] = {
+            label = T.Inputs.confirm .. "<br><span style='opacity:0.6;'>" .. T.Inputs.confirmpurchase .. "</span><br><br>",
+            value = "confirm",
+            desc = "<br><br>" .. imgPath:format("character_creator_hair") .. "<br><br><br>" .. T.Inputs.confirmpurchase .. "<br><br>" .. Divider .. "<br><br>"
+        }
+        -- close
+        elements[#elements + 1] = {
+            label = T.MainMenu.close .. "<br><span style='opacity:0.6;'>" .. T.MainMenu.closemenu .. "</span>",
+            value = "close",
+            desc = "<br><br>" .. imgPath:format("character_creator_hair") .. "<br><br><br>" .. T.MainMenu.closemenu .. "<br><br>" .. Divider .. "<br><br>"
+        }
+    end
     MenuData.Open('default', GetCurrentResourceName(), 'OpenLifeStyleMenu',
         {
             title = Title,
             subtext = "<span style='font-size:25px;'>" .. T.MenuLifeStyle.subtitle .. "</span><br><br>",
             align = Config.Align,
             elements = elements,
-            lastmenu = "OpenAppearanceMenu",
+            lastmenu = (IsInCharCreation or ShopType == "secondchance") and "OpenAppearanceMenu" or nil,
             itemHeight = "4vh",
         },
 
@@ -2304,16 +2318,36 @@ function OpenLifeStyleMenu(table, value)
                 _G[data.trigger](table, value)
             end
 
+            if data.current.value == "close" then
+                menu.close()
+                return BackFromMenu(value)
+            end
 
+            if data.current.value == "confirm" then
+                if GetCurrentAmmountToPay() > 0 then
+                    local result = Core.Callback.TriggerAwait("vorp_character:callback:PayToShop", { amount = GetCurrentAmmountToPay(), skin = PlayerSkin })
+                    if result then
+                        CachedSkin = PlayerSkin
+                    end
+                end
+                menu.close()
+                BackFromMenu(value)
+            end
+        
+  
             if data.current.tag == "texture" then
                 local color = data.current.name == "grime" and 1 or 0
                 local colortype = data.current.name == "grime" and 0 or 1
                 if data.current.value > 0 then
                     PlayerSkin[data.current.txt_id] = data.current.value
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    TotalAmountToPay[data.current.name] = ConfigShops.Prices.lifestyle[data.current.name].price
+
                 else
                     PlayerSkin[data.current.txt_id] = 0
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    TotalAmountToPay[data.current.name] = 0
+
                 end
             end
 
@@ -2325,16 +2359,25 @@ function OpenLifeStyleMenu(table, value)
                     PlayerSkin[data.current.visibility] = 1
                     PlayerSkin[data.current.opac] = data.current.value / 10
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    TotalAmountToPay[data.current.name] = ConfigShops.Prices.lifestyle[data.current.name].price
                 else
                     PlayerSkin[data.current.visibility] = 0
                     PlayerSkin[data.current.opac] = 0
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    TotalAmountToPay[data.current.name] = 0
                 end
-            end
-        end, function(data, menu)
+                
 
-        end)
+            end
+        end, 
+        function(data, menu)
+        if IsInClothingStore and ShopType ~= "secondchance" then
+            menu.close()
+            BackFromMenu(value)
+        end
+    end)
 end
+
 
 local overlayLookup = {
     lipsticks = {
@@ -2529,6 +2572,7 @@ function OpenMakeupMenu(table, value)
             lastmenu = (IsInCharCreation or ShopType == "secondchance") and "OpenAppearanceMenu" or nil,
             itemHeight = "4vh",
         },
+
 
         function(data, menu)
             if IsInCharCreation or ShopType == "secondchance" then
