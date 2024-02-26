@@ -10,7 +10,8 @@ local function toggleComp(hash, item)
 		ApplyShopItemToPed(item.comp)
 		UpdatePedVariation()
 		if item.drawable then
-			SetMetaPedTag(PlayerPedId(), item.drawable, item.albedo, item.normal, item.material, item.palette, item.tint0, item.tint1, item.tint2)
+			SetMetaPedTag(PlayerPedId(), item.drawable, item.albedo, item.normal, item.material, item.palette, item
+				.tint0, item.tint1, item.tint2)
 		end
 		SetResourceKvp(tostring(item.comp), "false")
 	end
@@ -32,7 +33,7 @@ for key, v in pairs(Config.commands) do
 			end
 		end
 
-		if key == "Coat" and IsMetaPedUsingComponent(Config.HashList.Coat) then
+		if key == "Coat" then
 			if IsMetaPedUsingComponent(Config.HashList.Vest) then
 				local item = CachedComponents.Vest
 				if item.drawable then
@@ -166,7 +167,8 @@ RegisterCommand("sleeves2", function(source, args)
 	end
 
 	if collar and Components.drawable then
-		SetMetaPedTag(PlayerPedId(), Components.drawable, Components.albedo, Components.normal, Components.material, Components.palette, Components.tint0, Components.tint1, Components.tint2)
+		SetMetaPedTag(PlayerPedId(), Components.drawable, Components.albedo, Components.normal, Components.material,
+			Components.palette, Components.tint0, Components.tint1, Components.tint2)
 	end
 
 	local value = not collar and "false" or "true"
