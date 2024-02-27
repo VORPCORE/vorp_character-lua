@@ -51,11 +51,7 @@ CreateThread(function()
     while ConfigShops.UseShops do
         local sleep = 1000
 
-        if not LocalPlayer.state.Character then
-            goto skip
-        end
-
-        if not LocalPlayer.state.Character.IsInSession then
+        if not LocalPlayer.state.IsInSession then
             goto skip
         end
 
@@ -94,7 +90,6 @@ CreateThread(function()
         end
 
         ::skip::
-
         Wait(sleep)
     end
 end)
