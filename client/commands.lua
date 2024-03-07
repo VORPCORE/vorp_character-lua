@@ -249,7 +249,7 @@ RegisterCommand("rc", function(source, args, rawCommand)
 		if args[1] ~= "" then
 			Custom = args[1]
 		end
-
+		LocalPlayer.state:set("IsBandanaOn", false, true)
 		LoadPlayerComponents(__player, CachedSkin, CachedComponents, false)
 	end
 end, false)
