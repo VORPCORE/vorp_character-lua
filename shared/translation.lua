@@ -516,7 +516,7 @@ Translation.Langs = {
             title = "Età",
             subtitle = "Sotto-menu",
             element = { label = "Età", desc = "Scegli l'età del tuo personaggio" },
-            element2 = { label = "Opacità", desc = "Ci sono " .. "Scegli l'opacità dell'età del tuo personaggio", desc3 = "ammount 10 max" },
+            element2 = { label = "Opacità", desc = "Ci sono " .. "Scegli l'opacità dell'età del tuo personaggio", desc2 = "Scegliere l'opacità dell'età dei caratteri", desc3 = "ammount 10 max" },
             label3 = "Non visibile",
             label4 = "Visibile",
         },
