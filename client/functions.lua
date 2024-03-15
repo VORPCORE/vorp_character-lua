@@ -610,3 +610,26 @@ function SetCachedSkin()
         end
     end
 end
+
+-- exports
+exports('GetPlayerComponent', function(category)
+    if not category then
+        print("must provide a category")
+        return nil
+    end
+
+    if not PlayerClothing[category] then
+        print("category does not exist")
+        return nil
+    end
+
+    if not CachedComponents[category] then
+        return nil
+    end
+
+    return CachedComponents[category]
+end)
+
+exports('GetAllPlayerComponents', function()
+    return CachedComponents
+end)
