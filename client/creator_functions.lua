@@ -358,12 +358,12 @@ function SetCachedClothingIndex()
                         if value.comp == va.hash then
                             PlayerTrackingData[key] = {}
                             PlayerTrackingData[key][value.comp] = { index = indexCategory, color = indexComp, tint0 = value.tint0 or 0, tint1 = value.tint1 or 0, tint2 = value.tint2 or 0, palette = value.palette or 0 }
-                            PlayerClothing[key].comp = value.comp
                         end
                     end
                 end
             end
         end
+        PlayerClothing[key].comp = value.comp
     end
 end
 
