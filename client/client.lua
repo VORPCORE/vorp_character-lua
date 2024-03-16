@@ -174,6 +174,14 @@ function LoadComps(ped, components, set)
 				end
 			end
 		end
+		-- work around to apply teeth to old characters
+		if category == "Teeth" and value.comp == -1 then
+			local gender = IsPedMale(ped) and "Male" or "Female"
+			local hash = Config.Teeth[gender][1].hash
+			ApplyShopItemToPed(hash, ped)
+			UpdatePedVariation(ped)
+			CachedComponents.Teeth.comp = hash
+		end
 	end
 end
 

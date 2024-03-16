@@ -315,7 +315,7 @@ end
 
 function IndexTintCompsToNumber(table)
     local NewComps = {}
-    
+
     for i, v in pairs(table) do
         NewComps[i] = {}
         for k, x in pairs(v) do
@@ -362,6 +362,11 @@ function SetCachedClothingIndex()
                         end
                     end
                 end
+            end
+        end
+        if key == "Teeth" then
+            if value.comp ~= -1 then
+                PlayerClothing[key].comp = value.comp
             end
         end
     end
