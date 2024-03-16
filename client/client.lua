@@ -180,7 +180,8 @@ function LoadComps(ped, components, set)
 			local hash = Config.Teeth[gender][1].hash
 			ApplyShopItemToPed(hash, ped)
 			UpdatePedVariation(ped)
-			CachedComponents.Teeth.comp = hash
+			-- inbsert into table Teeth hash
+			CachedComponents[category].comp = hash
 		end
 	end
 end
