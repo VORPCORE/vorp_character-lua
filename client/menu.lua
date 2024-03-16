@@ -1960,7 +1960,7 @@ function OpenFaceMenu(table, value)
             label = T.MenuFacial.element2.label .. "<br><span style='opacity:0.6;'>" .. T.MenuFacial.amount .. #Config.Teeth[gender] .. "</span>",
             value = TheethIndexTracker,
             type = "slider",
-            min = -1,
+            min = 0,
             max = #Config.Teeth[gender],
             tag = "teeth",
             desc = imgPath:format("character_creator_teeth") .. "<br>" .. T.MenuFacial.element2.desc .. "<br><br><br>" .. Divider .. "<br><br>",
@@ -2134,6 +2134,8 @@ function OpenFaceMenu(table, value)
                     TheethIndexTracker = data.current.value
                     TotalAmountToPay.Teeth = ConfigShops.Prices.face.Teeth.price
                 else
+                    PlayerClothing.Teeth.comp = -1
+                    RemoveTagFromMetaPed(0x96EDAE5C)    -- Teeth hash
                     StartAnimation("Face_Dentistry_Out")
                     TotalAmountToPay.Teeth = 0
                 end
