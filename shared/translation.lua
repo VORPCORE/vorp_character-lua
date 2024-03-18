@@ -1484,7 +1484,7 @@ Translation.Langs = {
             element11 = { label = "Upper body", desc = "adjust Upper body", desc2 = "hip waist chest arms" },
             element12 = { label = "Lower body", desc = "adjust Lower body", desc2 = "legs calves" },
             minmax = "Min -1.0 Max 1.0",
-            amount = "Amount"
+            amount = " Amount "
         },
         MenuFaceModify = {
             title = "Caractéristiques du visage",
