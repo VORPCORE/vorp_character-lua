@@ -2723,9 +2723,15 @@ end
 function OpenOutfitMenu(Table, value, Outfits, Outfit)
     MenuData.CloseAll()
 
+    local OutfitComps = json.decode(Outfit.comps) or {}
+
+    if (not OutfitComps.Teeth or OutfitComps.Teeth == -1) and CachedComponents.Teeth.comp ~= -1 then
+        OutfitComps.Teeth = CachedComponents.Teeth.comp
+    end
+
     local comps = {}
 
-    for k, v in pairs(Outfit.comps and json.decode(Outfit.comps) or {}) do
+    for k, v in pairs(OutfitComps) do
         comps[k] = { comp = v }
     end
 
@@ -2774,11 +2780,13 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
             end
 
             if data.current.value == "Select" then
+                Outfit.comps = json.encode(OutfitComps)
+
                 local result = Core.Callback.TriggerAwait("vorp_character:callback:SetOutfit", { Outfit = Outfit, })
                 if result then
                     local comps = {}
 
-                    for k, v in pairs(Outfit.comps and json.decode(Outfit.comps) or {}) do
+                    for k, v in pairs(OutfitComps) do
                         comps[k] = { comp = v }
                     end
 
