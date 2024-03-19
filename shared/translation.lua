@@ -1111,7 +1111,7 @@ Translation.Langs = {
             title = "Idade",
             subtitle = "Submenu",
             element = { label = "Idade", desc = "Escolha a idade do seu personagem" },
-            element2 = { label = "Opacidade", desc = "Escolha a opacidade dos sinais de idade do seu personagem", desc2 = "máximo de 10" },
+            element2 = { label = "Opacidade", desc = "Escolha a opacidade dos sinais de idade do seu personagem", desc2 = "Ajuste a Visibilidade", desc3 = "máximo de 10" },
             label3 = "Invisível",
             label4 = "Visível",
         },
