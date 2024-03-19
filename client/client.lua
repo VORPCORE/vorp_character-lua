@@ -137,7 +137,7 @@ end)
 local function LoadFaceFeatures(ped, skin)
 	for key, value in pairs(Config.FaceFeatures) do
 		for label, v in pairs(value) do
-			if skin[v.comp] and skin[v.comp] > 0 then
+			if skin[v.comp] and skin[v.comp] ~= 0 then
 				SetCharExpression(ped, v.hash, skin[v.comp])
 			end
 		end

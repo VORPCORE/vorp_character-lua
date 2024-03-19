@@ -2135,7 +2135,7 @@ function OpenFaceMenu(table, value)
                     TotalAmountToPay.Teeth = ConfigShops.Prices.face.Teeth.price
                 else
                     PlayerClothing.Teeth.comp = -1
-                    RemoveTagFromMetaPed(0x96EDAE5C)    -- Teeth hash
+                    RemoveTagFromMetaPed(0x96EDAE5C) -- Teeth hash
                     StartAnimation("Face_Dentistry_Out")
                     TotalAmountToPay.Teeth = 0
                 end
@@ -2150,7 +2150,7 @@ function OpenFaceMenu(table, value)
         end)
 end
 
-function OpenFaceModificationMenu(table, comp, img, value)
+function OpenFaceModificationMenu(table, comp, img, values)
     MenuData.CloseAll()
     local elements = {}
     local __player = PlayerPedId()
@@ -2182,7 +2182,7 @@ function OpenFaceModificationMenu(table, comp, img, value)
 
         function(data, menu)
             if (data.current == "backup") then
-                _G[data.trigger](table, value)
+                _G[data.trigger](table, values)
             end
 
             if data.current.tag then
@@ -2335,8 +2335,8 @@ function OpenLifeStyleMenu(table, value)
                 menu.close()
                 BackFromMenu(value)
             end
-        
-  
+
+
             if data.current.tag == "texture" then
                 local color = data.current.name == "grime" and 1 or 0
                 local colortype = data.current.name == "grime" and 0 or 1
@@ -2344,12 +2344,10 @@ function OpenLifeStyleMenu(table, value)
                     PlayerSkin[data.current.txt_id] = data.current.value
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
                     TotalAmountToPay[data.current.name] = ConfigShops.Prices.lifestyle[data.current.name].price
-
                 else
                     PlayerSkin[data.current.txt_id] = 0
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
                     TotalAmountToPay[data.current.name] = 0
-
                 end
             end
 
@@ -2368,18 +2366,15 @@ function OpenLifeStyleMenu(table, value)
                     toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
                     TotalAmountToPay[data.current.name] = 0
                 end
-                
-
             end
-        end, 
+        end,
         function(data, menu)
-        if IsInClothingStore and ShopType ~= "secondchance" then
-            menu.close()
-            BackFromMenu(value)
-        end
-    end)
+            if IsInClothingStore and ShopType ~= "secondchance" then
+                menu.close()
+                BackFromMenu(value)
+            end
+        end)
 end
-
 
 local overlayLookup = {
     lipsticks = {
