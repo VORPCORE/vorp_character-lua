@@ -151,25 +151,82 @@ function LoadComps(ped, components, set)
 			if status == "true" then
 				RemoveTagFromMetaPed(Config.HashList[key])
 			else
-				ApplyShopItemToPed(value.comp, ped)
-				if category ~= "Boots" then
-					UpdateShopItemWearableState(ped, `base`)
-				end
-				Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
-				UpdatePedVariation(ped)
-				IsPedReadyToRender(ped)
-				if value.tint0 ~= 0 and value.tint1 ~= 0 and value.tint2 ~= 0 and value.palette ~= 0 then -- cannot be 0 or it will apply 0 and mess up the colors
-					local TagData = GetMetaPedData(category == "Boots" and "boots" or category, ped)
-					if TagData then
-						local palette = (value.palette ~= 0) and value.palette or TagData.palette
-						SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, palette, value.tint0, value.tint1, value.tint2)
-						if IsPedAPlayer(ped) and CachedComponents[category] then
-							CachedComponents[category].drawable = TagData.drawable
-							CachedComponents[category].albedo = TagData.albedo
-							CachedComponents[category].normal = TagData.normal
-							CachedComponents[category].material = TagData.material
-							CachedComponents[category].palette = palette
+				--Temporary Fix tint shirt and vest
+				if category ~= "Shirt" and category ~= "Vest" then
+					ApplyShopItemToPed(value.comp, ped)
+					if category ~= "Boots" then
+						UpdateShopItemWearableState(ped, `base`)
+					end
+					Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
+					UpdatePedVariation(ped)
+					IsPedReadyToRender(ped)
+					if (value.tint0 ~= 0 or value.tint1 ~= 0 or value.tint2 ~= 0) and value.palette ~= 0 then -- cannot be 0 or it will apply 0 and mess up the colors
+						local TagData = GetMetaPedData(category == "Boots" and "boots" or category, ped)
+						if TagData then
+							local palette = (value.palette ~= 0) and value.palette or TagData.palette
+							SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, palette, value.tint0, value.tint1, value.tint2)
+							if IsPedAPlayer(ped) and CachedComponents[category] then
+								CachedComponents[category].drawable = TagData.drawable
+								CachedComponents[category].albedo = TagData.albedo
+								CachedComponents[category].normal = TagData.normal
+								CachedComponents[category].material = TagData.material
+								CachedComponents[category].palette = palette
+							end
 						end
+					end
+				end
+			end
+		end
+	end
+	--Shirt
+	if components["Shirt"].comp ~= -1 then
+		local status = not set and "false" or GetResourceKvpString(tostring(components["Shirt"].comp))
+		if status == "true" then
+			RemoveTagFromMetaPed(Config.HashList[key])
+		else
+			ApplyShopItemToPed(components["Shirt"].comp, ped)
+			UpdateShopItemWearableState(ped, `base`)
+			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
+			UpdatePedVariation(ped)
+			IsPedReadyToRender(ped)
+			if (components["Shirt"].tint0 ~= 0 or components["Shirt"].tint1 ~= 0 or components["Shirt"].tint2 ~= 0) and components["Shirt"].palette ~= 0 then -- cannot be 0 or it will apply 0 and mess up the colors
+				local TagData = GetMetaPedData("Shirt" == "Boots" and "boots" or "Shirt", ped)
+				if TagData then
+					local palette = (components["Shirt"].palette ~= 0) and components["Shirt"].palette or TagData.palette
+					SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, palette, components["Shirt"].tint0, components["Shirt"].tint1, components["Shirt"].tint2)
+					if IsPedAPlayer(ped) and CachedComponents["Shirt"] then
+						CachedComponents["Shirt"].drawable = TagData.drawable
+						CachedComponents["Shirt"].albedo = TagData.albedo
+						CachedComponents["Shirt"].normal = TagData.normal
+						CachedComponents["Shirt"].material = TagData.material
+						CachedComponents["Shirt"].palette = palette
+					end
+				end
+			end
+		end
+	end
+	--Vest
+	if components["Vest"].comp ~= -1 then
+		local status = not set and "false" or GetResourceKvpString(tostring(components["Vest"].comp))
+		if status == "true" then
+			RemoveTagFromMetaPed(Config.HashList[key])
+		else
+			ApplyShopItemToPed(components["Vest"].comp, ped)
+			UpdateShopItemWearableState(ped, `base`)
+			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
+			UpdatePedVariation(ped)
+			IsPedReadyToRender(ped)
+			if (components["Shirt"].tint0 ~= 0 or components["Shirt"].tint1 ~= 0 or components["Shirt"].tint2 ~= 0) and components["Shirt"].palette ~= 0 then -- cannot be 0 or it will apply 0 and mess up the colors
+				local TagData = GetMetaPedData("Vest" == "Boots" and "boots" or "Vest", ped)
+				if TagData then
+					local palette = (components["Vest"].palette ~= 0) and components["Vest"].palette or TagData.palette
+					SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, palette, components["Vest"].tint0, components["Vest"].tint1, components["Vest"].tint2)
+					if IsPedAPlayer(ped) and CachedComponents["Vest"] then
+						CachedComponents["Vest"].drawable = TagData.drawable
+						CachedComponents["Vest"].albedo = TagData.albedo
+						CachedComponents["Vest"].normal = TagData.normal
+						CachedComponents["Vest"].material = TagData.material
+						CachedComponents["Vest"].palette = palette
 					end
 				end
 			end
