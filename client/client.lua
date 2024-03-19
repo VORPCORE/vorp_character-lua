@@ -16,6 +16,46 @@ local MalePed
 local FemalePed
 local MenuData     = exports.vorp_menu:GetMenuData()
 
+local OrderList = {
+    [1] = "Gunbelt",
+    [2] = "Mask",
+	[3] = "Holster",
+	[4] = "Loadouts",
+	[5] = "Coat",
+	[6] = "Cloak",
+	[7] = "EyeWear",
+	[8] = "Bracelet",
+	[9] = "Skirt",
+	[10] = "Poncho",
+	[11] = "Spats",
+	[12] = "NeckTies",
+	[13] = "Spurs",
+	[14] = "Pant",
+	[15] = "Suspender",
+	[16] = "Glove",
+	[17] = "Satchels",
+	[18] = "GunbeltAccs",
+	[19] = "CoatClosed",
+	[20] = "Buckle",
+	[21] = "RingRh",
+	[22] = "Belt",
+	[23] = "Accessories",
+	[24] = "Beard",
+	[25] = "Gauntlets",
+	[26] = "Chap",
+	[27] = "NeckWear",
+	[28] = "Boots",
+	[29] = "bow",
+	[30] = "RingLh",
+	[31] = "Hat",
+	[32] = "Dress",
+	[33] = "Badge",
+	[34] = "armor",
+	[35] = "Hair",
+	[36] = "Shirt",
+	[37] = "Vest",
+}
+
 --GLOBALS
 Core               = exports.vorp_core:GetCore()
 Custom             = nil
@@ -145,14 +185,15 @@ local function LoadFaceFeatures(ped, skin)
 end
 
 function LoadComps(ped, components, set)
-	for category, value in pairs(components) do
-		if value.comp ~= -1 then
-			local status = not set and "false" or GetResourceKvpString(tostring(value.comp))
-			if status == "true" then
-				RemoveTagFromMetaPed(Config.HashList[key])
-			else
-				--Temporary Fix tint shirt and vest
-				if category ~= "Shirt" and category ~= "Vest" then
+	-- Order list for fix tints
+	for index, category in pairs(OrderList) do
+		if components[category] then
+			local value = components[category]
+			if value.comp ~= -1 then
+				local status = not set and "false" or GetResourceKvpString(tostring(value.comp))
+				if status == "true" then
+					RemoveTagFromMetaPed(Config.HashList[key])
+				else
 					ApplyShopItemToPed(value.comp, ped)
 					if category ~= "Boots" then
 						UpdateShopItemWearableState(ped, `base`)
@@ -173,60 +214,6 @@ function LoadComps(ped, components, set)
 								CachedComponents[category].palette = palette
 							end
 						end
-					end
-				end
-			end
-		end
-	end
-	--Shirt
-	if components["Shirt"].comp ~= -1 then
-		local status = not set and "false" or GetResourceKvpString(tostring(components["Shirt"].comp))
-		if status == "true" then
-			RemoveTagFromMetaPed(Config.HashList[key])
-		else
-			ApplyShopItemToPed(components["Shirt"].comp, ped)
-			UpdateShopItemWearableState(ped, `base`)
-			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
-			UpdatePedVariation(ped)
-			IsPedReadyToRender(ped)
-			if (components["Shirt"].tint0 ~= 0 or components["Shirt"].tint1 ~= 0 or components["Shirt"].tint2 ~= 0) and components["Shirt"].palette ~= 0 then -- cannot be 0 or it will apply 0 and mess up the colors
-				local TagData = GetMetaPedData("Shirt" == "Boots" and "boots" or "Shirt", ped)
-				if TagData then
-					local palette = (components["Shirt"].palette ~= 0) and components["Shirt"].palette or TagData.palette
-					SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, palette, components["Shirt"].tint0, components["Shirt"].tint1, components["Shirt"].tint2)
-					if IsPedAPlayer(ped) and CachedComponents["Shirt"] then
-						CachedComponents["Shirt"].drawable = TagData.drawable
-						CachedComponents["Shirt"].albedo = TagData.albedo
-						CachedComponents["Shirt"].normal = TagData.normal
-						CachedComponents["Shirt"].material = TagData.material
-						CachedComponents["Shirt"].palette = palette
-					end
-				end
-			end
-		end
-	end
-	--Vest
-	if components["Vest"].comp ~= -1 then
-		local status = not set and "false" or GetResourceKvpString(tostring(components["Vest"].comp))
-		if status == "true" then
-			RemoveTagFromMetaPed(Config.HashList[key])
-		else
-			ApplyShopItemToPed(components["Vest"].comp, ped)
-			UpdateShopItemWearableState(ped, `base`)
-			Citizen.InvokeNative(0xAAB86462966168CE, ped, 1)
-			UpdatePedVariation(ped)
-			IsPedReadyToRender(ped)
-			if (components["Shirt"].tint0 ~= 0 or components["Shirt"].tint1 ~= 0 or components["Shirt"].tint2 ~= 0) and components["Shirt"].palette ~= 0 then -- cannot be 0 or it will apply 0 and mess up the colors
-				local TagData = GetMetaPedData("Vest" == "Boots" and "boots" or "Vest", ped)
-				if TagData then
-					local palette = (components["Vest"].palette ~= 0) and components["Vest"].palette or TagData.palette
-					SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, palette, components["Vest"].tint0, components["Vest"].tint1, components["Vest"].tint2)
-					if IsPedAPlayer(ped) and CachedComponents["Vest"] then
-						CachedComponents["Vest"].drawable = TagData.drawable
-						CachedComponents["Vest"].albedo = TagData.albedo
-						CachedComponents["Vest"].normal = TagData.normal
-						CachedComponents["Vest"].material = TagData.material
-						CachedComponents["Vest"].palette = palette
 					end
 				end
 			end
