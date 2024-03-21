@@ -1911,8 +1911,7 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
 
             if data.current.tag == "type" then
                 PlayerSkin[data.current.category .. "_visibility"] = 1
-                PlayerSkin[data.current.opac] = PlayerSkin[data.current.opac] or 1
-
+                PlayerSkin[data.current.opac] = PlayerSkin[data.current.opac] or 1.0
                 MakeupIndexTracker[category] = data.current.value
                 PlayerSkin[data.current.txt_id] = data.current.value
                 toggleOverlayChange(data.current.category, 1, PlayerSkin[data.current.txt_id], 1, 0, 0, 1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
