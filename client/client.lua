@@ -472,7 +472,8 @@ function EnableSelectionPrompts(menu)
 				AnimpostfxPlay("RespawnPulse01")
 				return
 			end
-
+			---- SET_BLOCKING_OF_NON_TEMPORARY_EVENTS_FOR_AMBIENT_PEDS_THIS_FRAME
+			Citizen.InvokeNative(0x9911F4A24485F653, true)
 			Wait(0)
 		end
 	end)
