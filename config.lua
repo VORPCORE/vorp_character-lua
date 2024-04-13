@@ -2083,6 +2083,7 @@ Config.FaceFeatures = {
         ["Eyelid Left O/Close"] = { hash = 52902, comp = "EyeLidL" },
         ["Eyelid Right O/Close"] = { hash = 22421, comp = "EyeLidR" },
     },
+
     ears = {
         ["Ears Width"] = { hash = 0xC04F, comp = "EarsW" },
         ["Ears Angle"] = { hash = 0xB6CE, comp = "EarsA" },
