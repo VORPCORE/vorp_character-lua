@@ -1,19 +1,20 @@
 ---@diagnostic disable: undefined-global
 
-local function toggleComp(hash, item)
+local function toggleComp(hash, item, key)
 	IsPedReadyToRender()
 	if IsMetaPedUsingComponent(hash) then
 		RemoveTagFromMetaPed(hash)
 		UpdatePedVariation()
 		SetResourceKvp(tostring(item.comp), "true")
+		TriggerEvent("vorp_character:Client:OnClothingRemoved", key, item.comp)
 	else
 		ApplyShopItemToPed(item.comp)
 		UpdatePedVariation()
 		if item.drawable then
-			SetMetaPedTag(PlayerPedId(), item.drawable, item.albedo, item.normal, item.material, item.palette, item
-				.tint0, item.tint1, item.tint2)
+			SetMetaPedTag(PlayerPedId(), item.drawable, item.albedo, item.normal, item.material, item.palette, item.tint0, item.tint1, item.tint2)
 		end
 		SetResourceKvp(tostring(item.comp), "false")
+		TriggerEvent("vorp_character:Client:OnClothingAdded", key, item.comp)
 	end
 	UpdatePedVariation()
 end
@@ -21,9 +22,9 @@ end
 
 for key, v in pairs(Config.commands) do
 	RegisterCommand(v.command, function()
-		toggleComp(Config.HashList[key], CachedComponents[key])
+		toggleComp(Config.HashList[key], CachedComponents[key], key)
 		if key == "GunBelt" then
-			toggleComp(Config.HashList.Holster, CachedComponents.Holster)
+			toggleComp(Config.HashList.Holster, CachedComponents.Holster, key)
 		end
 
 		if key == "Vest" and IsMetaPedUsingComponent(Config.HashList.Shirt) then
@@ -55,8 +56,8 @@ RegisterCommand("rings", function()
 	if CachedComponents.RingLh.comp ~= -1 and CachedComponents.RingRh.comp ~= -1 then
 		return
 	end
-	toggleComp(0x7A6BBD0B, CachedComponents.RingLh.comp)
-	toggleComp(0xF16A1D23, CachedComponents.RingRh.comp)
+	toggleComp(0x7A6BBD0B, CachedComponents.RingLh.comp, "RingLh")
+	toggleComp(0xF16A1D23, CachedComponents.RingRh.comp, "RingRh")
 end, false)
 
 
@@ -85,8 +86,7 @@ RegisterCommand("dress", function()
 			ApplyShopItemToPed(Components.comp)
 			UpdatePedVariation()
 			if Components.drawable then
-				SetMetaPedTag(PlayerPedId(), Components.drawable, Components.albedo, Components.normal,
-					Components.material, Components.palette, Components.tint0, Components.tint1, Components.tint2)
+				SetMetaPedTag(PlayerPedId(), Components.drawable, Components.albedo, Components.normal, Components.material, Components.palette, Components.tint0, Components.tint1, Components.tint2)
 			end
 			UpdatePedVariation()
 		end
@@ -119,8 +119,7 @@ RegisterCommand('bandanaon', function(source, args, rawCommand)
 		UpdateShopItemWearableState(Components.comp, joaat("base"))
 
 		if bandanaOn and Components.drawable then
-			SetMetaPedTag(PlayerPedId(), Components.drawable, Components.albedo, Components.normal, Components.material,
-				Components.palette, Components.tint0, Components.tint1, Components.tint2)
+			SetMetaPedTag(PlayerPedId(), Components.drawable, Components.albedo, Components.normal, Components.material,	Components.palette, Components.tint0, Components.tint1, Components.tint2)
 		end
 
 		UpdatePedVariation()

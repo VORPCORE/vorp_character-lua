@@ -292,10 +292,9 @@ end)
 Core.Callback.Register("vorp_character:callback:GetOutfits", function(source, callback, arguments)
 	local Character = Core.getUser(source).getUsedCharacter
 
-	MySQL.query("SELECT * FROM outfits WHERE `identifier` = ? AND `charidentifier` = ?",
-		{ Character.identifier, Character.charIdentifier }, function(Outfits)
-			return callback(Outfits)
-		end)
+	MySQL.query("SELECT * FROM outfits WHERE `identifier` = ? AND `charidentifier` = ?", { Character.identifier, Character.charIdentifier }, function(Outfits)
+		return callback(Outfits)
+	end)
 end)
 
 Core.Callback.Register("vorp_character:callback:SetOutfit", function(source, callback, arguments)
