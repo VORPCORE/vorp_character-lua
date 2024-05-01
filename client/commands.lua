@@ -56,8 +56,8 @@ RegisterCommand("rings", function()
 	if CachedComponents.RingLh.comp ~= -1 and CachedComponents.RingRh.comp ~= -1 then
 		return
 	end
-	toggleComp(0x7A6BBD0B, CachedComponents.RingLh.comp, "RingLh")
-	toggleComp(0xF16A1D23, CachedComponents.RingRh.comp, "RingRh")
+	toggleComp(0x7A6BBD0B, CachedComponents.RingLh, "RingLh")
+	toggleComp(0xF16A1D23, CachedComponents.RingRh, "RingRh")
 end, false)
 
 
@@ -119,7 +119,7 @@ RegisterCommand('bandanaon', function(source, args, rawCommand)
 		UpdateShopItemWearableState(Components.comp, joaat("base"))
 
 		if bandanaOn and Components.drawable then
-			SetMetaPedTag(PlayerPedId(), Components.drawable, Components.albedo, Components.normal, Components.material,	Components.palette, Components.tint0, Components.tint1, Components.tint2)
+			SetMetaPedTag(PlayerPedId(), Components.drawable, Components.albedo, Components.normal, Components.material, Components.palette, Components.tint0, Components.tint1, Components.tint2)
 		end
 
 		UpdatePedVariation()
