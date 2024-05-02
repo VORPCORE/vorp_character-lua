@@ -52,14 +52,19 @@ for key, v in pairs(Config.commands) do
 	end, false)
 end
 
-RegisterCommand("rings", function()
-	if CachedComponents.RingLh.comp ~= -1 and CachedComponents.RingRh.comp ~= -1 then
+RegisterCommand("ringsL", function()
+	if CachedComponents.RingLh.comp ~= -1 then
 		return
 	end
 	toggleComp(0x7A6BBD0B, CachedComponents.RingLh, "RingLh")
-	toggleComp(0xF16A1D23, CachedComponents.RingRh, "RingRh")
 end, false)
 
+RegisterCommand("ringsR", function()
+	if CachedComponents.RingRh.comp ~= -1 then
+		return
+	end
+	toggleComp(0xF16A1D23, CachedComponents.RingRh, "RingRh")
+end, false)
 
 RegisterCommand("undress", function()
 	if not next(CachedComponents) then
