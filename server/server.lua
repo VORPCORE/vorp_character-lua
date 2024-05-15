@@ -126,14 +126,19 @@ end)
 RegisterServerEvent("vorpcharacter:deleteCharacter", function(charid)
 	local _source = source
 	local User = Core.getUser(_source)
-	User.removeCharacter(charid)
+	if User then
+		User.removeCharacter(charid)
+	end
 end)
 
-RegisterServerEvent("vorp_CharSelectedCharacter")
-AddEventHandler("vorp_CharSelectedCharacter", function(charid)
+RegisterServerEvent("vorp_CharSelectedCharacter", function(charid)
 	local _source = source
-	Core.getUser(_source).setUsedCharacter(charid)
+	local User = Core.getUser(_source)
+	if User then
+		User.setUsedCharacter(charid)
+	end
 end)
+
 
 
 RegisterNetEvent("vorpcharacter:setPlayerCompChange", function(skinValues, compsValues)
@@ -195,6 +200,9 @@ end)
 
 Core.Callback.Register("vorp_character:callback:PayToShop", function(source, callback, arguments)
 	local User = Core.getUser(source)
+	if not User then
+		return callback(false)
+	end
 	local character = User.getUsedCharacter
 	local money = character.money
 	local amountToPay = arguments.amount
