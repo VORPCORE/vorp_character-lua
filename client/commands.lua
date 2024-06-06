@@ -98,38 +98,43 @@ RegisterCommand("dress", function()
 	end
 end, false)
 
+
 local bandanaOn = true
 RegisterCommand('bandanaon', function(source, args, rawCommand)
 	local player = PlayerPedId()
 	local Components = CachedComponents.NeckWear
+	local shirtComponents = CachedComponents.Shirt
+
 	if Components.comp == -1 then return end
 	bandanaOn = not bandanaOn
 
 	if not bandanaOn then
-		Citizen.InvokeNative(0xD3A7B003ED343FD9, player, CachedComponents.NeckWear.comp, true, true)
-		Citizen.InvokeNative(0xAE72E7DF013AAA61, player, 0, joaat("BANDANA_ON_RIGHT_HAND"), 1, 0, -1.0) --START_TASK_ITEM_INTERACTION
+		ApplyShopItemToPed(player, CachedComponents.NeckWear.comp, true, true)
+		StartTaskItemInteraction(player, 0, joaat("BANDANA_ON_RIGHT_HAND"), 1, 0, -1.0)
 		Wait(750)
 		UpdateShopItemWearableState(Components.comp, -1829635046)
-
-		if not bandanaOn and Components.drawable then
+		if Components.drawable and Components.tint0 > 0 and Components.tint1 > 0 and Components.tint2 > 0 then
 			SetTextureOutfitTints(PlayerPedId(), 94259016, Components)
 		end
 
 		UpdatePedVariation()
 		LocalPlayer.state:set("IsBandanaOn", true, true)
-		SetTextureOutfitTints(PlayerPedId(), 'shirts_full', CachedComponents.Shirt)
+		if shirtComponents.drawable and shirtComponents.tint0 > 0 and shirtComponents.tint1 > 0 and shirtComponents.tint2 > 0 then
+			SetTextureOutfitTints(PlayerPedId(), 'shirts_full', shirtComponents)
+		end
 	else
-		Citizen.InvokeNative(0xAE72E7DF013AAA61, player, 0, joaat("BANDANA_OFF_RIGHT_HAND"), 1, 0, -1.0) --START_TASK_ITEM_INTERACTION
+		StartTaskItemInteraction(player, 0, joaat("BANDANA_OFF_RIGHT_HAND"), 1, 0, -1.0)
 		Wait(750)
 		UpdateShopItemWearableState(Components.comp, joaat("base"))
-
-		if bandanaOn and Components.drawable then
+		if Components.drawable and Components.tint0 > 0 and Components.tint1 > 0 and Components.tint2 > 0 then
 			SetMetaPedTag(PlayerPedId(), Components.drawable, Components.albedo, Components.normal, Components.material, Components.palette, Components.tint0, Components.tint1, Components.tint2)
 		end
 
 		UpdatePedVariation()
 		LocalPlayer.state:set("IsBandanaOn", false, true)
-		SetTextureOutfitTints(PlayerPedId(), 'shirts_full', CachedComponents.Shirt)
+		if shirtComponents.drawable and shirtComponents.tint0 > 0 and shirtComponents.tint1 > 0 and shirtComponents.tint2 > 0 then
+			SetTextureOutfitTints(PlayerPedId(), 'shirts_full', shirtComponents)
+		end
 	end
 end, false)
 
