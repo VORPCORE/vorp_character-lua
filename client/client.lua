@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local PromptGroup  = GetRandomIntInRange(0, 0xffffff)
 local DeletePrompt
 local SelectPrompt
@@ -15,8 +13,6 @@ local canContinue  = false
 local MalePed
 local FemalePed
 local MenuData     = exports.vorp_menu:GetMenuData()
-
---GLOBALS
 Core               = exports.vorp_core:GetCore()
 Custom             = nil
 Peds               = {}
@@ -27,41 +23,39 @@ T                  = Translation.Langs[Lang]
 --PROMPTS
 CreateThread(function()
 	local str = T.PromptLabels.promptdeleteCurrent
-	DeletePrompt = PromptRegisterBegin()
-	PromptSetControlAction(DeletePrompt, Config.keys.prompt_delete.key)
+	DeletePrompt = UiPromptRegisterBegin()
+	UiPromptSetControlAction(DeletePrompt, Config.keys.prompt_delete.key)
 	str = CreateVarString(10, 'LITERAL_STRING', str)
-	PromptSetText(DeletePrompt, str)
-	PromptSetEnabled(DeletePrompt, true)
-	PromptSetVisible(DeletePrompt, true)
-	PromptSetStandardMode(DeletePrompt, true)
-	PromptSetGroup(DeletePrompt, PromptGroup)
-	Citizen.InvokeNative(0xC5F428EE08FA7F2C, DeletePrompt, true)
-	PromptRegisterEnd(DeletePrompt)
+	UiPromptSetText(DeletePrompt, str)
+	UiPromptSetEnabled(DeletePrompt, true)
+	UiPromptSetVisible(DeletePrompt, true)
+	UiPromptSetHoldMode(DeletePrompt, 5000)
+	UiPromptSetGroup(DeletePrompt, PromptGroup, 0)
+	UiPromptRegisterEnd(DeletePrompt)
 
 	str = T.PromptLabels.promptselectConfirm
-	SelectPrompt = PromptRegisterBegin()
-	PromptSetControlAction(SelectPrompt, 0xDEB34313)
+	SelectPrompt = UiPromptRegisterBegin()
+	UiPromptSetControlAction(SelectPrompt, 0xDEB34313)
 	str = CreateVarString(10, 'LITERAL_STRING', str)
-	PromptSetText(SelectPrompt, str)
-	PromptSetEnabled(SelectPrompt, true)
-	PromptSetVisible(SelectPrompt, true)
-	PromptSetStandardMode(SelectPrompt, true)
-	PromptSetGroup(SelectPrompt, PromptGroup)
-	Citizen.InvokeNative(0xC5F428EE08FA7F2C, SelectPrompt, true)
-	PromptRegisterEnd(SelectPrompt)
+	UiPromptSetText(SelectPrompt, str)
+	UiPromptSetEnabled(SelectPrompt, true)
+	UiPromptSetVisible(SelectPrompt, true)
+	UiPromptSetStandardMode(SelectPrompt, true)
+	UiPromptSetGroup(SelectPrompt, PromptGroup, 0)
+	UiPromptRegisterEnd(SelectPrompt)
 
 	str = T.PromptLabels.promptback
-	GoBackPrompt = PromptRegisterBegin()
-	PromptSetControlAction(GoBackPrompt, 0x760A9C6F)
+	GoBackPrompt = UiPromptRegisterBegin()
+	UiPromptSetControlAction(GoBackPrompt, 0x760A9C6F)
 	str = CreateVarString(10, 'LITERAL_STRING', str)
-	PromptSetText(GoBackPrompt, str)
-	PromptSetEnabled(GoBackPrompt, true)
-	PromptSetVisible(GoBackPrompt, true)
-	PromptSetStandardMode(GoBackPrompt, true)
-	PromptSetGroup(GoBackPrompt, PromptGroup)
-	Citizen.InvokeNative(0xC5F428EE08FA7F2C, GoBackPrompt, true)
-	PromptRegisterEnd(GoBackPrompt)
+	UiPromptSetText(GoBackPrompt, str)
+	UiPromptSetEnabled(GoBackPrompt, true)
+	UiPromptSetVisible(GoBackPrompt, true)
+	UiPromptSetStandardMode(GoBackPrompt, true)
+	UiPromptSetGroup(GoBackPrompt, PromptGroup, 0)
+	UiPromptRegisterEnd(GoBackPrompt)
 end)
+
 
 --EVENTS
 RegisterNetEvent("vorpcharacter:spawnUniqueCharacter", function(myChar)
@@ -427,25 +421,11 @@ function EnableSelectionPrompts(menu)
 				PromptSetEnabled(DeletePrompt, false)
 			end
 
-			if PromptHasStandardModeCompleted(DeletePrompt) then
-				exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1, Translation.Langs[Lang].Inputs.notify)
-
-				while true do
-					Wait(0)
-
-					if IsControlJustPressed(0, joaat("INPUT_CREATOR_DELETE")) then
-						UiFeedClearChannel()
-						return DeleleteSelectedChaacter(menu)
-					end
-
-					if IsControlJustPressed(0, joaat("INPUT_FRONTEND_CANCEL")) then
-						UiFeedClearChannel()
-						break
-					end
-				end
+			if UiPromptHasHoldModeCompleted(DeletePrompt) then
+				DeleleteSelectedChaacter(menu)
 			end
 
-			if PromptHasStandardModeCompleted(SelectPrompt) then
+			if UiPromptHasStandardModeCompleted(SelectPrompt, 0) then
 				WhileSwaping = true
 				UiFeedClearChannel()
 				AnimpostfxPlay("RespawnPulse01")
@@ -463,7 +443,7 @@ function EnableSelectionPrompts(menu)
 				return
 			end
 
-			if PromptHasStandardModeCompleted(GoBackPrompt) then
+			if UiPromptHasStandardModeCompleted(GoBackPrompt, 0) then
 				UiFeedClearChannel()
 				createMainCam()
 				SetCamActiveWithInterp(mainCam, LastCam, 1500, 500, 500)
