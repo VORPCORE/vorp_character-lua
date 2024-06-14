@@ -12,7 +12,7 @@ end
 ---@param skin table skin data
 ---@return table skin data
 function SetDefaultSkin(gender, skin)
-    local __data = {}
+    local __data = Config.DefaultChar[gender][1]
     for skinColor, value in pairs(Config.DefaultChar[gender]) do
         for key, info in pairs(value) do
             if key == "HeadTexture" then
@@ -189,6 +189,7 @@ function toggleOverlayChange(name, visibility, tx_id, tx_normal, tx_material, tx
     end
 
 	local TagData = GetMetaPedData('heads', ped)
+    if not TagData then return end
 
     textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, TagData.albedo, TagData.normal, TagData.material)
 

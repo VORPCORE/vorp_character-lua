@@ -669,6 +669,7 @@ function StartOverlay()
 	end
 	
 	local TagData = GetMetaPedData('heads', ped)
+	if not TagData then return end
 
 	textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, TagData.albedo, TagData.normal, TagData.material)
 
