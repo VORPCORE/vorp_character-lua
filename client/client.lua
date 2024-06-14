@@ -663,19 +663,15 @@ function FaceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 end
 
 function StartOverlay()
-	local current_texture_settings = Config.texture_types.Male
-
-	if CachedSkin.sex ~= tostring("mp_male") then
-		current_texture_settings = Config.texture_types.Female
-	end
-
 	if textureId ~= -1 then
 		Citizen.InvokeNative(0xB63B9178D0F58D82, textureId) -- reset texture
 		Citizen.InvokeNative(0x6BEFAA907B076859, textureId) -- remove texture
 	end
+	
+	local TagData = GetMetaPedData('heads', ped)
 
-	textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, CachedSkin.albedo, current_texture_settings.normal,
-		current_texture_settings.material)
+	textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, TagData.albedo, TagData.normal, TagData.material)
+
 	for k, v in ipairs(Config.overlay_all_layers) do
 		if v.visibility ~= 0 then
 			local overlay_id = Citizen.InvokeNative(0x86BB5FF45F193A02, textureId, v.tx_id, v.tx_normal, v.tx_material,
