@@ -147,9 +147,7 @@ function GetGender()
 end
 
 local textureId = -1
-function toggleOverlayChange(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk,
-                             palette_id, palette_color_primary, palette_color_secondary, palette_color_tertiary, var,
-                             opacity)
+function ApplyOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id, palette_color_primary, palette_color_secondary, palette_color_tertiary, var, opacity)
     for k, v in pairs(Config.overlay_all_layers) do
         if v.name == name then
             v.visibility = visibility
@@ -188,7 +186,7 @@ function toggleOverlayChange(name, visibility, tx_id, tx_normal, tx_material, tx
         Citizen.InvokeNative(0x6BEFAA907B076859, textureId)
     end
 
-	local TagData = GetMetaPedData('heads', ped)
+    local TagData = GetMetaPedData('heads', ped)
     if not TagData then return end
 
     textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, TagData.albedo, TagData.normal, TagData.material)
@@ -246,8 +244,7 @@ function SetupAnimscene()
     SetPedConfigFlag(Deputy, 130, true)
     SetPedConfigFlag(Deputy, 301, true)
     SetPedConfigFlag(Deputy, 315, true)
-    GiveWeaponToPed_2(Deputy, `WEAPON_REPEATER_CARBINE`, 100, true, false, 0, false, 0.5, 1.0, 752097756, false, 0.0,
-        false)
+    GiveWeaponToPed_2(Deputy, `WEAPON_REPEATER_CARBINE`, 100, true, false, 0, false, 0.5, 1.0, 752097756, false, 0.0, false)
     FreezeEntityPosition(Deputy, true)
 
     local animscene = CreateAnimScene("script@mp@character_creator@transitions", 0.25, "pl_intro", false, true)
@@ -306,7 +303,7 @@ function DrawText3D(x, y, z, text, color)
         r, g, b, a = table.unpack(color)
     end
     local onScreen, _x, _y = GetScreenCoordFromWorldCoord(x, y, z)
-    local str = CreateVarString(10, "LITERAL_STRING", text, Citizen.ResultAsLong())
+    local str = VarString(10, "LITERAL_STRING", text, Citizen.ResultAsLong())
     if onScreen then
         SetTextScale(0.4, 0.4)
         SetTextFontForCurrentCommand(25) -- font style
@@ -319,7 +316,7 @@ function DrawText3D(x, y, z, text, color)
 end
 
 function ShowBusyspinnerWithText(text)
-    N_0x7f78cd75cc4539e4(CreateVarString(10, "LITERAL_STRING", text))
+    N_0x7f78cd75cc4539e4(VarString(10, "LITERAL_STRING", text))
 end
 
 function GetName(Result)
@@ -427,9 +424,6 @@ function SetCamMotionBlurStrength(cam, strength)
     Citizen.InvokeNative(0x45FD891364181F9E, cam, strength)
 end
 
-function UiFeedClearChannel()
-    N_0xdd1232b332cbb9e7(3, 1, 0)
-end
 
 function PrepareCreatorMusic()
     Citizen.InvokeNative(0x120C48C614909FA4, "AZL_RDRO_Character_Creation_Area", true)                     -- CLEAR_AMBIENT_ZONE_LIST_STATE

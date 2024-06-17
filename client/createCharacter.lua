@@ -91,7 +91,7 @@ local function Setup()
 		Wait(0)
 	end
 
-	UiFeedClearChannel()
+	UiFeedClearChannel(3, true, false)
 	local ped = peds[char + 1]
 	local gender = IsPedMale(ped) and "Male" or "Female"
 	Citizen.InvokeNative(0xAB5E7CAB074D6B84, animscene, ("Pl_Start_to_Edit_%s"):format(gender))
@@ -130,42 +130,41 @@ end)
 function RegisterGenderPrompt()
 	local C = Config.keys
 	local str = T.PromptLabels.promptUpDownCam
-	down = PromptRegisterBegin()
-	PromptSetControlAction(down, C.prompt_camera_ws.key)
-	PromptSetControlAction(down, C.prompt_camera_ws.key2)
-	str = CreateVarString(10, 'LITERAL_STRING', str)
-	PromptSetText(down, str)
-	PromptSetEnabled(down, 0)
-	PromptSetVisible(down, 0)
-	PromptSetStandardMode(down, 1)
-	PromptSetGroup(down, PromptGroup2)
-	PromptRegisterEnd(down)
+	down = UiPromptRegisterBegin()
+	UiPromptSetControlAction(down, C.prompt_camera_ws.key)
+	UiPromptSetControlAction(down, C.prompt_camera_ws.key2)
+	str = VarString(10, 'LITERAL_STRING', str)
+	UiPromptSetText(down, str)
+	UiPromptSetEnabled(down, false)
+	UiPromptSetVisible(down, false)
+	UiPromptSetStandardMode(down, true)
+	UiPromptSetGroup(down, PromptGroup2, 0)
+	UiPromptRegisterEnd(down)
 
 
 	str = T.PromptLabels.promptrotateCam
-	right = PromptRegisterBegin()
-	PromptSetControlAction(right, 0x7065027D)
-	PromptSetControlAction(right, 0xB4E465B4)
-	str = CreateVarString(10, 'LITERAL_STRING', str)
-	PromptSetText(right, str)
-	PromptSetEnabled(right, 0)
-	PromptSetVisible(right, 0)
-	PromptSetHoldMode(right, false)
-	PromptSetStandardMode(right, 0)
-	PromptSetGroup(right, PromptGroup2)
-	PromptRegisterEnd(right)
+	right = UiPromptRegisterBegin()
+	UiPromptSetControlAction(right, 0x7065027D)
+	UiPromptSetControlAction(right, 0xB4E465B4)
+	str = VarString(10, 'LITERAL_STRING', str)
+	UiPromptSetText(right, str)
+	UiPromptSetEnabled(right, false)
+	UiPromptSetVisible(right, false)
+	UiPromptSetStandardMode(right, true)
+	UiPromptSetGroup(right, PromptGroup2, 0)
+	UiPromptRegisterEnd(right)
 
 	str = T.PromptLabels.promptzoomCam
-	zoomout = PromptRegisterBegin()
-	PromptSetControlAction(zoomout, `INPUT_CURSOR_ACCEPT_HOLD`)
-	PromptSetControlAction(zoomout, `INPUT_INSPECT_ZOOM`)
-	str = CreateVarString(10, 'LITERAL_STRING', str)
-	PromptSetText(zoomout, str)
-	PromptSetEnabled(zoomout, 0)
-	PromptSetVisible(zoomout, 0)
-	PromptSetStandardMode(zoomout, 1)
-	PromptSetGroup(zoomout, PromptGroup2)
-	PromptRegisterEnd(zoomout)
+	zoomout = UiPromptRegisterBegin()
+	UiPromptSetControlAction(zoomout, `INPUT_CURSOR_ACCEPT_HOLD`)
+	UiPromptSetControlAction(zoomout, `INPUT_INSPECT_ZOOM`)
+	str = VarString(10, 'LITERAL_STRING', str)
+	UiPromptSetText(zoomout, str)
+	UiPromptSetEnabled(zoomout, true)
+	UiPromptSetVisible(zoomout, true)
+	UiPromptSetStandardMode(zoomout, true)
+	UiPromptSetGroup(zoomout, PromptGroup2, 0)
+	UiPromptRegisterEnd(zoomout)
 end
 
 local function SetUpCameraCharacterMovement(x, y, z, heading, zoom)
@@ -203,8 +202,8 @@ function StartPrompts(value)
 			TotalToPay = T.Other.total .. GetCurrentAmmountToPay() .. T.Other.pocketmoney .. pocketMoney .. "~q~ "
 		end
 
-		local label = CreateVarString(10, "LITERAL_STRING", TotalToPay .. T.PromptLabels.CamAdjustments)
-		PromptSetActiveGroupThisFrame(PromptGroup2, label)
+		local label = VarString(10, "LITERAL_STRING", TotalToPay .. T.PromptLabels.CamAdjustments)
+		UiPromptSetActiveGroupThisFrame(PromptGroup2, label, 0, 0, 0, 0)
 
 		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key) then --right
 			heading = AdjustCharcaterHeading(heading, -1.5)
@@ -284,22 +283,22 @@ function DefaultPedSetup(ped, male)
 	PlayerSkin.eyebrows_tx_id      = 1
 	PlayerSkin.eyebrows_opacity    = 1.0
 	PlayerSkin.eyebrows_color      = 0x3F6E70FF
-	toggleOverlayChange("eyebrows", 1, 1, 1, 0, 0, 1.0, 0, 1, 0x3F6E70FF, 0, 0, 1, 1.0)
+	ApplyOverlay("eyebrows", 1, 1, 1, 0, 0, 1.0, 0, 1, 0x3F6E70FF, 0, 0, 1, 1.0)
 end
 
 function EnableCharCreationPrompts(boolean)
-	PromptSetEnabled(up, boolean)
-	PromptSetVisible(up, boolean)
-	PromptSetEnabled(down, boolean)
-	PromptSetVisible(down, boolean)
-	PromptSetEnabled(left, boolean)
-	PromptSetVisible(left, boolean)
-	PromptSetEnabled(right, boolean)
-	PromptSetVisible(right, boolean)
-	PromptSetEnabled(zoomin, boolean)
-	PromptSetVisible(zoomin, boolean)
-	PromptSetEnabled(zoomout, boolean)
-	PromptSetVisible(zoomout, boolean)
+	UiPromptSetEnabled(up, boolean)
+	UiPromptSetVisible(up, boolean)
+	UiPromptSetEnabled(down, boolean)
+	UiPromptSetVisible(down, boolean)
+	UiPromptSetEnabled(left, boolean)
+	UiPromptSetVisible(left, boolean)
+	UiPromptSetEnabled(right, boolean)
+	UiPromptSetVisible(right, boolean)
+	UiPromptSetEnabled(zoomin, boolean)
+	UiPromptSetVisible(zoomin, boolean)
+	UiPromptSetEnabled(zoomout, boolean)
+	UiPromptSetVisible(zoomout, boolean)
 end
 
 function CreatePlayerModel(model, peds)

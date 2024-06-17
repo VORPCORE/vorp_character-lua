@@ -427,7 +427,7 @@ function EnableSelectionPrompts(menu)
 
 			if UiPromptHasStandardModeCompleted(SelectPrompt, 0) then
 				WhileSwaping = true
-				UiFeedClearChannel()
+				UiFeedClearChannel(3, true, false)
 				AnimpostfxPlay("RespawnPulse01")
 				PlaySoundFrontend("Ready_Up_Flash", "RDRO_In_Game_Menu_Sounds", true, 0)
 				ClearPedTasks(PlayerPedId(), false, false)
@@ -443,7 +443,7 @@ function EnableSelectionPrompts(menu)
 			end
 
 			if UiPromptHasStandardModeCompleted(GoBackPrompt, 0) then
-				UiFeedClearChannel()
+				UiFeedClearChannel(3, true, false)
 				createMainCam()
 				SetCamActiveWithInterp(mainCam, LastCam, 1500, 500, 500)
 				SetCamFocusDistance(mainCam, 1.0)
@@ -496,7 +496,7 @@ function OpenMenuSelect()
 
 		function(data, menu)
 			if (data.current.value == "choose") and not WhileSwaping then
-				UiFeedClearChannel()
+				UiFeedClearChannel(3, true, false)
 				WhileSwaping = true
 				SetCamFocusDistance(mainCam, 4.0)
 				selectedChar = data.current.index
@@ -520,7 +520,7 @@ function OpenMenuSelect()
 			end
 
 			if (data.current.value == "create") then
-				UiFeedClearChannel()
+				UiFeedClearChannel(3, true, false)
 				WhileSwaping = true
 				AnimpostfxPlay('PhotoMode_FilterGame06')
 				finishSelection(true)
@@ -656,7 +656,7 @@ function StartOverlay()
 		Citizen.InvokeNative(0xB63B9178D0F58D82, textureId) -- reset texture
 		Citizen.InvokeNative(0x6BEFAA907B076859, textureId) -- remove texture
 	end
-	
+
 	local TagData = GetMetaPedData('heads', ped)
 	if not TagData then return end
 
@@ -729,7 +729,7 @@ AddEventHandler('onResourceStop', function(resourceName)
 	MenuData.CloseAll()
 	myChars[selectedChar] = {}
 	DestroyAllCams(true)
-	UiFeedClearChannel()
+	UiFeedClearChannel(3, true, false)
 	AnimpostfxStopAll()
 	Citizen.InvokeNative(0x120C48C614909FA4, "AZL_RDRO_Character_Creation_Area", true)                  -- CLEAR_AMBIENT_ZONE_LIST_STATE
 	Citizen.InvokeNative(0x9D5A25BADB742ACD, "AZL_RDRO_Character_Creation_Area_Other_Zones_Disable", true) -- CLEAR_AMBIENT_ZONE_LIST_STATE
