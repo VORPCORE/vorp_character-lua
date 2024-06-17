@@ -1,37 +1,37 @@
 IsInClothingStore = false
-local PromptGroup = GetRandomIntInRange(0, 0xffffff)
+local PromptGroup <const> = GetRandomIntInRange(0, 0xffffff)
 local SelectPrompt
 ShopType = ""
+
 CreateThread(function()
-    local str = CreateVarString(10, 'LITERAL_STRING', T.Inputs.press)
-    SelectPrompt = PromptRegisterBegin()
-    PromptSetControlAction(SelectPrompt, 0xC7B5340A)
-    PromptSetText(SelectPrompt, str)
-    PromptSetEnabled(SelectPrompt, true)
-    PromptSetVisible(SelectPrompt, true)
-    PromptSetStandardMode(SelectPrompt, true)
-    PromptSetGroup(SelectPrompt, PromptGroup)
-    PromptRegisterEnd(SelectPrompt)
+    local str = VarString(10, 'LITERAL_STRING', T.Inputs.press)
+    SelectPrompt = UiPromptRegisterBegin()
+    UiPromptSetControlAction(SelectPrompt, 0xC7B5340A)
+    UiPromptSetText(SelectPrompt, str)
+    UiPromptSetEnabled(SelectPrompt, true)
+    UiPromptSetVisible(SelectPrompt, true)
+    UiPromptSetStandardMode(SelectPrompt, true)
+    UiPromptSetGroup(SelectPrompt, PromptGroup, 0)
+    UiPromptRegisterEnd(SelectPrompt)
 end)
 
 function CreateBlips()
-    for index, value in ipairs(ConfigShops.Locations) do
+    for _, value in ipairs(ConfigShops.Locations) do
         if value.Blip.Enable then
-            local blip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300, value.Prompt.Position.x,
-                value.Prompt.Position.y, value.Prompt.Position.z)
+            local blip = BlipAddForCoords(1664425300, value.Prompt.Position.x, value.Prompt.Position.y, value.Prompt.Position.z)
             if value.Blip.Color then
-                Citizen.InvokeNative(0x662D364ABF16DE2F, blip, joaat(value.Blip.Color)) -- BlipAddModifier
+                BlipAddModifier(blip, joaat(value.Blip.Color))
             end
             SetBlipSprite(blip, value.Blip.Sprite, true)
-            Citizen.InvokeNative(0x9CB1A1623062F402, blip, value.Blip.Name)
-            ConfigShops.Locations[index].Blip.Entity = blip
+            SetBlipName(blip, value.Blip.Name)
+            value.Blip.Entity = blip
         end
     end
 end
 
 function CreateModel(model, position, index)
     LoadPlayer(model)
-    local npc = CreatePed(model, position.x, position.y, position.z, position.w, false, false, false)
+    local npc = CreatePed(model, position.x, position.y, position.z, position.w, false, false, false, false)
     repeat Wait(0) until DoesEntityExist(npc)
     SetRandomOutfitVariation(npc, true)
     SetBlockingOfNonTemporaryEvents(npc, true)
@@ -39,7 +39,7 @@ function CreateModel(model, position, index)
     SetEntityInvincible(npc, true)
     ConfigShops.Locations[index].Npc.Entity = npc
     if ConfigShops.Locations[index].Npc.Scenario then
-        TaskStartScenarioInPlace(npc, joaat(ConfigShops.Locations[index].Npc.Scenario), 0, true, false, false, false)
+        TaskStartScenarioInPlaceHash(npc, joaat(ConfigShops.Locations[index].Npc.Scenario), 0, true, 0, 0, false)
     end
     SetTimeout(1000, function()
         FreezeEntityPosition(npc, true)
@@ -47,13 +47,16 @@ function CreateModel(model, position, index)
 end
 
 CreateThread(function()
-    CreateBlips()
-    while ConfigShops.UseShops do
-        local sleep = 1000
+    if not ConfigShops.UseShops then
+        return
+    end
 
-        if not LocalPlayer.state.IsInSession then
-            goto skip
-        end
+    repeat Wait(2000) until LocalPlayer.state.IsInSession
+
+    CreateBlips()
+
+    while true do
+        local sleep = 1000
 
         if not IsInCharCreation and not IsInClothingStore then
             for index, value in ipairs(ConfigShops.Locations) do
@@ -73,9 +76,9 @@ CreateThread(function()
 
                 if dist < 1.5 then
                     sleep = 0
-                    local label = CreateVarString(10, 'LITERAL_STRING', value.Prompt.Label)
-                    PromptSetActiveGroupThisFrame(PromptGroup, label)
-                    if PromptHasStandardModeCompleted(SelectPrompt) then
+                    local label = VarString(10, 'LITERAL_STRING', value.Prompt.Label)
+                    UiPromptSetActiveGroupThisFrame(PromptGroup, label, 0, 0, 0, 0)
+                    if UiPromptHasStandardModeCompleted(SelectPrompt, 0) then
                         if value.TypeOfShop == "secondchance" then
                             local result = Core.Callback.TriggerAwait("vorp_character:callback:CanPayForSecondChance")
                             if result then
@@ -88,8 +91,6 @@ CreateThread(function()
                 end
             end
         end
-
-        ::skip::
         Wait(sleep)
     end
 end)
@@ -120,12 +121,11 @@ function PrepareClothingStore(value)
     local Gender = IsPedMale(PlayerPedId()) and "male" or "female"
     FreezeEntityPosition(PlayerPedId(), true)
     Wait(1000)
-    SetEntityCoords(PlayerPedId(), value.EditCharacter.Position.x, value.EditCharacter.Position.y,
-        value.EditCharacter.Position.z, true, true, true, false)
-    Citizen.InvokeNative(0x9587913B9E772D29, PlayerPedId())
+    SetEntityCoords(PlayerPedId(), value.EditCharacter.Position.x, value.EditCharacter.Position.y, value.EditCharacter.Position.z, true, true, true, false)
+    PlaceEntityOnGroundProperly(PlayerPedId(), false)
     SetEntityHeading(PlayerPedId(), value.EditCharacter.Position.w)
     RegisterGenderPrompt() -- camera prompts register
-    CreateThread(function()
+    Citizen.CreateThreadNow(function()
         StartPrompts(value.CameraPosition)
     end)
     EnableCharCreationPrompts(true)
@@ -133,7 +133,7 @@ function PrepareClothingStore(value)
     SetEntityVisible(PlayerPedId(), true)
     SetEntityInvincible(PlayerPedId(), true)
     RenderScriptCams(true, true, 1000, true, true, 0)
-    CreateThread(function()
+    Citizen.CreateThreadNow(function()
         if value.DrawLight then
             DrawLight(value.CameraPosition.Position)
         end

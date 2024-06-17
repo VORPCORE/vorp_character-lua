@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local function toggleComp(hash, item, key)
 	IsPedReadyToRender()
 	if IsMetaPedUsingComponent(hash) then
@@ -19,38 +17,39 @@ local function toggleComp(hash, item, key)
 	UpdatePedVariation()
 end
 
-
-for key, v in pairs(Config.commands) do
-	RegisterCommand(v.command, function()
-		toggleComp(Config.HashList[key], CachedComponents[key], key)
-		if key == "GunBelt" then
-			toggleComp(Config.HashList.Holster, CachedComponents.Holster, key)
-		end
-
-		if key == "Vest" and IsMetaPedUsingComponent(Config.HashList.Shirt) then
-			local item = CachedComponents.Shirt
-			if item.drawable then
-				SetTextureOutfitTints(PlayerPedId(), 'shirts_full', item)
-			end
-		end
-
-		if key == "Coat" then
-			if IsMetaPedUsingComponent(Config.HashList.Vest) then
-				local item = CachedComponents.Vest
-				if item.drawable then
-					SetTextureOutfitTints(PlayerPedId(), 'vests', item)
-				end
+CreateThread(function()
+	for key, v in pairs(Config.commands) do
+		RegisterCommand(v.command, function()
+			toggleComp(Config.HashList[key], CachedComponents[key], key)
+			if key == "GunBelt" then
+				toggleComp(Config.HashList.Holster, CachedComponents.Holster, key)
 			end
 
-			if IsMetaPedUsingComponent(Config.HashList.Shirt) then
+			if key == "Vest" and IsMetaPedUsingComponent(Config.HashList.Shirt) then
 				local item = CachedComponents.Shirt
 				if item.drawable then
 					SetTextureOutfitTints(PlayerPedId(), 'shirts_full', item)
 				end
 			end
-		end
-	end, false)
-end
+
+			if key == "Coat" then
+				if IsMetaPedUsingComponent(Config.HashList.Vest) then
+					local item = CachedComponents.Vest
+					if item.drawable then
+						SetTextureOutfitTints(PlayerPedId(), 'vests', item)
+					end
+				end
+
+				if IsMetaPedUsingComponent(Config.HashList.Shirt) then
+					local item = CachedComponents.Shirt
+					if item.drawable then
+						SetTextureOutfitTints(PlayerPedId(), 'shirts_full', item)
+					end
+				end
+			end
+		end, false)
+	end
+end)
 
 RegisterCommand("ringsL", function()
 	if CachedComponents.RingLh.comp ~= -1 then
