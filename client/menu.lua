@@ -1216,7 +1216,7 @@ function OpenAgeMenu(table, value)
                 if data.current.value > 0 then
                     PlayerSkin.ageing_opacity = data.current.value / 10
                     PlayerSkin.ageing_visibility = 1
-                    toggleOverlayChange("ageing", 1, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1, PlayerSkin.ageing_opacity, PlayerSkin.albedo)
+                    toggleOverlayChange("ageing", 1, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1, PlayerSkin.ageing_opacity)
                 else
                     PlayerSkin.ageing_visibility = 0
                     if PlayerSkin.ageing_tx_id == 1 then
@@ -1229,7 +1229,7 @@ function OpenAgeMenu(table, value)
 
             if data.current.type == "slider" and data.current.value > 0 and data.current.info then -- * texture id
                 PlayerSkin.ageing_tx_id = data.current.value
-                toggleOverlayChange("ageing", PlayerSkin.ageing_visibility, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1, PlayerSkin.ageing_opacity, PlayerSkin.albedo)
+                toggleOverlayChange("ageing", PlayerSkin.ageing_visibility, PlayerSkin.ageing_tx_id, 0, 0, 1, 1.0, 0, 0, 0, 0, 0, 1, PlayerSkin.ageing_opacity)
                 AgingTextureTracker = data.current.value
             end
         end, function(data, menu)
@@ -1383,13 +1383,10 @@ function OpenBodyMenu(table, value)
                     local legs        = tonumber("0x" .. SkinColor.Legs[LegsTypeTracker])
                     local bodyType    = tonumber("0x" .. SkinColor.Body[BodyTypeTracker])
                     local heads       = tonumber("0x" .. SkinColor.Heads[HeadIndexTracker])
-                    local headtexture = joaat(SkinColor.HeadTexture[1])
-                    local albedo      = Config.texture_types[gender].albedo
                     IsPedReadyToRender()
                     ApplyShopItemToPed(heads)
                     ApplyShopItemToPed(bodyType)
                     ApplyShopItemToPed(legs)
-                    Citizen.InvokeNative(0xC5E7204F322E49EB, albedo, headtexture, 0x7FC5B1E1)
                     UpdatePedVariation()
                 end
                 ExecuteCommand(data.current.value)
@@ -1470,13 +1467,10 @@ function OpenHerritageMenu(table, value)
                     local legs        = tonumber("0x" .. SkinColor.Legs[LegsTypeTracker])
                     local bodyType    = tonumber("0x" .. SkinColor.Body[BodyTypeTracker])
                     local heads       = tonumber("0x" .. SkinColor.Heads[HeadIndexTracker])
-                    local headtexture = joaat(SkinColor.HeadTexture[1])
-                    local albedo      = Config.texture_types[gender].albedo
                     IsPedReadyToRender()
                     ApplyShopItemToPed(heads)
                     ApplyShopItemToPed(bodyType)
                     ApplyShopItemToPed(legs)
-                    Citizen.InvokeNative(0xC5E7204F322E49EB, albedo, headtexture, 0x7FC5B1E1)
                     UpdatePedVariation()
                 end
                 return ExecuteCommand(data.current.value)
@@ -1502,20 +1496,16 @@ function OpenHerritageMenu(table, value)
                     local legs          = tonumber("0x" .. SkinColor.Legs[LegsTypeTracker])
                     local bodyType      = tonumber("0x" .. SkinColor.Body[BodyTypeTracker])
                     local heads         = tonumber("0x" .. SkinColor.Heads[HeadIndexTracker])
-                    local headtexture   = joaat(SkinColor.HeadTexture[1])
-                    local albedo        = Config.texture_types[gender].albedo
 
                     PlayerSkin.HeadType = heads
                     PlayerSkin.BodyType = bodyType
                     PlayerSkin.LegsType = legs
-                    PlayerSkin.albedo   = headtexture
                     menu.setElement(2, "max", #Config.DefaultChar[gender][data.current.value].Heads)
                     menu.refresh()
                     IsPedReadyToRender()
                     ApplyShopItemToPed(heads)
                     ApplyShopItemToPed(bodyType)
                     ApplyShopItemToPed(legs)
-                    Citizen.InvokeNative(0xC5E7204F322E49EB, albedo, headtexture, 0x7FC5B1E1)
                     UpdatePedVariation()
                 end
             end
@@ -1902,7 +1892,7 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
                 menu.setElement(1, "value", 0)
                 menu.setElement(2, "value", 0)
                 menu.refresh()
-                toggleOverlayChange(data.current.category, 0, PlayerSkin[data.current.txt_id], 1, 0, 0, 1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                toggleOverlayChange(data.current.category, 0, PlayerSkin[data.current.txt_id], 1, 0, 0, 1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac])
                 if IsInClothingStore then
                     TotalAmountToPay[category] = 0
                     CachedComponents[category].comp = -1
@@ -1914,13 +1904,13 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
                 PlayerSkin[data.current.opac] = PlayerSkin[data.current.opac] or 1.0
                 MakeupIndexTracker[category] = data.current.value
                 PlayerSkin[data.current.txt_id] = data.current.value
-                toggleOverlayChange(data.current.category, 1, PlayerSkin[data.current.txt_id], 1, 0, 0, 1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                toggleOverlayChange(data.current.category, 1, PlayerSkin[data.current.txt_id], 1, 0, 0, 1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac])
             end
 
             if data.current.tag == "color" then
                 MakeupColorIndexTracker[category] = data.current.value
                 PlayerSkin[data.current.color] = data.current.comp[data.current.value]
-                toggleOverlayChange(data.current.category, 1, PlayerSkin[data.current.txt_id], 1, 0, 0, 1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                toggleOverlayChange(data.current.category, 1, PlayerSkin[data.current.txt_id], 1, 0, 0, 1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac])
             end
 
             if data.current.tag == "opacity" then
@@ -1933,7 +1923,7 @@ function OpenBeardEyebrowMenu(table, opacity, txt_id, category, index, label, co
                 end
                 MakeupOpacityTracker[category] = data.current.value
                 PlayerSkin[data.current.opac] = data.current.value / 10
-                toggleOverlayChange(data.current.category, 1, PlayerSkin[data.current.txt_id], 1, 0, 0, 1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                toggleOverlayChange(data.current.category, 1, PlayerSkin[data.current.txt_id], 1, 0, 0, 1.0, 0, 1, PlayerSkin[data.current.color], 0, 0, 1, PlayerSkin[data.current.opac])
             end
         end, function(data, menu)
 
@@ -2341,11 +2331,11 @@ function OpenLifeStyleMenu(table, value)
                 local colortype = data.current.name == "grime" and 0 or 1
                 if data.current.value > 0 then
                     PlayerSkin[data.current.txt_id] = data.current.value
-                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac])
                     TotalAmountToPay[data.current.name] = ConfigShops.Prices.lifestyle[data.current.name].price
                 else
                     PlayerSkin[data.current.txt_id] = 0
-                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac])
                     TotalAmountToPay[data.current.name] = 0
                 end
             end
@@ -2357,12 +2347,12 @@ function OpenLifeStyleMenu(table, value)
                 if data.current.value > 0 then
                     PlayerSkin[data.current.visibility] = 1
                     PlayerSkin[data.current.opac] = data.current.value / 10
-                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac])
                     TotalAmountToPay[data.current.name] = ConfigShops.Prices.lifestyle[data.current.name].price
                 else
                     PlayerSkin[data.current.visibility] = 0
                     PlayerSkin[data.current.opac] = 0
-                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    toggleOverlayChange(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 0, 0, colortype, 1.0, 0, color, 0, 0, 0, 1, PlayerSkin[data.current.opac])
                     TotalAmountToPay[data.current.name] = 0
                 end
             end
@@ -2606,7 +2596,7 @@ function OpenMakeupMenu(table, value)
                     PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2] or 0,
                     PlayerSkin[data.current.color3] or 0, PlayerSkin[data.current.variant] or 1,
-                    PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    PlayerSkin[data.current.opac])
             end
 
             if data.current.tag == "color" then
@@ -2615,7 +2605,7 @@ function OpenMakeupMenu(table, value)
                     PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2] or 0,
                     PlayerSkin[data.current.color3] or 0, PlayerSkin[data.current.variant] or 1,
-                    PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    PlayerSkin[data.current.opac])
             end
 
             if data.current.tag == "color2" then
@@ -2624,7 +2614,7 @@ function OpenMakeupMenu(table, value)
                     PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2] or 0,
                     PlayerSkin[data.current.color3] or 0, PlayerSkin[data.current.variant] or 1, PlayerSkin
-                    [data.current.opac], PlayerSkin.albedo)
+                    [data.current.opac])
             end
 
             if data.current.tag == "variant" then
@@ -2633,7 +2623,7 @@ function OpenMakeupMenu(table, value)
                     PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2] or 0,
                     PlayerSkin[data.current.color3] or 0, PlayerSkin[data.current.variant] or 1,
-                    PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    PlayerSkin[data.current.opac])
             end
 
             if data.current.tag == "opacity" then
@@ -2650,7 +2640,7 @@ function OpenMakeupMenu(table, value)
                     PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2] or 0,
                     PlayerSkin[data.current.color3] or 0, PlayerSkin[data.current.variant] or 1,
-                    PlayerSkin[data.current.opac], PlayerSkin.albedo)
+                    PlayerSkin[data.current.opac])
             end
         end, function(data, menu)
             if IsInClothingStore and ShopType ~= "secondchance" then
