@@ -244,7 +244,6 @@ function DefaultPedSetup(ped, male)
 	local compBody   = male and tonumber("0x" .. Config.DefaultChar.Male[3].Body[1]) or tonumber("0x" .. Config.DefaultChar.Female[3].Body[1])
 	local compHead   = male and tonumber("0x" .. Config.DefaultChar.Male[3].Heads[9]) or tonumber("0x" .. Config.DefaultChar.Female[3].Heads[4])
 	local compLegs   = male and tonumber("0x" .. Config.DefaultChar.Male[3].Legs[1]) or tonumber("0x" .. Config.DefaultChar.Female[3].Legs[1])
-	local albedo     = male and joaat("mp_head_mr1_sc03_c0_000_ab") or joaat("mp_head_fr1_sc08_c0_000_ab")
 	local body       = male and 2362013313 or 0x3F1F01E5
 	local model      = male and "mp_male" or "mp_female"
 	local teeth      = male and 712446626 or 959712255
@@ -280,13 +279,12 @@ function DefaultPedSetup(ped, male)
 	PlayerSkin.Body                = body
 	PlayerSkin.Eyes                = compEyes
 	PlayerSkin.sex                 = model
-	PlayerSkin.albedo              = albedo
 	PlayerSkin.Hair                = hair
 	PlayerSkin.eyebrows_visibility = 1
 	PlayerSkin.eyebrows_tx_id      = 1
 	PlayerSkin.eyebrows_opacity    = 1.0
 	PlayerSkin.eyebrows_color      = 0x3F6E70FF
-	toggleOverlayChange("eyebrows", 1, 1, 1, 0, 0, 1.0, 0, 1, 0x3F6E70FF, 0, 0, 1, 1.0, albedo)
+	toggleOverlayChange("eyebrows", 1, 1, 1, 0, 0, 1.0, 0, 1, 0x3F6E70FF, 0, 0, 1, 1.0)
 end
 
 function EnableCharCreationPrompts(boolean)
