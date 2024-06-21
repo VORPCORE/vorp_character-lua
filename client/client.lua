@@ -461,15 +461,17 @@ end
 function OpenMenuSelect()
 	MenuData.CloseAll()
 	local elements = {}
+
 	for key, value in ipairs(myChars) do
 		if not Config.showchardesc then
+			desc = Divider .. T.MainMenu.NameDesc
 			elements[#elements + 1] = {
 				label = value.firstname .. " " .. value.lastname,
 				value = "choose",
+				desc = desc,
 				char = value,
 				index = key,
 			}
-			
 		else
 			local desc = GetCharacterDescDetails(value)
 			elements[#elements + 1] = {
