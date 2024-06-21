@@ -461,9 +461,7 @@ end
 function OpenMenuSelect()
 	MenuData.CloseAll()
 	local elements = {}
-
 	for key, value in ipairs(myChars) do
-		local desc = GetCharacterDescDetails(value)
 		if not Config.showchardesc then
 			elements[#elements + 1] = {
 				label = value.firstname .. " " .. value.lastname,
@@ -471,7 +469,9 @@ function OpenMenuSelect()
 				char = value,
 				index = key,
 			}
+			
 		else
+			local desc = GetCharacterDescDetails(value)
 			elements[#elements + 1] = {
 				label = value.firstname .. " " .. value.lastname .. "<br>" .. "<span style='opacity:0.6;'>" .. value.nickname .. "</span>",
 				value = "choose",
