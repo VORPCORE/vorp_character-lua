@@ -18,6 +18,7 @@ Config.SpawnCoords = {
 }
 
 Config.ShowGold = true -- this will show gold next to money in character selection
+Config.showchardesc = true -- set false to not show character description on selction menu 
 
 Config.Webhook = {
     deleteCharacter = ''
