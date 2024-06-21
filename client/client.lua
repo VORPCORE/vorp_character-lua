@@ -461,15 +461,13 @@ end
 function OpenMenuSelect()
 	MenuData.CloseAll()
 	local elements = {}
-	
+
 	for key, value in ipairs(myChars) do
 		local desc = GetCharacterDescDetails(value)
 		if not Config.showchardesc then
-			desc = ""
 			elements[#elements + 1] = {
 				label = value.firstname .. " " .. value.lastname,
 				value = "choose",
-				desc = desc,
 				char = value,
 				index = key,
 			}
