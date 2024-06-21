@@ -461,16 +461,27 @@ end
 function OpenMenuSelect()
 	MenuData.CloseAll()
 	local elements = {}
-
+	
 	for key, value in ipairs(myChars) do
 		local desc = GetCharacterDescDetails(value)
-		elements[#elements + 1] = {
-			label = value.firstname .. " " .. value.lastname .. "<br>" .. "<span style ='opacity:0.6;'>" .. value.nickname .. "</span>",
-			value = "choose",
-			desc = imgPath:format("character_creator_appearance") .. "<br>" .. desc .. "<br>" .. value.charDesc .. Divider .. T.MainMenu.NameDesc,
-			char = value,
-			index = key,
-		}
+		if not Config.showchardesc then
+			desc = ""
+			elements[#elements + 1] = {
+				label = value.firstname .. " " .. value.lastname,
+				value = "choose",
+				desc = desc,
+				char = value,
+				index = key,
+			}
+		else
+			elements[#elements + 1] = {
+				label = value.firstname .. " " .. value.lastname .. "<br>" .. "<span style='opacity:0.6;'>" .. value.nickname .. "</span>",
+				value = "choose",
+				desc = imgPath:format("character_creator_appearance") .. "<br>" .. desc .. "<br>" .. value.charDesc .. Divider .. T.MainMenu.NameDesc,
+				char = value,
+				index = key,
+			}
+		end
 	end
 
 	for i = 1, MaxCharacters - #myChars, 1 do
