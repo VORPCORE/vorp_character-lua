@@ -59,8 +59,7 @@ local function Setup()
 	SetCamParams(cam, vec3(-562.15, -3776.22, 239.11), vec3(-4.71, 0.0, -93.14), 45.0, 0, 1, 1, 2, 1, 1)
 
 	Wait(1000)
-	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1,
-		'~INPUT_CREATOR_MENU_TOGGLE~' .. T.Other.GenderChoice .. '~INPUT_CREATOR_ACCEPT~')
+	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1, '~INPUT_CREATOR_MENU_TOGGLE~' .. T.Other.GenderChoice .. '~INPUT_CREATOR_ACCEPT~')
 	SetCamFocusDistance(cam, 4.0)
 
 	local char = 1
@@ -69,8 +68,7 @@ local function Setup()
 			char = (char + 1) % 2
 			local view = Config.Intro.views[char + 1]
 			if view then
-				SetCamParams(cam, view.pos.x, view.pos.y, view.pos.z, view.rot.x, view.rot.y, view.rot.z, view.fov, 1200,
-					1, 1, 2, 1, 1)
+				SetCamParams(cam, view.pos.x, view.pos.y, view.pos.z, view.rot.x, view.rot.y, view.rot.z, view.fov, 1200, 1, 1, 2, 1, 1)
 				SetCamFocusDistance(cam, 4.0)
 
 				local transEnd = false
@@ -243,6 +241,7 @@ function DefaultPedSetup(ped, male)
 	local compBody   = male and tonumber("0x" .. Config.DefaultChar.Male[3].Body[1]) or tonumber("0x" .. Config.DefaultChar.Female[3].Body[1])
 	local compHead   = male and tonumber("0x" .. Config.DefaultChar.Male[3].Heads[9]) or tonumber("0x" .. Config.DefaultChar.Female[3].Heads[4])
 	local compLegs   = male and tonumber("0x" .. Config.DefaultChar.Male[3].Legs[1]) or tonumber("0x" .. Config.DefaultChar.Female[3].Legs[1])
+	local albedo     = male and joaat("mp_head_mr1_sc03_c0_000_ab") or joaat("mp_head_fr1_sc08_c0_000_ab")
 	local body       = male and 2362013313 or 0x3F1F01E5
 	local model      = male and "mp_male" or "mp_female"
 	local teeth      = male and 712446626 or 959712255
@@ -278,12 +277,14 @@ function DefaultPedSetup(ped, male)
 	PlayerSkin.Body                = body
 	PlayerSkin.Eyes                = compEyes
 	PlayerSkin.sex                 = model
+	PlayerSkin.albedo              = albedo
 	PlayerSkin.Hair                = hair
 	PlayerSkin.eyebrows_visibility = 1
 	PlayerSkin.eyebrows_tx_id      = 1
 	PlayerSkin.eyebrows_opacity    = 1.0
 	PlayerSkin.eyebrows_color      = 0x3F6E70FF
-	ApplyOverlay("eyebrows", 1, 1, 1, 0, 0, 1.0, 0, 1, 0x3F6E70FF, 0, 0, 1, 1.0)
+
+	FaceOverlay("eyebrows", 1, 1, 1, 0, 0, 1.0, 0, 1, 0x3F6E70FF, 0, 0, 1, 1.0)
 end
 
 function EnableCharCreationPrompts(boolean)

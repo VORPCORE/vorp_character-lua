@@ -12,7 +12,7 @@ end
 ---@param skin table skin data
 ---@return table skin data
 function SetDefaultSkin(gender, skin)
-    local __data = Config.DefaultChar[gender][1]
+    local __data = {}
     for skinColor, value in pairs(Config.DefaultChar[gender]) do
         for key, info in pairs(value) do
             if key == "HeadTexture" then
@@ -147,7 +147,8 @@ function GetGender()
 end
 
 local textureId = -1
-function ApplyOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id, palette_color_primary, palette_color_secondary, palette_color_tertiary, var, opacity)
+
+function ApplyOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_type, tx_opacity, tx_unk, palette_id, palette_color_primary, palette_color_secondary, palette_color_tertiary, var, opacity, albedo)
     for k, v in pairs(Config.overlay_all_layers) do
         if v.name == name then
             v.visibility = visibility
@@ -180,16 +181,17 @@ function ApplyOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_
     end
 
     local ped = PlayerPedId()
+    local gender = GetGender()
+    local current_texture_settings = Config.texture_types[gender]
 
     if textureId ~= -1 then
         Citizen.InvokeNative(0xB63B9178D0F58D82, textureId)
         Citizen.InvokeNative(0x6BEFAA907B076859, textureId)
     end
 
-    local TagData = GetMetaPedData('heads', ped)
-    if not TagData then return end
+    textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, albedo, current_texture_settings.normal,
+        current_texture_settings.material)
 
-    textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, TagData.albedo, TagData.normal, TagData.material)
 
     for k, v in pairs(Config.overlay_all_layers) do
         if v.visibility ~= 0 then
@@ -244,7 +246,8 @@ function SetupAnimscene()
     SetPedConfigFlag(Deputy, 130, true)
     SetPedConfigFlag(Deputy, 301, true)
     SetPedConfigFlag(Deputy, 315, true)
-    GiveWeaponToPed_2(Deputy, `WEAPON_REPEATER_CARBINE`, 100, true, false, 0, false, 0.5, 1.0, 752097756, false, 0.0, false)
+    GiveWeaponToPed_2(Deputy, `WEAPON_REPEATER_CARBINE`, 100, true, false, 0, false, 0.5, 1.0, 752097756, false, 0.0,
+        false)
     FreezeEntityPosition(Deputy, true)
 
     local animscene = CreateAnimScene("script@mp@character_creator@transitions", 0.25, "pl_intro", false, true)
@@ -423,7 +426,6 @@ end
 function SetCamMotionBlurStrength(cam, strength)
     Citizen.InvokeNative(0x45FD891364181F9E, cam, strength)
 end
-
 
 function PrepareCreatorMusic()
     Citizen.InvokeNative(0x120C48C614909FA4, "AZL_RDRO_Character_Creation_Area", true)                     -- CLEAR_AMBIENT_ZONE_LIST_STATE

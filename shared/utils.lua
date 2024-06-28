@@ -24,6 +24,7 @@ PlayerSkin = {
     EyeLidL                              = 0.0,
     EyeLidR                              = 0.0,
     sex                                  = "mp_male",
+    albedo                               = 0,
     HeadType                             = 0,
     BodyType                             = 0,
     LegsType                             = 0,
