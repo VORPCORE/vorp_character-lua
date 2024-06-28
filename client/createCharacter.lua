@@ -7,7 +7,7 @@ local down
 local zoomin
 local zoomout
 local PromptGroup2 = GetRandomIntInRange(0, 0xffffff)
-
+local Core = exports.vorp_core:GetCore()
 T = Translation.Langs[Lang]
 InCharacterCreator = false
 IsInCharCreation = false
@@ -59,7 +59,7 @@ local function Setup()
 	SetCamParams(cam, vec3(-562.15, -3776.22, 239.11), vec3(-4.71, 0.0, -93.14), 45.0, 0, 1, 1, 2, 1, 1)
 
 	Wait(1000)
-	exports[GetCurrentResourceName()]:_UI_FEED_POST_OBJECTIVE(-1, '~INPUT_CREATOR_MENU_TOGGLE~' .. T.Other.GenderChoice .. '~INPUT_CREATOR_ACCEPT~')
+	Core.NotifyObjective('~INPUT_CREATOR_MENU_TOGGLE~' .. T.Other.GenderChoice .. '~INPUT_CREATOR_ACCEPT~', -1)
 	SetCamFocusDistance(cam, 4.0)
 
 	local char = 1
