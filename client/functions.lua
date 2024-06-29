@@ -29,10 +29,15 @@ function SetDefaultSkin(gender, skin)
                             end
                         end
                     end
+
                     break
                 end
             end
         end
+    end
+
+    if not next(__data) then
+        return skin
     end
 
     if skin.HeadType and skin.HeadType == 0 then
