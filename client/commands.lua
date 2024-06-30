@@ -108,7 +108,7 @@ RegisterCommand('bandanaon', function(source, args, rawCommand)
 	bandanaOn = not bandanaOn
 
 	if not bandanaOn then
-		ApplyShopItemToPed(player, CachedComponents.NeckWear.comp, true, true)
+		ApplyShopItemToPed(Components.comp)
 		StartTaskItemInteraction(player, 0, joaat("BANDANA_ON_RIGHT_HAND"), 1, 0, -1.0)
 		Wait(750)
 		UpdateShopItemWearableState(Components.comp, -1829635046)
