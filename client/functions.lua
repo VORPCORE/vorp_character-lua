@@ -61,28 +61,28 @@ end
 
 --CREATOR
 function RemoveImaps()
-    if IsImapActive(183712523) then
-        RequestImap(183712523)
+    if IsIplActiveByHash(183712523) then
+        RequestIplByHash(183712523)
     end
 
-    if IsImapActive(-1699673416) then
-        RemoveImap(-1699673416)
+    if IsIplActiveByHash(-1699673416) then
+        RequestIplByHash(-1699673416)
     end
 
-    if IsImapActive(1679934574) then
-        RemoveImap(1679934574)
+    if IsIplActiveByHash(1679934574) then
+        RequestIplByHash(1679934574)
     end
 end
 
 function RequestImapCreator()
-    if not IsImapActive(183712523) then
-        RequestImap(183712523)
+    if not IsIplActiveByHash(183712523) then
+        RequestIplByHash(183712523)
     end
-    if not IsImapActive(-1699673416) then
-        RequestImap(-1699673416)
+    if not IsIplActiveByHash(-1699673416) then
+        RequestIplByHash(-1699673416)
     end
-    if not IsImapActive(1679934574) then
-        RequestImap(1679934574)
+    if not IsIplActiveByHash(1679934574) then
+        RequestIplByHash(1679934574)
     end
 end
 
