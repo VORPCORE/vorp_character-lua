@@ -12,16 +12,13 @@ Config.BannedNames = { "Arthur", "Marshton", "Shit", "Dick" } --* you can add mo
 Config.AllowPlayerDeleteCharacter = true
 
 -- after creating character player will spawn here
--- Z add
 Config.useRandSpawn = true
--- Z end
 
 Config.SpawnCoords = {
     position = vector3(-67.27, -392.34, 71.79),
     heading = 171.98
 }
 
---Z add
 Config.RandSpawnCoords = {
     [1] = { -- BLW
         position = vector3(-687.3, -1242.249, 43.1),
@@ -49,7 +46,6 @@ Config.RandSpawnCoords = {
         chance = 8
     },
 }
---Z end
 
 Config.ShowGold = true -- this will show gold next to money in character selection
 Config.showchardesc = true -- set false to not show character description on selction menu 
