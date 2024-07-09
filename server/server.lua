@@ -112,12 +112,21 @@ RegisterServerEvent("vorp_CreateNewCharacter", function(source)
 	TriggerClientEvent("vorpcharacter:startCharacterCreator", _source)
 end)
 
+function iniSpawn()
+   local numSpawns = #Config.SpawnCoords
+   local randomIndex = math.random(1, numSpawns) 
+   local selectedSpawn = Config.SpawnCoords[randomIndex] 
+   return selectedSpawn.position, selectedSpawn.heading
+end
 
 RegisterServerEvent("vorpcharacter:saveCharacter", function(data)
 	local _source = source
 	Core.getUser(_source).addCharacter(data)
 	Wait(600)
-	TriggerClientEvent("vorp:initCharacter", _source, Config.SpawnCoords.position, Config.SpawnCoords.heading, false)
+
+	local iniPos, iniHead = iniSpawn()
+	
+	TriggerClientEvent("vorp:initCharacter", _source, iniPos, iniHead, false)
 	SetTimeout(3000, function()
 		TriggerEvent("vorp_NewCharacter", _source)
 	end)
