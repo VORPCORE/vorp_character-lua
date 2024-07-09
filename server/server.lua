@@ -113,22 +113,10 @@ RegisterServerEvent("vorp_CreateNewCharacter", function(source)
 end)
 
 function iniSpawn()
-	local totalChance = 0
-
-	for i = 1, #Config.RandSpawnCoords do
-		totalChance = totalChance + Config.RandSpawnCoords[i].chance
-		-- print(totalChance)
-	end
-
-	local randSpawn = totalChance * math.random()
-	local cumChance = 0
-
-	for k, v in pairs(Config.RandSpawnCoords) do
-		cumChance = cumChance + v.chance
-		if cumChance >= randSpawn then
-			return v.position, v.heading
-		end
-	end
+   local numSpawns = #Config.SpawnCoords
+   local randomIndex = math.random(1, numSpawns) 
+   local selectedSpawn = Config.SpawnCoords[randomIndex] 
+   return selectedSpawn.position, selectedSpawn.heading
 end
 
 RegisterServerEvent("vorpcharacter:saveCharacter", function(data)
@@ -136,12 +124,7 @@ RegisterServerEvent("vorpcharacter:saveCharacter", function(data)
 	Core.getUser(_source).addCharacter(data)
 	Wait(600)
 
-	if Config.useRandSpawn then
-		iniPos, iniHead = iniSpawn()
-	else
-		iniPos = Config.SpawnCoords.position
-		iniHead = Config.SpawnCoords.heading
-	end
+	local iniPos, iniHead = iniSpawn()
 	
 	TriggerClientEvent("vorp:initCharacter", _source, iniPos, iniHead, false)
 	SetTimeout(3000, function()
