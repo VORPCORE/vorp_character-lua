@@ -201,10 +201,11 @@ RegisterCommand("tuck", function(source, args)
 		SetTextureOutfitTints(PlayerPedId(), 'boots', ComponentB)
 	end
 
+
 	if tuck and ComponentB.drawable then
-		SetMetaPedTag(PlayerPedId(), ComponentB.drawable, ComponentB.albedo, ComponentB.normal, ComponentB.material,
-			ComponentB.palette, ComponentB.tint0, ComponentB.tint1, ComponentB.tint2)
+		SetTextureOutfitTints(PlayerPedId(), 'pants', ComponentP)
 	end
+
 	local value = not tuck and "false" or "true"
 	SetResourceKvp("tuck", value)
 	UpdatePedVariation()
