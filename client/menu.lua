@@ -2,7 +2,7 @@ local Divider <const> = "<img style='margin-top: 10px;margin-bottom: 10px; margi
 local imgPath <const> = "<img style='max-height:500px;max-width:300px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
 local imgPath1 <const> = "<img style='max-height:20px;max-width:20px;margin-left: 10px;' src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
 local path <const> = "<img style='max-height:532px;max-width:344px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/clothingfemale/%s.png'>"
-local opacity <const> = "<br<span style='opacity:0.6;'>%s</span>"
+local opacity <const> = "<br><span style='opacity:0.6;'>%s</span>"
 local __CHARNAME = nil
 local __DESC = nil
 local __VALUE = nil
