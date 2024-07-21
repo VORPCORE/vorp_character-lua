@@ -3,13 +3,13 @@
 - reduced duplicated code
 - optimisation
 - fix pant loosing color when doing tuck command if had custom tints
-- added native declararations
+- added native declarations
 - added new exports check docs 
 - removed notify js file
-- added prompt delete charter with timer instead of notification confirm
+- added prompt delete character with timer instead of notification confirm
 - config to show menu character description
-- fixed bandana removing tints from shirts ifhad custom tint
-- added clothing event listeneres on clothing removed and added
+- fixed bandanna removing tints from shirts if had custom tint
+- added clothing event listeners on clothing removed and added
 - fix adjust ear angle 
 - fix eyebrow opacity changing when scrolling
 - fix body changes when left at 0
