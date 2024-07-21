@@ -125,7 +125,7 @@ function PrepareClothingStore(value)
     PlaceEntityOnGroundProperly(PlayerPedId(), false)
     SetEntityHeading(PlayerPedId(), value.EditCharacter.Position.w)
     RegisterGenderPrompt() -- camera prompts register
-    Citizen.CreateThreadNow(function()
+    CreateThread(function()
         StartPrompts(value.CameraPosition)
     end)
     EnableCharCreationPrompts(true)
@@ -133,7 +133,7 @@ function PrepareClothingStore(value)
     SetEntityVisible(PlayerPedId(), true)
     SetEntityInvincible(PlayerPedId(), true)
     RenderScriptCams(true, true, 1000, true, true, 0)
-    Citizen.CreateThreadNow(function()
+    CreateThread(function()
         if value.DrawLight then
             DrawLight(value.CameraPosition.Position)
         end

@@ -416,7 +416,6 @@ function EnableSelectionPrompts(menu)
 		WhileSwaping = false
 		local label = VarString(10, 'LITERAL_STRING', T.PromptLabels.promptselectChar)
 		while not WhileSwaping do
-			
 			UiPromptSetActiveGroupThisFrame(PromptGroup, label, 0, 0, 0, 0)
 			if not Config.AllowPlayerDeleteCharacter then
 				UiPromptSetEnabled(DeletePrompt, false)
@@ -659,7 +658,7 @@ function FaceOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_t
 
 	if canContinue then
 		canContinue = false
-		Citizen.CreateThreadNow(StartOverlay)
+		CreateThread(StartOverlay)
 	end
 end
 
