@@ -114,6 +114,7 @@ end)
 
 function iniSpawn()
    local numSpawns = #Config.SpawnCoords
+   if numSpawns == 0 then return print("update config file") end
    local randomIndex = math.random(1, numSpawns) 
    local selectedSpawn = Config.SpawnCoords[randomIndex] 
    return selectedSpawn.position, selectedSpawn.heading
