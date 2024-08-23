@@ -19,7 +19,10 @@ Peds                      = {}
 CachedSkin                = {}
 CachedComponents          = {}
 T                         = Translation.Langs[Lang]
-Resolution                = {}
+Resolution                = {
+	width = 0,
+	height = 0
+}
 
 --PROMPTS
 CreateThread(function()
