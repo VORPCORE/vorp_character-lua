@@ -185,7 +185,7 @@ end
 function OpenCharCreationMenu(clothingtable, value)
     Title = IsInClothingStore and "Clothing Store" or T.MenuCreation.title
     local SubTitle = "<span style='font-size:25px;'>" .. T.MenuCreation.subtitle .. "</span><br><br>"
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         SubTitle = T.MenuCreation.subtitle
     end
     MenuData.CloseAll()
@@ -494,7 +494,7 @@ function OpenClothingMenu(Table, value, Outfits)
     local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
     local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuClothes.subtitle .. "</span><br><br>"
 
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         menuSpace = "<br><br>"
         SubTitle = T.MenuClothes.subtitle
     end
@@ -667,7 +667,7 @@ function OpenComponentMenu(table, category, value, Outfits)
 
     local menuSpace = "<br><br><br><br><br><br><br>"
     local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuComponents.subtitle .. "</span><br><br>"
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         imgPath = "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
         menuSpace = "<br><br>"
         SubTitle = T.MenuComponents.subtitle
@@ -1014,7 +1014,7 @@ function OpenAppearanceMenu(clothingtable, value)
     Title = IsInClothingStore and "Main Menu" or T.MenuAppearance.title
     local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuAppearance.subtitle .. "</span><br><br>"
     local imgPath = "<img style='max-height:532px;max-width:380px; float: center; ' src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         SubTitle = T.MenuAppearance.subtitle
         imgPath = "<img style='max-height:332px;max-width:280px; float: center; ' src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
     end
@@ -1156,7 +1156,7 @@ local AgingTextureTracker = 0
 function OpenAgeMenu(table, value)
     local SubTitle = "<span style='font-size:25px;'>" .. T.MenuAge.subtitle .. "</span><br><br>"
     local MenuSpace = "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>"
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         SubTitle = T.MenuAge.subtitle
         MenuSpace = "<br><br><br><br><br><br><br><br><br><br>"
     end
@@ -1233,7 +1233,7 @@ BodyTracker = 1
 function OpenBodyMenu(table, value)
     local SubTitle = "<span style='font-size:25px;'>" .. T.MenuBody.subtitle .. "</span><br><br>"
 
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         SubTitle = T.MenuBody.subtitle
     end
     MenuData.CloseAll()
@@ -1393,7 +1393,7 @@ end
 function OpenHerritageMenu(table, value)
     local SubTitle = "<span style='font-size:25px;'>" .. T.MenuHeritage.subtitle .. "</span><br><br>"
 
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         SubTitle = T.MenuHeritage.subtitle
     end
     MenuData.CloseAll()
@@ -1517,7 +1517,7 @@ function OpenHairMenu(table, value)
     Title = IsInClothingStore and "Hair Menu" or T.MenuCreation.title
     local SubTitle = "<span style='font-size:25px;'>" .. T.MenuHair.subtitle .. "</span><br><br>"
 
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         SubTitle = T.MenuHair.subtitle
     end
 
@@ -1647,7 +1647,7 @@ function OpenHairSelectionMenu(tablehair, table, label, category, value)
     MenuData.CloseAll()
     local SubTitle = "<span style='font-size:25px;'>" .. T.MenuHairSelection.subtitle .. "</span><br><br>"
 
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         SubTitle = T.MenuHairSelection.subtitle
     end
 
@@ -1789,7 +1789,7 @@ local MakeupOpacityTracker = {}
 function OpenBeardEyebrowMenu(table, opacity1, txt_id, category, index, label, color, value)
     local SubTitle = "<span style='font-size:25px;'>" .. T.MenuBeardEyeBrows.subtitle .. "</span><br><br>"
 
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         SubTitle = T.MenuBeardEyeBrows.subtitle
     end
     MenuData.CloseAll()
@@ -1940,7 +1940,7 @@ function OpenFaceMenu(table, value)
     local SubTitle = "<span style='font-size:25px;'>" .. T.MenuFacial.subtitle .. "</span><br><br>"
     Title = IsInClothingStore and "Face Menu" or T.MenuCreation.title
 
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         SubTitle = T.MenuFacial.subtitle
     end
     MenuData.CloseAll()
@@ -2667,7 +2667,7 @@ function OpenOutfitsMenu(Table, value, Outfits)
 
     local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
 
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         menuSpace = "<br><br>"
     end
 
@@ -2731,7 +2731,7 @@ function OpenOutfitMenu(Table, value, Outfits, Outfit)
 
     local menuSpace = "<br><br><br><br><br><br><br><br><br><br><br>"
 
-    if Resolution.width <= 1920 then
+    if Resolution and Resolution.width <= 1920 then
         menuSpace = "<br><br>"
     end
 

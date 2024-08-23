@@ -19,6 +19,7 @@ Peds                      = {}
 CachedSkin                = {}
 CachedComponents          = {}
 T                         = Translation.Langs[Lang]
+Resolution                = {}
 
 --PROMPTS
 CreateThread(function()
@@ -326,7 +327,8 @@ local fontSize = "18px"
 
 CreateThread(function()
 	Resolution = Core.Graphics.ScreenResolution()
-	if Resolution.width <= 1920 then
+	print("Resolution received")
+	if Resolution and Resolution.width <= 1920 then
 		imgPath = "<img style='max-height:200px;max-width:200px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
 		Divider = "<br>" .. img:format("divider_line")
 		SubTitle = T.MenuCreation.subtitle1
