@@ -280,6 +280,7 @@ function StartSwapCharacters()
 	for key, value in pairs(myChars) do
 		LoadPlayer(value.skin.sex)
 		local data = Config.SpawnPosition[random].positions[key]
+		if not data then return error("your config spawn locations doesnt have enough spawn locations you need to add: " .. #myChars .. "Spawn locations") end
 		data.PedHandler = CreatePed(joaat(value.skin.sex), data.spawn.x, data.spawn.y, data.spawn.z, data.spawn.w, false, false, false, false)
 		repeat Wait(0) until DoesEntityExist(data.PedHandler)
 		LoadCharacterSelect(data.PedHandler, value.skin, value.components)
