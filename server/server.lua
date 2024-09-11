@@ -5,7 +5,7 @@ local random = math.random(1, #Config.SpawnPosition)
 local Core = exports.vorp_core:GetCore()
 
 
-function ConvertTable(comps, compTints)
+local function ConvertTable(comps, compTints)
 	local NewComps = {}
 
 	for k, comp in pairs(comps) do
@@ -23,7 +23,7 @@ function ConvertTable(comps, compTints)
 	return NewComps
 end
 
-function Checkmissingkeys(data, key)
+local function Checkmissingkeys(data, key)
 	local switch = false
 	if key == "skin" then
 		for k, v in pairs(PlayerSkin) do
@@ -72,7 +72,7 @@ local function UpdateDatabase(character)
 	return skin, NewComps
 end
 
-function GetPlayerData(source)
+local function GetPlayerData(source)
 	local User = Core.getUser(source)
 
 	if not User then
@@ -112,7 +112,7 @@ RegisterServerEvent("vorp_CreateNewCharacter", function(source)
 	TriggerClientEvent("vorpcharacter:startCharacterCreator", _source)
 end)
 
-function iniSpawn()
+local function iniSpawn()
    local numSpawns = #Config.SpawnCoords
    if numSpawns == 0 then return print("update config file") end
    local randomIndex = math.random(1, numSpawns) 
