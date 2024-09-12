@@ -35,8 +35,9 @@ Config.SpawnCoords = {
     },
 }
 
-Config.ShowGold = true -- this will show gold next to money in character selection
-Config.showchardesc = true -- set false to not show character description on selction menu 
+Config.ShowGold = false    -- this will show gold next to money in character selection
+
+Config.showchardesc = true -- set false to not show character description on selction menu
 
 Config.Webhook = {
     deleteCharacter = ''
@@ -928,7 +929,7 @@ Config.keys = {
     prompt_create = { key = 0x9959A6F0 },                           -- [ C ]
     prompt_delete = { key = 0x3F4DC0EF },                           -- [ DELETE ]
     prompt_swap = { key = 0xA65EBAB4 },                             -- [ LEFT ARROW ]
-    prompt_select = { key = 0xC7B5340A },                           -- [ NUM ENTER ]
+    prompt_select = { key = 0xCEFD9220 },                           -- [ NUM ENTER ]
     prompt_choose_gender_M = { key = 0xA65EBAB4 },                  -- [ LEFT ARROW  ]
     prompt_choose_gender_F = { key = 0xDEB34313 },                  -- [ RIGHT ARROW ]
     prompt_select_gender = { key = 0xD9D0E1C0 },                    -- [ SPACE ]

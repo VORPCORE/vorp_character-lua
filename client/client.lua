@@ -39,7 +39,7 @@ CreateThread(function()
 
 	str = T.PromptLabels.promptselectConfirm
 	SelectPrompt = UiPromptRegisterBegin()
-	UiPromptSetControlAction(SelectPrompt, 0xDEB34313)
+	UiPromptSetControlAction(SelectPrompt, Config.keys.prompt_select.key)
 	str = VarString(10, 'LITERAL_STRING', str)
 	UiPromptSetText(SelectPrompt, str)
 	UiPromptSetEnabled(SelectPrompt, true)
