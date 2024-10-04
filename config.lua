@@ -936,6 +936,7 @@ Config.keys = {
     prompt_camera_ws = { key = 0x8FD015D8, key2 = 0xD27782E3 },     -- [ W ] and [ S ]
     prompt_camera_rotate = { key = 0x7065027D, key2 = 0xB4E465B4 }, -- [ A ] and [ D ]
     prompt_zoom = { key = 0x8BDE7443, key2 = 0x62800C92 },          -- [ MOUSE SCROLL DOWN ] and [ MOUSE SCROLL UP ]
+    prompt_Back = { key = 0x156F7119 }                              -- [ BACKSPACE ]
 }
 
 Config.commands = {

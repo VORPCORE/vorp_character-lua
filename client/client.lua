@@ -50,7 +50,7 @@ CreateThread(function()
 
 	str = T.PromptLabels.promptback
 	GoBackPrompt = UiPromptRegisterBegin()
-	UiPromptSetControlAction(GoBackPrompt, 0x760A9C6F)
+	UiPromptSetControlAction(GoBackPrompt, Config.keys.prompt_Back.key)
 	str = VarString(10, 'LITERAL_STRING', str)
 	UiPromptSetText(GoBackPrompt, str)
 	UiPromptSetEnabled(GoBackPrompt, true)
