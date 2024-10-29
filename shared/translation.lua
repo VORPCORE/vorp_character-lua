@@ -1937,7 +1937,7 @@ Translation.Langs = {
                 label = "Elegir un apodo",
                 desc = "¿Cómo quieres que te llamen las personas? ¿O bajo qué apodo eres conocido?",
                 desc2 = "Ejemplo: Popcorn Sutton",
-                Nickname = "Apodo",
+                nickname = "Apodo",
 
             },
             charname = "Nombre del personaje",
