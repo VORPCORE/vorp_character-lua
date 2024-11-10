@@ -271,7 +271,7 @@ function StartSwapCharacters()
 		RequestCollisionAtCoord(options.playerpos.x, options.playerpos.y, options.playerpos.z)
 	end
 
-	repeat Wait(0) until HasCollisionLoadedAroundEntity(PlayerPedId()) = 1
+	repeat Wait(0) until HasCollisionLoadedAroundEntity(PlayerPedId()) == 1
 	FreezeEntityPosition(PlayerPedId(), true)
 	SetEntityVisible(PlayerPedId(), false)
 	SetEntityInvincible(PlayerPedId(), true)
