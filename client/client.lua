@@ -734,7 +734,7 @@ AddEventHandler('onResourceStop', function(resourceName)
 		return
 	end
 
-	for _, value in pairs(Peds) do
+	for _, value in ipairs(Peds) do
 		DeleteEntity(value)
 	end
 
@@ -747,7 +747,6 @@ AddEventHandler('onResourceStop', function(resourceName)
 	RemoveImaps()
 	Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
 	MenuData.CloseAll()
-	myChars[selectedChar] = {}
 	DestroyAllCams(true)
 	UiFeedClearChannel(3, true, false)
 	AnimpostfxStopAll()
