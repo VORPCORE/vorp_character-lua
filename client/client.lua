@@ -162,7 +162,7 @@ local function ApplyAllComponents(category, value, ped, set)
 	UpdatePedVariation(ped)
 	IsPedReadyToRender(ped)
 
-	if (value.tint0 ~= 0 or value.tint1 ~= 0 or value.tint2 ~= 0) and value.palette ~= 0 then
+	if value.palette ~= 0 then
 		local TagData = GetMetaPedData(category == "Boots" and "boots" or category, ped)
 		if TagData then
 			local palette = (value.palette ~= 0) and value.palette or TagData.palette
