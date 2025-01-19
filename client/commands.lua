@@ -240,7 +240,7 @@ function ApplyRolledClothingStatus()
 	end
 end
 
-RegisterCommand("rc", function(source, args, rawCommand)
+RegisterCommand(Config.ReloadCharCommand, function(source, args, rawCommand)
 	local __player = PlayerPedId()
 	local hogtied = Citizen.InvokeNative(0x3AA24CCC0D451379, __player)
 	local cuffed = Citizen.InvokeNative(0x74E559B3BC910685, __player)
