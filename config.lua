@@ -11,7 +11,7 @@ Config.BannedNames = { "Arthur", "Marshton", "Shit", "Dick" } --* you can add mo
 
 Config.AllowPlayerDeleteCharacter = true
 
-Config.ReloadCharCommand = "rc"
+Config.ReloadCharCommand = "rc" -- If you change this command, you need to change it here too (client/menu.lua:476)
 
 -- after creating character player will spawn here
 Config.SpawnCoords = {
