@@ -473,7 +473,7 @@ function BackFromMenu(value)
     SetEntityCoords(PlayerPedId(), value.SpawnBack.Position.x, value.SpawnBack.Position.y, value.SpawnBack.Position.z, true, true, true, false)
     SetEntityHeading(PlayerPedId(), value.SpawnBack.Position.w)
     FreezeEntityPosition(PlayerPedId(), false)
-    ExecuteCommand("rc")
+    ExecuteCommand(Config.ReloadCharCommand) -- rc
     Wait(3000)
     SetGameplayCamRelativeHeading(0.0, 1.0)
     ClearPedTasksImmediately(PlayerPedId(), true)
