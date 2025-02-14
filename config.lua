@@ -13,6 +13,9 @@ Config.AllowPlayerDeleteCharacter = true
 
 Config.ReloadCharCommand = "rc"
 
+-- Option to enable/disable the initial RDO intro
+Config.UseInitialAnimScene = true
+
 -- after creating character player will spawn here
 Config.SpawnCoords = {
     { -- BLW

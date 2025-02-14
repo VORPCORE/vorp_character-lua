@@ -44,17 +44,25 @@ local function Setup()
 	repeat Wait(0) until HasCollisionLoadedAroundEntity(PlayerPedId())
 
 	local cam = SetupCameraCharacterCreationSelect()
-	local animscene, peds = SetupAnimscene()
+	local animscene = -1 
+	local peds = {}
 
-	LoadAnimScene(animscene)
-	repeat Wait(0) until Citizen.InvokeNative(0x477122B8D05E7968, animscene)
+	if(Config.UseInitialAnimScene) then
+		animscene, peds = SetupAnimscene()
+		LoadAnimScene(animscene)
+		repeat Wait(0) until Citizen.InvokeNative(0x477122B8D05E7968, animscene)
 
-	StartAnimScene(animscene)
+		StartAnimScene(animscene)
+	else
+		peds = SelectionPeds()
+	end
 
 	DoScreenFadeIn(3000)
 	repeat Wait(0) until IsScreenFadedIn()
 
-	repeat Wait(0) until Citizen.InvokeNative(0xCBFC7725DE6CE2E0, animscene)
+	if (Config.UseInitialAnimScene) then
+		repeat Wait(0) until Citizen.InvokeNative(0xCBFC7725DE6CE2E0, animscene)
+	end
 
 	SetCamParams(cam, vec3(-562.15, -3776.22, 239.11), vec3(-4.71, 0.0, -93.14), 45.0, 0, 1, 1, 2, 1, 1)
 
@@ -92,18 +100,38 @@ local function Setup()
 	UiFeedClearChannel(3, true, false)
 	local ped = peds[char + 1]
 	local gender = IsPedMale(ped) and "Male" or "Female"
-	Citizen.InvokeNative(0xAB5E7CAB074D6B84, animscene, ("Pl_Start_to_Edit_%s"):format(gender))
-	while not (Citizen.InvokeNative(0x3FBC3F51BF12DFBF, animscene, Citizen.ResultAsFloat()) > 0.2) do
-		Citizen.Wait(0)
+
+	
+	
+	if (Config.UseInitialAnimScene) then
+
+		Citizen.InvokeNative(0xAB5E7CAB074D6B84, animscene, ("Pl_Start_to_Edit_%s"):format(gender))
+		while not (Citizen.InvokeNative(0x3FBC3F51BF12DFBF, animscene, Citizen.ResultAsFloat()) > 0.2) do
+			Citizen.Wait(0)
+		end
+	else 
+		ClearPedTasksImmediately(ped)
+		TaskGoStraightToCoord(ped, -558.79, -3780.17, 238.59, 1.0, -1, 183.2, 0)
+		-- set camera to follow the ped for 1 second with a loop that will break after 1 second
+		while true do
+			PointCamAtEntity(cam, ped, 0.0, 0.0, 0.0, true)
+			Wait(0)
+			if GetScriptTaskStatus(ped, 0x7D8F4411, true) == 8 then
+				break
+			end
+		end
 	end
 
 	SetCamParams(cam, vec3(-561.82, -3780.97, 239.08), vec3(-4.21, 0.0, -87.88), 30.0, 0, 1, 1, 2, 1, 1)
 	N_0x11f32bb61b756732(cam, 1.0)
 
-	while not (N_0xd8254cb2c586412b(animscene) == 1) do
-		Citizen.Wait(0)
+	
+	if (Config.UseInitialAnimScene) then
+		while not (N_0xd8254cb2c586412b(animscene) == 1) do
+			Citizen.Wait(0)
+		end
+		Citizen.InvokeNative(0x84EEDB2C6E650000, animscene) -- delete animscene
 	end
-	Citizen.InvokeNative(0x84EEDB2C6E650000, animscene) -- delete animscene
 	RegisterGenderPrompt()
 
 	if gender ~= "Male" then

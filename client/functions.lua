@@ -264,6 +264,27 @@ function SetupAnimscene()
     return animscene, { Male_MP, Female_MP, Sheriff, Deputy }
 end
 
+function SelectionPeds()
+    local fModel = "MP_FEMALE"
+    local mModel = "MP_MALE"
+
+    LoadPlayer(fModel)
+    Female_MP = CreatePed(joaat(fModel), -558.43, -3776.65, 237.7, 93.2, false, true, true, true)
+    TaskStandStill(Female_MP, -1)
+    SetEntityInvincible(Female_MP, true)
+    DefaultPedSetup(Female_MP, false)
+    SetModelAsNoLongerNeeded(fModel)
+
+    LoadPlayer(mModel)
+    Male_MP = CreatePed(joaat(mModel), -558.52, -3775.6, 237.7, 93.2, false, true, true, true)
+    TaskStandStill(Male_MP, -1)
+    SetEntityInvincible(Male_MP, true)
+    DefaultPedSetup(Male_MP, true)
+    SetModelAsNoLongerNeeded(mModel)
+
+    return { Male_MP, Female_MP }
+end
+
 function SetupScenes(string)
     local animscene = CreateAnimScene("script@mp@character_creator@transitions", 0.25, string, false, true)
     SetAnimSceneEntity(animscene, GetGender() .. "_MP", PlayerPedId(), 0)
