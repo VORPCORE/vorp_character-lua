@@ -47,7 +47,7 @@ local function Setup()
 	local animscene = -1 
 	local peds = {}
 
-	if(Config.UseInitialAnimScene) then
+	if Config.UseInitialAnimScene then
 		animscene, peds = SetupAnimscene()
 		LoadAnimScene(animscene)
 		repeat Wait(0) until Citizen.InvokeNative(0x477122B8D05E7968, animscene)
@@ -60,7 +60,7 @@ local function Setup()
 	DoScreenFadeIn(3000)
 	repeat Wait(0) until IsScreenFadedIn()
 
-	if (Config.UseInitialAnimScene) then
+	if Config.UseInitialAnimScene then
 		repeat Wait(0) until Citizen.InvokeNative(0xCBFC7725DE6CE2E0, animscene)
 	end
 
@@ -103,7 +103,7 @@ local function Setup()
 
 	
 	
-	if (Config.UseInitialAnimScene) then
+	if Config.UseInitialAnimScene then
 
 		Citizen.InvokeNative(0xAB5E7CAB074D6B84, animscene, ("Pl_Start_to_Edit_%s"):format(gender))
 		while not (Citizen.InvokeNative(0x3FBC3F51BF12DFBF, animscene, Citizen.ResultAsFloat()) > 0.2) do
@@ -126,7 +126,7 @@ local function Setup()
 	N_0x11f32bb61b756732(cam, 1.0)
 
 	
-	if (Config.UseInitialAnimScene) then
+	if Config.UseInitialAnimScene then
 		while not (N_0xd8254cb2c586412b(animscene) == 1) do
 			Citizen.Wait(0)
 		end
