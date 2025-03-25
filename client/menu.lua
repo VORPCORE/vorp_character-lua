@@ -389,7 +389,7 @@ function OpenCharCreationMenu(clothingtable, value)
                         __CHARNAME = T.MenuCreation.charname .. opacity:format(FirstName .. " " .. LastName) .. imgPath1:format("menu_icon_tick")
                         __DESC = imgPath:format("emote_greet_hey_you") .. "<br>" .. T.MenuCreation.label .. "<br> " .. FirstName .. " " .. LastName .. "<br><br>" .. Divider .. "<br><br>"
                         __VALUE = "save"
-                        __VALUE1 = "not"
+                        __VALUE1 = "name"
                         __LABEL = T.MenuCreation.element4.label
                         menu.setElement(6, "label", __CHARNAME)
                         menu.setElement(6, "value", __VALUE1)
