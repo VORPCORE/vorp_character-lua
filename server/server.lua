@@ -177,8 +177,11 @@ AddEventHandler("vorp_character:server:SpawnUniqueCharacter", function(source)
 	TriggerClientEvent("vorpcharacter:spawnUniqueCharacter", source, userCharacters)
 end)
 
+if Config.DevMode then
+	-- for tests only
+	RegisterServerEvent("vorp_character:server:GoToSelectionMenu")
+end
 
-RegisterServerEvent("vorp_character:server:GoToSelectionMenu")
 AddEventHandler("vorp_character:server:GoToSelectionMenu", function(source)
 	local _source = source
 	if _source == nil then
