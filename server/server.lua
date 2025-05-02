@@ -107,17 +107,18 @@ local function GetPlayerData(source)
 	return userCharacters
 end
 
-RegisterServerEvent("vorp_CreateNewCharacter", function(source)
-	local _source = source
-	TriggerClientEvent("vorpcharacter:startCharacterCreator", _source)
+AddEventHandler("vorp_CreateNewCharacter", function(source)
+	TriggerClientEvent("vorpcharacter:startCharacterCreator", source)
 end)
 
 local function iniSpawn()
-   local numSpawns = #Config.SpawnCoords
-   if numSpawns == 0 then return print("update config file") end
-   local randomIndex = math.random(1, numSpawns) 
-   local selectedSpawn = Config.SpawnCoords[randomIndex] 
-   return selectedSpawn.position, selectedSpawn.heading
+	local numSpawns = #Config.SpawnCoords
+	if numSpawns == 0 then return print("update config file") end
+
+	local randomIndex = math.random(1, numSpawns)
+	local selectedSpawn = Config.SpawnCoords[randomIndex]
+
+	return selectedSpawn.position, selectedSpawn.heading
 end
 
 RegisterServerEvent("vorpcharacter:saveCharacter", function(data)
@@ -126,7 +127,7 @@ RegisterServerEvent("vorpcharacter:saveCharacter", function(data)
 	Wait(600)
 
 	local iniPos, iniHead = iniSpawn()
-	
+
 	TriggerClientEvent("vorp:initCharacter", _source, iniPos, iniHead, false)
 	SetTimeout(3000, function()
 		TriggerEvent("vorp_NewCharacter", _source)
