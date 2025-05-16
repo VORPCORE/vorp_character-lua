@@ -185,7 +185,7 @@ AddEventHandler("vorp_character:server:GoToSelectionMenu", function()
 	local _source = source
 
 	-- dont let player go to selection if he is past selection
-	if Player(_source).state:get("IsInSession") then
+	if Player(_source).state.IsInSession then
 		return
 	end
 
