@@ -178,24 +178,26 @@ AddEventHandler("vorp_character:server:SpawnUniqueCharacter", function(source)
 end)
 
 if Config.DevMode then
-	-- for tests only
 	RegisterServerEvent("vorp_character:server:GoToSelectionMenu")
 end
 
-AddEventHandler("vorp_character:server:GoToSelectionMenu", function(source)
+AddEventHandler("vorp_character:server:GoToSelectionMenu", function()
 	local _source = source
-	if _source == nil then
+
+	-- dont let player go to selection if he is past selection
+	if Player(_source).state:get("IsInSession") then
 		return
 	end
+
 	local UserCharacters = GetPlayerData(_source)
 
 	if not UserCharacters then
 		return
 	end
-	local MaxCharacters = Core.maxCharacters(source)
 
+	local MaxCharacters = Core.maxCharacters(_source)
 	if not MaxCharacters then
-		return print("Update vorp_core")
+		return
 	end
 
 	TriggerClientEvent("vorpcharacter:selectCharacter", _source, UserCharacters, MaxCharacters, random)
@@ -206,7 +208,7 @@ Core.Callback.Register("vorp_characters:getMaxCharacters", function(source, cb)
 	local MaxCharacters = Core.maxCharacters(source)
 
 	if not MaxCharacters then
-		return print("Update vorp_core")
+		return
 	end
 
 	cb(#MaxCharacters)

@@ -243,7 +243,7 @@ function CharSelect()
 	local coords = myChars[selectedChar].coords
 	if not coords.x or not coords.y or not coords.z or not coords.heading then
 		print("No coords found send back to original")
-		coords = Config.SpawnCoords[math.random( #Config.SpawnCoords )].position
+		coords = Config.SpawnCoords[math.random(#Config.SpawnCoords)].position
 	end
 
 	local playerCoords = vector3(tonumber(coords.x), tonumber(coords.y), tonumber(coords.z))
@@ -725,7 +725,7 @@ AddEventHandler('onClientResourceStart', function(resourceName)
 
 	if Config.DevMode then
 		print("^3VORP Character Selector is in ^1DevMode^7 dont use in live servers")
-		TriggerServerEvent("vorp_character:server:GoToSelectionMenu", GetPlayerServerId(PlayerId()))
+		TriggerServerEvent("vorp_character:server:GoToSelectionMenu")
 	end
 end)
 
