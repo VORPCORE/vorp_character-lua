@@ -181,8 +181,9 @@ if Config.DevMode then
 	RegisterServerEvent("vorp_character:server:GoToSelectionMenu")
 end
 
-AddEventHandler("vorp_character:server:GoToSelectionMenu", function()
+AddEventHandler("vorp_character:server:GoToSelectionMenu", function(source)
 	local _source = source
+	if not _source then return end
 
 	-- dont let player go to selection if he is past selection
 	if Player(_source).state.IsInSession then
