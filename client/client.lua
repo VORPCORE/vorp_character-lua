@@ -358,7 +358,7 @@ end
 local function DeleleteSelectedChaacter(menu)
 	local dataConfig = Config.SpawnPosition[random].positions[selectedChar]
 	DeleteEntity(dataConfig.PedHandler)
-	TriggerServerEvent("vorpcharacter:deleteCharacter", myChars[selectedChar].charIdentifier)
+	TriggerServerEvent("vorpcharacter:deleteCharacter", myChars[selectedChar])
 	table.remove(myChars, selectedChar)
 
 	if #myChars == 0 or myChars == nil then
