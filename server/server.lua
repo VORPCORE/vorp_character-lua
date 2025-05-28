@@ -138,10 +138,36 @@ RegisterServerEvent("vorpcharacter:deleteCharacter", function(charid)
 	local _source = source
 	local User = Core.getUser(_source)
 	if User then
+		local Characters = User.getUserCharacters
+		local characterToDelete = nil
+		for _, character in pairs(Characters) do
+			if character.charIdentifier == charid then
+				characterToDelete = character
+				break
+			end
+		end	
+
+		if not characterToDelete then
+			Core.NotifyRightTip(_source, T.DeleteCharacterWebhhok.NotFound, 6000)
+			return print("Character not found for deletion: " .. charid)
+		end
+
+		local description =
+			"Playername : " .. characterToDelete.firstname .. " " .. characterToDelete.lastname
+			.. "\n" ..
+			"Character Age : " .. characterToDelete.age .. "\n" ..
+			"Gender : " .. characterToDelete.gender .. "\n" ..
+			"Character Description : " .. characterToDelete.charDescription .. "\n" ..
+			"Job : " .. characterToDelete.jobLabel .. " Grade : (" .. characterToDelete.jobGrade .. ")\n" ..
+			"Money : " .. characterToDelete.money .. "\n" ..
+			"Gold : " .. characterToDelete.gold .. "\n" ..
+			"Group : " .. characterToDelete.group
+
+		Core.AddWebhook(Logs.DeleteCharacterWebhhok.Title, Logs.WebhookUrl,description,Logs.color,Logs.DeleteCharacterWebhhok.WebhookName,Logs.logo,Logs.footerlogo,Logs.avatar)
 		User.removeCharacter(charid)
+
 	end
 end)
-
 RegisterServerEvent("vorp_CharSelectedCharacter", function(charid)
 	local _source = source
 	local User = Core.getUser(_source)
