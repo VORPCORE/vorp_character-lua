@@ -134,10 +134,17 @@ RegisterServerEvent("vorpcharacter:saveCharacter", function(data)
 	end)
 end)
 
-RegisterServerEvent("vorpcharacter:deleteCharacter", function(charid)
+RegisterServerEvent("vorpcharacter:deleteCharacter", function(selectedChar)
 	local _source = source
 	local User = Core.getUser(_source)
 	if User then
+		local charid = selectedChar.charIdentifier
+		local SteamName = GetPlayerName(_source)
+		local SteamId = GetPlayerIdentifiers(_source)[1]
+		local description = "SteamID : " .. SteamId .. "\n" .. "Steam Name : " .. SteamName .. "\n" ..
+			"Playername : " .. selectedChar.firstname .. " " .. selectedChar.lastname .. "\n" .. "Character Description : " ..
+			selectedChar.charDesc
+		Core.AddWebhook(Logs.DeleteCharacterWebhhok.Title, Logs.WebhookUrl, description, Logs.color, Logs.DeleteCharacterWebhhok.WebhookName, Logs.logo, Logs.footerlogo, Logs.avatar)
 		User.removeCharacter(charid)
 	end
 end)
