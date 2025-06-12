@@ -1,5 +1,5 @@
-MetaPedCategoryTags = {
-    maleTags = {
+local metaPedCategoryTags = {
+    Tags = {
         [`accessories`]         = "Accessories",
         [`ammo_pistols`]        = "ammo_pistols",
         [`ammo_rifles`]         = "ammo_rifles",
@@ -58,67 +58,6 @@ MetaPedCategoryTags = {
         [`vests`]               = "Vest",
         [`wrist_bindings`]      = "wrist_bindings",
     },
-
-    femaleTags = {
-        [`accessories`]         = "Accessories",
-        [`ammo_pistols`]        = "ammo_pistols",
-        [`ammo_rifles`]         = "ammo_rifles",
-        [`ankle_bindings`]      = "ankle_bindings",
-        [`aprons`]              = "aprons",
-        [`armor`]               = "Armor",
-        [`badges`]              = "Badge",
-        [`beards_chin`]         = "beards_chin",
-        [`beards_chops`]        = "beards_chops",
-        [`beards_complete`]     = "beards_complete",
-        [`beards_mustache`]     = "beards_mustache",
-        [`belts`]               = "Belts",
-        [`belt_buckles`]        = "Buckle",
-        [`bodies_lower`]        = "Boots",
-        [`bodies_upper`]        = "bodies_upper",
-        [`boots`]               = "boots",
-        [`boot_accessories`]    = "Spurs",
-        [`chaps`]               = "Chap",
-        [`cloaks`]              = "Cloak",
-        [`coats`]               = "Coat",
-        [`coats_closed`]        = "CoatClosed",
-        [`coats_heavy`]         = "coats_heavy",
-        [`dresses`]             = "Dress",
-        [`eyebrows`]            = "eyebrows",
-        [`eyes`]                = "eyes",
-        [`eyewear`]             = "EyeWear",
-        [`gauntlets`]           = "Gauntlets",
-        [`gloves`]              = "Glove",
-        [`gunbelt_accs`]        = "GunbeltAccs",
-        [`gunbelts`]            = "Gunbelt",
-        [`hair`]                = "hair",
-        [`hair_accessories`]    = "hair_accessories",
-        [`hats`]                = "Hat",
-        [`heads`]               = "heads",
-        [`holsters_crossdraw`]  = "holsters_crossdraw",
-        [`holsters_knife`]      = "holsters_knife",
-        [`holsters_left`]       = "Holster",
-        [`holsters_right`]      = "holsters_right",
-        [`jewelry_bracelets`]   = "Vracelet",
-        [`jewelry_rings_left`]  = "RingLh",
-        [`jewelry_rings_right`] = "RingRh",
-        [`loadouts`]            = "Loadouts",
-        [`masks`]               = "Mask",
-        [`masks_large`]         = "masks_large",
-        [`neckties`]            = "NeckTies",
-        [`neckwear`]            = "NeckWear",
-        [`outfits`]             = "outfits",
-        [`pants`]               = "Pant",
-        [`ponchos`]             = "Poncho",
-        [`satchels`]            = "Satchels",
-        [`shirts_full`]         = "Shirt",
-        [`skirts`]              = "Skirt",
-        [`spats`]               = "Spats",
-        [`suspenders`]          = "Suspenders",
-        [`teeth`]               = "teeth",
-        [`vests`]               = "Vest",
-        [`wrist_bindings`]      = "wrist_bindings",
-    },
-
 }
 
 function IsPedReadyToRender(ped)
@@ -212,7 +151,7 @@ end
 function RemoveSpecifiedCompByCategory(comp)
     if comp.remove then
         for k, v in ipairs(comp.remove) do
-            RemoveTagFromMetaPed(Config.HashList[v])
+            RemoveTagFromMetaPed(Config.ComponentCategories[v])
             UpdatePedVariation()
         end
     end
@@ -222,7 +161,7 @@ end
 function RemoveCompsCantWearTogether(category)
     if category == "Coat" then
         if PlayerClothing.CoatClosed.comp ~= -1 then
-            RemoveTagFromMetaPed(Config.HashList.CoatClosed)
+            RemoveTagFromMetaPed(Config.ComponentCategories.CoatClosed)
             PlayerClothing.CoatClosed.comp = -1
         end
         return
@@ -230,7 +169,7 @@ function RemoveCompsCantWearTogether(category)
 
     if category == "Cloak" then
         if PlayerClothing.Poncho.comp ~= -1 then
-            RemoveTagFromMetaPed(Config.HashList.Poncho)
+            RemoveTagFromMetaPed(Config.ComponentCategories.Poncho)
             PlayerClothing.Poncho.comp = -1
         end
         return
@@ -238,7 +177,7 @@ function RemoveCompsCantWearTogether(category)
 
     if category == "Poncho" then
         if PlayerClothing.Cloak.comp ~= -1 then
-            RemoveTagFromMetaPed(Config.HashList.Cloak)
+            RemoveTagFromMetaPed(Config.ComponentCategories.Cloak)
             PlayerClothing.Cloak.comp = -1
         end
         return
@@ -246,31 +185,30 @@ function RemoveCompsCantWearTogether(category)
 
     if category == "CoatClosed" then
         if PlayerClothing.Coat.comp ~= -1 then
-            RemoveTagFromMetaPed(Config.HashList.Coat)
+            RemoveTagFromMetaPed(Config.ComponentCategories.Coat)
             PlayerClothing.Coat.comp = -1
         end
         if PlayerClothing.Vest.comp ~= -1 then
-            RemoveTagFromMetaPed(Config.HashList.Vest)
+            RemoveTagFromMetaPed(Config.ComponentCategories.Vest)
             PlayerClothing.Vest.comp = -1
         end
         return
     end
 
     if category == "Pant" and GetGender() == "Female" and PlayerClothing.Skirt.comp ~= -1 then
-        RemoveTagFromMetaPed(Config.HashList.Skirt)
+        RemoveTagFromMetaPed(Config.ComponentCategories.Skirt)
         PlayerClothing.Skirt.comp = -1
         return
     end
 
     if category == "Skirt" and GetGender() == "Female" and PlayerClothing.Pant.comp ~= -1 then
-        RemoveTagFromMetaPed(Config.HashList.Pant)
+        RemoveTagFromMetaPed(Config.ComponentCategories.Pant)
         PlayerClothing.Pant.comp = -1
     end
 end
 
 function GetComponentsWithWearableState(category, isMultiplayer)
     local ped = PlayerPedId()
-    local isPedMale = IsPedMale(ped)
     local numComponents = GetNumComponentsInPed(ped)
     if not numComponents or numComponents < 1 then
         return `base`, nil
@@ -278,7 +216,7 @@ function GetComponentsWithWearableState(category, isMultiplayer)
     for componentIndex = 0, numComponents - 1, 1 do
         local componentHash = GetComponentAtIndex(ped, componentIndex, isMultiplayer)
         local componentCategory = GetCategoryOfComponentAtIndex(ped, componentIndex)
-        if componentHash ~= 0 and MetaPedCategoryTags[isPedMale and "maleTags" or "femaleTags"][componentCategory] == category then
+        if componentHash ~= 0 and metaPedCategoryTags.Tags[componentCategory] == category then
             local wearableStates = `base`
             return wearableStates, componentHash
         end
@@ -289,12 +227,10 @@ end
 
 function GetComponentIndexByCategory(ped, category)
     ped = ped or PlayerPedId()
-    local isPedMale = IsPedMale(ped)
-
     local numComponents = GetNumComponentsInPed(ped)
     for i = 0, numComponents - 1, 1 do
         local componentCategory = GetCategoryOfComponentAtIndex(ped, i)
-        if MetaPedCategoryTags[isPedMale and "maleTags" or "femaleTags"][componentCategory] == category then
+        if metaPedCategoryTags.Tags[componentCategory] == category then
             return i
         end
     end

@@ -1,20 +1,30 @@
-Config = {}
-
-Config.DevMode = false
-Config.Align = "top-left" -- menu
-
 -- check translation file to see if your language is available or add it.
 Lang = "English"
+
+Config = {}
+
+Config.DevMode = false     -- if true you can restart script without having to restart the server
+
+Config.Align = "top-left" -- menu position
 
 --* when player choosing a name  make sure it doesn't contain any of the words in the list below
 Config.BannedNames = { "Arthur", "Marshton", "Shit", "Dick" } --* you can add more words
 
+-- allow player to delete character
 Config.AllowPlayerDeleteCharacter = true
 
+-- command to reload character
 Config.ReloadCharCommand = "rc"
 
 -- Option to enable/disable the initial RDO intro
 Config.UseInitialAnimScene = true
+
+-- this will show gold next to money in character selection
+Config.ShowGold = false
+
+-- set false to not show character description on selction menu
+Config.showchardesc = true
+
 
 -- after creating character player will spawn here
 Config.SpawnCoords = {
@@ -40,13 +50,7 @@ Config.SpawnCoords = {
     },
 }
 
-Config.ShowGold = false    -- this will show gold next to money in character selection
 
-Config.showchardesc = true -- set false to not show character description on selction menu
-
-Config.Webhook = {
-    deleteCharacter = ''
-}
 -- in here you can add multiple checks from other script to prevent players from using Rc command
 Config.CanRunReload = function()
     -- callback ?
@@ -56,7 +60,7 @@ end
 
 -- * PLAYER SELECTION MENU * --
 -- loactions will be random each restart
--- max characters in vorp core will have to match the number of positions
+-- max characters in vorp core will have to match the number of positions in here
 Config.SpawnPosition = {
     -- Vanhorn
     {
@@ -974,195 +978,358 @@ Config.commands = {
     Belt = { command = "belt" },
     Holster = { command = "holster" },
     Suspender = { command = "suspender" },
-    armor = { command = "armor" },
+    Armor = { command = "armor" },
     Gunbelt = { command = "gunbelt" },
 }
 
 
 Config.DefaultChar = {
-    Male = {
-        {
-            label = "White fella", -- change label only
-            imgColor = "white",    -- change img only
-            Heads = { "A0BE4A7B", "1E78F6D", "27A4DC22", "5E9A394D", "7BE9E352", "7D7AA347", "839997EF", "84F3E485",
-                "876B1FAE", "8BC1469D", "9324DB9E", "970F3409", "A11747C5", "CA6DABEE",
-                "DC8DA4BA", "DFBFB8F4", "ED8EDA8E", "E79A7372", "E78826B1", "F0FB1DF0", },
-            Body = { "206061DB", "16E292A1", "206061DB", "4AEEDD87", "4BD8F4A1", "BA59624D", "F6496128" },
-            Legs = { "84BAA309", "8AD16414", "A615E02", "E4B584D5", "F11CF1FA", "F2EA7BDE" },
-            HeadTexture = { "mp_head_mr1_sc08_c0_000_ab" },
+    {
+        label = "White",    -- change label only
+        imgColor = "skin1", -- change img only
+        Heads = {
+            "CLOTHING_ITEM_%s_HEAD_001_V_001",
+            "CLOTHING_ITEM_%s_HEAD_002_V_001",
+            "CLOTHING_ITEM_%s_HEAD_003_V_001",
+            "CLOTHING_ITEM_%s_HEAD_004_V_001",
+            "CLOTHING_ITEM_%s_HEAD_005_V_001",
+            "CLOTHING_ITEM_%s_HEAD_006_V_001",
+            "CLOTHING_ITEM_%s_HEAD_007_V_001",
+            "CLOTHING_ITEM_%s_HEAD_008_V_001",
+            "CLOTHING_ITEM_%s_HEAD_009_V_001",
+            "CLOTHING_ITEM_%s_HEAD_010_V_001",
+            "CLOTHING_ITEM_%s_HEAD_011_V_001",
+            "CLOTHING_ITEM_%s_HEAD_012_V_001",
+            "CLOTHING_ITEM_%s_HEAD_013_V_001",
+            "CLOTHING_ITEM_%s_HEAD_014_V_001",
+            "CLOTHING_ITEM_%s_HEAD_015_V_001",
+            "CLOTHING_ITEM_%s_HEAD_018_V_001",
+            "CLOTHING_ITEM_%s_HEAD_021_V_001",
+            "CLOTHING_ITEM_%s_HEAD_022_V_001",
+            "CLOTHING_ITEM_%s_HEAD_025_V_001",
+            "CLOTHING_ITEM_%s_HEAD_028_V_001"
         },
-        {
-            label = "Mexican",
-            imgColor = "white2",
-            Heads = { "3625908B", "40365810", "613CF195", "66B5DE24", "7AFEF216", "8574F682", "91417D14",
-                "93C69313", "9D604053", "A23ED555", "AC2963F2", "C1130197", "C55F46B9", "CF482B6A", "D89ED98E",
-                "D879AA64", "E4FF6111",
-                "F4696EBC", "D3D6DD59", "F3CE707E", },
-            Body = { "3825D527", "5A929214", "82F14D87", "99E82863", "DF522C3A" },
-            Legs = { "15ACBB1D", "97596A2A", "EA27EDE2", "F91940A6", "9EE7070B", "D7F34979" },
-            HeadTexture = { "mp_head_mr1_sc02_c0_000_ab" },
+        Body = {
+            "CLOTHING_ITEM_%s_BODIES_UPPER_001_V_001",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_002_V_001",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_003_V_001",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_004_V_001",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_005_V_001",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_006_V_001"
         },
-        {
-            label = "Asian",
-            imgColor = "white3",
-            Heads = { "158CB7F2", "36739C03", "48133466", "4E11220E", "68C7CDA8", "6DF5043C", "6EF1C97C",
-                "771A7EE9", "7B035098", "89556A4D", "9DD7C74F", "A156BC1F", "AFCDE52E", "C6077794",
-                "DD95F0D7", "4BCC286D", "D7506A9B", "D1B722DF",
-                "D7CDC6AE", "E718D713", },
-            Body = { "465F719A", "6D582255", "8CC97681", "B0D24F3F" },
-            Legs = { "47FE9FC0", "64F9856B", "B0F62B29", "ACAE409" },
-            HeadTexture = { "mp_head_mr1_sc03_c0_000_ab" },
-        },
-        {
-            label = "Native Dark",
-            imgColor = "brown",
-            Heads = { "4C5C14D1", "2BADE2F9", "32E0BD65", "51EE52F8", "53361205", "7150F35A", "7320223C",
-                "8036DB0B", "8239BA1C", "4DAD06D9", "93C8CFE3", "B0B07238", "BC310F75", "B9C497C7",
-                "C00E8CF7", "C2978B19", "FEC87D01", "89601857", "FEB1F6D4", "936FAFDE", },
-            Body = { "34C3B131", "5C1686B", "8C9686C8", "BF787383" },
-            Legs = { "F5E0272A", "B897BFA0", "C17616E", "73710076", "B897BFA0" },
-            HeadTexture = { "MP_head_fr1_sc01_c0_000_ab" },
-        },
-        {
-            label = "Native",
-            imgColor = "brown2",
-            Heads = { "1EF1D4F5", "20BEAD17", "17E48A5C", "1D1391CB", "3E1D8D10", "41FB09E2", "421209B8",
-                "44C938AE", "465D3511", "48531C43", "5A5A4569", "69A6DC4D", "87198A9F", "8C099185",
-                "9AD0D9E0",
-                "9B593624", "A9918F1E", "AF4B1442", "E2BED257", "F769DA58", },
-            Body = { "4824ED39", "3B6F503", "5EA984F8", "B4485D23", "6BB6BC48" },
-            Legs = { "D3A7708B", "5B835093", "DDF48A5D", "35D1FB67" },
-            HeadTexture = { "mp_head_mr1_sc04_c0_000_ab" },
-        },
-        {
-            label = "African",
-            imgColor = "black",
-            Heads = { "101E374E", "47A369D9", "48A3A1FC", "4C55A1AB", "5248AA25", "52CC549C", "54CED1F4",
-                "6817A7D2", "6B50E776", "729570C7", "8B921D0F", "9BE9739A", "9CCAB601", "A0D12D3E", "A9A2BECB",
-                "AC877D4D", "BB432C32",
-                "B6316BD4", "BF97F8A1", "FAEAC26", },
-            Body = { "69B6305B", "BA09D8ED", "C8EA5978", "CD7F8895" },
-            Legs = { "52CC3F25", "6577142C", "6CBCE93C", "887C4C70", "EF9D2DAE" },
-            HeadTexture = { "mp_head_fr1_sc05_c0_000_ab" },
+        Legs = {
+            "CLOTHING_ITEM_%s_BODIES_LOWER_001_V_001",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_002_V_001",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_003_V_001",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_004_V_001",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_005_V_001",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_006_V_001"
         },
 
+        Albedo = {
+            "MP_HEAD_%sR1_SC08_C0_000_AB"
+        },
     },
-    Female = {
-        {
-            label = "White",
-            imgColor = "", --todo
-            Heads = { "76ACA91E", "30378AB3", "478C7817", "6D06466A", "772F8047", "7C1A194E", "87311A4B",
-                "18665C91", "1B15AE7A", "20F6540D", "F8332625", "ED123FBD", "EBCEE04E", "C28AB791", "BBD7BFC",
-                "B3BA8C05", "A661B163", "AAC2D8A9", "9D251F06", "945686CF" },
-            Body = { "489AFE52", "64181923", "8DCF7A49", "928DAD43", "B1D3B3A", "D878696D" },
-            Legs = { "11A244CC", "3B653032", "41021120", "A0736DA7", "C3BFA017", "F0CD92EC" },
-            HeadTexture = { "mp_head_fr1_sc08_c0_000_ab" },
+    {
+        label = "Native Dark",
+        imgColor = "skin2",
+        Heads = {
+            "CLOTHING_ITEM_%s_HEAD_001_V_002",
+            "CLOTHING_ITEM_%s_HEAD_002_V_002",
+            "CLOTHING_ITEM_%s_HEAD_003_V_002",
+            "CLOTHING_ITEM_%s_HEAD_004_V_002",
+            "CLOTHING_ITEM_%s_HEAD_005_V_002",
+            "CLOTHING_ITEM_%s_HEAD_006_V_002",
+            "CLOTHING_ITEM_%s_HEAD_007_V_002",
+            "CLOTHING_ITEM_%s_HEAD_008_V_002",
+            "CLOTHING_ITEM_%s_HEAD_009_V_002",
+            "CLOTHING_ITEM_%s_HEAD_010_V_002",
+            "CLOTHING_ITEM_%s_HEAD_011_V_002",
+            "CLOTHING_ITEM_%s_HEAD_012_V_002",
+            "CLOTHING_ITEM_%s_HEAD_013_V_002",
+            "CLOTHING_ITEM_%s_HEAD_014_V_002",
+            "CLOTHING_ITEM_%s_HEAD_015_V_002",
+            "CLOTHING_ITEM_%s_HEAD_018_V_002",
+            "CLOTHING_ITEM_%s_HEAD_021_V_002",
+            "CLOTHING_ITEM_%s_HEAD_022_V_002",
+            "CLOTHING_ITEM_%s_HEAD_025_V_002",
+            "CLOTHING_ITEM_%s_HEAD_028_V_002",
         },
-        {
-            label = "Mexican",
-            imgColor = "",
-            Heads = { "1C851DA8", "2E1791E1", "477D749A", "62534D55", "6D8686E8", "87371192", "886DB564",
-                "8A1E0CED", "FEA98F74", "E64076CE", "E6377EEA", "E4EE32DC", "CDDA79D6", "C9677F2B", "BBF9DC7A",
-                "C2E3978", "BB8088E4", "B00FC4DB", "A2B1D14C", "B240A051" },
-            Body = { "8002D0F8", "6C25B6F6", "8223BCC5", "2BE27CC4", "C1CF0BC1" },
-            Legs = { "18916A9B", "4D38CBC5", "98975DF3", "DC1AD9D2", "E74007F9" },
-            HeadTexture = { "mp_head_fr1_sc02_c0_000_ab" },
+        Body = {
+            "CLOTHING_ITEM_%s_BODIES_UPPER_001_V_002",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_002_V_002",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_003_V_002",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_004_V_002",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_005_V_002",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_006_V_002",
         },
-        {
-            label = "Asian",
-            imgColor = "",
-            Heads = { "1E6FDDFB", "30B5C9FA", "43857351", "50A1A9F2", "5A274672", "6369FC85", "65A5CE70",
-                "6DCBE781", "E23268F4", "D406DA89", "D47BD345", "DEE3A266", "D3949F79",
-                "C93AA458", "C9D5F867", "C6B7F1F6", "AAB53384", "A4372E08", "98B8DD4C", "47BC4C6", },
-            Body = { "2C4FE0C5", "3708268F", "7145337D", "79D35251", "B2850A03" },
-            Legs = { "3E152D7E", "C9903FE8", "CC543A45", "24CF58B7", "1684BC22" },
-            HeadTexture = { "mp_head_fr1_sc03_c0_000_ab" },
+        Legs = {
+            "CLOTHING_ITEM_%s_BODIES_LOWER_001_V_002",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_002_V_002",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_003_V_002",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_004_V_002",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_005_V_002",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_006_V_002",
         },
-        {
-            label = "African",
-            imgColor = "",
-            Heads = { "11567C3", "1D896D8D", "24452D0B", "34FC0B13", "43F08B06", "53B5B98F", "5DC6A042",
-                "5F192A74", "7F2AAA30", "89B0F7FE", "E72483EC", "CC66815D", "C65BEAD1", "B3F26095",
-                "AB545F5A", "9D3F64C1",
-                "9B4BDB4C", "9409E68", "93DA499", "E8E50D99" },
-            Body = { "5B4E1547", "58D8EA30", "87363366", "D0C5A9AE", "DC86C81" },
-            Legs = { "CEAB4EC0", "DBE4E491", "5B4E1547", "F9609455", "3DBEB4BD" },
-            HeadTexture = { "mp_head_fr1_sc05_c0_000_ab" },
+
+        Albedo = { "MP_HEAD_%sR1_SC01_C0_000_AB" },
+    },
+    {
+
+        label = "Mexican",
+        imgColor = "skin3",
+        Heads = {
+            "CLOTHING_ITEM_%s_HEAD_001_V_003",
+            "CLOTHING_ITEM_%s_HEAD_002_V_003",
+            "CLOTHING_ITEM_%s_HEAD_003_V_003",
+            "CLOTHING_ITEM_%s_HEAD_004_V_003",
+            "CLOTHING_ITEM_%s_HEAD_005_V_003",
+            "CLOTHING_ITEM_%s_HEAD_006_V_003",
+            "CLOTHING_ITEM_%s_HEAD_007_V_003",
+            "CLOTHING_ITEM_%s_HEAD_008_V_003",
+            "CLOTHING_ITEM_%s_HEAD_009_V_003",
+            "CLOTHING_ITEM_%s_HEAD_010_V_003",
+            "CLOTHING_ITEM_%s_HEAD_011_V_003",
+            "CLOTHING_ITEM_%s_HEAD_012_V_003",
+            "CLOTHING_ITEM_%s_HEAD_013_V_003",
+            "CLOTHING_ITEM_%s_HEAD_014_V_003",
+            "CLOTHING_ITEM_%s_HEAD_015_V_003",
+            "CLOTHING_ITEM_%s_HEAD_018_V_003",
+            "CLOTHING_ITEM_%s_HEAD_021_V_003",
+            "CLOTHING_ITEM_%s_HEAD_022_V_003",
+            "CLOTHING_ITEM_%s_HEAD_025_V_003",
+            "CLOTHING_ITEM_%s_HEAD_028_V_003",
         },
-        {
-            label = "Native",
-            imgColor = "",
-            Heads = { "2AE6E5C", "4A52F943", "50882CFA", "", "65F9F637", "6A0AB89D", "8E53BDC1",
-                "F7AC67A8", "E6648288", "E25DCD6C", "CDC2BD9", "C71039E6", "BFAFA3EF", "B8F8F515",
-                "B2155087", "ADD7ED93", "B059132E", "A6F0329C", "11F10982", "DB4094A2", "C770CAA5", },
-            Body = { "80DB09DE", "93925FA2", "94778799", "56617DB6", "E36416C" },
-            Legs = { "31BE7295", "71821457", "9D6CD26", "A29CE6D7", "A65CF97E" },
-            HeadTexture = { "mp_head_fr1_sc01_c0_000_ab" },
+        Body = {
+            "CLOTHING_ITEM_%s_BODIES_UPPER_001_V_003",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_002_V_003",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_003_V_003",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_004_V_003",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_005_V_003",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_006_V_003",
         },
-        {
-            label = "Native",
-            imgColor = "",
-            Heads = {
-                "11F69034", "169B95C6", "1C32EE08", "22B4E685", "3129C6F1", "3C7D04E4",
-                "40E72684", "75AF6E83", "8A7F3F41", "8CD1ABC6", "544D8D50", "F70CFFFC", "E6F8006B", "E1D23BF4",
-                "D150CE67", "B57F73B0",
-                "986F1565", "9C879729", "16C5E95A", "93F68D87", },
-            Body = { "35A7C9FB", "1B088705", "A1AEFBDB", "E28C4D3B", "C05A25AD" },
-            Legs = { "27B700C2", "4BA188D", "AAD70276", "EDE17D5F", "F4F5A364" },
-            HeadTexture = { "mp_head_fr1_sc04_c0_000_ab" },
-        }
-    }
+        Legs = {
+            "CLOTHING_ITEM_%s_BODIES_LOWER_001_V_003",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_002_V_003",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_003_V_003",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_004_V_003",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_005_V_003",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_006_V_003",
+        },
+
+        Albedo = { "MP_HEAD_%sR1_SC02_C0_000_AB" },
+    },
+    {
+
+        label = "Asian",
+        imgColor = "skin4",
+        Heads = {
+            "CLOTHING_ITEM_%s_HEAD_001_V_004",
+            "CLOTHING_ITEM_%s_HEAD_002_V_004",
+            "CLOTHING_ITEM_%s_HEAD_003_V_004",
+            "CLOTHING_ITEM_%s_HEAD_004_V_004",
+            "CLOTHING_ITEM_%s_HEAD_005_V_004",
+            "CLOTHING_ITEM_%s_HEAD_006_V_004",
+            "CLOTHING_ITEM_%s_HEAD_007_V_004",
+            "CLOTHING_ITEM_%s_HEAD_008_V_004",
+            "CLOTHING_ITEM_%s_HEAD_009_V_004",
+            "CLOTHING_ITEM_%s_HEAD_010_V_004",
+            "CLOTHING_ITEM_%s_HEAD_011_V_004",
+            "CLOTHING_ITEM_%s_HEAD_012_V_004",
+            "CLOTHING_ITEM_%s_HEAD_013_V_004",
+            "CLOTHING_ITEM_%s_HEAD_014_V_004",
+            "CLOTHING_ITEM_%s_HEAD_015_V_004",
+            "CLOTHING_ITEM_%s_HEAD_018_V_004",
+            "CLOTHING_ITEM_%s_HEAD_021_V_004",
+            "CLOTHING_ITEM_%s_HEAD_022_V_004",
+            "CLOTHING_ITEM_%s_HEAD_025_V_004",
+            "CLOTHING_ITEM_%s_HEAD_028_V_004",
+        },
+        Body = {
+            "CLOTHING_ITEM_%s_BODIES_UPPER_001_V_004",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_002_V_004",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_003_V_004",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_004_V_004",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_005_V_004",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_006_V_004",
+        },
+        Legs = {
+            "CLOTHING_ITEM_%s_BODIES_LOWER_001_V_004",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_002_V_004",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_003_V_004",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_004_V_004",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_005_V_004",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_006_V_004",
+        },
+
+        Albedo = { "MP_HEAD_%sR1_SC03_C0_000_AB" },
+    },
+    {
+        label = "Native",
+        imgColor = "skin5",
+        Heads = {
+            "CLOTHING_ITEM_%s_HEAD_001_V_005",
+            "CLOTHING_ITEM_%s_HEAD_002_V_005",
+            "CLOTHING_ITEM_%s_HEAD_003_V_005",
+            "CLOTHING_ITEM_%s_HEAD_004_V_005",
+            "CLOTHING_ITEM_%s_HEAD_005_V_005",
+            "CLOTHING_ITEM_%s_HEAD_006_V_005",
+            "CLOTHING_ITEM_%s_HEAD_007_V_005",
+            "CLOTHING_ITEM_%s_HEAD_008_V_005",
+            "CLOTHING_ITEM_%s_HEAD_009_V_005",
+            "CLOTHING_ITEM_%s_HEAD_010_V_005",
+            "CLOTHING_ITEM_%s_HEAD_011_V_005",
+            "CLOTHING_ITEM_%s_HEAD_012_V_005",
+            "CLOTHING_ITEM_%s_HEAD_013_V_005",
+            "CLOTHING_ITEM_%s_HEAD_014_V_005",
+            "CLOTHING_ITEM_%s_HEAD_015_V_005",
+            "CLOTHING_ITEM_%s_HEAD_018_V_005",
+            "CLOTHING_ITEM_%s_HEAD_021_V_005",
+            "CLOTHING_ITEM_%s_HEAD_022_V_005",
+            "CLOTHING_ITEM_%s_HEAD_025_V_005",
+            "CLOTHING_ITEM_%s_HEAD_028_V_005",
+        },
+        Body = {
+            "CLOTHING_ITEM_%s_BODIES_UPPER_001_V_005",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_002_V_005",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_003_V_005",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_004_V_005",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_005_V_005",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_006_V_005",
+        },
+        Legs = {
+            "CLOTHING_ITEM_%s_BODIES_LOWER_001_V_005",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_002_V_005",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_003_V_005",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_004_V_005",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_005_V_005",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_006_V_005",
+        },
+
+        Albedo = { "MP_HEAD_%sR1_SC04_C0_000_AB" },
+    },
+    {
+        label = "African",
+        imgColor = "skin6",
+        Heads = {
+            "CLOTHING_ITEM_%s_HEAD_001_V_006",
+            "CLOTHING_ITEM_%s_HEAD_002_V_006",
+            "CLOTHING_ITEM_%s_HEAD_003_V_006",
+            "CLOTHING_ITEM_%s_HEAD_004_V_006",
+            "CLOTHING_ITEM_%s_HEAD_005_V_006",
+            "CLOTHING_ITEM_%s_HEAD_006_V_006",
+            "CLOTHING_ITEM_%s_HEAD_007_V_006",
+            "CLOTHING_ITEM_%s_HEAD_008_V_006",
+            "CLOTHING_ITEM_%s_HEAD_009_V_006",
+            "CLOTHING_ITEM_%s_HEAD_010_V_006",
+            "CLOTHING_ITEM_%s_HEAD_011_V_006",
+            "CLOTHING_ITEM_%s_HEAD_012_V_006",
+            "CLOTHING_ITEM_%s_HEAD_013_V_006",
+            "CLOTHING_ITEM_%s_HEAD_014_V_006",
+            "CLOTHING_ITEM_%s_HEAD_015_V_006",
+            "CLOTHING_ITEM_%s_HEAD_018_V_006",
+            "CLOTHING_ITEM_%s_HEAD_021_V_006",
+            "CLOTHING_ITEM_%s_HEAD_022_V_006",
+            "CLOTHING_ITEM_%s_HEAD_025_V_006",
+            "CLOTHING_ITEM_%s_HEAD_028_V_006",
+        },
+        Body = {
+            "CLOTHING_ITEM_%s_BODIES_UPPER_001_V_006",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_002_V_006",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_003_V_006",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_004_V_006",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_005_V_006",
+            "CLOTHING_ITEM_%s_BODIES_UPPER_006_V_006",
+        },
+        Legs = {
+            "CLOTHING_ITEM_%s_BODIES_LOWER_001_V_006",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_002_V_006",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_003_V_006",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_004_V_006",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_005_V_006",
+            "CLOTHING_ITEM_%s_BODIES_LOWER_006_V_006",
+        },
+
+        Albedo = { "MP_HEAD_%sR1_SC05_C0_000_AB" },
+    },
+
+
 }
+
+--[[ ALBEDOS
+
+      NORMALS
+      --male
+      GetHashKey('mp_head_mr1_008_nm'), // 0
+      GetHashKey('mp_head_mr1_001_nm'), // 1
+      GetHashKey('mp_head_mr1_002_nm'), // 2
+      GetHashKey('mp_head_mr1_003_nm'), // 3
+      GetHashKey('mp_head_mr1_004_nm'), // 4
+      GetHashKey('mp_head_mr1_005_nm'), // 5
+
+      --female
+      GetHashKey('mp_head_fr1_008_nm'), // 0
+      GetHashKey('mp_head_fr1_001_nm'), // 1
+      GetHashKey('mp_head_fr1_002_nm'), // 2
+      GetHashKey('mp_head_fr1_003_nm'), // 3
+      GetHashKey('mp_head_fr1_004_nm'), // 4
+      GetHashKey('mp_head_fr1_005_nm'), // 5
+
+]]
 
 Config.texture_types = {
     Male = {
-        albedo = joaat("head_fr1_sc08_soft_c0_001_ab"),
-        normal = joaat("mp_head_mr1_000_nm"),
-        material = 0x50A4BBA9,
+        albedo = joaat("mp_head_mr1_sc08_c0_000_ab"),
+        normal = joaat("mp_head_mr1_008_nm"),
+        material = joaat("mp_head_mr1_000_m"),
         color_type = 1,
         texture_opacity = 1.0,
         unk_arg = 0,
     },
     Female = {
         albedo = joaat("mp_head_fr1_sc08_c0_000_ab"),
-        normal = joaat("head_fr1_mp_002_nm"),
-        material = 0x7FC5B1E1,
+        normal = joaat("mp_head_fr1_008_nm"),
+        material = joaat("mp_head_fr1_000_m"),
         color_type = 1,
         texture_opacity = 1.0,
         unk_arg = 0,
     }
 }
 
--- you can choose the color you want people to use by removing it from each category for example grime you dont want people to use pink
-Config.color_palettes = {
-    eyebrows = {
-        0x3F6E70FF, -- black
-        0x0105607B, -- grey
-        0x17CBCC83, -- red
-        0x29F81B2A, --green
-        0x3385C5DB, --pink
-        0x37CD36D4, --dark red
-        0x4101ED87, -- brown medium
-        0x63838A81, -- red medium
-        0x6765BC15, -- black medium
-        0x8BA18876, -- grey light
-        0x9AC34F34, -- blonde
-        0x9E4803A0, -- purple dark
-        0xA4CFABD0, --pink light
-        0xAA65D8A3, -- blue dark
-        0xB562025C, --pink dark
-        0xB9E7F722, -- violet light
-        0xBBF43EF8, -- light brown
-        0xD1476963, -- violet
-        0xD799E1C2, -- red pinkish
-        0xDC6BC93B, -- grey dark
-        0xDFB1F64C, -- brown
-        0xF509C745, -- redish
-        0xF93DB0C8, -- redish
-        0xFB71527B, -- gray dark
-        0xA4041CEF, --orange
+local palettes = {
+    joaat("METAPED_TINT_MAKEUP"),
+    joaat("METAPED_TINT_SKIRT_CLEAN"),
+    joaat("METAPED_TINT_HAT_WORN"),
+    joaat("METAPED_TINT_SWATCH_002"),
+    joaat("METAPED_TINT_HAT_CLEAN"),
+    joaat("METAPED_TINT_SWATCH_003"),
+    joaat("METAPED_TINT_GENERIC_CLEAN"),
+    joaat("METAPED_TINT_HAT_WEATHERED"),
+    joaat("METAPED_TINT_COMBINED"),
+    joaat("METAPED_TINT_HORSE_LEATHER"),
+    joaat("METAPED_TINT_ANIMAL"),
+    joaat("METAPED_TINT_SWATCH_001"),
+    joaat("METAPED_TINT_HORSE"),
+    joaat("METAPED_TINT_EYE"),
+    joaat("METAPED_TINT_GENERIC_CLEAN"),
+    joaat("METAPED_TINT_GENERIC_WORN"),
+    joaat("METAPED_TINT_SKIRT_WEATHERED"),
+    joaat("METAPED_TINT_SWATCH_000"),
+    joaat("METAPED_TINT_LEATHER"),
+    joaat("METAPED_TINT_MPADV"),
+    joaat("METAPED_TINT_SKIRT_WORN"),
+    joaat("METAPED_TINT_HAIR"),
+    joaat("METAPED_TINT_COMBINED_LEATHER"),
+    joaat("METAPED_TINT_GENERIC_WEATHERED"),
+    joaat("METAPED_TINT_HAT"),
+    joaat("WEAPON_TINT_WOOD"),
+    joaat("WEAPON_TINT_WOOD_WORKING"),
+}
 
-    },
+Config.color_palettes = {
+    eyebrows = palettes,
+
+    -- you can choose the color you want people to use by removing it from each category for example grime you dont want people to use pink
     grime = {
         0x3F6E70FF, -- black
         0x4101ED87, -- brown medium
@@ -1170,249 +1337,15 @@ Config.color_palettes = {
         0xDFB1F64C, -- brown
 
     },
-    beardstabble = {
-        0x3F6E70FF,
-        0x0105607B,
-        0x17CBCC83,
-        0x29F81B2A,
-        0x3385C5DB,
-        0x37CD36D4,
-        0x4101ED87,
-        0x63838A81,
-        0x6765BC15,
-        0x8BA18876,
-        0x9AC34F34,
-        0x9E4803A0,
-        0xA4CFABD0,
-        0xAA65D8A3,
-        0xB562025C,
-        0xB9E7F722,
-        0xBBF43EF8,
-        0xD1476963,
-        0xD799E1C2,
-        0xDC6BC93B,
-        0xDFB1F64C,
-        0xF509C745,
-        0xF93DB0C8,
-        0xFB71527B,
-        0xA4041CEF,
-    },
-    hair = {
-        0x3F6E70FF,
-        0x0105607B,
-        0x17CBCC83,
-        0x29F81B2A,
-        0x3385C5DB,
-        0x37CD36D4,
-        0x4101ED87,
-        0x63838A81,
-        0x6765BC15,
-        0x8BA18876,
-        0x9AC34F34,
-        0x9E4803A0,
-        0xA4CFABD0,
-        0xAA65D8A3,
-        0xB562025C,
-        0xB9E7F722,
-        0xBBF43EF8,
-        0xD1476963,
-        0xD799E1C2,
-        0xDC6BC93B,
-        0xDFB1F64C,
-        0xF509C745,
-        0xF93DB0C8,
-        0xFB71527B,
-        0xA4041CEF,
-    },
-    scars = {
-        0x3F6E70FF,
-        0x0105607B,
-        0x17CBCC83,
-        0x29F81B2A,
-        0x3385C5DB,
-        0x37CD36D4,
-        0x4101ED87,
-        0x63838A81,
-        0x6765BC15,
-        0x8BA18876,
-        0x9AC34F34,
-        0x9E4803A0,
-        0xA4CFABD0,
-        0xAA65D8A3,
-        0xB562025C,
-        0xB9E7F722,
-        0xBBF43EF8,
-        0xD1476963,
-        0xD799E1C2,
-        0xDC6BC93B,
-        0xDFB1F64C,
-        0xF509C745,
-        0xF93DB0C8,
-        0xFB71527B,
-        0xA4041CEF,
-    },
-    shadows = {
-        0x3F6E70FF,
-        0x0105607B,
-        0x17CBCC83,
-        0x29F81B2A,
-        0x3385C5DB,
-        0x37CD36D4,
-        0x4101ED87,
-        0x63838A81,
-        0x6765BC15,
-        0x8BA18876,
-        0x9AC34F34,
-        0x9E4803A0,
-        0xA4CFABD0,
-        0xAA65D8A3,
-        0xB562025C,
-        0xB9E7F722,
-        0xBBF43EF8,
-        0xD1476963,
-        0xD799E1C2,
-        0xDC6BC93B,
-        0xDFB1F64C,
-        0xF509C745,
-        0xF93DB0C8,
-        0xFB71527B,
-        0xA4041CEF,
-    },
-    lipsticks = {
-        0x3F6E70FF,
-        0x0105607B,
-        0x17CBCC83,
-        0x29F81B2A,
-        0x3385C5DB,
-        0x37CD36D4,
-        0x4101ED87,
-        0x63838A81,
-        0x6765BC15,
-        0x8BA18876,
-        0x9AC34F34,
-        0x9E4803A0,
-        0xA4CFABD0,
-        0xAA65D8A3,
-        0xB562025C,
-        0xB9E7F722,
-        0xBBF43EF8,
-        0xD1476963,
-        0xD799E1C2,
-        0xDC6BC93B,
-        0xDFB1F64C,
-        0xF509C745,
-        0xF93DB0C8,
-        0xFB71527B,
-        0xA4041CEF,
-    },
-    eyeliners = {
-        0x3F6E70FF,
-        0x0105607B,
-        0x17CBCC83,
-        0x29F81B2A,
-        0x3385C5DB,
-        0x37CD36D4,
-        0x4101ED87,
-        0x63838A81,
-        0x6765BC15,
-        0x8BA18876,
-        0x9AC34F34,
-        0x9E4803A0,
-        0xA4CFABD0,
-        0xAA65D8A3,
-        0xB562025C,
-        0xB9E7F722,
-        0xBBF43EF8,
-        0xD1476963,
-        0xD799E1C2,
-        0xDC6BC93B,
-        0xDFB1F64C,
-        0xF509C745,
-        0xF93DB0C8,
-        0xFB71527B,
-        0xA4041CEF,
-    },
-    blush = {
-        0x3F6E70FF,
-        0x0105607B,
-        0x17CBCC83,
-        0x29F81B2A,
-        0x3385C5DB,
-        0x37CD36D4,
-        0x4101ED87,
-        0x63838A81,
-        0x6765BC15,
-        0x8BA18876,
-        0x9AC34F34,
-        0x9E4803A0,
-        0xA4CFABD0,
-        0xAA65D8A3,
-        0xB562025C,
-        0xB9E7F722,
-        0xBBF43EF8,
-        0xD1476963,
-        0xD799E1C2,
-        0xDC6BC93B,
-        0xDFB1F64C,
-        0xF509C745,
-        0xF93DB0C8,
-        0xFB71527B,
-        0xA4041CEF,
-    },
-    foundation = {
-        0x3F6E70FF,
-        0x0105607B,
-        0x17CBCC83,
-        0x29F81B2A,
-        0x3385C5DB,
-        0x37CD36D4,
-        0x4101ED87,
-        0x63838A81,
-        0x6765BC15,
-        0x8BA18876,
-        0x9AC34F34,
-        0x9E4803A0,
-        0xA4CFABD0,
-        0xAA65D8A3,
-        0xB562025C,
-        0xB9E7F722,
-        0xBBF43EF8,
-        0xD1476963,
-        0xD799E1C2,
-        0xDC6BC93B,
-        0xDFB1F64C,
-        0xF509C745,
-        0xF93DB0C8,
-        0xFB71527B,
-        0xA4041CEF,
-    },
-    paintedmasks = {
-        0x3F6E70FF,
-        0x0105607B,
-        0x17CBCC83,
-        0x29F81B2A,
-        0x3385C5DB,
-        0x37CD36D4,
-        0x4101ED87,
-        0x63838A81,
-        0x6765BC15,
-        0x8BA18876,
-        0x9AC34F34,
-        0x9E4803A0,
-        0xA4CFABD0,
-        0xAA65D8A3,
-        0xB562025C,
-        0xB9E7F722,
-        0xBBF43EF8,
-        0xD1476963,
-        0xD799E1C2,
-        0xDC6BC93B,
-        0xDFB1F64C,
-        0xF509C745,
-        0xF93DB0C8,
-        0xFB71527B,
-        0xA4041CEF,
-    }
+    beardstabble = palettes,
+    hair = palettes,
+    scars = palettes,
+    shadows = palettes,
+    lipsticks = palettes,
+    eyeliners = palettes,
+    blush = palettes,
+    foundation = palettes,
+    paintedmasks = palettes,
 }
 
 Config.overlay_all_layers = {
@@ -1934,68 +1867,50 @@ Config.overlays_info = {
     },
 }
 
-Config.EyeImgColor = {
-    "Brown 1",
-    "Brown 2",
-    "Blue 1",
-    "Blue 2",
-    "Blue 3",
-    "Blue 4",
-    "Blue 5",
-    "Green 1",
-    "Green 2",
-    "Green 3",
-    "Green 4",
-    "Green 5",
-    "Green 6",
-    "Green 7",
+Config.EyesColor = {
+    "color1",
+    "color2",
+    "color3",
+    "color4",
+    "color5",
+    "color6",
+    "color7",
+    "color8",
+    "color9",
+    "color10",
+    "color11",
+    "color12",
+    "color13",
+    "color14",
 }
 
----------------------------* EYES *--------------------------
 Config.Eyes = {
-    Male = {
-        612262189,
-        3065185688,
-        1864171073,
-        1552505114,
-        46507404,
-        4030267507,
-        642477207,
-        329402181,
-        2501331517,
-        2195072443,
-        3096645940,
-        3983864603,
-        2739887825,
-        2432743988,
-    },
-    Female = {
-        928002221,
-        3117725108,
-        2273169671,
-        2489772761,
-        1647937151,
-        3773694950,
-        3450854762,
-        3703470983,
-        2836599857,
-        625380794,
-        869083847,
-        3045109292,
-        2210319017,
-        2451302243,
-    }
+
+    "CLOTHING_ITEM_%s_EYES_001_TINT_001",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_002",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_003",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_004",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_005",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_006",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_007",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_008",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_009",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_010",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_011",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_012",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_013",
+    "CLOTHING_ITEM_%s_EYES_001_TINT_014",
+
 }
 
--------------------------- * BODY TYPE * --------------------------------------
+
 Config.BodyType = {
     Body = {
-        61606861,
-        -1241887289,
-        -369348190,
-        32611963,
-        -20262001,
-        -369348190
+        joaat("CLOTHING_MP_BODY_TYPE_SKINNY_MUSCULAR"),
+        joaat("CLOTHING_MP_BODY_TYPE_HEAVY_MUSCULAR"),
+        joaat("CLOTHING_MP_BODY_TYPE_HEAVY"),
+        joaat("CLOTHING_MP_BODY_TYPE_NEUTRAL"),
+        joaat("CLOTHING_MP_BODY_TYPE_SKINNY"),
     },
     Waist = {
         -2045421226,
@@ -2023,66 +1938,14 @@ Config.BodyType = {
 }
 
 Config.Teeth = {
-    Female = {
-        {
-            hash = 0x39340BFF,
-            hash_dec_signed = 959712255,
-        },
-        {
-            hash = 0x4AD5AF42,
-            hash_dec_signed = 1255518018,
-        },
-        {
-            hash = 0x54A6C2E4,
-            hash_dec_signed = 1420215012,
-        },
-        {
-            hash = 0x66716679,
-            hash_dec_signed = 1718707833,
-        },
-        {
-            hash = 0xF57D0492,
-            hash_dec_signed = -176356206,
-        },
-        {
-            hash = 0x20CC5B30,
-            hash_dec_signed = 550263600,
-        },
-        {
-            hash = 0x322BFDEF,
-            hash_dec_signed = 841743855,
-        },
-    },
-    Male = {
-        {
-            hash = 0x2A7712A2,
-            hash_dec_signed = 712446626,
-        },
-        {
-            hash = 0x61227FF8,
-            hash_dec_signed = 1629650936,
-        },
-        {
-            hash = 0x060949C7,
-            hash_dec_signed = 101272007,
-        },
-        {
-            hash = 0x3C87B6C3,
-            hash_dec_signed = 1015527107,
-        },
-        {
-            hash = 0xE1A380FC,
-            hash_dec_signed = -509378308,
-        },
-        {
-            hash = 0x17FCEDAE,
-            hash_dec_signed = 402451886,
-        },
-        {
-            hash = 0xE11FFFF5,
-            hash_dec_signed = -517996555,
-        },
-    }
+
+    "CLOTHING_ITEM_%s_TEETH_000",
+    "CLOTHING_ITEM_%s_TEETH_001",
+    "CLOTHING_ITEM_%s_TEETH_002",
+    "CLOTHING_ITEM_%s_TEETH_003",
+    "CLOTHING_ITEM_%s_TEETH_004",
+    "CLOTHING_ITEM_%s_TEETH_005",
+    "CLOTHING_ITEM_%s_TEETH_006",
 }
 
 -- *TRANSLATE ["inside here"] below to your language*
@@ -2177,45 +2040,78 @@ Config.FaceFeatures = {
 }
 
 
-
-Config.HashList = {
-    Gunbelt     = 0x9B2C8B89,
-    Mask        = 0x7505EF42,
-    Holster     = 0xB6B6122D,
-    Loadouts    = 0x83887E88,
-    Coat        = 0xE06D30CE,
-    Cloak       = 0x3C1A74CD,
-    EyeWear     = 0x5E47CA6,
-    Bracelet    = 0x7BC10759,
-    Skirt       = 0xA0E3AB7F,
-    Poncho      = 0xAF14310B,
-    Spats       = 0x514ADCEA,
-    NeckTies    = 0x7A96FACA,
-    Spurs       = 0x18729F39,
-    Pant        = 0x1D4C528A,
-    Suspender   = 0x877A2CF7,
-    Glove       = 0xEABE0032,
-    Satchels    = 0x94504D26,
-    GunbeltAccs = 0xF1542D11,
-    CoatClosed  = 0x662AC34,
-    Buckle      = 0xFAE9107F,
-    RingRh      = 0x7A6BBD0B,
-    Belt        = 0xA6D134C6,
-    Accessories = 0x79D7DF96,
-    Shirt       = 0x2026C46D,
-    Gauntlets   = 0x91CE9B20,
-    Chap        = 0x3107499B,
-    NeckWear    = 0x5FC29285,
-    Boots       = 0x777EC6EF,
-    Vest        = 0x485EE834,
-    RingLh      = 0xF16A1D23,
-    Hat         = 0x9925C067,
-    Dress       = 0xA2926F9B,
-    Badge       = 0x3F7F3587,
-    armor       = 0x72E6EF74,
-    Hair        = 0x864B03AE,
-    Beard       = 0xF8016BCA,
-    bow         = 0x8E84A2AA,
+Config.ComponentCategories = {
+    BeardsMustache      = `BEARDS_MUSTACHE`,
+    Blouses             = `BLOUSES`,
+    TalismanHolster     = `TALISMAN_HOLSTER`,
+    Scarves             = `SCARVES`,
+    TalismanBelt        = `TALISMAN_BELT`,
+    EyeBrows            = `EYEBROWS`,
+    ShirtsFullOverpants = `SHIRTS_FULL_OVERPANTS`,
+    Eyes                = `EYES`,
+    CoatsHeavy          = `COATS_HEAVY`,
+    TalismanWrist       = `TALISMAN_WRIST`,
+    Stockings           = `STOCKINGS`,
+    Heads               = `HEADS`,
+    BodiesUpper         = `BODIES_UPPER`,
+    BodiesLower         = `BODIES_LOWER`,
+    MaskLarge           = `MASKS_LARGE`,
+    Apron               = `APRONS`,
+    Gunbelt             = `GUNBELTS`,
+    AmmoPistol          = `AMMO_PISTOLS`,
+    AmmoRifle           = `AMMO_RIFLES`,
+    Mask                = `MASKS`,
+    Holster             = `HOLSTERS_LEFT`,
+    Loadouts            = `LOADOUTS`,
+    Coat                = `COATS`,
+    Cloak               = `CLOAKS`,
+    EyeWear             = `EYEWEAR`,
+    Bracelet            = `JEWELRY_BRACELETS`,
+    Skirt               = `SKIRTS`,
+    Poncho              = `PONCHOS`,
+    Spats               = `SPATS`,
+    NeckTies            = `NECKTIES`,
+    Pant                = `PANTS`,
+    Suspender           = `SUSPENDERS`,
+    Glove               = `GLOVES`,
+    Satchels            = `SATCHELS`,
+    GunbeltAccs         = `GUNBELT_ACCS`,
+    CoatClosed          = `COATS_CLOSED`,
+    Buckle              = `BELT_BUCKLES`,
+    RingRh              = `JEWELRY_RINGS_RIGHT`,
+    Belt                = `BELTS`,
+    Accessories         = `ACCESSORIES`,
+    Shirt               = `SHIRTS_FULL`,
+    Gauntlets           = `GAUNTLETS`,
+    Chap                = `CHAPS`,
+    NeckWear            = `NECKWEAR`,
+    Boots               = `BOOTS`,
+    Spurs               = `BOOT_ACCESSORIES`,
+    Vest                = `VESTS`,
+    RingLh              = `JEWELRY_RINGS_LEFT`,
+    Hat                 = `HATS`,
+    Dress               = `DRESSES`,
+    Badge               = `BADGES`,
+    Armor               = `ARMOR`,
+    Hair                = `HAIR`,
+    Beard               = `BEARDS_COMPLETE`,
+    Bow                 = `HAIR_ACCESSORIES`,
+    Teeth               = `TEETH`,
 }
 
-Config.clothesPalettes = { 1090645383, 1064202495, -783849117, 864404955, 1669565057, -1952348042 }
+
+Config.ComponentCategoriesExclude = {
+    Hair = Config.ComponentCategories.Hair,
+    Beard = Config.ComponentCategories.Beard,
+    BeardsMustache = Config.ComponentCategories.BeardsMustache,
+    Teeth = Config.ComponentCategories.Teeth,
+    Head = Config.ComponentCategories.Heads,
+    Body = Config.ComponentCategories.BodiesUpper,
+    Legs = Config.ComponentCategories.BodiesLower,
+    Eyes = Config.ComponentCategories.Eyes,
+    EyeBrows = Config.ComponentCategories.EyeBrows,
+}
+
+Config.clothesPalettes = {
+    1090645383, 1064202495, -783849117, 864404955, 1669565057, -1952348042
+}

@@ -1,64 +1,3 @@
----Remove all meta tags from ped
----@param ped number ped id
-function RemoveMetaTags(ped)
-    for _, tag in pairs(Config.HashList) do
-        RemoveTagFromMetaPed(tag, ped)
-        UpdatePedVariation(ped)
-    end
-end
-
---- set to all white if values are 0
----@param gender string ped gender
----@param skin table skin data
----@return table skin data
-function SetDefaultSkin(gender, skin)
-    local __data = {}
-    for skinColor, value in pairs(Config.DefaultChar[gender]) do
-        for key, info in pairs(value) do
-            if key == "HeadTexture" then
-                local headtext = joaat(value.HeadTexture[1])
-                if headtext == skin.albedo then
-                    __data = value
-                    -- work arround to fix Torso
-                    for k, v in pairs(value.Body) do
-                        if skin.Torso ~= 0 then
-                            -- if Torso is not part of this color set due to old character, then set it to the first value in order to fix it
-                            if tonumber("0x" .. v) ~= skin.Torso then
-                                skin.Torso = tonumber("0x" .. v)
-                                break
-                            end
-                        end
-                    end
-
-                    break
-                end
-            end
-        end
-    end
-
-    if not next(__data) then
-        return skin
-    end
-
-    if skin.HeadType and skin.HeadType == 0 then
-        skin.HeadType = tonumber("0x" .. __data.Heads[1])
-    end
-
-    if skin.BodyType and skin.BodyType == 0 then
-        skin.BodyType = tonumber("0x" .. __data.Body[1])
-    end
-
-    if skin.LegsType and skin.LegsType == 0 then
-        skin.LegsType = tonumber("0x" .. __data.Legs[1])
-    end
-
-    if skin.Torso and skin.Torso == 0 then
-        skin.Torso = tonumber("0x" .. __data.Body[1])
-    end
-
-    return skin
-end
-
 --CREATOR
 function RemoveImaps()
     if IsIplActiveByHash(183712523) then
@@ -136,13 +75,16 @@ end
 
 function StartAnimation(anim)
     local __player = PlayerPedId()
-    if not HasAnimDictLoaded("FACE_HUMAN@GEN_MALE@BASE") then
-        RequestAnimDict("FACE_HUMAN@GEN_MALE@BASE")
-        repeat Wait(0) until HasAnimDictLoaded("FACE_HUMAN@GEN_MALE@BASE")
+    local isMale = IsPedMale(__player)
+    local animDict = isMale and "FACE_HUMAN@GEN_MALE@BASE" or "FACE_HUMAN@GEN_FEMALE@BASE"
+
+    if not HasAnimDictLoaded(animDict) then
+        RequestAnimDict(animDict)
+        repeat Wait(0) until HasAnimDictLoaded(animDict)
     end
 
-    if not IsEntityPlayingAnim(__player, "FACE_HUMAN@GEN_MALE@BASE", anim, 1) then
-        TaskPlayAnim(__player, "FACE_HUMAN@GEN_MALE@BASE", anim, 8.0, -8.0, -1, 16, 0.0, false, 0, false, "", false)
+    if not IsEntityPlayingAnim(__player, animDict, anim, 1) then
+        TaskPlayAnim(__player, animDict, anim, 8.0, -8.0, -1, 16, 0.0, false, 0, false, "", false)
     end
 end
 
@@ -370,18 +312,17 @@ end
 function ApplyDefaultClothing()
     local ped = PlayerPedId()
     local isPedMale = IsPedMale(ped)
+
     local numComponents = GetNumComponentsInPed(ped)
     local componentsWithWearableState = {}
     for componentIndex = 0, numComponents - 1, 1 do
         local componentHash = GetComponentAtIndex(ped, componentIndex, true)
         if componentHash ~= 0 then
-            local numWearableStates = Citizen.InvokeNative(0xFFCC2DB2D9953401, componentHash, not isPedMale, true,
-                Citizen.ResultAsInteger())
+            local numWearableStates = Citizen.InvokeNative(0xFFCC2DB2D9953401, componentHash, not isPedMale, true, Citizen.ResultAsInteger())
             if numWearableStates > 0 then
                 local wearableStates = { `base` }
                 for wearableStateIndex = 0, numWearableStates - 1, 1 do
-                    local wearableState = Citizen.InvokeNative(0x6243635AF2F1B826, componentHash, wearableStateIndex,
-                        not isPedMale, true, Citizen.ResultAsInteger())
+                    local wearableState = Citizen.InvokeNative(0x6243635AF2F1B826, componentHash, wearableStateIndex, not isPedMale, true, Citizen.ResultAsInteger())
                     if wearableState ~= 0 then
                         table.insert(wearableStates, wearableState)
                     end
@@ -554,33 +495,32 @@ function MergeNewDataWithOld(new, old)
 end
 
 function RegisterBodyIndexs(skin)
-    for gender, value in pairs(Config.DefaultChar) do
-        if GetGender() == gender then
-            for skinColor, v in ipairs(value) do
-                for bodyIndex, a in ipairs(v.Body) do
-                    if skin.BodyType == tonumber("0x" .. a) then
-                        BodyTypeTracker = bodyIndex
-                        SkinColorTracker = skinColor
+    local gender = GetGender() == "Male" and "M" or "F"
 
-                        break
-                    end
-                end
-
-                for legIndex, j in ipairs(v.Legs) do
-                    if skin.Legs == tonumber("0x" .. j) then
-                        LegsTypeTracker = legIndex
-                        break
-                    end
-                end
-
-                for index, d in ipairs(v.Heads) do
-                    if skin.HeadType == tonumber("0x" .. d) then
-                        HeadIndexTracker = index
-                        break
-                    end
-                end
+    for skinColor, v in ipairs(Config.DefaultChar) do
+        --for skinColor, v in ipairs(value) do
+        for bodyIndex, a in ipairs(v.Body) do
+            if skin.BodyType == joaat(a:format(gender)) then
+                BodyTypeTracker = bodyIndex
+                SkinColorTracker = skinColor
+                break
             end
         end
+
+        for legIndex, j in ipairs(v.Legs) do
+            if skin.Legs == joaat(j:format(gender)) then
+                LegsTypeTracker = legIndex
+                break
+            end
+        end
+
+        for index, d in ipairs(v.Heads) do
+            if skin.HeadType == joaat(d:format(gender)) then
+                HeadIndexTracker = index
+                break
+            end
+        end
+        -- end
     end
 
     for key, value in pairs(Config.BodyType.Body) do
@@ -619,7 +559,7 @@ function SetClothingStatus(components)
         if value.comp ~= -1 then
             local status = GetResourceKvpString(tostring(value.comp))
             if status == "true" then
-                RemoveTagFromMetaPed(Config.HashList[key])
+                RemoveTagFromMetaPed(Config.ComponentCategories[key])
             end
         end
     end

@@ -19,10 +19,20 @@ Peds                      = {}
 CachedSkin                = {}
 CachedComponents          = {}
 T                         = Translation.Langs[Lang]
-Resolution                = {
-	width = 0,
-	height = 0
-}
+local width, _            = GetCurrentScreenResolution()
+
+local imgPath             = "<img style='max-height:450px;max-width:280px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+local img                 = "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+local Divider             = "<br><br><br><br><br>" .. img:format("divider_line") .. "<br>"
+local SubTitle            = "<span style='font-size: 25px;'>" .. T.MenuCreation.subtitle1 .. "<br><br></span>"
+local fontSize            = "18px"
+
+if width <= 1920 then
+	imgPath = "<img style='max-height:200px;max-width:200px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
+	Divider = "<br>" .. img:format("divider_line")
+	SubTitle = T.MenuCreation.subtitle1
+	fontSize = "13px"
+end
 
 --PROMPTS
 CreateThread(function()
@@ -149,7 +159,7 @@ local function ApplyAllComponents(category, value, ped, set)
 
 	local status = not set and "false" or GetResourceKvpString(tostring(value.comp))
 	if status == "true" then
-		return RemoveTagFromMetaPed(Config.HashList[category])
+		return RemoveTagFromMetaPed(Config.ComponentCategories[category])
 	end
 
 	ApplyShopItemToPed(value.comp, ped)
@@ -186,11 +196,56 @@ function LoadComps(ped, components, set)
 	ApplyAllComponents("Vest", components.Vest, ped, set)
 end
 
+---Remove all meta tags from ped
+local function removeMetaTags(ped)
+	for _, tag in pairs(Config.ComponentCategories) do
+		RemoveTagFromMetaPed(tag, ped)
+		UpdatePedVariation(ped)
+	end
+end
+
+-- if values are 0 then we need to make everything same color
+local function setDefaultSkin(gender, skin)
+	for _, value in pairs(Config.DefaultChar) do
+		local albedo = joaat(value.Albedo[1]:format(gender))
+		if albedo == skin.albedo then
+			-- work arround to fix Torso
+			for _, v in pairs(value.Body) do
+				if skin.Torso > 0 then
+					if joaat(v:format(gender)) ~= skin.Torso then
+						skin.Torso = joaat(v:format(gender))
+						break
+					end
+				end
+			end
+
+			if skin.HeadType and skin.HeadType == 0 then
+				skin.HeadType = joaat(value.Heads[1]:format(gender))
+			end
+
+			if skin.BodyType and skin.BodyType == 0 then
+				skin.BodyType = joaat(value.Body[1]:format(gender))
+			end
+
+			if skin.LegsType and skin.LegsType == 0 then
+				skin.LegsType = joaat(value.Legs[1]:format(gender))
+			end
+
+			if skin.Torso and skin.Torso == 0 then
+				skin.Torso = joaat(value.Body[1]:format(gender))
+			end
+			break
+		end
+	end
+
+	return skin
+end
+
 function LoadAll(gender, ped, pedskin, components, set)
-	RemoveMetaTags(ped)
+	removeMetaTags(ped)
 	IsPedReadyToRender(ped)
 	ResetPedComponents(ped)
-	local skin = SetDefaultSkin(gender, pedskin)
+	local skin = setDefaultSkin(gender, pedskin)
 	ApplyShopItemToPed(skin.HeadType, ped)
 	ApplyShopItemToPed(skin.BodyType, ped)
 	ApplyShopItemToPed(skin.LegsType, ped)
@@ -212,7 +267,7 @@ function LoadAll(gender, ped, pedskin, components, set)
 end
 
 local function LoadCharacterSelect(ped, skin, components)
-	local gender = skin.sex == "mp_male" and "Male" or "Female"
+	local gender = skin.sex == "mp_male" and "M" or "F"
 	LoadAll(gender, ped, skin, components, false)
 	SetAttributeCoreValue(ped, 1, 100)
 	SetAttributeCoreValue(ped, 0, 100)
@@ -321,24 +376,6 @@ local function finishSelection(boolean)
 	Citizen.InvokeNative(0x706D57B0F50DA710, "MC_MUSIC_STOP")
 end
 
-
-
-local imgPath = "<img style='max-height:450px;max-width:280px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
-local img = "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
-local Divider = "<br><br><br><br><br>" .. img:format("divider_line") .. "<br>"
-local SubTitle = "<span style='font-size: 25px;'>" .. T.MenuCreation.subtitle1 .. "<br><br></span>"
-local fontSize = "18px"
-
-CreateThread(function()
-	Resolution = Core.Graphics.ScreenResolution()
-	print("Resolution received")
-	if Resolution and Resolution.width <= 1920 then
-		imgPath = "<img style='max-height:200px;max-width:200px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
-		Divider = "<br>" .. img:format("divider_line")
-		SubTitle = T.MenuCreation.subtitle1
-		fontSize = "13px"
-	end
-end)
 
 local function addNewelements(menu)
 	menu.addNewElement({
@@ -457,7 +494,7 @@ function EnableSelectionPrompts(menu)
 				AnimpostfxPlay("RespawnPulse01")
 				return
 			end
-			---- SET_BLOCKING_OF_NON_TEMPORARY_EVENTS_FOR_AMBIENT_PEDS_THIS_FRAME
+			-- SET_BLOCKING_OF_NON_TEMPORARY_EVENTS_FOR_AMBIENT_PEDS_THIS_FRAME
 			Citizen.InvokeNative(0x9911F4A24485F653, true)
 			Wait(0)
 		end
@@ -470,7 +507,7 @@ function OpenMenuSelect()
 
 	for key, value in ipairs(myChars) do
 		if not Config.showchardesc then
-			desc = Divider .. T.MainMenu.NameDesc
+			local desc = Divider .. T.MainMenu.NameDesc
 			elements[#elements + 1] = {
 				label = value.firstname .. " " .. value.lastname,
 				value = "choose",
@@ -490,7 +527,7 @@ function OpenMenuSelect()
 		end
 	end
 
-	for i = 1, MaxCharacters - #myChars, 1 do
+	for _ = 1, MaxCharacters - #myChars, 1 do
 		elements[#elements + 1] = {
 			label = T.MainMenu.CreateNewSlot .. "<br>" .. "<span style ='opacity:0.6;'>" .. T.MainMenu.CreateNewCharT .. "</span>",
 			value = "create",
@@ -545,8 +582,6 @@ function OpenMenuSelect()
 				AnimpostfxStop('PhotoMode_FilterGame06')
 				TriggerEvent("vorpcharacter:startCharacterCreator")
 			end
-		end, function(menu, data)
-
 		end)
 end
 
@@ -618,7 +653,7 @@ function LoadPlayerComponents(ped, skin, components, reload)
 	FaceOverlay("grime", skin.grime_visibility, skin.grime_tx_id, 0, 0, 0, 1.0, 0, 1, 0, 0, 0, 1, skin.grime_opacity)
 	Wait(200)
 	TriggerServerEvent("vorpcharacter:reloadedskinlistener")
-	RemoveTagFromMetaPed(0x3F1F01E5) -- bullets
+	RemoveTagFromMetaPed(Config.ComponentCategories.AmmoPistol)
 	SetPedScale(ped, CachedSkin.Scale)
 end
 
@@ -680,8 +715,7 @@ function StartOverlay()
 		Citizen.InvokeNative(0x6BEFAA907B076859, textureId) -- remove texture
 	end
 
-	textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, CachedSkin.albedo, current_texture_settings.normal,
-		current_texture_settings.material)
+	textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, CachedSkin.albedo, current_texture_settings.normal, current_texture_settings.material)
 	for k, v in ipairs(Config.overlay_all_layers) do
 		if v.visibility ~= 0 then
 			local overlay_id = Citizen.InvokeNative(0x86BB5FF45F193A02, textureId, v.tx_id, v.tx_normal, v.tx_material, v.tx_color_type, v.tx_opacity, v.tx_unk)
@@ -754,4 +788,34 @@ AddEventHandler('onResourceStop', function(resourceName)
 	Citizen.InvokeNative(0x9D5A25BADB742ACD, "AZL_RDRO_Character_Creation_Area_Other_Zones_Disable", true) -- CLEAR_AMBIENT_ZONE_LIST_STATE
 	EnableControlAction(2, `INPUT_CREATOR_MENU_TOGGLE`, true)
 	FreezeEntityPosition(PlayerPedId(), false)
+end)
+
+-- apply whistle data on character selected
+RegisterNetEvent("vorp:SelectedCharacter", function(charid)
+	-- if it exists set is current values that were saved when player first made a character
+	local whistleData <const> = GetResourceKvpString(("vorp_character_whistle_%s"):format(charid))
+	if whistleData then
+		print("Apply whistle data")
+		local data <const> = json.decode(whistleData)
+		local ped <const> = PlayerPedId()
+		print(data.pitch)
+		print(data.clarity)
+		print(data.style)
+		if data.pitch and data.pitch > 0 then
+			SetWhistleConfigForPed(ped, "Ped.WhistlePitch", data.pitch)
+		elseif data.clarity and data.clarity > 0 then
+			SetWhistleConfigForPed(ped, "Ped.WhistleClarity", data.clarity)
+		elseif data.style and data.style > 0 then
+			SetWhistleConfigForPed(ped, "Ped.WhistleShape", data.style)
+		end
+	else
+		if (WHISTLE.clarity and WHISTLE.clarity > 0) or (WHISTLE.pitch and WHISTLE.pitch > 0) or (WHISTLE.style and WHISTLE.style > 0) then
+			print("Save whistle data")
+			SetResourceKvpNoSync(("vorp_character_whistle_%s"):format(charid), json.encode({
+				clarity = WHISTLE.clarity,
+				pitch = WHISTLE.pitch,
+				style = WHISTLE.style
+			}))
+		end
+	end
 end)

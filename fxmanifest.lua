@@ -3,11 +3,10 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 game 'rdr3'
 lua54 'yes'
 
--- Initial Convertion from C# to lua by grumpypoo
+
 name 'vorp character'
-author 'VORP @outsider'
+author 'VORP @outsider' -- Initial Convertion from C# to lua by grumpypoo
 description 'A Character creator with also shops built in for vorpcore framework'
-repository 'https://github.com/VORPCORE/vorp_character-lua'
 
 shared_scripts {
 	'config.lua',
@@ -24,14 +23,16 @@ client_scripts {
 }
 
 server_scripts {
+	'logs.lua',
 	'@oxmysql/lib/MySQL.lua',
 	'server/*.lua',
 }
 
 files {
 	'images/*png',
-	'images/CreatorImages/*png',
-	'clothingfemale/*png',
+	'images/clothingfemale/*png',
+	'images/eyes/*png',
+	'images/skin/*png',
 }
 
 

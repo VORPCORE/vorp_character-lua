@@ -20,12 +20,12 @@ end
 CreateThread(function()
 	for key, v in pairs(Config.commands) do
 		RegisterCommand(v.command, function()
-			toggleComp(Config.HashList[key], CachedComponents[key], key)
+			toggleComp(Config.ComponentCategories[key], CachedComponents[key], key)
 			if key == "GunBelt" then
-				toggleComp(Config.HashList.Holster, CachedComponents.Holster, key)
+				toggleComp(Config.ComponentCategories.Holster, CachedComponents.Holster, key)
 			end
 
-			if key == "Vest" and IsMetaPedUsingComponent(Config.HashList.Shirt) then
+			if key == "Vest" and IsMetaPedUsingComponent(Config.ComponentCategories.Shirt) then
 				local item = CachedComponents.Shirt
 				if item.drawable then
 					SetTextureOutfitTints(PlayerPedId(), 'shirts_full', item)
@@ -33,14 +33,14 @@ CreateThread(function()
 			end
 
 			if key == "Coat" then
-				if IsMetaPedUsingComponent(Config.HashList.Vest) then
+				if IsMetaPedUsingComponent(Config.ComponentCategories.Vest) then
 					local item = CachedComponents.Vest
 					if item.drawable then
 						SetTextureOutfitTints(PlayerPedId(), 'vests', item)
 					end
 				end
 
-				if IsMetaPedUsingComponent(Config.HashList.Shirt) then
+				if IsMetaPedUsingComponent(Config.ComponentCategories.Shirt) then
 					local item = CachedComponents.Shirt
 					if item.drawable then
 						SetTextureOutfitTints(PlayerPedId(), 'shirts_full', item)
@@ -72,8 +72,8 @@ RegisterCommand("undress", function()
 	IsPedReadyToRender()
 	for Category, Components in pairs(CachedComponents) do
 		if Components.comp ~= -1 then
-			if IsMetaPedUsingComponent(Config.HashList[Category]) then
-				RemoveTagFromMetaPed(Config.HashList[Category])
+			if IsMetaPedUsingComponent(Config.ComponentCategories[Category]) then
+				RemoveTagFromMetaPed(Config.ComponentCategories[Category])
 			end
 		end
 	end

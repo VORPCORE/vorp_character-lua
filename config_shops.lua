@@ -79,7 +79,7 @@ ConfigShops.Locations = {
         TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                -- if you need a light in the store put true
     },
-        {                                                     -- blackwater Makeup
+    {                                                     -- blackwater Makeup
         Prompt = {
             Position = vector3(-810.25, -1372.55, 44.02), -- prompt location
             Label = "Lifesyle Store",                     -- prompt label
@@ -103,16 +103,16 @@ ConfigShops.Locations = {
             Position = vector4(-810.69, -1375.92, 44.02, 323.48),
         },
         CameraPosition = { -- camera position for the character editor
-         
+
             Position = vector3(-813.40, -1374.79, 44.86),
             Heading = 91.22,
             MaxUp = 45.86,
             MaxDown = 43.22,
         },
-        TypeOfShop = "lifestyle",                          -- means all will be avaialble with a price to be paid to enter
-        DrawLight = false,                                -- if you need a light in the store put true
+        TypeOfShop = "lifestyle", -- means all will be avaialble with a price to be paid to enter
+        DrawLight = false,        -- if you need a light in the store put true
     },
-    
+
     {                                                     -- Rhodes
         Prompt = {
             Position = vector3(1324.66, -1291.59, 77.08), -- prompt location
@@ -314,7 +314,7 @@ ConfigShops.Prices = {
         Belt = { price = 10 },
         Holster = { price = 10 },
         Suspender = { price = 10 },
-        armor = { price = 10 },
+        Armor = { price = 10 },
         Gunbelt = { price = 10 },
         RingLh = { price = 10 },
         RingRh = { price = 10 },
@@ -397,31 +397,31 @@ ConfigShops.Prices = {
             price = 10,
         },
     },
-    lifestyle ={
-        spots ={
+    lifestyle = {
+        spots = {
             price = 10,
         },
-        moles ={
+        moles = {
             price = 10,
         },
-        grime ={
+        grime = {
             price = 10,
         },
-        freckles ={
+        freckles = {
             price = 10,
         },
-        disc ={
+        disc = {
             price = 10,
         },
-        complex ={
+        complex = {
             price = 10,
         },
-        acne ={
+        acne = {
             price = 10,
         },
-        scars ={
+        scars = {
             price = 10,
         },
     }
-  
+
 }

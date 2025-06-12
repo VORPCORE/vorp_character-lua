@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local T = Translation.Langs[Lang]
 local random = math.random(1, #Config.SpawnPosition)
 local Core = exports.vorp_core:GetCore()
@@ -125,9 +123,7 @@ RegisterServerEvent("vorpcharacter:saveCharacter", function(data)
 	local _source = source
 	Core.getUser(_source).addCharacter(data)
 	Wait(600)
-
 	local iniPos, iniHead = iniSpawn()
-
 	TriggerClientEvent("vorp:initCharacter", _source, iniPos, iniHead, false)
 	SetTimeout(3000, function()
 		TriggerEvent("vorp_NewCharacter", _source)
@@ -136,8 +132,8 @@ end)
 
 RegisterServerEvent("vorpcharacter:deleteCharacter", function(selectedChar)
 	local _source = source
-	local User = Core.getUser(_source)
-	if User then
+	local user = Core.getUser(_source)
+	if user then
 		local charid = selectedChar.charIdentifier
 		local SteamName = GetPlayerName(_source)
 		local SteamId = GetPlayerIdentifiers(_source)[1]
@@ -145,15 +141,15 @@ RegisterServerEvent("vorpcharacter:deleteCharacter", function(selectedChar)
 			"Playername : " .. selectedChar.firstname .. " " .. selectedChar.lastname .. "\n" .. "Character Description : " ..
 			selectedChar.charDesc
 		Core.AddWebhook(Logs.DeleteCharacterWebhhok.Title, Logs.WebhookUrl, description, Logs.color, Logs.DeleteCharacterWebhhok.WebhookName, Logs.logo, Logs.footerlogo, Logs.avatar)
-		User.removeCharacter(charid)
+		user.removeCharacter(charid)
 	end
 end)
 
 RegisterServerEvent("vorp_CharSelectedCharacter", function(charid)
 	local _source = source
-	local User = Core.getUser(_source)
-	if User then
-		User.setUsedCharacter(charid)
+	local user = Core.getUser(_source)
+	if user then
+		user.setUsedCharacter(charid)
 	end
 end)
 
@@ -161,15 +157,15 @@ end)
 
 RegisterNetEvent("vorpcharacter:setPlayerCompChange", function(skinValues, compsValues)
 	local _source = source
-	local UserCharacter = Core.getUser(_source)
-	if UserCharacter then
-		local User = UserCharacter.getUsedCharacter
+	local user = Core.getUser(_source)
+	if user then
+		local character = user.getUsedCharacter
 		if compsValues then
-			User.updateComps(json.encode(compsValues))
+			character.updateComps(json.encode(compsValues))
 		end
 
 		if skinValues then
-			User.updateSkin(json.encode(skinValues))
+			character.updateSkin(json.encode(skinValues))
 		end
 	end
 end)
@@ -223,11 +219,11 @@ Core.Callback.Register("vorp_characters:getMaxCharacters", function(source, cb)
 end)
 
 Core.Callback.Register("vorp_character:callback:PayToShop", function(source, callback, arguments)
-	local User = Core.getUser(source)
-	if not User then
+	local user = Core.getUser(source)
+	if not user then
 		return callback(false)
 	end
-	local character = User.getUsedCharacter
+	local character = user.getUsedCharacter
 	local money = character.money
 	local amountToPay = arguments.amount
 
@@ -258,14 +254,16 @@ Core.Callback.Register("vorp_character:callback:PayToShop", function(source, cal
 
 	if arguments.Result and arguments.Result ~= '' then
 		local Parameters = { character.identifier, character.charIdentifier, arguments.Result, json.encode(arguments.comps), json.encode(arguments.compTints) }
+
+		---@diagnostic disable-next-line: undefined-global
 		MySQL.insert("INSERT INTO outfits (identifier, charidentifier, title, comps, compTints) VALUES (?, ?, ? ,?, ?)", Parameters)
 	end
 
 	return callback(true)
 end)
 
-local function CanProcceed(User, source)
-	local character = User.getUsedCharacter
+local function CanProcceed(user, source)
+	local character = user.getUsedCharacter
 	local money = ConfigShops.SecondChanceCurrency == 0 and character.money or ConfigShops.SecondChanceCurrency == 1 and character.gold or ConfigShops.SecondChanceCurrency == 2 and character.rol
 	local amountToPay = ConfigShops.SecondChancePrice
 	local moneyType = ConfigShops.SecondChanceCurrency == 0 and "money" or ConfigShops.SecondChanceCurrency == 1 and "gold" or ConfigShops.SecondChanceCurrency == 2 and "rol"
@@ -279,13 +277,13 @@ local function CanProcceed(User, source)
 end
 
 Core.Callback.Register("vorp_character:callback:CanPayForSecondChance", function(source, callback)
-	local User = Core.getUser(source)
+	local user = Core.getUser(source)
 
-	if not User then
+	if not user then
 		return callback(false)
 	end
 
-	if not CanProcceed(User, source) then
+	if not CanProcceed(user, source) then
 		return callback(false)
 	end
 
@@ -293,14 +291,14 @@ Core.Callback.Register("vorp_character:callback:CanPayForSecondChance", function
 end)
 
 Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(source, callback, data)
-	local User = Core.getUser(source)
+	local user = Core.getUser(source)
 
-	if not User then
+	if not user then
 		return callback(false)
 	end
-	local character = User.getUsedCharacter
+	local character = user.getUsedCharacter
 
-	if not CanProcceed(User, source) then
+	if not CanProcceed(user, source) then
 		return callback(false)
 	end
 
@@ -321,27 +319,29 @@ Core.Callback.Register("vorp_character:callback:PayForSecondChance", function(so
 	return callback(true)
 end)
 
-Core.Callback.Register("vorp_character:callback:GetOutfits", function(source, callback, arguments)
-	local Character = Core.getUser(source).getUsedCharacter
+Core.Callback.Register("vorp_character:callback:GetOutfits", function(source, callback)
+	local character = Core.getUser(source).getUsedCharacter
 
-	MySQL.query("SELECT * FROM outfits WHERE `identifier` = ? AND `charidentifier` = ?", { Character.identifier, Character.charIdentifier }, function(Outfits)
+	---@diagnostic disable-next-line: undefined-global
+	MySQL.query("SELECT * FROM outfits WHERE `identifier` = ? AND `charidentifier` = ?", { character.identifier, character.charIdentifier }, function(Outfits)
 		return callback(Outfits)
 	end)
 end)
 
 Core.Callback.Register("vorp_character:callback:SetOutfit", function(source, callback, arguments)
-	local Character = Core.getUser(source).getUsedCharacter
+	local character = Core.getUser(source).getUsedCharacter
 
-	Character.updateComps(arguments.Outfit.comps or '{}')
-	Character.updateCompTints(arguments.Outfit.compTints or '{}')
+	character.updateComps(arguments.Outfit.comps or '{}')
+	character.updateCompTints(arguments.Outfit.compTints or '{}')
 
 	return callback(true)
 end)
 
 Core.Callback.Register("vorp_character:callback:DeleteOutfit", function(source, callback, arguments)
-	local Character = Core.getUser(source).getUsedCharacter
+	local character = Core.getUser(source).getUsedCharacter
 
-	MySQL.query("DELETE FROM outfits WHERE identifier = ? AND id = ?", { Character.identifier, arguments.Outfit.id })
+	---@diagnostic disable-next-line: undefined-global
+	MySQL.query("DELETE FROM outfits WHERE identifier = ? AND id = ?", { character.identifier, arguments.Outfit.id })
 
 	return callback(true)
 end)
