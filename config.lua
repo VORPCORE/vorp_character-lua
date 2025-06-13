@@ -3,7 +3,7 @@ Lang = "English"
 
 Config = {}
 
-Config.DevMode = false     -- if true you can restart script without having to restart the server
+Config.DevMode = false    -- if true you can restart script without having to restart the server
 
 Config.Align = "top-left" -- menu position
 
@@ -1906,11 +1906,12 @@ Config.Eyes = {
 
 Config.BodyType = {
     Body = {
-        joaat("CLOTHING_MP_BODY_TYPE_SKINNY_MUSCULAR"),
-        joaat("CLOTHING_MP_BODY_TYPE_HEAVY_MUSCULAR"),
-        joaat("CLOTHING_MP_BODY_TYPE_HEAVY"),
-        joaat("CLOTHING_MP_BODY_TYPE_NEUTRAL"),
-        joaat("CLOTHING_MP_BODY_TYPE_SKINNY"),
+        61606861,
+        -1241887289,
+        -369348190,
+        32611963,
+        -20262001,
+        -369348190
     },
     Waist = {
         -2045421226,
