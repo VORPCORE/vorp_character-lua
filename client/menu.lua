@@ -1259,7 +1259,7 @@ function OpenAppearanceMenu(clothingtable, value)
                 return OpenAgeMenu(clothingtable, value)
             end
 
-            if (data.current.type == "slider" and not data.current.info and not data.current.tag) then
+            if (data.current.type == "slider" and not data.current.info and data.current.tag and data.current.tag == "height") then
                 local height = 0
                 -- this is necessary changing heiht on players breaks animations etc
                 for key, value in pairs(menu.data.elements) do
