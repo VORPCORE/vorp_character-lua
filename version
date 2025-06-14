@@ -1,3 +1,20 @@
+<1.8>
+- fixed pant tints when removing boots or applying
+- fixed default pants being green
+- fixed pants clipping when applying them with boots 
+- fixed prompts not being removed on character creation when its taking the picture
+- fixed camera in character creation (was wonky), remove fov as zoom to look better
+- fixed mirror in character creation for male  (it was clipping)
+- refactor config to add known hash names and reduced duplicated code
+- added whistle adjust to character creation just like RDO 
+- redone some menus to look better 
+- added eye color images
+- added skin color images
+- added new file for webhooks 
+- security checks done to the dev mode events 
+- npcs in character selection are now networked should display make up on them. (they are instanced so they can be networked)
+- added config to not use the RDO intro
+- other small improvements where also made
 <1.7>
 - added random spawn locations to config
 - reduced duplicated code
