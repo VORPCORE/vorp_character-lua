@@ -32,23 +32,35 @@ CreateThread(function()
 				end
 			end
 
-			if key == "Coat" or key == "Boots" then
-				local category = key == "Coat" and "Vest" or "Boots"
-				local category2 = key == "Coat" and "Shirt" or "Pants"
-				local category3 = key == "Coat" and "vests" or "boots"
-				local category4 = key == "Coat" and "shirts_full" or "pants"
-
-				if IsMetaPedUsingComponent(Config.ComponentCategories[category]) then
-					local item = CachedComponents[category]
+			if key == "Coat" then
+				if IsMetaPedUsingComponent(Config.ComponentCategories.Vest) then
+					local item = CachedComponents.Vest
 					if item.drawable then
-						SetTextureOutfitTints(PlayerPedId(), category3, item)
+						SetTextureOutfitTints(PlayerPedId(), 'vests', item)
 					end
 				end
 
-				if IsMetaPedUsingComponent(Config.ComponentCategories[category2]) then
-					local item = CachedComponents[category2]
+				if IsMetaPedUsingComponent(Config.ComponentCategories.Shirt) then
+					local item = CachedComponents.Shirt
 					if item.drawable then
-						SetTextureOutfitTints(PlayerPedId(), category4, item)
+						SetTextureOutfitTints(PlayerPedId(), 'shirts_full', item)
+					end
+				end
+			end
+
+			if key == "Boots" then
+				-- apply tint to pants on remove and on apply
+				if IsMetaPedUsingComponent(Config.ComponentCategories.Boots) then
+					local item = CachedComponents.Boots
+					if item.drawable then
+						SetTextureOutfitTints(PlayerPedId(), 'boots', item)
+					end
+				end
+
+				if IsMetaPedUsingComponent(Config.ComponentCategories.Pant) then
+					local item = CachedComponents.Pant
+					if item.drawable then
+						SetTextureOutfitTints(PlayerPedId(), 'pants', item)
 					end
 				end
 			end
