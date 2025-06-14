@@ -198,6 +198,9 @@ function LoadComps(ped, components, set)
 	end
 	ApplyAllComponents("Shirt", components.Shirt, ped, set)
 	ApplyAllComponents("Vest", components.Vest, ped, set)
+	ApplyAllComponents("Boots", components.Boots, ped, set)
+
+	UpdatePedVariation(ped)
 end
 
 ---Remove all meta tags from ped
@@ -340,7 +343,7 @@ function StartSwapCharacters()
 		LoadPlayer(value.skin.sex)
 		local data = Config.SpawnPosition[random].positions[key]
 		if not data then return error("your config spawn locations doesnt have enough spawn locations you need to add: " .. #myChars .. "Spawn locations") end
-		data.PedHandler = CreatePed(joaat(value.skin.sex), data.spawn.x, data.spawn.y, data.spawn.z, data.spawn.w, false, false, false, false)
+		data.PedHandler = CreatePed(joaat(value.skin.sex), data.spawn.x, data.spawn.y, data.spawn.z, data.spawn.w, true, false, false, false)
 		repeat Wait(0) until DoesEntityExist(data.PedHandler)
 		LoadCharacterSelect(data.PedHandler, value.skin, value.components)
 		data.Cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", data.camera.x, data.camera.y, data.camera.z, data.camera.rotx, data.camera.roty, data.camera.rotz, data.camera.fov, false, 2)

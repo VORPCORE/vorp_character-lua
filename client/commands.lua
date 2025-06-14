@@ -201,9 +201,8 @@ RegisterCommand("tuck", function(source, args)
 		SetTextureOutfitTints(PlayerPedId(), 'boots', ComponentB)
 	end
 
-
 	if tuck and ComponentB.drawable then
-		SetMetaPedTag(PlayerPedId(), ComponentP.drawable, ComponentP.albedo, ComponentP.normal, ComponentP.material, ComponentP.palette, ComponentP.tint0, ComponentP.tint1, ComponentP.tint2)
+		SetTextureOutfitTints(PlayerPedId(), 'pants', ComponentP)
 	end
 
 	local value = not tuck and "false" or "true"
