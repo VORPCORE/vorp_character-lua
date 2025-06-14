@@ -75,6 +75,7 @@ ConfigShops.Locations = {
             Heading = 92.42,
             MaxUp = 44.85,
             MaxDown = 42.95,
+            MaxX = 0.1,                                   -- the zoom out range some shops are tight so we need to not allow zoom out more than this
         },
         TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                -- if you need a light in the store put true

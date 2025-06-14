@@ -243,6 +243,14 @@ local function AdjustCharcaterHeading(heading, amount)
 	return heading
 end
 
+local function GetCameraBounds(initialX, value)
+	local zoomInRange = 0.8
+	local zoomOutRange = value.MaxX or 4.9
+	local minX = initialX - zoomInRange
+	local maxX = initialX + (zoomOutRange / 2)
+	return minX, maxX
+end
+
 function StartPrompts(value)
 	local zoom = 30.00
 	local locationx = value and value.Position.x or -561.8157
@@ -251,6 +259,7 @@ function StartPrompts(value)
 	local position = value and value.Position.z or 239.0805
 	local maxUp = value and value.MaxUp or 239.55
 	local maxDown = value and value.MaxDown or 238.0
+	local minX, maxX = GetCameraBounds(locationx, value)
 	local cam = SetUpCameraCharacterMovement(locationx, locationy, position, heading, zoom)
 	local TotalToPay = ""
 	local pocketMoney = value and LocalPlayer.state.Character.Money or 0
@@ -285,12 +294,12 @@ function StartPrompts(value)
 		end
 
 		if IsControlPressed(2, `INPUT_CONTEXT_ACTION`) then -- zoom out
-			locationx = math.max(locationx - 0.05, -563.0)
+			locationx = math.max(locationx - 0.05, minX)
 			SetCamCoord(cam, locationx, locationy, position)
 		end
 
 		if IsControlPressed(2, `INPUT_INSPECT_ZOOM`) then --zoom in
-			locationx = math.min(locationx + 0.05, -559.5)
+			locationx = math.min(locationx + 0.05, maxX)
 			SetCamCoord(cam, locationx, locationy, position)
 		end
 
