@@ -49,7 +49,6 @@ CreateThread(function()
 			end
 
 			if key == "Boots" then
-				-- apply tint to pants on remove and on apply
 				if IsMetaPedUsingComponent(Config.ComponentCategories.Boots) then
 					local item = CachedComponents.Boots
 					if item.drawable then
@@ -62,6 +61,14 @@ CreateThread(function()
 					if item.drawable then
 						SetTextureOutfitTints(PlayerPedId(), 'pants', item)
 					end
+				end
+			end
+
+			-- to fix clip with boots and pants
+			if key == "Pant" then
+				if IsMetaPedUsingComponent(Config.ComponentCategories.Boots) then
+					UpdateShopItemWearableState(CachedComponents.Boots.comp, `base`) -- -2081918609
+					UpdatePedVariation()
 				end
 			end
 		end, false)
@@ -116,7 +123,7 @@ end, false)
 
 
 local bandanaOn = true
-RegisterCommand('bandanaon', function(source, args, rawCommand)
+RegisterCommand('bandanaon', function()
 	local player = PlayerPedId()
 	local Components = CachedComponents.NeckWear
 	local shirtComponents = CachedComponents.Shirt
@@ -156,7 +163,7 @@ end, false)
 
 
 local sleeves = true
-RegisterCommand("sleeves", function(source, args)
+RegisterCommand("sleeves", function()
 	local Components = CachedComponents.Shirt
 	if Components.comp == -1 then return end
 
@@ -179,7 +186,7 @@ RegisterCommand("sleeves", function(source, args)
 end, false)
 
 local collar = true
-RegisterCommand("sleeves2", function(source, args)
+RegisterCommand("sleeves2", function()
 	local Components = CachedComponents.Shirt
 	if Components.comp == -1 then return end
 
@@ -256,7 +263,7 @@ function ApplyRolledClothingStatus()
 	end
 end
 
-RegisterCommand(Config.ReloadCharCommand, function(source, args, rawCommand)
+RegisterCommand(Config.ReloadCharCommand, function(_, args)
 	local __player = PlayerPedId()
 	local hogtied = Citizen.InvokeNative(0x3AA24CCC0D451379, __player)
 	local cuffed = Citizen.InvokeNative(0x74E559B3BC910685, __player)
