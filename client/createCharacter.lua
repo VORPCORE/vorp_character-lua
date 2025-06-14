@@ -343,10 +343,7 @@ function DefaultPedSetup(ped, male)
 	PlayerSkin.eyebrows_opacity    = 1.0
 	PlayerSkin.eyebrows_color      = 0x3F6E70FF
 
-	FaceOverlay("eyebrows", 1, 1, 1, 0,
-		0, 1.0, 0, 1,
-		0x3F6E70FF, 0,
-		0, 1, 1.0)
+	ApplyOverlay("eyebrows", 1, 1, 1, 0,0, 1.0, 0, 1,0x3F6E70FF, 0, 0, 1, 1.0, PlayerSkin.Albedo)
 end
 
 function EnableCharCreationPrompts(boolean)
