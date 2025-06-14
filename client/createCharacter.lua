@@ -255,7 +255,7 @@ function StartPrompts(value)
 	local TotalToPay = ""
 	local pocketMoney = value and LocalPlayer.state.Character.Money or 0
 
-	while not IsCharCreationFinished or IsInClothingStore do
+	while true do
 		Wait(0)
 
 		if IsInClothingStore and ShopType ~= "secondchance" then
@@ -293,9 +293,21 @@ function StartPrompts(value)
 			locationx = math.min(locationx + 0.05, -559.5)
 			SetCamCoord(cam, locationx, locationy, position)
 		end
+
+		if IsCharCreationFinished then
+			break
+		else
+			if not IsInCharCreation then
+				if not IsInClothingStore then
+					break
+				end
+			end
+		end
 	end
+
 	DeleteAllPrompts()
-	repeat Wait(0) until not (IsInCharCreation or IsInClothingStore)
+
+	repeat Wait(0) until not IsInCharCreation and not IsInClothingStore
 	DestroyCam(cam, false)
 	RenderScriptCams(false, true, 500, true, true, 0)
 end
@@ -343,7 +355,7 @@ function DefaultPedSetup(ped, male)
 	PlayerSkin.eyebrows_opacity    = 1.0
 	PlayerSkin.eyebrows_color      = 0x3F6E70FF
 
-	ApplyOverlay("eyebrows", 1, 1, 1, 0,0, 1.0, 0, 1,0x3F6E70FF, 0, 0, 1, 1.0, PlayerSkin.Albedo)
+	ApplyOverlay("eyebrows", 1, 1, 1, 0, 0, 1.0, 0, 1, 0x3F6E70FF, 0, 0, 1, 1.0, PlayerSkin.Albedo)
 end
 
 function EnableCharCreationPrompts(boolean)
