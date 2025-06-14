@@ -32,18 +32,23 @@ CreateThread(function()
 				end
 			end
 
-			if key == "Coat" then
-				if IsMetaPedUsingComponent(Config.ComponentCategories.Vest) then
-					local item = CachedComponents.Vest
+			if key == "Coat" or key == "Boots" then
+				local category = key == "Coat" and "Vest" or "Boots"
+				local category2 = key == "Coat" and "Shirt" or "Pants"
+				local category3 = key == "Coat" and "vests" or "boots"
+				local category4 = key == "Coat" and "shirts_full" or "pants"
+
+				if IsMetaPedUsingComponent(Config.ComponentCategories[category]) then
+					local item = CachedComponents[category]
 					if item.drawable then
-						SetTextureOutfitTints(PlayerPedId(), 'vests', item)
+						SetTextureOutfitTints(PlayerPedId(), category3, item)
 					end
 				end
 
-				if IsMetaPedUsingComponent(Config.ComponentCategories.Shirt) then
-					local item = CachedComponents.Shirt
+				if IsMetaPedUsingComponent(Config.ComponentCategories[category2]) then
+					local item = CachedComponents[category2]
 					if item.drawable then
-						SetTextureOutfitTints(PlayerPedId(), 'shirts_full', item)
+						SetTextureOutfitTints(PlayerPedId(), category4, item)
 					end
 				end
 			end
@@ -185,7 +190,7 @@ RegisterCommand("sleeves2", function(source, args)
 end, false)
 
 local tuck = true
-RegisterCommand("tuck", function(source, args)
+RegisterCommand("tuck", function()
 	local ComponentB = CachedComponents.Boots
 	if ComponentB.comp == -1 then return end
 	local ComponentP = CachedComponents.Pant
