@@ -176,7 +176,11 @@ local function ApplyAllComponents(category, value, ped, set)
 		local TagData = GetMetaPedData(category == "Boots" and "boots" or category, ped)
 		if TagData then
 			local palette = (value.palette ~= 0) and value.palette or TagData.palette
-			SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, palette, value.tint0, value.tint1, value.tint2)
+			local tint0 = (value.tint0 ~= 0) and value.tint0 or TagData.tint0
+			local tint1 = (value.tint1 ~= 0) and value.tint1 or TagData.tint1
+			local tint2 = (value.tint2 ~= 0) and value.tint2 or TagData.tint2
+
+			SetMetaPedTag(ped, TagData.drawable, TagData.albedo, TagData.normal, TagData.material, palette, tint0, tint1, tint2)
 			if IsPedAPlayer(ped) and CachedComponents[category] then
 				CachedComponents[category].drawable = TagData.drawable
 				CachedComponents[category].albedo = TagData.albedo
