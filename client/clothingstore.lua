@@ -102,7 +102,7 @@ AddEventHandler('onResourceStop', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then
         return
     end
-    for index, value in ipairs(ConfigShops.Locations) do
+    for _, value in ipairs(ConfigShops.Locations) do
         if value.Blip.Entity then
             RemoveBlip(value.Blip.Entity)
         end

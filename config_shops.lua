@@ -38,11 +38,14 @@ ConfigShops.Locations = {
         SpawnBack = { -- where the player will be teleported to after editing character
             Position = vector4(-323.12, 774.47, 121.63, 186.42),
         },
-        CameraPosition = { -- camera position for the character editor
+        CameraPosition = {   -- camera position for the character editor
             Position = vector3(-327.38, 775.48, 122.00),
-            Heading = 97.6,
-            MaxUp = 122.75,
+            Heading = 102.0, -- heading of the camera
+            MaxUp = 122.75,  -- adjust the camera MaxUp and MaxDown to fit the shop
             MaxDown = 120.91,
+            ZoomInRange = 1.0,
+            ZoomOutRange = 1.5,
+
         },
         TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                -- if you need a light in the store put true
@@ -75,7 +78,8 @@ ConfigShops.Locations = {
             Heading = 92.42,
             MaxUp = 44.85,
             MaxDown = 42.95,
-            MaxX = 0.1,                                   -- the zoom out range some shops are tight so we need to not allow zoom out more than this
+            ZoomInRange = 1.1,
+            ZoomOutRange = 0.1,
         },
         TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                -- if you need a light in the store put true
@@ -109,6 +113,8 @@ ConfigShops.Locations = {
             Heading = 91.22,
             MaxUp = 45.86,
             MaxDown = 43.22,
+            ZoomInRange = 1.0,
+            ZoomOutRange = 1.0,
         },
         TypeOfShop = "lifestyle", -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,        -- if you need a light in the store put true
@@ -142,6 +148,8 @@ ConfigShops.Locations = {
             Heading = -26.27,
             MaxUp = 78.13,
             MaxDown = 76.95,
+            ZoomInRange = 1.0,
+            ZoomOutRange = 0.5,
         },
         TypeOfShop = "clothing",                         -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                               -- if you need a light in the store put true
@@ -154,7 +162,7 @@ ConfigShops.Locations = {
         Npc = {
             Enable = true,
             Model = "CS_FRANCIS_SINCLAIR",
-            Position = vector4(2552.89, -1163.73, 53.73, 144.93),
+            Position = vector4(2552.89, -1163.73, 53.73, 143.93),
             Scenario = 'WORLD_HUMAN_STAND_WAITING',
         },
         Blip = {
@@ -174,6 +182,8 @@ ConfigShops.Locations = {
             Heading = 0.32,
             MaxUp = 54.82,
             MaxDown = 53.00,
+            ZoomInRange = 1.0,
+            ZoomOutRange = 0.5,
         },
         TypeOfShop = "clothing",                           -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                 -- if you need a light in the store put true
@@ -206,6 +216,8 @@ ConfigShops.Locations = {
             Heading = 145.25,
             MaxUp = 161.45,
             MaxDown = 145.31,
+            ZoomInRange = 1.5,
+            ZoomOutRange = 0.5,
         },
         TypeOfShop = "clothing",                           -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                 -- if you need a light in the store put true
@@ -238,6 +250,8 @@ ConfigShops.Locations = {
             Heading = 40.58,
             MaxUp = 0.78,
             MaxDown = -1.20,
+            ZoomInRange = 1.0,
+            ZoomOutRange = 0.1,
         },
         TypeOfShop = "clothing",                           -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                 -- if you need a light in the store put true
@@ -270,6 +284,8 @@ ConfigShops.Locations = {
             Heading = 179.85,
             MaxUp = -12.48,
             MaxDown = -13.89,
+            ZoomInRange = 1.0,
+            ZoomOutRange = 1.5,
         },
         TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,       -- if you need a light in the store put true

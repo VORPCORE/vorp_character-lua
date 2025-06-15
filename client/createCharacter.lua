@@ -228,96 +228,93 @@ function RegisterGenderPrompt()
 	UiPromptRegisterEnd(zoomout)
 end
 
-local function SetUpCameraCharacterMovement(x, y, z, heading, zoom)
+local function SetUpCameraCharacterMovement(x, y, z, heading, fov)
 	DestroyAllCams(true)
-	local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", x, y, z, -4.2146, -0.0007, heading, zoom, true, 0)
+	local cam <const> = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", x, y, z, -4.2146, -0.0007, heading, fov, true, 0)
 	SetCamActive(cam, true)
 	RenderScriptCams(true, false, 3000, true, false, 0)
 	ShakeCam(cam, "HAND_SHAKE", 0.04)
 	return cam
 end
 
-local function AdjustCharcaterHeading(heading, amount)
-	heading = heading + amount
-	SetPedDesiredHeading(PlayerPedId(), heading)
-	return heading
-end
 
-local function GetCameraBounds(initialX, value)
-	local zoomInRange = 0.8
-	local zoomOutRange = value.MaxX or 4.9
-	local minX = initialX - zoomInRange
-	local maxX = initialX + (zoomOutRange / 2)
-	return minX, maxX
+local function RotationToDirection(rot)
+	local pitch <const> = math.rad(rot.x)
+	local yaw <const>   = math.rad(rot.z)
+	local cp <const>    = math.cos(pitch)
+	return vector3(-math.sin(yaw) * cp, math.cos(yaw) * cp, math.sin(pitch))
 end
 
 function StartPrompts(value)
-	local zoom = 30.00
-	local locationx = value and value.Position.x or -561.8157
-	local locationy = value and value.Position.y or -3780.966
-	local heading = value and value.Heading or -87.8802
-	local position = value and value.Position.z or 239.0805
-	local maxUp = value and value.MaxUp or 239.55
-	local maxDown = value and value.MaxDown or 238.0
+	local baseX <const>        = value and value.Position.x or -561.8157
+	local baseY <const>        = value and value.Position.y or -3780.966
+	local baseZ <const>        = value and value.Position.z or 239.0805
+	local heading              = value and value.Heading or -87.8802
+	local maxUp <const>        = value and value.MaxUp or 239.55
+	local maxDown <const>      = value and value.MaxDown or 238.0
+	local zoomInRange <const>  = value and value.ZoomInRange or 2.5
+	local zoomOutRange <const> = value and value.ZoomOutRange or 1.5
+	local zoomStep <const>     = 0.05
+	local vertStep <const>     = 0.01
+	local cam <const>          = SetUpCameraCharacterMovement(baseX, baseY, baseZ, heading, 30.0)
+	local rot <const>          = GetCamRot(cam, 2)
+	local dir <const>          = RotationToDirection(rot)
+	local base <const>         = vector3(baseX, baseY, baseZ)
+	local forwardOffset        = 0
+	local verticalOffset       = 0
+	local minForward <const>   = -zoomOutRange
+	local maxForward <const>   = zoomInRange
+	local minVertical <const>  = maxDown - baseZ
+	local maxVertical <const>  = maxUp - baseZ
 
-	local minX, maxX = GetCameraBounds(locationx, value) --[[  or -563.0, -559.5 ]]
-	local cam = SetUpCameraCharacterMovement(locationx, locationy, position, heading, zoom)
-	local TotalToPay = ""
-	--local pocketMoney = value and LocalPlayer.state.Character.Money or 0
+	local TotalToPay           = ""
 
 	while true do
 		Wait(0)
 
+
 		if IsInClothingStore and ShopType ~= "secondchance" then
-			TotalToPay = T.Other.total .. GetCurrentAmmountToPay() --[[ .. T.Other.pocketmoney .. pocketMoney ]] .. "~q~ "
+			TotalToPay = T.Other.total .. GetCurrentAmmountToPay() .. "~q~ "
 		end
 
-		local label = VarString(10, "LITERAL_STRING", TotalToPay .. T.PromptLabels.CamAdjustments)
-
+		local label <const> = VarString(10, "LITERAL_STRING", TotalToPay .. T.PromptLabels.CamAdjustments)
 		UiPromptSetActiveGroupThisFrame(PromptGroup2, label, 0, 0, 0, 0)
 
-		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key) then --right
-			heading = AdjustCharcaterHeading(heading, -1.5)
+		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key) then
+			heading = heading - 1.5
+			SetPedDesiredHeading(PlayerPedId(), heading)
 		end
 
-		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key2) then -- left
-			heading = AdjustCharcaterHeading(heading, 1.5)
+		if IsControlPressed(2, Config.keys.prompt_camera_rotate.key2) then
+			heading = heading + 1.5
+			SetPedDesiredHeading(PlayerPedId(), heading)
 		end
 
-		if IsControlPressed(2, Config.keys.prompt_camera_ws.key) then -- up
-			position = math.min(position + 0.01, maxUp)
-			SetCamCoord(cam, locationx, locationy, position)
+		if IsControlPressed(2, Config.keys.prompt_camera_ws.key) then
+			verticalOffset = math.min(verticalOffset + vertStep, maxVertical)
+		end
+		if IsControlPressed(2, Config.keys.prompt_camera_ws.key2) then
+			verticalOffset = math.max(verticalOffset - vertStep, minVertical)
 		end
 
-		if IsControlPressed(2, Config.keys.prompt_camera_ws.key2) then -- down
-			position = math.max(position - 0.01, maxDown)
-			SetCamCoord(cam, locationx, locationy, position)
+		if IsControlPressed(2, `INPUT_INSPECT_ZOOM`) then
+			forwardOffset = math.min(forwardOffset + zoomStep, maxForward)
+		end
+		if IsControlPressed(2, `INPUT_CONTEXT_ACTION`) then
+			forwardOffset = math.max(forwardOffset - zoomStep, minForward)
 		end
 
-		if IsControlPressed(2, `INPUT_CONTEXT_ACTION`) then -- zoom out
-			locationx = math.max(locationx - 0.05, minX)
-			SetCamCoord(cam, locationx, locationy, position)
-		end
+		local newPos = base + dir * forwardOffset + vector3(0, 0, verticalOffset)
+		SetCamCoord(cam, newPos.x, newPos.y, newPos.z)
+		SetCamRot(cam, rot.x, rot.y, rot.z, 2)
 
-		if IsControlPressed(2, `INPUT_INSPECT_ZOOM`) then --zoom in
-			locationx = math.min(locationx + 0.05, maxX)
-			SetCamCoord(cam, locationx, locationy, position)
-		end
-
-		if IsCharCreationFinished then
+		if IsCharCreationFinished or (not IsInCharCreation and not IsInClothingStore) then
 			break
-		else
-			if not IsInCharCreation then
-				if not IsInClothingStore then
-					break
-				end
-			end
 		end
 	end
+
 	DeleteAllPrompts()
-
 	repeat Wait(0) until not IsInCharCreation and not IsInClothingStore
-
 	DestroyCam(cam, false)
 	RenderScriptCams(false, true, 500, true, true, 0)
 end
