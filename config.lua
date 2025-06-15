@@ -163,7 +163,7 @@ Config.SpawnPosition = {
             },
         }
     },
-    -- Vanhorn 2
+    --Vanhorn 2
     {
         options = {
             timecycle = { name = "Finale1_outrohighhon_bidging2", strenght = 1.0 },
@@ -386,9 +386,9 @@ Config.SpawnPosition = {
                     },
                 }
             },
-            {
+            { 
                 spawn    = vector4(242.06687927246094, 1962.82861328125, 205.6053924560547, -47.0),
-                camera   = { x = 242.81, y = 1964.24, z = 205.95, rotx = -1.18, roty = 0.00, rotz = 154.06, fov = 50.0 },
+                camera   = { x = 243.38, y = 1964.55, z = 206.35, rotx = -9.77, roty = 0.00, rotz =  145.23, fov = 60.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_C",
@@ -425,7 +425,7 @@ Config.SpawnPosition = {
         positions = {
             {
                 spawn    = vector4(399.0948791503906, 1674.13623046875, 128.34893798828125, 121.97),
-                camera   = { x = 398.27, y = 1672.93, z = 128.59, rotx = 3.59, roty = 0.00, rotz = -32.96, fov = 50.0 },
+                camera   = { x = 397.62, y =1672.29, z = 129.09, rotx =-12.06, roty = 0.00, rotz = -33.24, fov = 65.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_A",
@@ -449,7 +449,7 @@ Config.SpawnPosition = {
             },
             {
                 spawn    = vector4(401.34051513671875, 1674.3046875, 128.2012939453125, -158.24),
-                camera   = { x = 400.68, y = 1672.99, z = 128.40, rotx = 4.22, roty = 0.00, rotz = -29.49, fov = 50.0 },
+                camera   = { x = 402.13, y = 1672.52, z =128.80 , rotx = -5.41, roty = 0.00, rotz = 22.56, fov = 60.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_A",
@@ -459,10 +459,9 @@ Config.SpawnPosition = {
                     },
                 }
             },
-
             {
                 spawn    = vector4(399.1690979003906, 1675.1075439453125, 128.34046936035156, 78.19),
-                camera   = { x = 397.64, y = 1675.19, z = 128.53, rotx = 1.38, roty = 0.00, rotz = -88.89, fov = 50.0 },
+                camera   = { x = 397.07, y = 1674.74, z = 129.14, rotx = -16.21, roty = 0.00, rotz = -72.96, fov = 50.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_C",
@@ -534,8 +533,8 @@ Config.SpawnPosition = {
                 }
             },
             {
-                spawn    = vector4(183.17520141601562, 127.44035339355469, 104.51107025146484, 88.93),
-                camera   = { x = 182.02, y = 128.39, z = 104.80, rotx = -4.44, roty = 0.00, rotz = -127.59, fov = 50.0 },
+                spawn    = vector4(182.57081604003906, 127.40278625488281, 104.57352447509766, 103.93),
+                camera   = { x = 180.71, y = 127.62, z = 105.43, rotx = -11.55, roty = 0.00, rotz =-95.67, fov = 50.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_C"
@@ -722,7 +721,7 @@ Config.SpawnPosition = {
         positions = {
             {
                 spawn    = vector4(-1326.1461181640625, 2470.50244140625, 309.5157165527344, 3.5),
-                camera   = { x = -1327.19, y = 2471.72, z = 309.90, rotx = -5.64, roty = 0.00, rotz = -136.97, fov = 50.0 },
+                camera   = { x = -1327.04, y = 2472.75, z = 309.78, rotx = 2.67, roty = 0.00, rotz = -151.38, fov = 50.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_A"
@@ -871,7 +870,7 @@ Config.SpawnPosition = {
         positions = {
             {
                 spawn    = vector4(-3320.525634765625, -2826.189697265625, -6.14256906509399, -12.0),
-                camera   = { x = -3321.13, y = -2824.70, z = -5.77, rotx = -5.10, roty = 0.00, rotz = -156.72, fov = 50.0 },
+                camera   = { x = -3320.64, y = -2824.37, z = -5.77, rotx = -8.66, roty = 0.00, rotz = -170.33, fov = 60.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_A"
@@ -919,7 +918,7 @@ Config.SpawnPosition = {
             },
             {
                 spawn    = vector4(-3319.260498046875, -2827.394775390625, -6.08130264282226, -66.57),
-                camera   = { x = -3318.73, y = -2825.75, z = -5.77, rotx = -1.26, roty = 0.00, rotz = 163.98, fov = 50.0 },
+                camera   = { x = -3317.02, y =-2826.74,  z = -5.11, rotx = -17.32, roty = 0.00, rotz = 105.93, fov = 50.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_D"
