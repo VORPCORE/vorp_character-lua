@@ -4,7 +4,7 @@ local imgPath1 <const>          = "<img style='max-height:20px;max-width:20px;ma
 local path <const>              = "<img style='max-height:532px;max-width:344px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/clothingfemale/%s.png'>"
 local opacity <const>           = "<br><span style='opacity:0.6;'>%s</span>"
 local CHARACTER_DETAILS <const> = {}
-local Playerdata <const>        = {}
+local PLAYER_DATA <const>       = {}
 local Title                     = T.MenuCreation.title
 local MenuData <const>          = exports.vorp_menu:GetMenuData()
 local PlayerFixClothing <const> = {}
@@ -215,13 +215,13 @@ function OpenCharCreationMenu(clothingtable, value)
         elements[#elements + 1] = {
             label = T.MenuCreation.element.label .. opacity:format(T.Secondchance.DescAppearance),
             value = "appearance",
-            desc = imgPath:format("character_creator_head") .. "<br>" .. T.MenuCreation.element.desc .. "<br><br>" .. Divider .. "<br><br>"
+            desc = imgPath:format("character_creator_head") .. "<br>" .. T.MenuCreation.element.desc .. "<br><br>" .. Divider
         }
 
         elements[#elements + 1] = {
             label = T.MenuCreation.element2.label .. opacity:format(T.Secondchance.DescClothing),
             value = "clothing",
-            desc = imgPath:format("clothing_generic_outfit") .. "<br> " .. T.MenuCreation.element2.desc .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("clothing_generic_outfit") .. "<br> " .. T.MenuCreation.element2.desc .. "<br><br>" .. Divider
         }
         -- confirm pay
         if not IsInCharCreation then
@@ -239,34 +239,34 @@ function OpenCharCreationMenu(clothingtable, value)
         elements[#elements + 1] = {
             label = "Whistle" .. opacity:format("adjust whistle"),
             value = "whistle",
-            desc = imgPath:format("emote_greet_hey_you") .. "<br> " .. T.MenuCreation.element5.desc .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("emote_greet_hey_you") .. "<br> " .. T.MenuCreation.element5.desc .. "<br><br>" .. Divider
         }
         elements[#elements + 1] = {
             label = CHARACTER_DETAILS.age or T.MenuCreation.element5.label .. opacity:format(T.MenuCreation.none),
             value = "age",
-            desc = imgPath:format("emote_greet_hey_you") .. "<br> " .. T.MenuCreation.element5.desc .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("emote_greet_hey_you") .. "<br> " .. T.MenuCreation.element5.desc .. "<br><br>" .. Divider
 
         }
         elements[#elements + 1] = {
             label = CHARACTER_DETAILS.desc or T.MenuCreation.element6.label .. opacity:format(T.MenuCreation.none),
             value = "desc",
-            desc = imgPath:format("emote_greet_hey_you") .. "<br>" .. T.MenuCreation.element6.desc .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("emote_greet_hey_you") .. "<br>" .. T.MenuCreation.element6.desc .. "<br><br>" .. Divider
         }
         elements[#elements + 1] = {
             label = CHARACTER_DETAILS.nickname or T.MenuCreation.element7.label .. opacity:format(T.MenuCreation.none),
             value = "nickname",
-            desc = imgPath:format("emote_greet_hey_you") .. "<br> " .. T.MenuCreation.element7.desc .. "<br>" .. T.MenuCreation.element7.desc2 .. "<br><br>" .. Divider .. "<br><br>",
+            desc = imgPath:format("emote_greet_hey_you") .. "<br> " .. T.MenuCreation.element7.desc .. "<br>" .. T.MenuCreation.element7.desc2 .. "<br><br>" .. Divider
         }
         elements[#elements + 1] = {
             label = CHARACTER_DETAILS.charname or T.MenuCreation.element3.label .. opacity:format(T.MenuCreation.none),
-            value = CHARACTER_DETAILS.value1 or "name",
-            desc = CHARACTER_DETAILS.desc or imgPath:format("emote_greet_hey_you") .. "<br> " .. T.MenuCreation.element3.desc .. "<br><br>" .. Divider .. "<br><br>",
+            value = "name",
+            desc = imgPath:format("emote_greet_hey_you") .. "<br> " .. T.MenuCreation.element3.desc .. "<br><br>" .. Divider
 
         }
         elements[#elements + 1] = {
             label = CHARACTER_DETAILS.label or ("<span style='color: Grey;'>" .. T.MenuCreation.element4.label .. "<br>" .. T.MenuCreation.finish .. "" .. "</span>"),
             value = CHARACTER_DETAILS.value or "not",
-            desc = imgPath:format("generic_walk_style") .. "<br> " .. "<br><br>" .. Divider .. "<br><br>" .. T.MenuCreation.element4.desc,
+            desc = imgPath:format("generic_walk_style") .. "<br> " .. "<br><br>" .. Divider .. "" .. T.MenuCreation.element4.desc
         }
     end
     MenuData.Open('default', GetCurrentResourceName(), 'OpenCharCreationMenu',
@@ -275,7 +275,7 @@ function OpenCharCreationMenu(clothingtable, value)
             subtext = SubTitle,
             align = Config.Align,
             elements = elements,
-            itemHeight = "4vh",
+            itemHeight = "4vh"
         },
 
         function(data, menu)
@@ -321,10 +321,9 @@ function OpenCharCreationMenu(clothingtable, value)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
                         CHARACTER_DETAILS.desc = T.MenuCreation.element6.label .. opacity:format(T.MenuCreation.element6.desc2) .. imgPath1:format("menu_icon_tick")
-                        Playerdata.desc = Result
-                        menu.setElement(5, "desc", imgPath:format("emote_greet_hey_you") .. "<br><br>" .. Result)
+                        PLAYER_DATA.desc = Result
+                        menu.setElement(5, "desc", imgPath:format("emote_greet_hey_you") .. "<br><br>" .. Result .. "<br><br>" .. Divider)
                         menu.setElement(5, "label", CHARACTER_DETAILS.desc)
-                        menu.setElement(5, "itemHeight", "4vh")
                         menu.refresh()
                     end
                 end)
@@ -350,9 +349,8 @@ function OpenCharCreationMenu(clothingtable, value)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
                         CHARACTER_DETAILS.nickname = T.MenuCreation.element7.nickname .. "<br> <span style='opacity:0.6;'>" .. Result .. "</span>" .. imgPath1:format("menu_icon_tick")
-                        Playerdata.nickname = Result
+                        PLAYER_DATA.nickname = Result
                         menu.setElement(6, "label", CHARACTER_DETAILS.nickname)
-                        menu.setElement(6, "itemHeight", "4vh")
                         menu.refresh()
                     end
                 end)
@@ -378,9 +376,8 @@ function OpenCharCreationMenu(clothingtable, value)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
                         CHARACTER_DETAILS.age = T.MenuCreation.element5.label .. opacity:format(Result) .. imgPath1:format("menu_icon_tick")
-                        Playerdata.age = Result
+                        PLAYER_DATA.age = Result
                         menu.setElement(4, "label", CHARACTER_DETAILS.age)
-                        menu.setElement(4, "itemHeight", "4vh")
                         menu.refresh()
                     end
                 end)
@@ -413,17 +410,13 @@ function OpenCharCreationMenu(clothingtable, value)
                         end
 
                         local FirstName, LastName = GetName(Result)
-                        Playerdata.firstname = FirstName
-                        Playerdata.lastname = LastName
+                        PLAYER_DATA.firstname = FirstName
+                        PLAYER_DATA.lastname = LastName
                         CHARACTER_DETAILS.charname = T.MenuCreation.charname .. opacity:format(FirstName .. " " .. LastName) .. imgPath1:format("menu_icon_tick")
-                        CHARACTER_DETAILS.desc = imgPath:format("emote_greet_hey_you") .. "<br>" .. T.MenuCreation.label .. "<br> " .. FirstName .. " " .. LastName .. "<br><br>" .. Divider .. "<br><br>"
                         CHARACTER_DETAILS.value = "save"
-                        CHARACTER_DETAILS.value1 = "name"
                         CHARACTER_DETAILS.label = T.MenuCreation.element4.label
                         menu.setElement(7, "label", CHARACTER_DETAILS.charname)
-                        menu.setElement(7, "value", CHARACTER_DETAILS.value1)
                         menu.setElement(7, "desc", CHARACTER_DETAILS.desc)
-                        menu.setElement(7, "itemHeight", "4vh")
                         menu.removeElementByIndex(8)
                         menu.addNewElement({
                             label = T.MenuCreation.element4.label,
@@ -440,13 +433,13 @@ function OpenCharCreationMenu(clothingtable, value)
                 local NewTable = GetNewCompOldStructure(PlayerClothing)
                 PlayerSkin.albedo = PlayerSkin.Albedo -- just for backwards compatibility
                 PlayerSkin.Albedo = nil
-                Playerdata.skin = json.encode(PlayerSkin)
-                Playerdata.comps = json.encode(NewTable)
-                Playerdata.compTints = json.encode(PlayerTrackingData)
-                Playerdata.gender = GetGender()
-                Playerdata.age = Playerdata.age or 30
-                Playerdata.nickname = Playerdata.nickname or "none"
-                Playerdata.charDescription = Playerdata.desc or "none"
+                PLAYER_DATA.skin = json.encode(PlayerSkin)
+                PLAYER_DATA.comps = json.encode(NewTable)
+                PLAYER_DATA.compTints = json.encode(PlayerTrackingData)
+                PLAYER_DATA.gender = GetGender()
+                PLAYER_DATA.age = PLAYER_DATA.age or 30
+                PLAYER_DATA.nickname = PLAYER_DATA.nickname or "none"
+                PLAYER_DATA.charDescription = PLAYER_DATA.desc or "none"
                 -- start scenes
                 IsCharCreationFinished = true
                 local animscene = SetupScenes("Pl_Edit_to_Photo_" .. GetGender())
@@ -473,7 +466,7 @@ function OpenCharCreationMenu(clothingtable, value)
                 CreateThread(function()
                     while InCharacterCreator do
                         Wait(0)
-                        DrawText3D(-558.64, -3782.30, 238.5, Playerdata.firstname .. " " .. Playerdata.lastname, { 255, 255, 255, 255 })
+                        DrawText3D(-558.64, -3782.30, 238.5, PLAYER_DATA.firstname .. " " .. PLAYER_DATA.lastname, { 255, 255, 255, 255 })
                     end
                 end)
                 ShowBusyspinnerWithText(T.Other.spinnertext3)
@@ -481,12 +474,14 @@ function OpenCharCreationMenu(clothingtable, value)
                 TakePhoto()
                 Wait(7000)
                 BusyspinnerOff()
-                TriggerServerEvent("vorpcharacter:saveCharacter", Playerdata)
+                TriggerServerEvent("vorpcharacter:saveCharacter", PLAYER_DATA)
                 CachedComponents = ConvertTableComps(PlayerClothing, PlayerTrackingData)
                 CachedSkin = PlayerSkin
                 SetCamFocusDistance(NewCam, 1.0)
                 FinishCreation(animscene, animscene1)
             end
+        end, function(data, menu)
+
         end)
 end
 
