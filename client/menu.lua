@@ -487,8 +487,6 @@ function OpenCharCreationMenu(clothingtable, value)
                 SetCamFocusDistance(NewCam, 1.0)
                 FinishCreation(animscene, animscene1)
             end
-        end, function(data, menu)
-
         end)
 end
 

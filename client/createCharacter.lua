@@ -259,16 +259,17 @@ function StartPrompts(value)
 	local position = value and value.Position.z or 239.0805
 	local maxUp = value and value.MaxUp or 239.55
 	local maxDown = value and value.MaxDown or 238.0
-	local minX, maxX = GetCameraBounds(locationx, value)
+
+	local minX, maxX = GetCameraBounds(locationx, value) --[[  or -563.0, -559.5 ]]
 	local cam = SetUpCameraCharacterMovement(locationx, locationy, position, heading, zoom)
 	local TotalToPay = ""
-	local pocketMoney = value and LocalPlayer.state.Character.Money or 0
+	--local pocketMoney = value and LocalPlayer.state.Character.Money or 0
 
 	while true do
 		Wait(0)
 
 		if IsInClothingStore and ShopType ~= "secondchance" then
-			TotalToPay = T.Other.total .. GetCurrentAmmountToPay() .. T.Other.pocketmoney .. pocketMoney .. "~q~ "
+			TotalToPay = T.Other.total .. GetCurrentAmmountToPay() --[[ .. T.Other.pocketmoney .. pocketMoney ]] .. "~q~ "
 		end
 
 		local label = VarString(10, "LITERAL_STRING", TotalToPay .. T.PromptLabels.CamAdjustments)
@@ -313,10 +314,10 @@ function StartPrompts(value)
 			end
 		end
 	end
-
 	DeleteAllPrompts()
 
 	repeat Wait(0) until not IsInCharCreation and not IsInClothingStore
+
 	DestroyCam(cam, false)
 	RenderScriptCams(false, true, 500, true, true, 0)
 end
@@ -326,7 +327,7 @@ function DefaultPedSetup(ped, male)
 	local gender                = male and "M" or "F"
 	PlayerSkin.Eyes             = joaat(("CLOTHING_ITEM_%s_EYES_001_TINT_014"):format(gender))
 	PlayerSkin.BodyType         = joaat(("CLOTHING_ITEM_%s_BODIES_UPPER_001_V_001"):format(gender))
-	PlayerSkin.Body             = Config.BodyType.Body[1]
+	PlayerSkin.Body             = PlayerSkin.BodyType
 	PlayerSkin.HeadType         = joaat(("CLOTHING_ITEM_%s_HEAD_008_V_001"):format(gender))
 	PlayerSkin.LegsType         = joaat(("CLOTHING_ITEM_%s_BODIES_LOWER_001_V_001"):format(gender))
 	PlayerSkin.Albedo           = joaat(("MP_HEAD_%sR1_SC08_C0_000_AB"):format(gender))
@@ -334,8 +335,8 @@ function DefaultPedSetup(ped, male)
 	PlayerClothing.Gunbelt.comp = joaat(("CLOTHING_ITEM_%s_GUNBELT_000_TINT_001"):format(gender))
 	PlayerSkin.Hair             = joaat(("CLOTHING_ITEM_%s_HAIR_001_BLONDE"):format(gender))
 
-	HeadIndexTracker            = 8
-	SkinColorTracker            = 1
+	HeadIndexTracker            = male and 1 or 1
+	SkinColorTracker            = male and 1 or 1
 
 	if not male then
 		EquipMetaPedOutfitPreset(ped, 7)
@@ -364,7 +365,10 @@ function DefaultPedSetup(ped, male)
 	PlayerSkin.eyebrows_opacity    = 1.0
 	PlayerSkin.eyebrows_color      = 0x3F6E70FF
 
-	ApplyOverlay("eyebrows", 1, 1, 1, 0, 0, 1.0, 0, 1, 0x3F6E70FF, 0, 0, 1, 1.0, PlayerSkin.Albedo)
+	ApplyOverlay("eyebrows", 1, 1, 1, 0,
+		0, 1.0, 0, 1,
+		0x3F6E70FF, 0,
+		0, 1, 1.0, PlayerSkin.Albedo)
 end
 
 function EnableCharCreationPrompts(boolean)

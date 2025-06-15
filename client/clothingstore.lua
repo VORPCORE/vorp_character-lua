@@ -4,6 +4,8 @@ local SelectPrompt
 ShopType = ""
 
 CreateThread(function()
+    repeat Wait(5000) until LocalPlayer.state.IsInSession
+
     local str = VarString(10, 'LITERAL_STRING', T.Inputs.press)
     SelectPrompt = UiPromptRegisterBegin()
     UiPromptSetControlAction(SelectPrompt, 0xC7B5340A)
@@ -51,7 +53,7 @@ CreateThread(function()
         return
     end
 
-    repeat Wait(2000) until LocalPlayer.state.IsInSession
+    repeat Wait(5000) until LocalPlayer.state.IsInSession
 
     CreateBlips()
 
