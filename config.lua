@@ -386,9 +386,9 @@ Config.SpawnPosition = {
                     },
                 }
             },
-            { 
+            {
                 spawn    = vector4(242.06687927246094, 1962.82861328125, 205.6053924560547, -47.0),
-                camera   = { x = 243.38, y = 1964.55, z = 206.35, rotx = -9.77, roty = 0.00, rotz =  145.23, fov = 60.0 },
+                camera   = { x = 243.38, y = 1964.55, z = 206.35, rotx = -9.77, roty = 0.00, rotz = 145.23, fov = 60.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_C",
@@ -425,7 +425,7 @@ Config.SpawnPosition = {
         positions = {
             {
                 spawn    = vector4(399.0948791503906, 1674.13623046875, 128.34893798828125, 121.97),
-                camera   = { x = 397.62, y =1672.29, z = 129.09, rotx =-12.06, roty = 0.00, rotz = -33.24, fov = 65.0 },
+                camera   = { x = 397.62, y = 1672.29, z = 129.09, rotx = -12.06, roty = 0.00, rotz = -33.24, fov = 65.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_A",
@@ -449,7 +449,7 @@ Config.SpawnPosition = {
             },
             {
                 spawn    = vector4(401.34051513671875, 1674.3046875, 128.2012939453125, -158.24),
-                camera   = { x = 402.13, y = 1672.52, z =128.80 , rotx = -5.41, roty = 0.00, rotz = 22.56, fov = 60.0 },
+                camera   = { x = 402.13, y = 1672.52, z = 128.80, rotx = -5.41, roty = 0.00, rotz = 22.56, fov = 60.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_A",
@@ -534,7 +534,7 @@ Config.SpawnPosition = {
             },
             {
                 spawn    = vector4(182.57081604003906, 127.40278625488281, 104.57352447509766, 103.93),
-                camera   = { x = 180.71, y = 127.62, z = 105.43, rotx = -11.55, roty = 0.00, rotz =-95.67, fov = 50.0 },
+                camera   = { x = 180.71, y = 127.62, z = 105.43, rotx = -11.55, roty = 0.00, rotz = -95.67, fov = 50.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_C"
@@ -918,7 +918,7 @@ Config.SpawnPosition = {
             },
             {
                 spawn    = vector4(-3319.260498046875, -2827.394775390625, -6.08130264282226, -66.57),
-                camera   = { x = -3317.02, y =-2826.74,  z = -5.11, rotx = -17.32, roty = 0.00, rotz = 105.93, fov = 50.0 },
+                camera   = { x = -3317.02, y = -2826.74, z = -5.11, rotx = -17.32, roty = 0.00, rotz = 105.93, fov = 50.0 },
                 scenario = {
                     mp_female = {
                         "MP_COOP_LOBBY_STANDING_D"
@@ -2105,9 +2105,9 @@ Config.ComponentCategoriesExclude = {
     Beard = Config.ComponentCategories.Beard,
     BeardsMustache = Config.ComponentCategories.BeardsMustache,
     Teeth = Config.ComponentCategories.Teeth,
-    Head = Config.ComponentCategories.Heads,
-    Body = Config.ComponentCategories.BodiesUpper,
-    Legs = Config.ComponentCategories.BodiesLower,
+    Heads = Config.ComponentCategories.Heads,
+    BodiesUpper = Config.ComponentCategories.BodiesUpper,
+    BodiesLower = Config.ComponentCategories.BodiesLower,
     Eyes = Config.ComponentCategories.Eyes,
     EyeBrows = Config.ComponentCategories.EyeBrows,
 }
