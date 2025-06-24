@@ -557,7 +557,7 @@ end
 function SetClothingStatus(components)
     for key, value in pairs(components) do
         if value.comp ~= -1 then
-            local status = GetResourceKvpString(tostring(value.comp))
+            local status = GetResourceKvpString(tostring(value.comp):format(CHARID or 0))
             if status == "true" then
                 RemoveTagFromMetaPed(Config.ComponentCategories[key])
             end

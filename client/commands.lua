@@ -3,7 +3,7 @@ local function toggleComp(hash, item, key)
 	if IsMetaPedUsingComponent(hash) then
 		RemoveTagFromMetaPed(hash)
 		UpdatePedVariation()
-		SetResourceKvp(tostring(item.comp), "true")
+		SetResourceKvp(tostring(item.comp):format(CHARID or 0), "true")
 		TriggerEvent("vorp_character:Client:OnClothingRemoved", key, item.comp)
 	else
 		ApplyShopItemToPed(item.comp)
@@ -11,7 +11,7 @@ local function toggleComp(hash, item, key)
 		if item.drawable then
 			SetMetaPedTag(PlayerPedId(), item.drawable, item.albedo, item.normal, item.material, item.palette, item.tint0, item.tint1, item.tint2)
 		end
-		SetResourceKvp(tostring(item.comp), "false")
+		SetResourceKvp(tostring(item.comp):format(CHARID or 0), "false")
 		TriggerEvent("vorp_character:Client:OnClothingAdded", key, item.comp)
 	end
 	UpdatePedVariation()
@@ -181,7 +181,7 @@ RegisterCommand("sleeves", function()
 	end
 
 	local value = not sleeves and "false" or "true"
-	SetResourceKvp("sleeves", value)
+	SetResourceKvp(("sleeves_%s"):format(CHARID or 0), value)
 	UpdatePedVariation()
 end, false)
 
@@ -204,7 +204,7 @@ RegisterCommand("sleeves2", function()
 	end
 
 	local value = not collar and "false" or "true"
-	SetResourceKvp("collar", value)
+	SetResourceKvp(("collar_%s"):format(CHARID or 0), value)
 	UpdatePedVariation()
 end, false)
 
@@ -234,14 +234,14 @@ RegisterCommand("tuck", function()
 	end
 
 	local value = not tuck and "false" or "true"
-	SetResourceKvp("tuck", value)
+	SetResourceKvp(("tuck_%s"):format(CHARID or 0), value)
 	UpdatePedVariation()
 end, false)
 
 function ApplyRolledClothingStatus()
-	local value = GetResourceKvpString("sleeves")
-	local value2 = GetResourceKvpString("collar")
-	local value3 = GetResourceKvpString("tuck")
+	local value = GetResourceKvpString(("sleeves_%s"):format(CHARID or 0))
+	local value2 = GetResourceKvpString(("collar_%s"):format(CHARID or 0))
+	local value3 = GetResourceKvpString(("tuck_%s"):format(CHARID or 0))
 	if value == "true" then
 		sleeves = false
 		ExecuteCommand("sleeves")

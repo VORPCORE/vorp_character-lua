@@ -19,6 +19,7 @@ Peds                      = {}
 CachedSkin                = {}
 CachedComponents          = {}
 T                         = Translation.Langs[Lang]
+CHARID                    = nil
 local width, _            = GetCurrentScreenResolution()
 
 local imgPath             = "<img style='max-height:450px;max-width:280px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
@@ -41,8 +42,8 @@ CreateThread(function()
 	UiPromptSetControlAction(DeletePrompt, Config.keys.prompt_delete.key)
 	str = VarString(10, 'LITERAL_STRING', str)
 	UiPromptSetText(DeletePrompt, str)
-	UiPromptSetEnabled(DeletePrompt, true)
-	UiPromptSetVisible(DeletePrompt, true)
+	UiPromptSetEnabled(DeletePrompt, Config.AllowPlayerDeleteCharacter)
+	UiPromptSetVisible(DeletePrompt, Config.AllowPlayerDeleteCharacter)
 	UiPromptSetHoldMode(DeletePrompt, 5000)
 	UiPromptSetGroup(DeletePrompt, PromptGroup, 0)
 	UiPromptRegisterEnd(DeletePrompt)
@@ -143,8 +144,8 @@ end)
 
 --FUNCTIONS
 local function LoadFaceFeatures(ped, skin)
-	for key, value in pairs(Config.FaceFeatures) do
-		for label, v in pairs(value) do
+	for _, value in pairs(Config.FaceFeatures) do
+		for _, v in pairs(value) do
 			if skin[v.comp] and skin[v.comp] ~= 0 then
 				SetCharExpression(ped, v.hash, skin[v.comp])
 			end
@@ -157,7 +158,7 @@ local function ApplyAllComponents(category, value, ped, set)
 		return
 	end
 
-	local status = not set and "false" or GetResourceKvpString(tostring(value.comp))
+	local status = not set and "false" or GetResourceKvpString((tostring(value.comp)):format(CHARID or 0))
 	if status == "true" then
 		return RemoveTagFromMetaPed(Config.ComponentCategories[category])
 	end
@@ -285,6 +286,7 @@ function CharSelect()
 	repeat Wait(0) until IsScreenFadedOut()
 	Wait(1000)
 	local charIdentifier = myChars[selectedChar].charIdentifier
+	CHARID = charIdentifier
 	local nModel = tostring(myChars[selectedChar].skin.sex)
 	CachedSkin = myChars[selectedChar].skin
 	CachedComponents = myChars[selectedChar].components
@@ -467,9 +469,6 @@ function EnableSelectionPrompts(menu)
 		local label = VarString(10, 'LITERAL_STRING', T.PromptLabels.promptselectChar)
 		while not WhileSwaping do
 			UiPromptSetActiveGroupThisFrame(PromptGroup, label, 0, 0, 0, 0)
-			if not Config.AllowPlayerDeleteCharacter then
-				UiPromptSetEnabled(DeletePrompt, false)
-			end
 
 			if UiPromptHasHoldModeCompleted(DeletePrompt) then
 				return DeleleteSelectedChaacter(menu)
@@ -799,15 +798,12 @@ end)
 
 -- apply whistle data on character selected
 RegisterNetEvent("vorp:SelectedCharacter", function(charid)
+	CHARID = charid
 	-- if it exists set is current values that were saved when player first made a character
 	local whistleData <const> = GetResourceKvpString(("vorp_character_whistle_%s"):format(charid))
 	if whistleData then
-		print("Apply whistle data")
 		local data <const> = json.decode(whistleData)
 		local ped <const> = PlayerPedId()
-		print(data.pitch)
-		print(data.clarity)
-		print(data.style)
 		if data.pitch and data.pitch > 0 then
 			SetWhistleConfigForPed(ped, "Ped.WhistlePitch", data.pitch)
 		elseif data.clarity and data.clarity > 0 then
@@ -817,7 +813,6 @@ RegisterNetEvent("vorp:SelectedCharacter", function(charid)
 		end
 	else
 		if (WHISTLE.clarity and WHISTLE.clarity > 0) or (WHISTLE.pitch and WHISTLE.pitch > 0) or (WHISTLE.style and WHISTLE.style > 0) then
-			print("Save whistle data")
 			SetResourceKvpNoSync(("vorp_character_whistle_%s"):format(charid), json.encode({
 				clarity = WHISTLE.clarity,
 				pitch = WHISTLE.pitch,
