@@ -323,7 +323,7 @@ end
 function DefaultPedSetup(ped, male)
 	local gender                = male and "M" or "F"
 	HeadIndexTracker            = male and 8 or 1
-	PlayerSkin.Eyes             = joaat(("CLOTHING_ITEM_%s_EYES_001_TINT_014"):format(gender))
+	PlayerSkin.Eyes             = joaat(("CLOTHING_ITEM_%s_EYES_001_TINT_001"):format(gender))
 	PlayerSkin.BodyType         = joaat(("CLOTHING_ITEM_%s_BODIES_UPPER_001_V_001"):format(gender))
 	PlayerSkin.Body             = PlayerSkin.BodyType
 	PlayerSkin.HeadType         = joaat(("CLOTHING_ITEM_%s_HEAD_00%d_V_001"):format(gender, HeadIndexTracker))
