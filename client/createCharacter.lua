@@ -322,23 +322,23 @@ end
 -- set up a default ped with default values
 function DefaultPedSetup(ped, male)
 	local gender                = male and "M" or "F"
+	HeadIndexTracker            = male and 8 or 1
 	PlayerSkin.Eyes             = joaat(("CLOTHING_ITEM_%s_EYES_001_TINT_014"):format(gender))
 	PlayerSkin.BodyType         = joaat(("CLOTHING_ITEM_%s_BODIES_UPPER_001_V_001"):format(gender))
 	PlayerSkin.Body             = PlayerSkin.BodyType
-	PlayerSkin.HeadType         = joaat(("CLOTHING_ITEM_%s_HEAD_008_V_001"):format(gender))
+	PlayerSkin.HeadType         = joaat(("CLOTHING_ITEM_%s_HEAD_00%d_V_001"):format(gender, HeadIndexTracker))
 	PlayerSkin.LegsType         = joaat(("CLOTHING_ITEM_%s_BODIES_LOWER_001_V_001"):format(gender))
 	PlayerSkin.Albedo           = joaat(("MP_HEAD_%sR1_SC08_C0_000_AB"):format(gender))
 	PlayerClothing.Teeth.comp   = joaat(("CLOTHING_ITEM_%s_TEETH_000"):format(gender))
 	PlayerClothing.Gunbelt.comp = joaat(("CLOTHING_ITEM_%s_GUNBELT_000_TINT_001"):format(gender))
 	PlayerSkin.Hair             = joaat(("CLOTHING_ITEM_%s_HAIR_001_BLONDE"):format(gender))
 
-	HeadIndexTracker            = male and 1 or 1
-	SkinColorTracker            = male and 1 or 1
+
+	SkinColorTracker            = 1
 
 	if not male then
 		EquipMetaPedOutfitPreset(ped, 7)
 	end
-
 
 	IsPedReadyToRender()
 	EquipMetaPedOutfitPreset(ped, 3)
