@@ -15,6 +15,15 @@ ConfigShops.SecondChanceCurrency = 0     -- 0 is cash 1 is gold 2 is tokens curr
 -- lifestyle --scars acne complex
 -- Blip Colors: https://github.com/femga/rdr3_discoveries/tree/master/useful_info_from_rpfs/blip_modifiers
 
+local SHOP_TYPES = {
+    MAKEUP = "makeup",
+    HAIR = "hair", -- eyebrows hair beard bow beardstabble hair
+    FACE = "face",
+    LIFESTYLE = "lifestyle", -- scars acne complex
+    CLOTHING = "clothing",
+    SECONDCHANCE = "secondchance", -- this enables all
+}
+
 ConfigShops.Locations = {
     {                                                   -- valentine
         Prompt = {
@@ -47,7 +56,7 @@ ConfigShops.Locations = {
             ZoomOutRange = 1.5,
 
         },
-        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
+        TypeOfShop = SHOP_TYPES.CLOTHING,                          -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                -- if you need a light in the store put true
     },
     {                                                     -- blackwater
@@ -81,7 +90,7 @@ ConfigShops.Locations = {
             ZoomInRange = 1.1,
             ZoomOutRange = 0.1,
         },
-        TypeOfShop = "clothing",                          -- means all will be avaialble with a price to be paid to enter
+        TypeOfShop = SHOP_TYPES.CLOTHING,                          -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                -- if you need a light in the store put true
     },
     {                                                     -- blackwater Makeup
@@ -116,7 +125,7 @@ ConfigShops.Locations = {
             ZoomInRange = 1.0,
             ZoomOutRange = 1.0,
         },
-        TypeOfShop = "lifestyle", -- means all will be avaialble with a price to be paid to enter
+        TypeOfShop = SHOP_TYPES.LIFESTYLE, -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,        -- if you need a light in the store put true
     },
 
@@ -151,7 +160,7 @@ ConfigShops.Locations = {
             ZoomInRange = 1.0,
             ZoomOutRange = 0.5,
         },
-        TypeOfShop = "clothing",                         -- means all will be avaialble with a price to be paid to enter
+        TypeOfShop = SHOP_TYPES.CLOTHING,                         -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                               -- if you need a light in the store put true
     },
     {                                                    -- Saint Denis
@@ -185,7 +194,7 @@ ConfigShops.Locations = {
             ZoomInRange = 1.0,
             ZoomOutRange = 0.5,
         },
-        TypeOfShop = "clothing",                           -- means all will be avaialble with a price to be paid to enter
+        TypeOfShop = SHOP_TYPES.CLOTHING,                           -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                 -- if you need a light in the store put true
     },
     {                                                      -- Strawberry
@@ -219,7 +228,7 @@ ConfigShops.Locations = {
             ZoomInRange = 1.5,
             ZoomOutRange = 0.5,
         },
-        TypeOfShop = "clothing",                           -- means all will be avaialble with a price to be paid to enter
+        TypeOfShop = SHOP_TYPES.CLOTHING,                           -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                 -- if you need a light in the store put true
     },
     {                                                      -- Tumblweed
@@ -253,7 +262,7 @@ ConfigShops.Locations = {
             ZoomInRange = 1.0,
             ZoomOutRange = 0.1,
         },
-        TypeOfShop = "clothing",                           -- means all will be avaialble with a price to be paid to enter
+        TypeOfShop = SHOP_TYPES.CLOTHING,                           -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,                                 -- if you need a light in the store put true
     },
     {                                                      -- Armadillo
@@ -287,7 +296,7 @@ ConfigShops.Locations = {
             ZoomInRange = 1.0,
             ZoomOutRange = 1.5,
         },
-        TypeOfShop = "clothing", -- means all will be avaialble with a price to be paid to enter
+        TypeOfShop = SHOP_TYPES.CLOTHING, -- means all will be avaialble with a price to be paid to enter
         DrawLight = false,       -- if you need a light in the store put true
     },
     -- add more here
