@@ -136,18 +136,19 @@ function ApplyOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_
         Citizen.InvokeNative(0x6BEFAA907B076859, textureId)
     end
 
-    textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, albedo, current_texture_settings.normal,
-        current_texture_settings.material)
+    if albedo == 0 then
+        albedo = CachedSkin.albedo ~= 0 and CachedSkin.albedo or current_texture_settings.albedo
+    end
+
+    textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, albedo, current_texture_settings.normal, current_texture_settings.material)
 
 
     for k, v in pairs(Config.overlay_all_layers) do
         if v.visibility ~= 0 then
-            local overlay_id = Citizen.InvokeNative(0x86BB5FF45F193A02, textureId, v.tx_id, v.tx_normal,
-                v.tx_material, v.tx_color_type, v.tx_opacity, v.tx_unk)
+            local overlay_id = Citizen.InvokeNative(0x86BB5FF45F193A02, textureId, v.tx_id, v.tx_normal, v.tx_material, v.tx_color_type, v.tx_opacity, v.tx_unk)
             if v.tx_color_type == 0 then
                 Citizen.InvokeNative(0x1ED8588524AC9BE1, textureId, overlay_id, v.palette)
-                Citizen.InvokeNative(0x2DF59FFE6FFD6044, textureId, overlay_id, v.palette_color_primary,
-                    v.palette_color_secondary, v.palette_color_tertiary)
+                Citizen.InvokeNative(0x2DF59FFE6FFD6044, textureId, overlay_id, v.palette_color_primary, v.palette_color_secondary, v.palette_color_tertiary)
             end
 
             Citizen.InvokeNative(0x3329AAE2882FC8E4, textureId, overlay_id, v.var);
