@@ -2,7 +2,7 @@ local PromptGroup <const> = GetRandomIntInRange(0, 0xffffff)
 local DeletePrompt
 local SelectPrompt
 local GoBackPrompt
-local selectedChar        = 1
+local selectedChar        = 1 
 local myChars             = {}
 local textureId           = -1
 local MaxCharacters
@@ -13,14 +13,14 @@ local canContinue         = false
 local MalePed
 local FemalePed
 local MenuData            = exports.vorp_menu:GetMenuData()
-Core                      = exports.vorp_core:GetCore()
+Core                      = exports.vorp_core:GetCore() 
 Custom                    = nil
 Peds                      = {}
 CachedSkin                = {}
 CachedComponents          = {}
 T                         = Translation.Langs[Lang]
 CHARID                    = nil
-local width, _            = GetCurrentScreenResolution()
+local width, _            = GetCurrentScreenResolution()  
 
 local imgPath             = "<img style='max-height:450px;max-width:280px;float: center;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
 local img                 = "<img style='margin-top: 10px;margin-bottom: 10px; margin-left: -10px;'src='nui://" .. GetCurrentResourceName() .. "/images/%s.png'>"
