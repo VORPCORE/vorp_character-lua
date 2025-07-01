@@ -1,3 +1,10 @@
+<1.9>
+- fixed camera in character selection when deleting characters 
+- added config to set minimum age to create a character
+- fixed color skin in character creation 
+- fixed menu description missing divider line 
+- fixed overlays shops not allowing to change them.
+- fixed faces that were being set to the default when you didnt change them.
 <1.8>
 - fixed pant tints when removing boots or applying
 - fixed default pants being green
