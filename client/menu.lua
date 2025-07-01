@@ -1598,14 +1598,14 @@ function OpenHerritageMenu(table, value)
                 if data.current.value == "undress" then
                     -- apply body
                     local SkinColor = Config.DefaultChar[SkinColorTracker]
-                    local albedo    = Config.texture_types[gender].albedo
-                    local material  = Config.texture_types[gender].material
+                   -- local albedo    = Config.texture_types[gender].albedo
+                   -- local material  = Config.texture_types[gender].material
 
                     IsPedReadyToRender()
                     ApplyShopItemToPed(joaat(SkinColor.Heads[HeadIndexTracker]:format(_gender)))
                     ApplyShopItemToPed(joaat(SkinColor.Body[BodyTypeTracker]:format(_gender)))
                     ApplyShopItemToPed(joaat(SkinColor.Legs[LegsTypeTracker]:format(_gender)))
-                    Citizen.InvokeNative(0xC5E7204F322E49EB, albedo, joaat(SkinColor.Albedo[1]:format(_gender)), material) -- _REQUEST_TEXTURE
+                  --  Citizen.InvokeNative(0xC5E7204F322E49EB, albedo, joaat(SkinColor.Albedo[1]:format(_gender)), material) -- _REQUEST_TEXTURE
                     UpdatePedVariation()
                 end
                 return ExecuteCommand(data.current.value)
@@ -1630,8 +1630,8 @@ function OpenHerritageMenu(table, value)
                     PlayerSkin.BodyType = joaat(SkinColor.Body[BodyTypeTracker]:format(_gender))
                     PlayerSkin.HeadType = joaat(SkinColor.Heads[HeadIndexTracker]:format(_gender))
                     PlayerSkin.Albedo   = joaat(SkinColor.Albedo[1]:format(_gender))
-                    local albedo        = Config.texture_types[gender].albedo
-                    local material      = Config.texture_types[gender].material
+                   -- local albedo        = Config.texture_types[gender].albedo
+                   -- local material      = Config.texture_types[gender].material
 
                     menu.setElement(2, "max", #Config.DefaultChar[SkinColorTracker].Heads)
                     skinColorImg = Config.DefaultChar[SkinColorTracker].imgColor
@@ -1641,7 +1641,7 @@ function OpenHerritageMenu(table, value)
                     ApplyShopItemToPed(PlayerSkin.HeadType)
                     ApplyShopItemToPed(PlayerSkin.BodyType)
                     ApplyShopItemToPed(PlayerSkin.LegsType)
-                    Citizen.InvokeNative(0xC5E7204F322E49EB, albedo, PlayerSkin.Albedo, material)
+                  --  Citizen.InvokeNative(0xC5E7204F322E49EB, albedo, PlayerSkin.Albedo, material)
                     UpdatePedVariation()
                 end
             end

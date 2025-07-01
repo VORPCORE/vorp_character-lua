@@ -194,8 +194,7 @@ function SetupAnimscene()
     SetPedConfigFlag(Deputy, 130, true)
     SetPedConfigFlag(Deputy, 301, true)
     SetPedConfigFlag(Deputy, 315, true)
-    GiveWeaponToPed_2(Deputy, `WEAPON_REPEATER_CARBINE`, 100, true, false, 0, false, 0.5, 1.0, 752097756, false, 0.0,
-        false)
+    GiveWeaponToPed_2(Deputy, `WEAPON_REPEATER_CARBINE`, 100, true, false, 0, false, 0.5, 1.0, 752097756, false, 0.0,  false)
     FreezeEntityPosition(Deputy, true)
 
     local animscene = CreateAnimScene("script@mp@character_creator@transitions", 0.25, "pl_intro", false, true)
@@ -215,14 +214,14 @@ function SelectionPeds()
     Female_MP = CreatePed(joaat(fModel), -558.43, -3776.65, 237.7, 93.2, false, true, true, true)
     TaskStandStill(Female_MP, -1)
     SetEntityInvincible(Female_MP, true)
-    DefaultPedSetup(Female_MP, false)
+  --  DefaultPedSetup(Female_MP, false)
     SetModelAsNoLongerNeeded(fModel)
 
     LoadPlayer(mModel)
     Male_MP = CreatePed(joaat(mModel), -558.52, -3775.6, 237.7, 93.2, false, true, true, true)
     TaskStandStill(Male_MP, -1)
     SetEntityInvincible(Male_MP, true)
-    DefaultPedSetup(Male_MP, true)
+  --  DefaultPedSetup(Male_MP, true)
     SetModelAsNoLongerNeeded(mModel)
 
     return { Male_MP, Female_MP }

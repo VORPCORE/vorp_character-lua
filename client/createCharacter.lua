@@ -319,7 +319,7 @@ function StartPrompts(value)
 	RenderScriptCams(false, true, 500, true, true, 0)
 end
 
--- set up a default ped with default values
+
 function DefaultPedSetup(ped, male)
 	local gender                = male and "M" or "F"
 	HeadIndexTracker            = male and 8 or 1
@@ -333,26 +333,15 @@ function DefaultPedSetup(ped, male)
 	PlayerClothing.Gunbelt.comp = joaat(("CLOTHING_ITEM_%s_GUNBELT_000_TINT_001"):format(gender))
 	PlayerSkin.Hair             = joaat(("CLOTHING_ITEM_%s_HAIR_001_BLONDE"):format(gender))
 
-
 	SkinColorTracker            = 1
-
-	if not male then
-		EquipMetaPedOutfitPreset(ped, 7)
-	end
-
-	IsPedReadyToRender()
-	EquipMetaPedOutfitPreset(ped, 3)
-	UpdatePedVariation()
 
 	if male then
 		-- work around to fix skin on char creator
 		IsPedReadyToRender()
-		UpdateShopItemWearableState(-457866027, -425834297)
-		UpdatePedVariation()
-		IsPedReadyToRender()
-		ApplyShopItemToPed(-218859683)
+		UpdateShopItemWearableState(-457866027, -425834297) -- fixes skin
+		ApplyShopItemToPed(-218859683)                 -- might be boots cant remember
 		ApplyShopItemToPed(PlayerClothing.Gunbelt.comp)
-		UpdateShopItemWearableState(-218859683, -2081918609)
+		UpdateShopItemWearableState(-218859683, -2081918609) -- fixes skin
 		UpdatePedVariation()
 	end
 
@@ -362,10 +351,15 @@ function DefaultPedSetup(ped, male)
 	PlayerSkin.eyebrows_opacity    = 1.0
 	PlayerSkin.eyebrows_color      = 0x3F6E70FF
 
-	ApplyOverlay("eyebrows", 1, 1, 1, 0,
-		0, 1.0, 0, 1,
-		0x3F6E70FF, 0,
-		0, 1, 1.0, PlayerSkin.Albedo)
+	ApplyOverlay("eyebrows", 1, 1, 1, 0,	0, 1.0, 0, 1,	0x3F6E70FF, 0,	0, 1, 1.0, PlayerSkin.Albedo)
+
+	IsPedReadyToRender()
+	if not male then
+		EquipMetaPedOutfitPreset(ped, 7)
+	else
+		EquipMetaPedOutfitPreset(ped, 3)
+	end
+	UpdatePedVariation()
 end
 
 function EnableCharCreationPrompts(boolean)
