@@ -375,6 +375,9 @@ function OpenCharCreationMenu(clothingtable, value)
                 TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
+                        if tonumber(Result) < Config.MinAge then
+                            return Core.NotifyObjective("minimum age required is " .. Config.MinAge, 5000)
+                        end
                         CHARACTER_DETAILS.age = T.MenuCreation.element5.label .. opacity:format(Result) .. imgPath1:format("menu_icon_tick")
                         PLAYER_DATA.age = Result
                         menu.setElement(4, "label", CHARACTER_DETAILS.age)
