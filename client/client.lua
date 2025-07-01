@@ -414,12 +414,38 @@ end
 local function DeleleteSelectedChaacter(menu)
 	local dataConfig = Config.SpawnPosition[random].positions[selectedChar]
 	DeleteEntity(dataConfig.PedHandler)
+
+	for i, ped in ipairs(Peds) do
+		if ped == dataConfig.PedHandler then
+			table.remove(Peds, i)
+			break
+		end
+	end
+
 	TriggerServerEvent("vorpcharacter:deleteCharacter", myChars[selectedChar])
 	table.remove(myChars, selectedChar)
 
 	if #myChars == 0 or myChars == nil then
 		TriggerEvent("vorpcharacter:startCharacterCreator")
 		return finishSelection(false)
+	end
+
+	for i = selectedChar, #myChars do
+		local currentData = Config.SpawnPosition[random].positions[i]
+		local nextData = Config.SpawnPosition[random].positions[i + 1]
+
+		if nextData and nextData.PedHandler then
+			currentData.PedHandler = nextData.PedHandler
+			currentData.Cam = nextData.Cam
+			nextData.PedHandler = nil
+			nextData.Cam = nil
+		end
+	end
+
+	local lastPosition = Config.SpawnPosition[random].positions[#myChars + 1]
+	if lastPosition then
+		lastPosition.PedHandler = nil
+		lastPosition.Cam = nil
 	end
 
 	createMainCam()
