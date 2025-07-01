@@ -335,6 +335,12 @@ function DefaultPedSetup(ped, male)
 
 	SkinColorTracker            = 1
 
+	if not male then
+		IsPedReadyToRender()
+		EquipMetaPedOutfitPreset(ped, 7)
+		UpdatePedVariation()
+	end
+
 	if male then
 		-- work around to fix skin on char creator
 		IsPedReadyToRender()
@@ -351,14 +357,10 @@ function DefaultPedSetup(ped, male)
 	PlayerSkin.eyebrows_opacity    = 1.0
 	PlayerSkin.eyebrows_color      = 0x3F6E70FF
 
-	ApplyOverlay("eyebrows", 1, 1, 1, 0,	0, 1.0, 0, 1,	0x3F6E70FF, 0,	0, 1, 1.0, PlayerSkin.Albedo)
+	ApplyOverlay("eyebrows", 1, 1, 1, 0, 0, 1.0, 0, 1, 0x3F6E70FF, 0, 0, 1, 1.0, PlayerSkin.Albedo)
 
 	IsPedReadyToRender()
-	if not male then
-		EquipMetaPedOutfitPreset(ped, 7)
-	else
-		EquipMetaPedOutfitPreset(ped, 3)
-	end
+	EquipMetaPedOutfitPreset(ped, 3)
 	UpdatePedVariation()
 end
 
