@@ -419,7 +419,7 @@ function OpenCharCreationMenu(clothingtable, value)
                         CHARACTER_DETAILS.value = "save"
                         CHARACTER_DETAILS.label = T.MenuCreation.element4.label
                         menu.setElement(7, "label", CHARACTER_DETAILS.charname)
-                        menu.setElement(7, "desc", CHARACTER_DETAILS.desc)
+                        menu.setElement(7, "desc", imgPath:format("emote_greet_hey_you") .. "<br> " .. CHARACTER_DETAILS.desc .. Divider)
                         menu.removeElementByIndex(8)
                         menu.addNewElement({
                             label = T.MenuCreation.element4.label,
