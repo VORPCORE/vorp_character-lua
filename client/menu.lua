@@ -15,7 +15,7 @@ HeadIndexTracker                = 1
 local EyeColorIndexTracker      = 14
 local TheethIndexTracker        = 1
 IsCharCreationFinished          = false
-local width <const>, _          = GetCurrentScreenResolution()
+local width <const>, _          = GetCurrentScreenResolution() 
 WHISTLE                         = {
     clarity = 0.0,
     pitch   = 0.0,
@@ -2523,6 +2523,7 @@ local overlayLookup = {
 }
 
 
+
 function OpenMakeupMenu(table, value)
     Title = IsInClothingStore and "Makeup Menu" or T.MenuCreation.title
     MenuData.CloseAll()
@@ -2543,7 +2544,8 @@ function OpenMakeupMenu(table, value)
                 visibility = overlayLookup[key].visibility,
                 desc = T.MenuMakeup.element5.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. T.MenuLifeStyle.scroll,
                 name = key,
-                tag = "texture"
+                tag = "texture",
+                initValue = PlayerSkin[overlayLookup[key].txt_id] or 0
             }
 
             local ColorValue = 0
@@ -2567,7 +2569,8 @@ function OpenMakeupMenu(table, value)
                 variant = overlayLookup[key].variant,
                 desc = T.MenuMakeup.element6.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. T.MenuLifeStyle.scroll,
                 name = key,
-                tag = "color"
+                tag = "color",
+                initValue = ColorValue
             }
 
 
@@ -2595,7 +2598,8 @@ function OpenMakeupMenu(table, value)
                     visibility = overlayLookup[key].visibility,
                     desc = T.MenuMakeup.element7.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. T.MenuLifeStyle.scroll,
                     name = key,
-                    tag = "color2"
+                    tag = "color2",
+                    initValue = Color2Value
                 }
             end
 
@@ -2616,7 +2620,8 @@ function OpenMakeupMenu(table, value)
                     visibility = overlayLookup[key].visibility,
                     desc = T.MenuMakeup.element8.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. T.MenuLifeStyle.scroll,
                     name = key,
-                    tag = "variant"
+                    tag = "variant",
+                    initValue = PlayerSkin[overlayLookup[key].variant] or 0
                 }
             end
 
@@ -2634,7 +2639,8 @@ function OpenMakeupMenu(table, value)
                 visibility = overlayLookup[key].visibility,
                 desc = T.MenuMakeup.element9.desc .. "<br><br><br><br><br><br>" .. Divider .. "<br><br>" .. T.MenuLifeStyle.scroll,
                 name = key,
-                tag = "opacity"
+                tag = "opacity",
+                initValue = PlayerSkin[overlayLookup[key].opacity] or 0
             }
         end
     end
@@ -2688,20 +2694,32 @@ function OpenMakeupMenu(table, value)
                 BackFromMenu(value)
             end
 
+            -- if texture was 1 and we modify we pay.
+            --
+            if not IsInCharCreation then
+                if data.current.value ~= data.current.initValue then
+                    TotalAmountToPay[data.current.tag] = ConfigShops.Prices.makeup[data.current.name].price
+                else
+                    TotalAmountToPay[data.current.tag] = 0
+                end
+            end
+
             if data.current.tag == "texture" then
                 if data.current.value == 0 then
                     PlayerSkin[data.current.visibility] = 0
-                    TotalAmountToPay[data.current.name] = 0
                 else
-                    TotalAmountToPay[data.current.name] = ConfigShops.Prices.makeup[data.current.name].price
                     PlayerSkin[data.current.visibility] = 1
                 end
+
                 PlayerSkin[data.current.txt_id] = data.current.value
                 ApplyOverlay(data.current.name, PlayerSkin[data.current.visibility], PlayerSkin[data.current.txt_id], 1, 0, 0, 1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2] or 0, PlayerSkin[data.current.color3] or 0, PlayerSkin[data.current.variant] or 1, PlayerSkin[data.current.opac], PlayerSkin.Albedo)
             end
 
             if data.current.tag == "color" then
-                PlayerSkin[data.current.color] = data.current.comp[data.current.value]
+                if data.current.value ~= 0 then
+                    PlayerSkin[data.current.color] = data.current.comp[data.current.value]
+                end
+
                 ApplyOverlay(data.current.name, PlayerSkin[data.current.visibility],
                     PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2] or 0,
@@ -2710,7 +2728,10 @@ function OpenMakeupMenu(table, value)
             end
 
             if data.current.tag == "color2" then
-                PlayerSkin[data.current.color2] = data.current.comp[data.current.value]
+                if data.current.value ~= 0 then
+                    PlayerSkin[data.current.color2] = data.current.comp[data.current.value]
+                end
+
                 ApplyOverlay(data.current.name, PlayerSkin[data.current.visibility],
                     PlayerSkin[data.current.txt_id], 1, 0, 0,
                     1.0, 0, 1, PlayerSkin[data.current.color], PlayerSkin[data.current.color2] or 0,
@@ -2730,10 +2751,8 @@ function OpenMakeupMenu(table, value)
             if data.current.tag == "opacity" then
                 if data.current.value == 0 then
                     PlayerSkin[data.current.visibility] = 0
-                    TotalAmountToPay[data.current.name] = 0
                 else
                     PlayerSkin[data.current.visibility] = 1
-                    TotalAmountToPay[data.current.name] = ConfigShops.Prices.makeup[data.current.name].price
                 end
 
                 PlayerSkin[data.current.opac] = data.current.value
@@ -2743,14 +2762,8 @@ function OpenMakeupMenu(table, value)
                     PlayerSkin[data.current.color3] or 0, PlayerSkin[data.current.variant] or 1,
                     PlayerSkin[data.current.opac], PlayerSkin.Albedo)
             end
-        end, function(data, menu)
-            if IsInClothingStore and ShopType ~= "secondchance" then
-                menu.close()
-                BackFromMenu(value)
-            end
         end)
 end
-
 --* OUTFITS MENU
 function OpenOutfitsMenu(Table, value, Outfits)
     MenuData.CloseAll()
