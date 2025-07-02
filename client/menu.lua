@@ -2673,7 +2673,7 @@ function OpenMakeupMenu(table, value)
         function(data, menu)
             if IsInCharCreation or ShopType == "secondchance" then
                 if (data.current == "backup") then
-                    _G[data.trigger](table, value)
+                   return _G[data.trigger](table, value)
                 end
             end
 
@@ -2691,7 +2691,7 @@ function OpenMakeupMenu(table, value)
                     end
                 end
                 menu.close()
-                BackFromMenu(value)
+              return  BackFromMenu(value)
             end
 
             -- if texture was 1 and we modify we pay.
