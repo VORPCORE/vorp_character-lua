@@ -1927,15 +1927,31 @@ function OpenBeardEyebrowMenu(table, opacity1, txt_id, category, index, label, c
     end
     MenuData.CloseAll()
 
+ 
     if not MakeupIndexTracker[category] then
-        MakeupIndexTracker[category] = 0
+        if category == "eyebrows" then
+            MakeupIndexTracker[category] = 1
+        else
+            MakeupIndexTracker[category] = 0
+        end
     end
+
     if not MakeupColorIndexTracker[category] then
-        MakeupColorIndexTracker[category] = 0
+        if category == "eyebrows" then
+            MakeupColorIndexTracker[category] = 1
+        else
+            MakeupColorIndexTracker[category] = 0
+        end
     end
+
     if not MakeupOpacityTracker[category] then
-        MakeupOpacityTracker[category] = 0
+        if category == "eyebrows" then
+            MakeupOpacityTracker[category] = 1.0
+        else
+            MakeupOpacityTracker[category] = 0
+        end
     end
+
 
     local elements = {
         {
