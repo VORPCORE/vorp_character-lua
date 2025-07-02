@@ -12,6 +12,7 @@ local random
 local canContinue         = false
 local MalePed
 local FemalePed
+local characterChosen = false
 local MenuData            = exports.vorp_menu:GetMenuData()
 Core                      = exports.vorp_core:GetCore() 
 Custom                    = nil
@@ -83,6 +84,20 @@ AddEventHandler("vorpcharacter:selectCharacter", function(myCharacters, mc, rand
 	if #myCharacters < 1 then
 		return TriggerEvent("vorpcharacter:startCharacterCreator")
 	end
+
+	CreateThread(function()
+		while not characterChosen do
+			SetAmbientAnimalDensityMultiplierThisFrame(0.0)
+			SetAmbientHumanDensityMultiplierThisFrame(0.0)
+			SetAmbientPedDensityMultiplierThisFrame(0.0)
+			SetScenarioHumanDensityMultiplierThisFrame(0.0)
+			SetScenarioPedDensityMultiplierThisFrame(0.0)
+			SetVehicleDensityMultiplierThisFrame(0.0)
+			Wait(0)
+		end
+		characterChosen = false
+	end)
+	
 	random = rand
 	myChars = myCharacters
 	MaxCharacters = mc
@@ -314,6 +329,7 @@ function CharSelect()
 	local heading = coords.heading
 	local isDead = myChars[selectedChar].isDead
 	TriggerEvent("vorp:initCharacter", playerCoords, heading, isDead) -- in here players will be removed from instance
+	characterChosen = true
 end
 
 function StartSwapCharacters()
@@ -326,6 +342,7 @@ function StartSwapCharacters()
 	Citizen.InvokeNative(0xFDB74C9CC54C3F37, options.timecycle.strenght)
 	StartPlayerTeleport(PlayerId(), options.playerpos.x, options.playerpos.y, options.playerpos.z, 0.0, true, true, true, true)
 	repeat Wait(0) until not IsPlayerTeleportActive()
+	SetEntityCoords(PlayerPedId(), options.playerpos.x, options.playerpos.y, options.playerpos.z,false,false,false,false) -- sometimes it doesnt tp with devmode. so we enforce
 	PrepareMusicEvent(options.music)
 	Wait(100)
 	TriggerMusicEvent(options.music)
