@@ -3,8 +3,9 @@
 - added config to set minimum age to create a character
 - fixed color skin in character creation 
 - fixed menu description missing divider line 
-- fixed overlays shops not allowing to change them.
+- fixed overlays shops not allowing to change them. each option now will apply a price to it but not the the values you had innitially
 - fixed faces that were being set to the default when you didnt change them.
+- remove ambient density when character is chosen
 <1.8>
 - fixed pant tints when removing boots or applying
 - fixed default pants being green
