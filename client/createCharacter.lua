@@ -308,8 +308,15 @@ function StartPrompts(value)
 		SetCamCoord(cam, newPos.x, newPos.y, newPos.z)
 		SetCamRot(cam, rot.x, rot.y, rot.z, 2)
 
-		if IsCharCreationFinished or (not IsInCharCreation and not IsInClothingStore) then
-			break
+	
+		if not IsInCharCreation then
+			if not IsInClothingStore then
+				break
+			end
+		else
+			if IsCharCreationFinished then
+				break
+			end
 		end
 	end
 
