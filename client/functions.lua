@@ -137,7 +137,7 @@ function ApplyOverlay(name, visibility, tx_id, tx_normal, tx_material, tx_color_
     end
 
     if albedo == 0 then
-        albedo = CachedSkin.Albedo ~= 0 and CachedSkin.Albedo or current_texture_settings.albedo
+        albedo = CachedSkin.albedo ~= 0 and CachedSkin.albedo or current_texture_settings.albedo
     end
 
     textureId = Citizen.InvokeNative(0xC5E7204F322E49EB, albedo, current_texture_settings.normal, current_texture_settings.material)
