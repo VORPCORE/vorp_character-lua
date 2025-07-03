@@ -322,8 +322,9 @@ function OpenCharCreationMenu(clothingtable, value)
                     if Result ~= nil and Result ~= "" then
                         CHARACTER_DETAILS.desc = T.MenuCreation.element6.label .. opacity:format(T.MenuCreation.element6.desc2) .. imgPath1:format("menu_icon_tick")
                         PLAYER_DATA.desc = Result
-                        menu.setElement(5, "desc", imgPath:format("emote_greet_hey_you") .. "<br><br>" .. Result .. "<br><br>" .. Divider)
-                        menu.setElement(5, "label", CHARACTER_DETAILS.desc)
+                        local _, menuIndex = menu.getElementByValue(data.current.value)
+                        menu.setElement(menuIndex, "desc", imgPath:format("emote_greet_hey_you") .. "<br><br>" .. Result .. "<br><br>" .. Divider)
+                        menu.setElement(menuIndex, "label", CHARACTER_DETAILS.desc)
                         menu.refresh()
                     end
                 end)
@@ -350,7 +351,8 @@ function OpenCharCreationMenu(clothingtable, value)
                     if Result ~= nil and Result ~= "" then
                         CHARACTER_DETAILS.nickname = T.MenuCreation.element7.nickname .. "<br> <span style='opacity:0.6;'>" .. Result .. "</span>" .. imgPath1:format("menu_icon_tick")
                         PLAYER_DATA.nickname = Result
-                        menu.setElement(6, "label", CHARACTER_DETAILS.nickname)
+                        local _, menuIndex = menu.getElementByValue(data.current.value)
+                        menu.setElement(menuIndex, "label", CHARACTER_DETAILS.nickname)
                         menu.refresh()
                     end
                 end)
@@ -380,7 +382,8 @@ function OpenCharCreationMenu(clothingtable, value)
                         end
                         CHARACTER_DETAILS.age = T.MenuCreation.element5.label .. opacity:format(Result) .. imgPath1:format("menu_icon_tick")
                         PLAYER_DATA.age = Result
-                        menu.setElement(4, "label", CHARACTER_DETAILS.age)
+                        local _, menuIndex = menu.getElementByValue(data.current.value)
+                        menu.setElement(menuIndex, "label", CHARACTER_DETAILS.age)
                         menu.refresh()
                     end
                 end)
@@ -418,9 +421,10 @@ function OpenCharCreationMenu(clothingtable, value)
                         CHARACTER_DETAILS.charname = T.MenuCreation.charname .. opacity:format(FirstName .. " " .. LastName) .. imgPath1:format("menu_icon_tick")
                         CHARACTER_DETAILS.value = "save"
                         CHARACTER_DETAILS.label = T.MenuCreation.element4.label
-                        menu.setElement(7, "label", CHARACTER_DETAILS.charname)
-                        menu.setElement(7, "desc", imgPath:format("emote_greet_hey_you") .. "<br> " .. Divider)
-                        menu.removeElementByIndex(8)
+                        local _, menuIndex = menu.getElementByValue(data.current.value)
+                        menu.setElement(menuIndex, "label", CHARACTER_DETAILS.charname)
+                        menu.setElement(menuIndex, "desc", imgPath:format("emote_greet_hey_you") .. "<br> " .. Divider)
+                        menu.removeElementByIndex(#menu.data.elements)
                         menu.addNewElement({
                             label = T.MenuCreation.element4.label,
                             value = CHARACTER_DETAILS.value,
