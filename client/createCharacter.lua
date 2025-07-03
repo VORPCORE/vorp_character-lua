@@ -403,7 +403,7 @@ function CreatePlayerModel(model, peds)
 
 	ShowBusyspinnerWithText(T.Other.spinnertext2)
 
-	for key, value in pairs(peds) do
+	for _, value in pairs(peds) do
 		DeleteEntity(value)
 	end
 
