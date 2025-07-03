@@ -398,10 +398,12 @@ end
 function CreatePlayerModel(model, peds)
 	local Gender = model == "mp_male" and "male" or "female"
 	isMale = model == "mp_male" and true or false
-	DoScreenFadeOut(0)
+	DoScreenFadeOut(10)
 	repeat Wait(0) until IsScreenFadedOut()
 
-	for key, value in pairs(peds) do
+	ShowBusyspinnerWithText(T.Other.spinnertext2)
+
+	for _, value in pairs(peds) do
 		DeleteEntity(value)
 	end
 
@@ -442,6 +444,7 @@ function CreatePlayerModel(model, peds)
 	PrepareCreatorMusic()
 	setInteriors(isMale)
 	OpenCharCreationMenu(Clothing, false)
+	BusyspinnerOff()
 	DoScreenFadeIn(3000)
 	repeat Wait(0) until IsScreenFadedIn()
 end
