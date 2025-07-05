@@ -246,7 +246,7 @@ local function buildInputPrompt(context)
         type = "enableinput",
         inputType = input.inputType,
         button = T.Inputs.confirm,
-        placeholder = T.Placeholder[context] or "",
+        placeholder = T.Placeholder.CharCreator[context] or "",
         style = "block",
         attributes = attributes
     }

@@ -78,11 +78,12 @@ Translation.Langs = {
             DescClothing = "boots vests coats shirts belts hats"
         },
         Placeholder = {
-            CharDesc = "character description",
-            NickName = "Nick Name",
-            SetAge = "set age",
-            FirstLastName = "FIRSTname LASTname",
-            test = "test",
+            CharCreator = {
+                desc = "character description",
+                nickname = "Nick Name",
+                age = "set age",
+                name = "FIRSTname LASTname",
+            }
         },
         MenuCreation = {
             title = "Character Creation",
