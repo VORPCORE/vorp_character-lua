@@ -36,7 +36,7 @@ files {
 }
 
 
-version '1.9'
+version '2.0'
 vorp_checker 'yes'
 vorp_name '^4Resource version Check^3'
 vorp_github 'https://github.com/VORPCORE/vorp_character-lua'
