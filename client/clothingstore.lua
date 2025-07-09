@@ -66,9 +66,7 @@ CreateThread(function()
     createBlips()
 
     for key, value in ipairs(ConfigShops.Locations) do
-        if type(value.TypeOfShop) == "string" then
-            CreatePrompt(value.TypeOfShop)
-        elseif type(value.TypeOfShop) == "table" then
+        if type(value.TypeOfShop) == "table" then
             local prompts <const> = {}
             for _, shopType in ipairs(value.TypeOfShop) do
                 local prompt          = CreatePrompt(shopType)
