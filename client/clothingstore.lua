@@ -11,7 +11,7 @@ local UiPromptSetActiveGroupThisFrame  = UiPromptSetActiveGroupThisFrame
 local UiPromptHasStandardModeCompleted = UiPromptHasStandardModeCompleted
 local VarString                        = VarString
 
-local function CreatePrompt(shopType, key)
+local function CreatePrompt(shopType)
     local str <const> = VarString(10, 'LITERAL_STRING', shopType.label)
     local prompt <const> = UiPromptRegisterBegin()
     UiPromptSetControlAction(prompt, shopType.input)
@@ -21,12 +21,7 @@ local function CreatePrompt(shopType, key)
     UiPromptSetStandardMode(prompt, true)
     UiPromptSetGroup(prompt, PromptGroup, 0)
     UiPromptRegisterEnd(prompt)
-
-    if not multiplePrompts[key] then
-        multiplePrompts[key] = {}
-    end
-    multiplePrompts[key].prompt = prompt
-    multiplePrompts[key].shopType = shopType.type
+    return prompt
 end
 
 
@@ -72,13 +67,18 @@ CreateThread(function()
 
     for key, value in ipairs(ConfigShops.Locations) do
         if type(value.TypeOfShop) == "string" then
-            CreatePrompt(value.TypeOfShop, key)
+            CreatePrompt(value.TypeOfShop)
         elseif type(value.TypeOfShop) == "table" then
+            local prompts <const> = {}
             for _, shopType in ipairs(value.TypeOfShop) do
-                CreatePrompt(shopType, key)
+                local prompt          = CreatePrompt(shopType)
+                prompts[#prompts + 1] = { prompt = prompt, shopType = shopType.type }
             end
+            multiplePrompts[key] = prompts
         end
     end
+
+
 
     while true do
         local sleep = 1000
@@ -101,20 +101,20 @@ CreateThread(function()
 
                 if distance < 1.5 and multiplePrompts[index] then
                     sleep = 0
-                    local label <const> = VarString(10, 'LITERAL_STRING', value.Prompt.Label)
+                    local label = VarString(10, 'LITERAL_STRING', value.Prompt.Label)
                     UiPromptSetActiveGroupThisFrame(PromptGroup, label, 0, 0, 0, 0)
 
-
-
-                    if UiPromptHasStandardModeCompleted(multiplePrompts[index].prompt, 0) then
-                        local shopType <const> = multiplePrompts[index].shopType
-                        if shopType == "secondchance" then
-                            local result <const> = Core.Callback.TriggerAwait("vorp_character:callback:CanPayForSecondChance")
-                            if result then
+                    for _, prompt in ipairs(multiplePrompts[index]) do
+                        if UiPromptHasStandardModeCompleted(prompt.prompt, 0) then
+                            local shopType = prompt.shopType
+                            if shopType == "secondchance" then
+                                local result = Core.Callback.TriggerAwait("vorp_character:callback:CanPayForSecondChance")
+                                if result then
+                                    PrepareClothingStore(value, shopType)
+                                end
+                            else
                                 PrepareClothingStore(value, shopType)
                             end
-                        else
-                            PrepareClothingStore(value, shopType)
                         end
                     end
                 end
@@ -129,7 +129,7 @@ AddEventHandler('onResourceStop', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then
         return
     end
-    for _, value in ipairs(ConfigShops.Locations) do
+    for index, value in ipairs(ConfigShops.Locations) do
         if value.Blip.Entity and DoesBlipExist(value.Blip.Entity) then
             RemoveBlip(value.Blip.Entity)
         end
@@ -142,6 +142,7 @@ end)
 
 function PrepareClothingStore(value, shopType)
     ShopType = shopType
+    print(ShopType)
     DoScreenFadeOut(1000)
     repeat Wait(0) until IsScreenFadedOut()
     Core.instancePlayers(GetPlayerServerId(PlayerId()) + 4440)
@@ -158,7 +159,7 @@ function PrepareClothingStore(value, shopType)
         StartPrompts(value.CameraPosition)
     end)
     EnableCharCreationPrompts(true)
-    local Clothing <const> = OrganiseClothingData(Gender)
+    local Clothing = OrganiseClothingData(Gender)
     SetEntityVisible(PlayerPedId(), true)
     SetEntityInvincible(PlayerPedId(), true)
     RenderScriptCams(true, true, 1000, true, true, 0)
@@ -180,7 +181,7 @@ function PrepareClothingStore(value, shopType)
     if shopType == "secondchance" then
         OpenCharCreationMenu(Clothing, value)
     elseif shopType == "clothing" then
-        local result <const> = Core.Callback.TriggerAwait("vorp_character:callback:GetOutfits")
+        local result = Core.Callback.TriggerAwait("vorp_character:callback:GetOutfits")
         if result then
             OpenClothingMenu(Clothing, value, result)
         end
