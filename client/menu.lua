@@ -201,6 +201,75 @@ local function GetDescriptionLayout(value, price)
     end
 end
 
+-- Help function for structuring input prompts
+local function buildInputPrompt(context)
+    local inputTypes = {
+        age = {
+            inputType = "input",
+            inputFieldType = "number",
+            min = "0"
+        },
+        nickname = {
+            inputType = "input",
+            inputFieldType = "text",
+            pattern = T.Inputs.inputlang
+        },
+        name = {
+            inputType = "input",
+            inputFieldType = "text",
+            pattern = T.Inputs.inputlang
+        },
+        desc = {
+            inputType = "textarea",
+            inputFieldType = "text",
+            pattern = T.Inputs.inputlangdesc
+        }
+    }
+
+    local input = inputTypes[context] or inputTypes["name"]
+    local attributes = {
+        inputHeader = T.Inputs.inputHeadertype,
+        type = input.inputFieldType,
+        title = T.Inputs.title,
+        style = "border-radius: 10px; background-color: ; border:none;"
+    }
+
+    if input.pattern then
+        attributes.pattern = input.pattern
+    end
+
+    if input.min then
+        attributes.min = input.min
+    end
+
+    return {
+        type = "enableinput",
+        inputType = input.inputType,
+        button = T.Inputs.confirm,
+        placeholder = T.Placeholder.CharCreator[context] or "",
+        style = "block",
+        attributes = attributes
+    }
+end
+
+-- Standardize prompts (text, textarea, number input)
+local function handleInputPrompt(config, callback)
+    TriggerEvent("vorpinputs:advancedInput", json.encode(config), function(result)
+        local text = tostring(result)
+        if text and text ~= "" then
+            callback(text)
+        end
+    end)
+end
+
+-- Combine several menu.setElement calls and refresh
+local function updateMenu(menu, updates)
+    for _, update in ipairs(updates) do
+        menu.setElement(update.index, update.key, update.value)
+    end
+    menu.refresh()
+end
+
 function OpenCharCreationMenu(clothingtable, value)
     Title = IsInClothingStore and "Clothing Store" or T.MenuCreation.title
     local SubTitle = "<span style='font-size:25px;'>" .. T.MenuCreation.subtitle .. "</span><br><br>"
@@ -303,105 +372,61 @@ function OpenCharCreationMenu(clothingtable, value)
             end
 
             if (data.current.value == "desc") then
-                local MyInput = {
-                    type = "enableinput",
-                    inputType = "textarea",
-                    button = T.Inputs.confirm,
-                    placeholder = T.Placeholder.CharDesc,
-                    style = "block",
-                    attributes = {
-                        inputHeader = T.Inputs.inputHeadertype,
-                        type = "text",
-                        pattern = T.Inputs.imputlangdesc,
-                        title = T.Inputs.title,
-                        style = "border-radius: 10px; background-color: ; border:none;"
-                    }
-                }
-                TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
+                local prompt = buildInputPrompt(data.current.value)
+
+                handleInputPrompt(prompt, function(result)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
                         CHARACTER_DETAILS.desc = T.MenuCreation.element6.label .. opacity:format(T.MenuCreation.element6.desc2) .. imgPath1:format("menu_icon_tick")
                         PLAYER_DATA.desc = Result
-                        menu.setElement(5, "desc", imgPath:format("emote_greet_hey_you") .. "<br><br>" .. Result .. "<br><br>" .. Divider)
-                        menu.setElement(5, "label", CHARACTER_DETAILS.desc)
-                        menu.refresh()
+
+                        updateMenu(menu, {
+                            { index = data.current.index, key = "desc", value = imgPath:format("emote_greet_hey_you") .. "<br><br>" .. Result .. "<br><br>" .. Divider },
+                            { index = data.current.index, key = "label", value = CHARACTER_DETAILS.desc }
+                        })
                     end
                 end)
             end
 
             -- nick name
             if (data.current.value == "nickname") then
-                local MyInput = {
-                    type = "enableinput",
-                    inputType = "input",
-                    button = T.Inputs.confirm,
-                    placeholder = T.Placeholder.NickName,
-                    style = "block",
-                    attributes = {
-                        inputHeader = T.Inputs.inputHeadertype,
-                        type = "text",
-                        pattern = T.Inputs.imputlang, -- can change here for your language
-                        title = T.Inputs.title,
-                        style = "border-radius: 10px; background-color: ; border:none;"
-                    }
-                }
-                TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
+                local prompt = buildInputPrompt(data.current.value)
+
+                handleInputPrompt(prompt, function(result)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
                         CHARACTER_DETAILS.nickname = T.MenuCreation.element7.nickname .. "<br> <span style='opacity:0.6;'>" .. Result .. "</span>" .. imgPath1:format("menu_icon_tick")
                         PLAYER_DATA.nickname = Result
-                        menu.setElement(6, "label", CHARACTER_DETAILS.nickname)
-                        menu.refresh()
+
+                        updateMenu(menu, {
+                            { index = data.current.index, key = "label", value = CHARACTER_DETAILS.nickname }
+                        })
                     end
                 end)
             end
 
             if (data.current.value == "age") then
-                local MyInput = {
-                    type = "enableinput",
-                    inputType = "input",
-                    button = T.Inputs.confirm,
-                    placeholder = T.Placeholder.SetAge,
-                    style = "block",
-                    attributes = {
-                        inputHeader = T.Inputs.inputHeadertype,
-                        type = "number",
-                        -- dont allow negative numbers
-                        min = "0",
-                        title = T.Inputs.title,
-                        style = "border-radius: 10px; background-color: ; border:none;",
-                    }
-                }
-                TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
-                    local Result = tostring(result)
-                    if Result ~= nil and Result ~= "" then
-                        if tonumber(Result) < Config.MinAge then
-                            return Core.NotifyObjective("minimum age required is " .. Config.MinAge, 5000)
-                        end
-                        CHARACTER_DETAILS.age = T.MenuCreation.element5.label .. opacity:format(Result) .. imgPath1:format("menu_icon_tick")
-                        PLAYER_DATA.age = Result
-                        menu.setElement(4, "label", CHARACTER_DETAILS.age)
-                        menu.refresh()
+                local prompt = buildInputPrompt(data.current.value)
+
+                handleInputPrompt(prompt, function(result)
+                    local ageNumber = tonumber(result)
+                    if not ageNumber or ageNumber < Config.MinAge then
+                        return Core.NotifyObjective("minimum age required is " .. Config.MinAge, 5000)
                     end
+
+                    local label = T.MenuCreation.element5.label .. opacity:format(result) .. imgPath1:format("menu_icon_tick")
+                    CHARACTER_DETAILS.age = label
+                    PLAYER_DATA.age = ageNumber
+
+                    updateMenu(menu, {
+                        { index = data.current.index, key = "label", value = label }
+                    })
                 end)
             end
 
-            if (data.current.value == "name") then -- check if it has been built
-                local MyInput = {
-                    type = "enableinput",
-                    inputType = "input",
-                    button = T.Inputs.confirm,
-                    placeholder = T.Placeholder.FirstLastName,
-                    style = "block",
-                    attributes = {
-                        inputHeader = T.Inputs.inputHeadertype,
-                        type = "text",
-                        pattern = T.Inputs.imputlang, -- can change here for your language
-                        title = T.Inputs.title,
-                        style = "border-radius: 10px; background-color: ; border:none;"
-                    }
-                }
-                TriggerEvent("vorpinputs:advancedInput", json.encode(MyInput), function(result)
+            if (data.current.value == "name") then
+                local prompt = buildInputPrompt(data.current.value)
+                handleInputPrompt(prompt, function(result)
                     local Result = tostring(result)
                     if Result ~= nil and Result ~= "" then
                         if GetName(Result) == nil then
@@ -418,9 +443,13 @@ function OpenCharCreationMenu(clothingtable, value)
                         CHARACTER_DETAILS.charname = T.MenuCreation.charname .. opacity:format(FirstName .. " " .. LastName) .. imgPath1:format("menu_icon_tick")
                         CHARACTER_DETAILS.value = "save"
                         CHARACTER_DETAILS.label = T.MenuCreation.element4.label
-                        menu.setElement(7, "label", CHARACTER_DETAILS.charname)
-                        menu.setElement(7, "desc", imgPath:format("emote_greet_hey_you") .. "<br> " .. Divider)
-                        menu.removeElementByIndex(8)
+
+                        updateMenu(menu, {
+                            { index = data.current.index, key = "label", value = CHARACTER_DETAILS.charname },
+                            { index = data.current.index, key = "desc", value = imgPath:format("emote_greet_hey_you") .. "<br> " .. Divider }
+                        })
+
+                        menu.removeElementByIndex(#menu.data.elements)
                         menu.addNewElement({
                             label = T.MenuCreation.element4.label,
                             value = CHARACTER_DETAILS.value,

@@ -50,8 +50,8 @@ Translation.Langs = {
             inputHeadertype = "Type in here...",
             fristlast = "Insert first and last name!",
             press = "press",
-            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
-            imputlang = "[A-Za-z ]{5,20}",          -- change for you lang
+            inputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            inputlang = "[A-Za-z ]{5,20}",          -- change for you lang
             confirmpurchase = "Confirm purchase",
 
         },
@@ -78,10 +78,12 @@ Translation.Langs = {
             DescClothing = "boots vests coats shirts belts hats"
         },
         Placeholder = {
-            CharDesc = "character description",
-            NickName = "Nick Name",
-            SetAge = "set age",
-            FirstLastName = "FIRSTname LASTname",
+            CharCreator = {
+                desc = "character description",
+                nickname = "Nick Name",
+                age = "set age",
+                name = "FIRSTname LASTname",
+            }
         },
         MenuCreation = {
             title = "Character Creation",
@@ -353,8 +355,8 @@ Translation.Langs = {
             inputHeadertype = "Scrivi qui...",
             fristlast = "Inserisci nome e cognome!",
             press = "premere",
-            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
-            imputlang = "[A-Za-z ]{5,20}",          -- change for you lang
+            inputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            inputlang = "[A-Za-z ]{5,20}",          -- change for you lang
             confirmpurchase = "Confermare l'acquisto",
         },
         Other = {
@@ -383,10 +385,12 @@ Translation.Langs = {
 
         },
         Placeholder = {
-            CharDesc = "descrizione del personaggio",
-            NickName = "Soprannome",
-            SetAge = "impostare l'età",
-            FirstLastName = "Nome e cognome",
+            CharCreator = {
+                desc = "descrizione del personaggio",
+                nickname = "Soprannome",
+                age = "impostare l'età",
+                name = "Nome e cognome",
+            }
         },
         MenuCreation = {
             title = "Menu personaggio",
@@ -667,8 +671,8 @@ Translation.Langs = {
             inputHeadertype = "Digite aqui...",
             fristlast = "Insira nome e sobrenome!",
             press = "imprensa",
-            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
-            imputlang = "[A-Za-z ]{5,20}",          -- change for you lang
+            inputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            inputlang = "[A-Za-z ]{5,20}",          -- change for you lang
             confirmpurchase = "Confirm purchase",
         },
         Other = {
@@ -698,10 +702,12 @@ Translation.Langs = {
 
         },
         Placeholder = {
-            CharDesc = "descrição do personagem",
-            NickName = "Apelido",
-            SetAge = "definir idade",
-            FirstLastName = "Primeiro nome, ultimo nome",
+            CharCreator = {
+                desc = "descrição do personagem",
+                nickname = "Apelido",
+                age = "definir idade",
+                name = "Primeiro nome, ultimo nome",
+            }
         },
 
         MenuCreation = {
@@ -975,8 +981,8 @@ Translation.Langs = {
             inputHeadertype = "Digite aqui...",
             fristlast = "Insira nome e sobrenome!",
             press = "pressione",
-            imputlangdesc = "[A-Za-z ]{5,2000000}",
-            imputlang = "[A-Za-z ]{5,20}",
+            inputlangdesc = "[A-Za-z ]{5,2000000}",
+            inputlang = "[A-Za-z ]{5,20}",
             confirmpurchase = "Confirmar compra",
         },
         Other = {
@@ -1002,10 +1008,12 @@ Translation.Langs = {
             DescClothing = "Botas, coletes, casacos, camisas, cintos, chapéus"
         },
         Placeholder = {
-            CharDesc = "Descrição do personagem",
-            NickName = "Apelido",
-            SetAge = "Definir idade",
-            FirstLastName = "Nome Sobrenome",
+            CharCreator = {
+                desc = "Descrição do personagem",
+                nickname = "Apelido",
+                age = "Definir idade",
+                name = "Nome Sobrenome",
+            }
         },
         MenuCreation = {
             title = "Criação de Personagem",
@@ -1259,8 +1267,8 @@ Translation.Langs = {
             inputHeadertype = "Tapez ici...",
             fristlast = "Insérer le nom et le prénom !",
             press = "presse",
-            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
-            imputlang = "[A-Za-z ]{5,20}",          -- change for you lang
+            inputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            inputlang = "[A-Za-z ]{5,20}",          -- change for you lang
             confirmpurchase = "Confirm purchase",
         },
         Other = {
@@ -1290,10 +1298,12 @@ Translation.Langs = {
 
         },
         Placeholder = {
-            CharDesc = "description des caractères",
-            NickName = "Nom de Nick",
-            SetAge = "fixer l'âge",
-            FirstLastName = "Prénom Nom",
+            CharCreator = {
+                desc = "description des caractères",
+                nickname = "Nom de Nick",
+                age = "fixer l'âge",
+                name = "Prénom Nom",
+            }
         },
         MenuCreation = {
             title = "Création de personnage",
@@ -1577,8 +1587,8 @@ Translation.Langs = {
             inputHeadertype = "Hier eintippen...",
             fristlast = "Vor- und Nachname einfügen!",
             press = "Drücken",
-            imputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
-            imputlang = "[A-Za-z ]{5,20}",          -- change for you lang
+            inputlangdesc = "[A-Za-z ]{5,2000000}", -- change for you lang
+            inputlang = "[A-Za-z ]{5,20}",          -- change for you lang
             confirmpurchase = "Kauf bestätigen",
 
         },
@@ -1605,10 +1615,12 @@ Translation.Langs = {
             DescClothing = "Stiefel, Westen, Mäntel, Hemden, Gürtel, Hüte"
         },
         Placeholder = {
-            CharDesc = "Charakter Beschreibung",
-            NickName = "Nick Name",
-            SetAge = "Eingabe Alter",
-            FirstLastName = "VORname NACHname",
+            CharCreator = {
+                desc = "Charakter Beschreibung",
+                nickname = "Nick Name",
+                age = "Eingabe Alter",
+                name = "VORname NACHname",
+            }
         },
         MenuCreation = {
             title = "Charaktererstellung",
@@ -1880,8 +1892,8 @@ Translation.Langs = {
             inputHeadertype = "Escribe aquí...",
             fristlast = "Insertar nombre y apellidos",
             press = "pulsa",
-            imputlangdesc = "[A-Za-z ]{5,2000000}", -- cambia según tu idioma
-            imputlang = "[A-Za-z ]{5,20}",          -- cambia según tu idioma
+            inputlangdesc = "[A-Za-z ]{5,2000000}", -- cambia según tu idioma
+            inputlang = "[A-Za-z ]{5,20}",          -- cambia según tu idioma
             confirmpurchase = "Confirmar compra",
         },
         Other = {
@@ -1907,10 +1919,12 @@ Translation.Langs = {
             DescClothing = "botas chalecos abrigos camisas cinturones sombreros"
         },
         Placeholder = {
-            CharDesc = "descripción del personaje",
-            NickName = "apodo",
-            SetAge = "fijar edad",
-            FirstLastName = "nombre apellido",
+            CharCreator = {
+                desc = "descripción del personaje",
+                nickname = "apodo",
+                age = "fijar edad",
+                name = "nombre apellido",
+            }
         },
         MenuCreation = {
             title = "Creación de personaje",
@@ -2181,8 +2195,8 @@ Translation.Langs = {
             inputHeadertype = "Scrie aici...",
             fristlast = "Introdu prenumele si numele!",
             press = "apasa",
-            imputlangdesc = "[A-Za-z ]{5,2000000}", -- schimba pentru limba ta
-            imputlang = "[A-Za-z ]{5,20}",          -- schimba pentru limba ta
+            inputlangdesc = "[A-Za-z ]{5,2000000}", -- schimba pentru limba ta
+            inputlang = "[A-Za-z ]{5,20}",          -- schimba pentru limba ta
             confirmpurchase = "Confirma achizitia",
         },
         Other = {
@@ -2208,10 +2222,12 @@ Translation.Langs = {
             DescClothing = "cizme veste paltoane camasi curele palarii"
         },
         Placeholder = {
-            CharDesc = "descriere caracter",
-            NickName = "Porecla",
-            SetAge = "seteaza varsta",
-            FirstLastName = "Prenume Nume",
+            CharCreator = {
+                desc = "descriere caracter",
+                nickname = "Porecla",
+                age = "seteaza varsta",
+                name = "Prenume Nume",
+            }
         },
         MenuCreation = {
             title = "Crearea Caracterului",
