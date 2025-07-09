@@ -1,3 +1,7 @@
+<2.0>
+- added multiple shop menus to single locations allowing you to have multiple shops in one location
+- added busyspinner in character creation
+- you must use new version of vorp_menu
 <1.9>
 - fixed camera in character selection when deleting characters 
 - added config to set minimum age to create a character
