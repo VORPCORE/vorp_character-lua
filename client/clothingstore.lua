@@ -65,12 +65,17 @@ CreateThread(function()
 
     createBlips()
 
+    local uniquePrompts = {}
+
     for key, value in ipairs(ConfigShops.Locations) do
         if type(value.TypeOfShop) == "table" then
-            local prompts <const> = {}
+            local prompts = {}
             for _, shopType in ipairs(value.TypeOfShop) do
-                local prompt          = CreatePrompt(shopType)
-                prompts[#prompts + 1] = { prompt = prompt, shopType = shopType.type }
+                if not uniquePrompts[shopType.type] then
+                    uniquePrompts[shopType.type] = CreatePrompt(shopType)
+                end
+
+                prompts[#prompts + 1] = { prompt = uniquePrompts[shopType.type], shopType = shopType.type }
             end
             multiplePrompts[key] = prompts
         end
@@ -99,6 +104,7 @@ CreateThread(function()
 
                 if distance < 1.5 and multiplePrompts[index] then
                     sleep = 0
+
                     local label = VarString(10, 'LITERAL_STRING', value.Prompt.Label)
                     UiPromptSetActiveGroupThisFrame(PromptGroup, label, 0, 0, 0, 0)
 
@@ -140,7 +146,6 @@ end)
 
 function PrepareClothingStore(value, shopType)
     ShopType = shopType
-    print(ShopType)
     DoScreenFadeOut(1000)
     repeat Wait(0) until IsScreenFadedOut()
     Core.instancePlayers(GetPlayerServerId(PlayerId()) + 4440)
