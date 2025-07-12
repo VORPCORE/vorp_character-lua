@@ -1,7 +1,6 @@
-IsInClothingStore             = false
-local PromptGroup <const>     = GetRandomIntInRange(0, 0xffffff)
-local multiplePrompts <const> = {}
-ShopType                      = ""
+IsInClothingStore = false
+local group       = GetRandomIntInRange(0, 0xffffff)
+ShopType          = ""
 
 
 local GetEntityCoords                  = GetEntityCoords
@@ -19,14 +18,14 @@ local function CreatePrompt(shopType)
     UiPromptSetEnabled(prompt, true)
     UiPromptSetVisible(prompt, true)
     UiPromptSetStandardMode(prompt, true)
-    UiPromptSetGroup(prompt, PromptGroup, 0)
+    UiPromptSetGroup(prompt, group, 0)
     UiPromptRegisterEnd(prompt)
     return prompt
 end
 
 
 local function createBlips()
-    for key, value in ipairs(ConfigShops.Locations) do
+    for _, value in ipairs(ConfigShops.Locations) do
         if value.Blip.Enable then
             local blip <const> = BlipAddForCoords(1664425300, value.Prompt.Position.x, value.Prompt.Position.y, value.Prompt.Position.z)
             if value.Blip.Color then
@@ -62,26 +61,7 @@ CreateThread(function()
     end
 
     repeat Wait(5000) until LocalPlayer.state.IsInSession
-
     createBlips()
-
-    local uniquePrompts = {}
-
-    for key, value in ipairs(ConfigShops.Locations) do
-        if type(value.TypeOfShop) == "table" then
-            local prompts = {}
-            for _, shopType in ipairs(value.TypeOfShop) do
-                if not uniquePrompts[shopType.type] then
-                    uniquePrompts[shopType.type] = CreatePrompt(shopType)
-                end
-
-                prompts[#prompts + 1] = { prompt = uniquePrompts[shopType.type], shopType = shopType.type }
-            end
-            multiplePrompts[key] = prompts
-        end
-    end
-
-
 
     while true do
         local sleep = 1000
@@ -102,15 +82,29 @@ CreateThread(function()
                     end
                 end
 
-                if distance < 1.5 and multiplePrompts[index] then
+                if distance < 5.0 then
+                    for _, prompt in ipairs(value.TypeOfShop) do
+                        if not prompt.promptHandle then
+                            prompt.promptHandle = CreatePrompt(prompt)
+                        end
+                    end
+                else
+                    for _, prompt in ipairs(value.TypeOfShop) do
+                        if prompt.promptHandle then
+                            UiPromptDelete(prompt.promptHandle)
+                            prompt.promptHandle = nil
+                        end
+                    end
+                end
+
+                if distance < 1.5 then
                     sleep = 0
 
-                    local label = VarString(10, 'LITERAL_STRING', value.Prompt.Label)
-                    UiPromptSetActiveGroupThisFrame(PromptGroup, label, 0, 0, 0, 0)
-
-                    for _, prompt in ipairs(multiplePrompts[index]) do
-                        if UiPromptHasStandardModeCompleted(prompt.prompt, 0) then
-                            local shopType = prompt.shopType
+                    local label <const> = VarString(10, 'LITERAL_STRING', value.Prompt.Label)
+                    UiPromptSetActiveGroupThisFrame(group, label, 0, 0, 0, 0)
+                    for _, prompt in ipairs(value.TypeOfShop) do
+                        if UiPromptHasStandardModeCompleted(prompt.promptHandle, 0) then
+                            local shopType <const> = prompt.type
                             if shopType == "secondchance" then
                                 local result = Core.Callback.TriggerAwait("vorp_character:callback:CanPayForSecondChance")
                                 if result then
@@ -133,7 +127,7 @@ AddEventHandler('onResourceStop', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then
         return
     end
-    for index, value in ipairs(ConfigShops.Locations) do
+    for _, value in ipairs(ConfigShops.Locations) do
         if value.Blip.Entity and DoesBlipExist(value.Blip.Entity) then
             RemoveBlip(value.Blip.Entity)
         end
