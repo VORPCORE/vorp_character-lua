@@ -675,7 +675,7 @@ function LoadPlayerComponents(ped, skin, components, reload)
 	local getPedModel = GetEntityModel(ped)
 
 	if reload or getPedModel ~= joaat("mp_female") and getPedModel ~= joaat("mp_male") then
-		local skinS = not Custom and skin.sex or Custom
+		local skinS = not Custom and getPedModel or Custom
 		LoadPlayer(joaat(skinS))
 		SetPlayerModel(PlayerId(), joaat(skinS), false)
 		SetEntityFadeIn(ped)
