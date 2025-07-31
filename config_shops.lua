@@ -355,7 +355,7 @@ ConfigShops.Prices = {
         Beard = {
             price = 10,
         },
-        bow = { -- females only
+        Bow = { -- females only
             price = 10,
         },
         beardstabble = { -- shaved beard
