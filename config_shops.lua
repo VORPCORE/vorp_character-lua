@@ -56,10 +56,11 @@ ConfigShops.Locations = {
             ZoomOutRange = 1.5,
 
         },
-           -- CAN BE MULTIPLE
-           TypeOfShop = {
+        -- CAN BE MULTIPLE
+        TypeOfShop = {
             { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A }, -- enter key
-            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 }, -- space key
+            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 },
+            { type = SHOP_TYPES.MAKEUP,   label = "Makeup Store",   input = 0x9959A6F0 }, -- C key -- space key
 
         },
         DrawLight = false,                                -- if you need a light in the store put true
@@ -97,8 +98,9 @@ ConfigShops.Locations = {
         },
         -- CAN BE MULTIPLE
         TypeOfShop = {
-            { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A }, -- enter key
-            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 }, -- space key
+            { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A },       -- enter key
+            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 },       -- space key
+            { type = SHOP_TYPES.MAKEUP,   label = "Makeup Store",   input = 0x9959A6F0 },       -- C key
 
         },
         DrawLight = false,                                -- if you need a light in the store put true
@@ -136,8 +138,9 @@ ConfigShops.Locations = {
         },
         -- CAN BE MULTIPLE
         TypeOfShop = {
-            { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A },     -- enter key
-            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 },     -- space key
+            { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A },       -- enter key
+            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 },       -- space key
+            { type = SHOP_TYPES.MAKEUP,   label = "Makeup Store",   input = 0x9959A6F0 },       -- C key
 
         },
         DrawLight = false,                               -- if you need a light in the store put true
@@ -175,8 +178,9 @@ ConfigShops.Locations = {
         },
         -- CAN BE MULTIPLE
         TypeOfShop = {
-            { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A },     -- enter key
-            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 },     -- space key
+            { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A },       -- enter key
+            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 },       -- space key
+            { type = SHOP_TYPES.MAKEUP,   label = "Makeup Store",   input = 0x9959A6F0 },       -- C key     
 
         },
         DrawLight = false,                                 -- if you need a light in the store put true
@@ -214,8 +218,9 @@ ConfigShops.Locations = {
         },
         -- CAN BE MULTIPLE
         TypeOfShop = {
-            { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A },         -- enter key
-            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 },         -- space key
+            { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A },   -- enter key
+            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 },   -- space key
+            { type = SHOP_TYPES.MAKEUP,   label = "Makeup Store",   input = 0x9959A6F0 },   -- C key        
 
         },
         DrawLight = false,                                 -- if you need a light in the store put true
@@ -253,8 +258,9 @@ ConfigShops.Locations = {
         },
         -- CAN BE MULTIPLE
         TypeOfShop = {
-            { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A },     -- enter key
-            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 },     -- space key
+            { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A }, -- enter key
+            { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 }, -- space key
+            { type = SHOP_TYPES.MAKEUP,   label = "Makeup Store",   input = 0x9959A6F0 }, -- C key
 
         },
         DrawLight = false,                                 -- if you need a light in the store put true
@@ -295,6 +301,7 @@ ConfigShops.Locations = {
         TypeOfShop = {
             { type = SHOP_TYPES.CLOTHING, label = "Clothing Store", input = 0xC7B5340A }, -- enter key
             { type = SHOP_TYPES.HAIR,     label = "Hair Store",     input = 0xD9D0E1C0 }, -- space key
+            { type = SHOP_TYPES.MAKEUP,   label = "Makeup Store",   input = 0x9959A6F0 }, -- C key
 
         },
         DrawLight = false, -- if you need a light in the store put true
