@@ -339,7 +339,7 @@ function StartSwapCharacters()
 	exports.weathersync:setMyWeather(options.weather.type, options.weather.transition, options.weather.snow)
 	exports.weathersync:setMyTime(options.time.hour, 0, 0, options.time.transition, true)
 	SetTimecycleModifier(options.timecycle.name)
-	Citizen.InvokeNative(0xFDB74C9CC54C3F37, options.timecycle.strenght)
+	Citizen.InvokeNative(0xFDB74C9CC54C3F37, options.timecycle.strength)
 	StartPlayerTeleport(PlayerId(), options.playerpos.x, options.playerpos.y, options.playerpos.z, 0.0, true, true, true, true)
 	repeat Wait(0) until not IsPlayerTeleportActive()
 	SetEntityCoords(PlayerPedId(), options.playerpos.x, options.playerpos.y, options.playerpos.z,false,false,false,false) -- sometimes it doesnt tp with devmode. so we enforce
